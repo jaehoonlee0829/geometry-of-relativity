@@ -1,0 +1,44 @@
+# Secrets
+.env
+.env.*
+*.key
+anthropic_key*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Experimental outputs (kept local, too large for git)
+results/behavioral_v0/*.json
+results/activations/
+results/probes/
+results/*.log
+*.safetensors
+*.pkl
+*.npz
+*.pt
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Figures — keep final PDFs, skip PNG previews
+figures/tmp_*
+figures/*.png
+
+# LaTeX
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
