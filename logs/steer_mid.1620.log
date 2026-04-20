@@ -1,0 +1,32 @@
+Loading google/gemma-4-E4B...
+Loading weights:   0%|                                                                                                           | 0/2076 [00:00<?, ?it/s]Loading weights:  21%|████████████████████                                                                           | 438/2076 [00:00<00:00, 4304.75it/s]Loading weights:  42%|████████████████████████████████████████▏                                                       | 869/2076 [00:00<00:01, 781.35it/s]Loading weights:  52%|█████████████████████████████████████████████████▏                                             | 1076/2076 [00:01<00:01, 762.56it/s]Loading weights:  59%|███████████████████████████████████████████████████████▊                                       | 1221/2076 [00:01<00:01, 751.69it/s]Loading weights:  64%|█████████████████████████████████████████████████████████████▏                                 | 1337/2076 [00:01<00:01, 689.11it/s]Loading weights:  69%|█████████████████████████████████████████████████████████████████▍                             | 1430/2076 [00:01<00:00, 686.58it/s]Loading weights:  95%|████████████████████████████████████████████████████████████████████████████████████████▉     | 1963/2076 [00:01<00:00, 1455.14it/s]Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████| 2076/2076 [00:01<00:00, 1066.36it/s]
+  Loaded in 6.2s
+  Tokenization check:
+  'tall': ids=[13030] tokens=['▁tall']
+  'short': ids=[2822] tokens=['▁short']
+
+=== Steering along w_z @ layer mid (idx 21) ===
+  α= -8.00  mean_logit_diff= +2.577  sd=0.606
+  α= -4.00  mean_logit_diff= +4.686  sd=1.476
+  α= -2.00  mean_logit_diff= +5.400  sd=1.321
+  α= -1.00  mean_logit_diff= +2.225  sd=2.021
+  α= +0.00  mean_logit_diff= +2.072  sd=1.850
+  α= +1.00  mean_logit_diff= +2.050  sd=2.006
+  α= +2.00  mean_logit_diff= +2.134  sd=2.092
+  α= +4.00  mean_logit_diff= +2.844  sd=1.564
+  α= +8.00  mean_logit_diff= +2.426  sd=1.522
+
+=== Steering along w_adj @ layer mid (idx 21) ===
+  α= -8.00  mean_logit_diff= +5.833  sd=0.882
+  α= -4.00  mean_logit_diff= +4.942  sd=1.450
+  α= -2.00  mean_logit_diff= +4.178  sd=1.255
+  α= -1.00  mean_logit_diff= +2.006  sd=1.731
+  α= +0.00  mean_logit_diff= +2.072  sd=1.850
+  α= +1.00  mean_logit_diff= +1.553  sd=1.856
+  α= +2.00  mean_logit_diff= +1.869  sd=0.552
+  α= +4.00  mean_logit_diff= +1.375  sd=0.893
+  α= +8.00  mean_logit_diff= +4.872  sd=0.724
+
+Saved /workspace/repo/results/v4_steering/steering_mid.json
+w_z: monotone=False  slope=-0.009/α
+w_adj: monotone=False  slope=-0.060/α

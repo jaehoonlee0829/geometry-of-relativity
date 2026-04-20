@@ -1,0 +1,32 @@
+Loading google/gemma-4-E4B...
+Loading weights:   0%|                                                                                                           | 0/2076 [00:00<?, ?it/s]Loading weights:  26%|████████████████████████▊                                                                      | 543/2076 [00:00<00:00, 5420.20it/s]Loading weights:  52%|█████████████████████████████████████████████████▋                                             | 1086/2076 [00:01<00:01, 823.90it/s]Loading weights:  65%|█████████████████████████████████████████████████████████████▎                                 | 1340/2076 [00:01<00:00, 748.53it/s]Loading weights:  73%|████████████████████████████████████████████████████████████████████▉                          | 1506/2076 [00:01<00:00, 817.58it/s]Loading weights:  98%|███████████████████████████████████████████████████████████████████████████████████████████▊  | 2028/2076 [00:01<00:00, 1380.82it/s]Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████| 2076/2076 [00:01<00:00, 1146.40it/s]
+  Loaded in 6.2s
+  Tokenization check:
+  'tall': ids=[13030] tokens=['▁tall']
+  'short': ids=[2822] tokens=['▁short']
+
+=== Steering along w_z @ layer late (idx 32) ===
+  α= -8.00  mean_logit_diff= +1.844  sd=1.788
+  α= -4.00  mean_logit_diff= +1.972  sd=1.824
+  α= -2.00  mean_logit_diff= +2.016  sd=1.835
+  α= -1.00  mean_logit_diff= +2.050  sd=1.833
+  α= +0.00  mean_logit_diff= +2.072  sd=1.850
+  α= +1.00  mean_logit_diff= +2.109  sd=1.856
+  α= +2.00  mean_logit_diff= +2.122  sd=1.847
+  α= +4.00  mean_logit_diff= +2.172  sd=1.859
+  α= +8.00  mean_logit_diff= +2.263  sd=1.898
+
+=== Steering along w_adj @ layer late (idx 32) ===
+  α= -8.00  mean_logit_diff= +1.997  sd=1.815
+  α= -4.00  mean_logit_diff= +2.041  sd=1.840
+  α= -2.00  mean_logit_diff= +2.050  sd=1.844
+  α= -1.00  mean_logit_diff= +2.069  sd=1.855
+  α= +0.00  mean_logit_diff= +2.072  sd=1.850
+  α= +1.00  mean_logit_diff= +2.072  sd=1.852
+  α= +2.00  mean_logit_diff= +2.075  sd=1.865
+  α= +4.00  mean_logit_diff= +2.100  sd=1.869
+  α= +8.00  mean_logit_diff= +2.125  sd=1.876
+
+Saved /workspace/repo/results/v4_steering/steering_late.json
+w_z: monotone=True  slope=+0.026/α
+w_adj: monotone=True  slope=+0.008/α

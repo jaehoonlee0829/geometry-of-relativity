@@ -22,12 +22,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 from pathlib import Path
 
 import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# Shared spacing-aware tokenization helper (consistent with extract_v4_*).
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _token_utils import first_token_id, report_tokenization  # noqa: E402
 
 MODEL_ID = "google/gemma-4-E4B"
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -59,7 +64,7 @@ def steered_forward(model, tokenizer, prompts, layer_idx, direction_unit, alpha,
     def hook(mod, inp, out):
         h = out[0] if isinstance(out, tuple) else out
         # Additive on last token only (leaves context untouched)
-        h[:, -1, :] = h[:, -1, :] + alpha * direction_t
+        h[:, -1, :] = h[:, -1, :] + alpha * direction_t.to(h.device, dtype=h.dtype)
         if isinstance(out, tuple):
             return (h,) + out[1:]
         return h
@@ -127,8 +132,11 @@ def main():
     model.eval()
     print(f"  Loaded in {time.time()-t0:.1f}s", flush=True)
 
-    tall_id = tok.encode("tall", add_special_tokens=False)[0]
-    short_id = tok.encode("short", add_special_tokens=False)[0]
+    # Spacing-aware single-token lookup (unified with extract_v4_*).
+    print("  Tokenization check:", flush=True)
+    report_tokenization(tok, ["tall", "short"])
+    tall_id = first_token_id(tok, "tall")
+    short_id = first_token_id(tok, "short")
 
     results = {"layer": args.layer, "layer_idx": layer_idx,
                "n_prompts": len(prompts), "alphas": ALPHAS,

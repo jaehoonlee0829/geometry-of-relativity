@@ -1,0 +1,34 @@
+Loading v4_dense/implicit mid ...
+  N=3500  d=2560
+
+=== INLP mode=z  (iteratively project out the z-probe direction) ===
+
+=== Null mode=random  (project out random unit directions) ===
+
+=== Interference mode=x  (project out the x-probe direction) ===
+
+======================================================================
+R²(z) vs projection step  (8 steps + initial)
+======================================================================
+mode      s= 0  s= 1  s= 2  s= 3  s= 4  s= 5  s= 6  s= 7  s= 8
+INLP-z      +0.984  +0.985  +0.981  +0.983  +0.981  +0.982  +0.982  +0.982  +0.983
+random      +0.984  +0.984  +0.984  +0.984  +0.984  +0.984  +0.984  +0.984  +0.984
+INLP-x      +0.984  +0.984  +0.984  +0.984  +0.984  +0.983  +0.984  +0.983  +0.984
+
+Final R²(z) after 8 steps:
+  INLP-z = +0.983  (expect ≪ random if w_z captures the signal)
+  random = +0.984
+  gap    = +0.001  (positive = INLP outperforms random)
+
+R²(logit_diff) after 8 steps:
+  INLP-z = +0.992
+  random = +0.993
+
+R²(x) after 8 steps:
+  INLP-z = +0.993   (should stay high — x is not z)
+  INLP-x = +0.991   (should fall — x direction nulled)
+
+Saved /workspace/repo/results/v4_analysis/inlp_mid.json
+Saved /workspace/repo/results/v4_analysis/figures/inlp_mid.png
+
+Done in 177.0s
