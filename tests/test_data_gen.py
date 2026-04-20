@@ -1,4 +1,4 @@
-"""Tests for prompt generation via generate_trials.
+"""Tests for prompt generation via generate_trials (v0/v1) and generate_trials_v2 (v2).
 
 Verifies that the data generation pipeline correctly:
 1. Generates sufficient trials
@@ -7,8 +7,18 @@ Verifies that the data generation pipeline correctly:
 4. Includes context-aware numerical mentions in prompts
 """
 
+import math
 import pytest
-from src.data_gen import generate_trials, canonical_v0_contexts, z_score
+from src.data_gen import (
+    generate_trials,
+    generate_trials_v2,
+    canonical_v0_contexts,
+    z_score,
+    HEIGHT_SPEC,
+    WEALTH_SPEC,
+    DOMAIN_SPECS,
+    trial_v2_to_dict,
+)
 
 
 class TestDataGeneration:
@@ -270,3 +280,177 @@ class TestDataGeneration:
                 f"obese should be absolute, got {trial.adjective_class}"
             assert isinstance(trial.prompt, str) and len(trial.prompt) > 0, \
                 f"Invalid prompt: {trial.prompt}"
+
+
+class TestGenerateTrialsV2:
+    """Verify v2 prompt generator (PLANNING.md spec v2)."""
+
+    def test_height_default_count(self):
+        """Default height battery = 2 ctx × 2 frames × 7 x × 9 mu = 252."""
+        trials = generate_trials_v2(HEIGHT_SPEC)
+        assert len(trials) == 252, f"Expected 252, got {len(trials)}"
+
+    def test_wealth_default_count(self):
+        """Default wealth battery = 2 ctx × 2 frames × 7 x × 7 mu = 196."""
+        trials = generate_trials_v2(WEALTH_SPEC)
+        assert len(trials) == 196, f"Expected 196, got {len(trials)}"
+
+    def test_deterministic_across_runs(self):
+        """Same spec → identical trial_id, prompt, context_sample, z across runs."""
+        t1 = generate_trials_v2(HEIGHT_SPEC)
+        t2 = generate_trials_v2(HEIGHT_SPEC)
+        for a, b in zip(t1, t2):
+            assert a.trial_id == b.trial_id
+            assert a.prompt == b.prompt
+            assert a.context_sample == b.context_sample
+            assert a.z == b.z
+
+    def test_prompt_ends_at_is_or_considered(self):
+        """Every v2 prompt must end at exactly 'is' or 'considered' (no trailing space)."""
+        for trial in generate_trials_v2(HEIGHT_SPEC) + generate_trials_v2(WEALTH_SPEC):
+            assert trial.prompt.endswith("is") or trial.prompt.endswith("considered"), \
+                f"Prompt does not end at is/considered: {trial.prompt[-30:]!r}"
+            if trial.prompt_frame == "is":
+                assert trial.prompt.endswith(" is"), \
+                    f"is-frame should end with ' is': {trial.prompt[-10:]!r}"
+            else:
+                assert trial.prompt.endswith("is considered"), \
+                    f"considered-frame should end with 'is considered': {trial.prompt[-20:]!r}"
+
+    def test_z_score_correctness_height(self):
+        """Linear z = (x - mu) / sigma for height."""
+        for trial in generate_trials_v2(HEIGHT_SPEC):
+            expected = (trial.x - trial.mu) / trial.sigma
+            assert abs(trial.z - expected) < 1e-9, \
+                f"z mismatch: {trial.z} vs {expected}"
+
+    def test_z_score_correctness_wealth_log_space(self):
+        """Log z = (log x - log mu) / log sigma for wealth."""
+        for trial in generate_trials_v2(WEALTH_SPEC):
+            expected = (math.log(trial.x) - math.log(trial.mu)) / math.log(trial.sigma)
+            assert abs(trial.z - expected) < 1e-9, \
+                f"log-z mismatch: {trial.z} vs {expected}"
+
+    def test_x_mu_decorrelated(self):
+        """At fixed z, raw x spans multiple values — decorrelates x from z.
+
+        This is the whole point of v2: at z=0 (x==mu), we have 7 different x values
+        (one per target). At z=+1 and z=-1 we also have multiple x values.
+        """
+        trials = generate_trials_v2(HEIGHT_SPEC, context_types=("explicit",), prompt_frames=("is",))
+        # Group by rounded z
+        from collections import defaultdict
+        by_z = defaultdict(set)
+        for t in trials:
+            by_z[round(t.z, 3)].add(t.x)
+        # At least one z-bucket should contain multiple x values.
+        max_x_count = max(len(xs) for xs in by_z.values())
+        assert max_x_count >= 2, \
+            f"All z values map to unique x values — not decorrelated. by_z={dict(by_z)}"
+
+    def test_implicit_context_is_deterministic_per_mu(self):
+        """All trials with the same (domain, mu, sigma) share the same context_sample."""
+        trials = generate_trials_v2(HEIGHT_SPEC, context_types=("implicit",))
+        # Group by mu
+        samples_by_mu: dict[float, tuple] = {}
+        for t in trials:
+            if t.mu in samples_by_mu:
+                assert samples_by_mu[t.mu] == t.context_sample, \
+                    f"mu={t.mu} has different context samples across trials"
+            else:
+                samples_by_mu[t.mu] = t.context_sample
+
+    def test_explicit_context_has_no_sample(self):
+        """Explicit-context trials have empty context_sample tuple."""
+        for t in generate_trials_v2(HEIGHT_SPEC, context_types=("explicit",)):
+            assert t.context_sample == (), f"explicit trial has sample: {t.context_sample}"
+
+    def test_implicit_context_has_15_samples(self):
+        """Implicit-context trials have exactly 15 context samples (default)."""
+        for t in generate_trials_v2(HEIGHT_SPEC, context_types=("implicit",)):
+            assert len(t.context_sample) == 15, \
+                f"Expected 15 samples, got {len(t.context_sample)}"
+
+    def test_height_prompts_contain_target_and_context(self):
+        """Height prompts must mention the target x value and (for explicit) the mu."""
+        trials = generate_trials_v2(
+            HEIGHT_SPEC,
+            context_types=("explicit",),
+            prompt_frames=("is",),
+        )
+        for t in trials:
+            assert f"{int(round(t.x))} cm" in t.prompt
+            assert f"{int(round(t.mu))} cm" in t.prompt
+
+    def test_wealth_prompts_contain_target(self):
+        """Wealth prompts must mention the target x value formatted with $ or M."""
+        trials = generate_trials_v2(WEALTH_SPEC)
+        for t in trials:
+            # Either dollar amount like $20,000 or $5.0M appears
+            has_dollar = "$" in t.prompt
+            assert has_dollar, f"Wealth prompt missing $: {t.prompt[:80]!r}"
+
+    def test_adjective_pair_stored(self):
+        """Each trial carries the domain's (high, low) adjective pair."""
+        for t in generate_trials_v2(HEIGHT_SPEC):
+            assert t.adjective_high == "tall"
+            assert t.adjective_low == "short"
+        for t in generate_trials_v2(WEALTH_SPEC):
+            assert t.adjective_high == "rich"
+            assert t.adjective_low == "poor"
+
+    def test_trial_v2_to_dict_round_trip(self):
+        """trial_v2_to_dict produces JSON-serialisable output with all required keys."""
+        import json
+        trials = generate_trials_v2(HEIGHT_SPEC)
+        for t in trials[:5]:
+            d = trial_v2_to_dict(t)
+            # Must be JSON serialisable
+            s = json.dumps(d)
+            d2 = json.loads(s)
+            assert d2 == d
+            # Required keys
+            for k in [
+                "id", "domain", "context_type", "prompt_frame",
+                "x", "mu", "sigma", "z", "context_seed", "context_sample",
+                "prompt", "adjective_high", "adjective_low",
+            ]:
+                assert k in d, f"Missing key {k}"
+
+    def test_subset_axes(self):
+        """Subsetting context_types or prompt_frames works."""
+        t_implicit_is = generate_trials_v2(
+            HEIGHT_SPEC, context_types=("implicit",), prompt_frames=("is",)
+        )
+        # 1 × 1 × 7 × 9 = 63
+        assert len(t_implicit_is) == 63
+        for t in t_implicit_is:
+            assert t.context_type == "implicit"
+            assert t.prompt_frame == "is"
+
+    def test_custom_target_values_override(self):
+        """Passing explicit target_values overrides spec defaults."""
+        trials = generate_trials_v2(
+            HEIGHT_SPEC,
+            target_values=(160.0,),
+            context_types=("explicit",),
+            prompt_frames=("is",),
+        )
+        # 1 × 1 × 1 × 9 = 9
+        assert len(trials) == 9
+        for t in trials:
+            assert t.x == 160.0
+
+    def test_z_scores_span_both_signs(self):
+        """The default spec should produce trials with both positive and negative z."""
+        height_zs = [t.z for t in generate_trials_v2(HEIGHT_SPEC)]
+        assert min(height_zs) < 0
+        assert max(height_zs) > 0
+        # Expect span ≥ 7 (since x spans 150-180 = 30cm, mu spans 145-185 = 40cm, sigma=10)
+        assert max(height_zs) - min(height_zs) >= 7.0
+
+    def test_domain_specs_registry(self):
+        """Both canonical specs registered in DOMAIN_SPECS."""
+        assert set(DOMAIN_SPECS.keys()) == {"height", "wealth"}
+        assert DOMAIN_SPECS["height"] is HEIGHT_SPEC
+        assert DOMAIN_SPECS["wealth"] is WEALTH_SPEC
