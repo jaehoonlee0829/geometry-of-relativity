@@ -12,8 +12,9 @@
 ## Active (see BUILDING.md)
 
 - [ ] **OBSIDIAN-LATTICE — v4 auto-research suite**: analyze_v4, extract+analyze adjpairs,
-  steer_v4. 4 scripts on branch `exp/v4-auto-research`. Ready to run; local smoke
-  test passed.
+  steer_v4, **inlp_v4** (5 scripts now). Branch `exp/v4-auto-research`. Ready to run;
+  all 10 local smoke tests pass. Branch is NOT yet pushed to origin — do `git push
+  origin exp/v4-auto-research` from your workstation before pulling on Vast.
 
 ## Queue — after OBSIDIAN-LATTICE
 
@@ -21,10 +22,12 @@
   - If relativity generalizes and is causal → start writing ICML MI Workshop paper
   - If it partially generalizes → investigate which pairs break & why
   - If steering fails → probe-only + behavioral story for the paper
+- [ ] Fill the `<<TBD>>` slots in `docs/paper_outline.md` from Vast results
 - [ ] Run the full suite on G31B once E4B result set is in (1 H100 can host 31B
   with activation extraction at batch-size 4)
-- [ ] INLP concept erasure — after probe weights land, iterate project-out
-  and measure downstream logit_diff degradation
+- [x] ~~INLP concept erasure — after probe weights land, iterate project-out
+  and measure downstream logit_diff degradation~~ — written as `inlp_v4.py`,
+  tested, staged on branch. Just needs to run on real v4_dense data.
 - [ ] Additional absolute-adj controls beyond BMI: "freezing"/0°C, "legal age"/18
 
 ## Queue — Paper (May 3–8)
