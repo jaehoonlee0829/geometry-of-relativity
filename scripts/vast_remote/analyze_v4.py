@@ -129,8 +129,11 @@ def phase1_behavioral(trials, logits_all, condition_log=None) -> dict:
 
         # Cell means for variance decomposition (only meaningful for implicit)
         cell_mean = defaultdict(list)
+        cell_z = {}  # remember z for each (x, mu) cell
         for r in rows_z:
-            cell_mean[(r["x"], r["mu"])].append(r["logit_diff"])
+            key = (r["x"], r["mu"])
+            cell_mean[key].append(r["logit_diff"])
+            cell_z[key] = r["z"]
 
         cell_means = {k: float(np.mean(v)) for k, v in cell_mean.items()}
         cell_stds = {k: float(np.std(v, ddof=1)) if len(v) > 1 else 0.0 for k, v in cell_mean.items()}
@@ -213,7 +216,7 @@ def phase1_behavioral(trials, logits_all, condition_log=None) -> dict:
         with (TABLE_DIR / f"cell_means_{cond}.csv").open("w") as f:
             f.write("x,mu,z,n_seeds,mean_logit_diff,std_logit_diff\n")
             for (x, mu), vals in sorted(cell_mean.items()):
-                z = (x - mu) / 10.0
+                z = cell_z.get((x, mu), 0.0)
                 f.write(f"{x},{mu},{z:.2f},{len(vals)},"
                         f"{np.mean(vals):.4f},{np.std(vals, ddof=1) if len(vals)>1 else 0:.4f}\n")
 
