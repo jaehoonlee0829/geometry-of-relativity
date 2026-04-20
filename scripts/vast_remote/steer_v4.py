@@ -64,7 +64,7 @@ def steered_forward(model, tokenizer, prompts, layer_idx, direction_unit, alpha,
     def hook(mod, inp, out):
         h = out[0] if isinstance(out, tuple) else out
         # Additive on last token only (leaves context untouched)
-        h[:, -1, :] = h[:, -1, :] + alpha * direction_t
+        h[:, -1, :] = h[:, -1, :] + alpha * direction_t.to(h.device, dtype=h.dtype)
         if isinstance(out, tuple):
             return (h,) + out[1:]
         return h

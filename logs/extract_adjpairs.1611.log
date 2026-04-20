@@ -1,0 +1,199 @@
+Generating prompts for 8 adjective pairs...
+  Total: 6240 prompts
+    height      : 780 (low=short, high=tall)
+    age         : 780 (low=young, high=old)
+    weight      : 780 (low=light, high=heavy)
+    size        : 780 (low=small, high=big)
+    speed       : 780 (low=slow, high=fast)
+    wealth      : 780 (low=poor, high=rich)
+    experience  : 780 (low=novice, high=expert)
+    bmi_abs     : 780 (low=thin, high=obese)
+  Metadata: results/v4_adjpairs/e4b_trials.jsonl
+
+Loading google/gemma-4-E4B...
+Loading weights:   0%|                                                                                                           | 0/2076 [00:00<?, ?it/s]Loading weights:  21%|███████████████████▌                                                                           | 428/2076 [00:00<00:00, 4279.45it/s]Loading weights:  41%|███████████████████████████████████████▌                                                        | 856/2076 [00:00<00:01, 755.60it/s]Loading weights:  51%|████████████████████████████████████████████████▌                                              | 1061/2076 [00:01<00:01, 727.67it/s]Loading weights:  58%|███████████████████████████████████████████████████████                                        | 1203/2076 [00:01<00:01, 704.97it/s]Loading weights:  63%|████████████████████████████████████████████████████████████▏                                  | 1314/2076 [00:01<00:01, 674.46it/s]Loading weights:  68%|████████████████████████████████████████████████████████████████▎                              | 1406/2076 [00:01<00:01, 630.61it/s]Loading weights:  94%|████████████████████████████████████████████████████████████████████████████████████████▏     | 1947/2076 [00:02<00:00, 1368.51it/s]Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████| 2076/2076 [00:02<00:00, 1024.70it/s]
+  Loaded in 6.6s
+
+  Tokenization check:
+  'big': ids=[2563] tokens=['▁big']
+  'expert': ids=[7710] tokens=['▁expert']
+  'fast': ids=[4592] tokens=['▁fast']
+  'heavy': ids=[7274] tokens=['▁heavy']
+  'light': ids=[2214] tokens=['▁light']
+  'novice': ids=[83490] tokens=['▁novice']
+  'obese': ids=[69218] tokens=['▁obese']
+  'old': ids=[2255] tokens=['▁old']
+  'poor': ids=[6934] tokens=['▁poor']
+  'rich': ids=[8326] tokens=['▁rich']
+  'short': ids=[2822] tokens=['▁short']
+  'slow': ids=[5111] tokens=['▁slow']
+  'small': ids=[1944] tokens=['▁small']
+  'tall': ids=[13030] tokens=['▁tall']
+  'thin': ids=[11202] tokens=['▁thin']
+  'young': ids=[3184] tokens=['▁young']
+
+=== height/implicit (750) ===
+  750 in 6.8s
+  Saved e4b_height_implicit_logits.jsonl
+
+=== height/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_height_explicit_logits.jsonl
+
+=== height/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_height_zero_shot_logits.jsonl
+
+=== age/implicit (750) ===
+  750 in 6.3s
+  Saved e4b_age_implicit_logits.jsonl
+
+=== age/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_age_explicit_logits.jsonl
+
+=== age/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_age_zero_shot_logits.jsonl
+
+=== weight/implicit (750) ===
+  750 in 6.3s
+  Saved e4b_weight_implicit_logits.jsonl
+
+=== weight/explicit (25) ===
+  25 in 0.2s
+  Saved e4b_weight_explicit_logits.jsonl
+
+=== weight/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_weight_zero_shot_logits.jsonl
+
+=== size/implicit (750) ===
+  750 in 6.5s
+  Saved e4b_size_implicit_logits.jsonl
+
+=== size/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_size_explicit_logits.jsonl
+
+=== size/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_size_zero_shot_logits.jsonl
+
+=== speed/implicit (750) ===
+  750 in 8.0s
+  Saved e4b_speed_implicit_logits.jsonl
+
+=== speed/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_speed_explicit_logits.jsonl
+
+=== speed/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_speed_zero_shot_logits.jsonl
+
+=== wealth/implicit (750) ===
+  750 in 9.6s
+  Saved e4b_wealth_implicit_logits.jsonl
+
+=== wealth/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_wealth_explicit_logits.jsonl
+
+=== wealth/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_wealth_zero_shot_logits.jsonl
+
+=== experience/implicit (750) ===
+  750 in 6.4s
+  Saved e4b_experience_implicit_logits.jsonl
+
+=== experience/explicit (25) ===
+  25 in 0.3s
+  Saved e4b_experience_explicit_logits.jsonl
+
+=== experience/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_experience_zero_shot_logits.jsonl
+
+=== bmi_abs/implicit (750) ===
+  750 in 6.9s
+  Saved e4b_bmi_abs_implicit_logits.jsonl
+
+=== bmi_abs/explicit (25) ===
+  25 in 0.2s
+  Saved e4b_bmi_abs_explicit_logits.jsonl
+
+=== bmi_abs/zero_shot (5) ===
+  5 in 0.1s
+  Saved e4b_bmi_abs_zero_shot_logits.jsonl
+
+======================================================================
+QUICK ANALYSIS: per-pair implicit cell means
+======================================================================
+
+  height  (short/tall)
+             x   mu=  145  mu=  155  mu=  165  mu=  175  mu=  185
+           150      +1.16     -0.23     -1.24     -1.35     -1.20  
+           160      +2.07     +1.28     -0.13     -1.02     -1.15  
+           165      +2.35     +1.84     +0.75     -0.55     -1.02  
+           170      +2.45     +2.26     +1.58     +0.47     -0.53  
+           180      +2.75     +2.71     +2.54     +1.88     +0.72  
+
+  age  (young/old)
+             x   mu=   25  mu=   35  mu=   40  mu=   45  mu=   55
+            20      -0.35     -1.14     -1.20     -1.30     -1.43  
+            30      +1.35     -0.20     -1.03     -1.43     -1.73  
+            40      +2.57     +1.44     +0.96     +0.23     -1.35  
+            50      +2.85     +2.42     +2.15     +1.46     +0.58  
+            60      +2.99     +2.70     +2.59     +2.24     +1.64  
+
+  weight  (light/heavy)
+             x   mu=   55  mu=   65  mu=   75  mu=   85  mu=   95
+            50      +0.05     -0.82     -1.03     -1.17     -1.33  
+            65      +3.01     +1.00     -0.53     -1.10     -1.32  
+            75      +3.98     +2.99     +1.10     -0.43     -1.10  
+            85      +4.36     +4.02     +3.02     +1.12     -0.57  
+           100      +4.30     +4.17     +3.88     +3.56     +2.39  
+
+  size  (small/big)
+             x   mu=   10  mu=   20  mu=   30  mu=   40  mu=   55
+             5      -3.28     -4.84     -5.22     -5.25     -5.16  
+            15      -1.50     -3.41     -4.71     -5.05     -5.14  
+            25      -0.33     -2.07     -3.41     -4.55     -5.01  
+            40      +0.20     -0.52     -1.51     -2.85     -4.28  
+            60      +0.28     -0.28     -0.67     -1.10     -2.33  
+
+  speed  (slow/fast)
+             x   mu=   30  mu=   60  mu=   80  mu=  100  mu=  140
+            20      -1.96     -3.27     -3.27     -3.23     -3.23  
+            50      +0.00     -1.73     -2.58     -2.80     -2.98  
+            80      +1.10     +0.03     -1.05     -1.90     -2.75  
+           110      +1.24     +0.98     +0.67     -0.22     -2.23  
+           150      +1.45     +1.22     +1.10     +0.97     +0.05  
+
+  wealth  (poor/rich)
+             x   mu=30000  mu=70000  mu=150000  mu=400000  mu=1000000
+         20000      +1.15     +0.27     +0.34     +0.15     +0.22  
+         50000      +2.46     +1.47     +0.81     +0.31     +0.23  
+        100000      +3.69     +2.68     +1.88     +0.72     +0.39  
+        250000      +4.28     +3.90     +3.13     +2.00     +1.33  
+        600000      +4.43     +4.35     +3.98     +2.85     +2.04  
+
+  experience  (novice/expert)
+             x   mu=    2  mu=    7  mu=   12  mu=   18  mu=   25
+             1      +1.50     +0.01     -0.87     -1.04     -0.90  
+             5      +3.52     +2.34     +0.88     +0.09     +0.08  
+            10      +4.62     +3.92     +3.55     +2.02     +1.29  
+            15      +4.77     +4.67     +4.69     +3.95     +2.34  
+            25      +4.95     +5.06     +5.63     +5.66     +4.77  
+
+  bmi_abs  (thin/obese)
+             x   mu=   20  mu=   25  mu=   28  mu=   30  mu=   33
+            17      +0.60     -0.85     -1.47     -1.79     -2.04  
+            22      +3.82     +1.71     +0.62     +0.14     -0.35  
+            27      +6.94     +6.24     +4.83     +3.57     +2.45  
+            32      +7.96     +8.13     +7.32     +6.34     +5.12  
+            38      +8.06     +8.57     +8.61     +8.28     +7.62  
+
+DONE. Outputs in results/v4_adjpairs/
