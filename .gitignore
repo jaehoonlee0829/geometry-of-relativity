@@ -4,6 +4,11 @@
 *.key
 anthropic_key*
 
+# Personal / local-only notes (not for the repo)
+VAST_INSTRUCTIONS.md
+.vast/
+ssh_config_vast*
+
 # Python
 __pycache__/
 *.py[cod]
