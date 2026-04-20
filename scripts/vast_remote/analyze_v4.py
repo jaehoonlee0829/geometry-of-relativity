@@ -225,8 +225,15 @@ def phase1_behavioral(trials, logits_all, condition_log=None) -> dict:
 
 # -------------------- Phase 2: Probes --------------------
 
-def train_ridge_probe(X: np.ndarray, y: np.ndarray, alpha: float = 1.0):
-    """Train ridge probe. Returns weight in ORIGINAL (pre-scale) space + CV R2."""
+def train_ridge_probe(X: np.ndarray, y: np.ndarray, alpha: float = 1.0,
+                      cv_seed: int = 0):
+    """Train ridge probe. Returns weight in ORIGINAL (pre-scale) space + CV R2.
+
+    CV folds are SHUFFLED because extract_v4_dense stores rows sorted by
+    (x, mu, seed). Without shuffling, each fold becomes a distinct x-bucket
+    and CV R² collapses (generalization to unseen x is not what we want to
+    measure — we want within-distribution generalization to new seeds).
+    """
     scaler = StandardScaler()
     X_s = scaler.fit_transform(X)
     # Fit on full data to get final w
@@ -235,8 +242,10 @@ def train_ridge_probe(X: np.ndarray, y: np.ndarray, alpha: float = 1.0):
     w_scaled = model.coef_
     # Back-transform to original space
     w = w_scaled / scaler.scale_
-    # 5-fold CV
-    cv_r2 = float(np.mean(cross_val_score(Ridge(alpha=alpha), X_s, y, cv=5, scoring="r2")))
+    # 5-fold shuffled CV
+    kf = KFold(n_splits=5, shuffle=True, random_state=cv_seed)
+    cv_r2 = float(np.mean(cross_val_score(Ridge(alpha=alpha), X_s, y,
+                                          cv=kf, scoring="r2")))
     return w, w_scaled, cv_r2, scaler
 
 

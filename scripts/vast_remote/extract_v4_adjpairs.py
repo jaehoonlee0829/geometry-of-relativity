@@ -2,26 +2,30 @@
 beyond tall/short to other gradable adjective pairs.
 
 Adjective pairs tested (domain, low, high):
-  - height       short / tall       (control — matches v4_dense)
-  - age          young / old
-  - weight       light / heavy
-  - size         small / big
-  - speed        slow  / fast
-  - wealth       poor  / rich
-  - experience   novice / expert
-  - tallness     short / tall      (alt phrasing — synonym control)
+  Relative (7, expected to show contextual relativity):
+    - height       short / tall
+    - age          young / old
+    - weight       light / heavy
+    - size         small / big
+    - speed        slow  / fast
+    - wealth       poor  / rich
+    - experience   novice / expert
+  Absolute control (1, expected NOT to show relativity):
+    - bmi_abs      underweight / obese   (anchored to clinical thresholds)
 
 For each pair we sweep:
   5 target values × 5 context means × 30 seeds = 750 implicit trials
+  + 5×5 explicit (deterministic) = 25
+  + 5 zero-shot = 5
+  = 780 prompts per pair, 6240 total across 8 pairs.
 
-That is ~60× smaller than tall/short v4_dense (3500 trials) but enough to
-measure mean logit_diff per (x, mu) cell and check:
+Core checks per pair:
   (a) cell-mean logit_diff monotone in z?  (linearity of z-signal)
-  (b) relativity ratio  -slope(mu)/slope(x) ≈ 1?  (pure z-dependence)
+  (b) relativity ratio  -slope(mu)/slope(x) ≈ 1 for relative, ≈ 0 for absolute?
   (c) does the zero-shot baseline already saturate the high/low token?
 
 Uses the same E4B model as extract_v4_dense.py. Runs on Vast H100.
-Expected wall time: ~8 domains × 750 prompts ≈ 6,000 prompts at 50 p/s = 2 min.
+Expected wall time: 6,240 prompts at ~50 p/s ≈ 2 min.
 
 Output: results/v4_adjpairs/e4b_{domain}_{condition}_{layer}.npz
         results/v4_adjpairs/e4b_{domain}_{condition}_logits.jsonl
@@ -36,8 +40,8 @@ from pathlib import Path
 from typing import NamedTuple
 
 import numpy as np
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+# torch / transformers imported lazily inside main() so tests can import this
+# module on CPU-only machines without the heavy deps.
 
 # ---- Config ----
 MODEL_ID = "google/gemma-4-E4B"
@@ -364,6 +368,7 @@ def extract_batch(model, tokenizer, prompts, layer_indices, token_ids):
 
     token_ids: dict mapping label -> token_id to score (multiple labels per prompt).
     """
+    import torch
     layers_mod = get_layers(model)
     captured = {k: [] for k in layer_indices}
     handles = []
@@ -431,6 +436,9 @@ def get_first_token(tokenizer, word: str) -> int:
 
 
 def main():
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
     print(f"Generating prompts for {len(PAIRS)} adjective pairs...", flush=True)
     trials = generate_all_prompts()
     print(f"  Total: {len(trials)} prompts", flush=True)

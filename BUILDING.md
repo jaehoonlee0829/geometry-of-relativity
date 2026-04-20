@@ -5,7 +5,7 @@ and pull the next one in.
 
 ## Active task (Day 4, Apr 21 2026) — v4 AUTO-RESEARCH
 
-**Four scripts are staged on branch `exp/v4-auto-research` (NOT merged to main).
+**Five scripts are staged on branch `exp/v4-auto-research` (NOT merged to main).
 Pull and run on Vast to generate the full v4 research artifact set.**
 
 ### Why
@@ -22,7 +22,7 @@ is strong (~6 logit dynamic range across z). Now we need to:
 Per user directive (Apr 20): "do all the research on the cloud before you
 push to main or make a PR." Branch is ready; no main commits until results.
 
-### What the four scripts do
+### What the five scripts do
 
 - `scripts/vast_remote/analyze_v4.py` — full probe/PCA/metric analysis
   on existing v4_dense data. Produces `results/v4_analysis/summary.json`
@@ -36,6 +36,11 @@ push to main or make a PR." Branch is ready; no main commits until results.
 - `scripts/vast_remote/steer_v4.py` — causal test. Adds α·ŵ_z to the
   residual at a chosen layer, measures logit_diff response curve. Needs
   analyze_v4.py to have run first (consumes its probe .npz output).
+- `scripts/vast_remote/inlp_v4.py` — concept erasure. Iteratively project
+  out the z-probe direction from activations; compare CV R²(z) collapse
+  against a random-direction null. 5th line of evidence: distinguishes
+  "w_z IS the z-direction" from "w_z correlates with z". No model forward
+  pass required (operates on cached v4_dense activations + logit_diff).
 
 ### How to run on Vast
 

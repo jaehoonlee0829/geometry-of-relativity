@@ -11,7 +11,7 @@ the Vast H100 remote; NONE of this has been pushed to `main` yet.
 > physical quantity. Absolute gradable adjectives ("obese" via BMI threshold,
 > "freezing" via 0 °C) should NOT show this context-normalization.
 
-Four lines of evidence are now staged.
+Five lines of evidence are now staged.
 
 ## Evidence 1 — Behavioral relativity ratio (extract + analyze v4_dense + adjpairs)
 
@@ -84,6 +84,41 @@ regression of h on z, x) has a non-trivial cosine with w_z from phase 2.
 **What would falsify:** PCA shows no coherent low-D structure, or PCs align
 primarily with noise / μ alone.
 
+## Evidence 5 — INLP concept erasure (inlp_v4.py)
+
+**Question:** is w_z *the* direction that encodes z, or merely one direction
+that happens to correlate with z? A linear probe on high-dimensional activations
+can find a correlated readout even when many directions individually contribute
+to a given feature.
+
+**Test:** Ravfogel et al. 2020's iterative nullspace projection. At each step:
+(1) fit a ridge probe for z on current activations H, obtain unit direction v,
+(2) project out: H ← H(I − vvᵀ), (3) retrain; measure CV R²(z), R²(x),
+R²(logit_diff) after each step. Run three schedules on the same data:
+- **INLP-z** — the real thing.
+- **random null** — at each step, project out a random unit vector.
+- **INLP-x** — iteratively null out w_x, as an interference/competing-direction
+  control.
+
+**Prediction:**
+- CV R²(z) under INLP-z collapses within 1–3 steps (≥ 0.5 drop).
+- CV R²(z) under random-null stays near its initial value (trivial erasure
+  along an irrelevant direction).
+- CV R²(x) under INLP-z stays substantially higher than R²(z) under INLP-z
+  (x is distinguishable from z, so nulling z shouldn't kill x).
+- R²(logit_diff) under INLP-z drops meaningfully — the model's behavior
+  also leaves through w_z, not just a passenger feature.
+
+**What would falsify:** random-projection baseline collapses R²(z) at the
+same rate as INLP-z (→ w_z isn't specifically "the" z direction), or
+R²(logit_diff) survives INLP-z intact (→ the behavior routes around w_z).
+
+**Smoke-test evidence already in hand** (`tests/test_inlp_smoke.py`):
+on synthetic v4-shaped data with known true z-direction, INLP-z drops
+CV R²(z) from 0.991 → 0.316 in 4 steps while random projection preserves
+it at 0.991 (gap +0.896), and R²(x) under INLP-z only drops from 0.644 to
+0.210 (x signal is partly preserved, as expected since x ≠ z).
+
 ## Why the "primal–dual mismatch" matters
 
 From v2 probe analysis (commit 8bc41ed notes): w_adj and w_z predict equally
@@ -109,10 +144,13 @@ python scripts/vast_remote/extract_v4_adjpairs.py  # ~2 min, 6240 prompts
 python scripts/vast_remote/analyze_v4_adjpairs.py  # seconds
 python scripts/vast_remote/steer_v4.py --layer late  # ~1 min
 python scripts/vast_remote/steer_v4.py --layer mid   # ~1 min
+python scripts/vast_remote/inlp_v4.py --layer late --steps 8  # ~1 min
+python scripts/vast_remote/inlp_v4.py --layer mid  --steps 8  # ~1 min
 ```
 
-Total wall time: ~6 min. Outputs land under `results/v4_analysis/`,
-`results/v4_adjpairs/`, `results/v4_adjpairs_analysis/`, `results/v4_steering/`.
+Total wall time: ~8 min. Outputs land under `results/v4_analysis/` (including
+`inlp_{mid,late}.json` + figures), `results/v4_adjpairs/`,
+`results/v4_adjpairs_analysis/`, `results/v4_steering/`.
 
 ## Status at time of writing
 

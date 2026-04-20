@@ -30,7 +30,7 @@ import numpy as np
 
 try:
     from sklearn.linear_model import Ridge
-    from sklearn.model_selection import cross_val_score
+    from sklearn.model_selection import KFold, cross_val_score
     from sklearn.preprocessing import StandardScaler
 except ImportError as e:
     print(f"[fatal] sklearn missing: {e}", file=sys.stderr)
@@ -65,13 +65,18 @@ def load_trials() -> dict[str, dict]:
     return out
 
 
-def train_ridge_probe(X, y, alpha=1.0):
+def train_ridge_probe(X, y, alpha=1.0, cv_seed=0):
+    """Ridge probe with shuffled 5-fold CV. Shuffling is critical because
+    extraction writes rows sorted by (x, mu, seed); non-shuffled CV would
+    test extrapolation to unseen x-buckets, not within-distribution R²."""
     scaler = StandardScaler()
     X_s = scaler.fit_transform(X)
     m = Ridge(alpha=alpha, fit_intercept=True)
     m.fit(X_s, y)
     w = m.coef_ / scaler.scale_
-    cv_r2 = float(np.mean(cross_val_score(Ridge(alpha=alpha), X_s, y, cv=5, scoring="r2")))
+    kf = KFold(n_splits=5, shuffle=True, random_state=cv_seed)
+    cv_r2 = float(np.mean(cross_val_score(Ridge(alpha=alpha), X_s, y,
+                                          cv=kf, scoring="r2")))
     return w, cv_r2
 
 
