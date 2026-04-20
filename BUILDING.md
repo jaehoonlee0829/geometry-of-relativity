@@ -1,52 +1,82 @@
-# BUILDING.md — What I am doing RIGHT NOW
+# BUILDING.md — What to run RIGHT NOW
 
-Only one task in this file at a time. When done, move it to TODO.md "done" section and pull the next one in.
+Only one task in this file at a time. When done, move it to TODO.md "done" section
+and pull the next one in.
 
-## Active task (Day 4, Apr 21 2026)
+## Active task (Day 4, Apr 21 2026) — v4 AUTO-RESEARCH
 
-**v4 dense extraction: 100 seeds per cell, three conditions, activations + logits**
+**Five scripts are staged on branch `exp/v4-auto-research` (NOT merged to main).
+Pull and run on Vast to generate the full v4 research artifact set.**
 
 ### Why
 
-The v2 extraction had only 63 data points per condition (1 per (x, μ) cell). This
-is too few to see manifold structure, compute error bars, or separate signal from
-template noise. We also never checked what the model actually outputs.
+v4_dense extraction (GARNET-ANVIL) finished yesterday: 3,500 implicit trials +
+35 explicit + 5 zero-shot, with activations and logit_diff. Behavioral signal
+is strong (~6 logit dynamic range across z). Now we need to:
 
-### What v4 fixes
+1. Properly analyze what we have (probes, PCA, variance decomposition)
+2. Test if the relativity pattern generalizes beyond tall/short to 7 more
+   gradable-adjective pairs — plus 1 absolute-adjective control (BMI/obese)
+3. Test if the z-direction is *causal* via activation steering
 
-1. **100 random seeds** per (x, μ) cell for implicit context — 3,500 implicit trials
-2. **Three conditions**: implicit (15-person list), explicit (stated μ/σ), zero-shot (no context — control)
-3. **Extract logit("tall") - logit("short")** at every prompt — direct behavioral signal
-4. **Extract top-5 predicted tokens** — see what the model actually wants to say
-5. **Fewer grid points, more replicates**: 5 x × 7 μ × 100 seeds (was 7 × 9 × 1)
+Per user directive (Apr 20): "do all the research on the cloud before you
+push to main or make a PR." Branch is ready; no main commits until results.
 
-### Prompt budget
+### What the five scripts do
 
-| Condition | Count | Notes |
-|-----------|-------|-------|
-| Implicit | 3,500 | 5 x × 7 μ × 100 seeds |
-| Explicit | 35 | 5 x × 7 μ × 1 (deterministic) |
-| Zero-shot | 5 | 5 x × 1 (no context) |
-| **Total** | **3,540** | ~70s on E4B at 50 p/s |
+- `scripts/vast_remote/analyze_v4.py` — full probe/PCA/metric analysis
+  on existing v4_dense data. Produces `results/v4_analysis/summary.json`
+  + probe .npz files + figures.
+- `scripts/vast_remote/extract_v4_adjpairs.py` — extracts activations &
+  logit_diff for 8 adjective pairs (7 relative + 1 absolute-control). 6,240
+  prompts total, ~2 min on H100.
+- `scripts/vast_remote/analyze_v4_adjpairs.py` — cross-pair relativity table.
+  Core claim: relative pairs → relativity_ratio ≈ 1; absolute pair (BMI/obese)
+  → relativity_ratio ≈ 0.
+- `scripts/vast_remote/steer_v4.py` — causal test. Adds α·ŵ_z to the
+  residual at a chosen layer, measures logit_diff response curve. Needs
+  analyze_v4.py to have run first (consumes its probe .npz output).
+- `scripts/vast_remote/inlp_v4.py` — concept erasure. Iteratively project
+  out the z-probe direction from activations; compare CV R²(z) collapse
+  against a random-direction null. 5th line of evidence: distinguishes
+  "w_z IS the z-direction" from "w_z correlates with z". No model forward
+  pass required (operates on cached v4_dense activations + logit_diff).
 
 ### How to run on Vast
 
 ```bash
 cd /workspace/repo
-git pull origin main
-python scripts/vast_remote/extract_v4_dense.py
+git fetch origin
+git checkout exp/v4-auto-research    # or merge into main first if preferred
+git pull
+python scripts/vast_remote/analyze_v4.py            # ~1-2 min
+python scripts/vast_remote/extract_v4_adjpairs.py   # ~2 min (model forward)
+python scripts/vast_remote/analyze_v4_adjpairs.py   # seconds
+python scripts/vast_remote/steer_v4.py --layer late # ~1 min
+python scripts/vast_remote/steer_v4.py --layer mid  # ~1 min
 ```
 
-Script is self-contained. Outputs to `results/v4_dense/`.
+Total ~6 min wall time.
 
 ### Definition of done
 
-- `results/v4_dense/e4b_implicit_mid.npz` + `_late.npz` with shape (3500, 2560)
-- `results/v4_dense/e4b_implicit_logits.jsonl` with logit diffs and top-5 tokens
-- Same for explicit and zero_shot conditions
-- Quick analysis table printed: mean logit_diff per (x, μ) cell
-- Upload results to W&B or download locally
+- `results/v4_analysis/summary.json` populated; 3 probe R² values look
+  consistent with smoke-test synthetic ranges (R²(z) > R²(x) for late layer)
+- `results/v4_adjpairs_analysis/summary.json` has per-pair relativity_ratio
+- `results/v4_adjpairs_analysis/figures/relativity_across_pairs.png` rendered
+- `results/v4_steering/steering_late.json` shows monotone curve
+  (slope of logit_diff vs α is non-zero, same sign as positive)
+- A decision made: does the relativity pattern generalize?
 
 ### Completion promise word
 
-GARNET-ANVIL
+OBSIDIAN-LATTICE
+
+### Scientific pre-commit (what I'm watching for)
+
+- Strong (>0.7) Σ⁻¹ cos(w_adj, w_z) — validates Fisher-Rao framing
+- Relativity ratio distribution: 7/7 relative pairs near 1.0, BMI near 0.0
+- Steering slope > 0.5 per α-unit — clear causal signal
+
+If ANY of these fail, we have an interesting finding and a harder paper
+to write. Either way, we learn something.

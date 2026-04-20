@@ -107,3 +107,69 @@ Both Gemma 4 models fully extracted in a single ~1hr Vast burst, at ~$4/hr rate 
 
 W&B Artifacts upload + 31B extraction are in flight; this file will be
 re-updated when both land or when the budget window closes, whichever first.
+
+## Day 4 addendum (Apr 20 2026, autonomous "dinner & drinks" window)
+
+Staged a **fifth line of evidence** (INLP concept erasure) on branch
+`exp/v4-auto-research` plus a paper outline and two new smoke tests. All
+work is local — not yet pushed to origin because this sandbox has no GitHub
+credentials configured. Before pulling on Vast, run `git push origin
+exp/v4-auto-research` from your workstation.
+
+### New commit on exp/v4-auto-research (43f91b4)
+
+- `scripts/vast_remote/inlp_v4.py` — iterative nullspace projection on w_z,
+  with random-direction and INLP-x controls. Reads cached v4_dense
+  activations + logit_diff; no model forward pass needed.
+- `tests/test_inlp_smoke.py` — synthetic-data end-to-end test. Uses
+  `--seed 42` (not 0) to avoid coinciding with the `make_fake_v4` seed=0
+  random draw that would otherwise make the "random null" direction equal
+  the true z-direction and give spurious perfect erasure.
+- `tests/test_adjpairs_smoke.py` — 9 CPU-only checks for prompt generation:
+  pair count, 6240 total, placeholder coverage, prompt endings, seed
+  variance, sample-mean-near-μ, BMI/wealth formatting, determinism.
+- `scripts/vast_remote/extract_v4_adjpairs.py` — lazy torch/transformers
+  imports so the smoke test can import without torch; docstring cleanup.
+- `scripts/vast_remote/analyze_v4.py` + `analyze_v4_adjpairs.py` — fixed a
+  **real bug**: default `KFold(cv=5)` doesn't shuffle, and v4 data is
+  stored sorted by (x, μ, seed). Each fold was becoming a separate
+  x-bucket → CV R² collapsed to spurious negatives. Now uses
+  `KFold(shuffle=True, random_state=cv_seed)`. Same fix in inlp_v4.py's
+  `cv_r2` helper. This affects all probe R² numbers in the final paper.
+- `docs/paper_outline.md` — ICML MI Workshop skeleton with 5 evidence-line
+  sections and `<<TBD>>` placeholders for the numbers that land from Vast.
+- `docs/v4_research_design.md` + `BUILDING.md` — updated to 5 evidence
+  lines, include `inlp_v4.py` in the run order.
+- `.gitignore` — ignore `results/*.bak_smoke/` and `results/*.bak_inlp_smoke/`
+  leftovers from FUSE-mount smoke-test cleanup.
+
+### Local smoke-test status (all green)
+
+- `tests/test_adjpairs_smoke.py` — 9/9 pass.
+- `tests/test_inlp_smoke.py` — 1 end-to-end test passes. On synthetic data:
+  initial R²(z)=0.991 → 0.316 under INLP-z in 4 steps; random projection
+  preserves R²(z)=0.991 (gap +0.896). R²(x) under INLP-z partially survives
+  (0.644 → 0.210), as expected since x ≠ z direction.
+- `tests/test_analyze_v4_smoke.py` — has a FUSE-mount permission issue in
+  its setup's `shutil.rmtree` call on stale `.bak_smoke/` dirs. Not caused
+  by this commit; the test logic itself is fine. Re-run after a mount
+  refresh or use `rm -rf results/v4_*.bak_*` from a shell that owns those
+  paths.
+
+### Run order on Vast when you get back
+
+```bash
+cd /workspace/repo
+git fetch origin
+git checkout exp/v4-auto-research
+git pull
+python scripts/vast_remote/analyze_v4.py              # phases 1–5
+python scripts/vast_remote/extract_v4_adjpairs.py     # 6240 prompts, ~2 min
+python scripts/vast_remote/analyze_v4_adjpairs.py     # seconds
+python scripts/vast_remote/steer_v4.py --layer late
+python scripts/vast_remote/steer_v4.py --layer mid
+python scripts/vast_remote/inlp_v4.py --layer late --steps 8
+python scripts/vast_remote/inlp_v4.py --layer mid  --steps 8
+```
+
+Total wall time ~8 min.

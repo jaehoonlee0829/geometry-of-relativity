@@ -24,7 +24,13 @@ venv/
 results/behavioral_v0/*.json
 results/activations/
 results/probes/
+results/v4_dense/
+results/v4_analysis/
+results/v4_adjpairs/
 results/*.log
+# Smoke-test leftover backups on FUSE mounts
+results/*.bak_smoke/
+results/*.bak_inlp_smoke/
 *.safetensors
 *.pkl
 *.npz
