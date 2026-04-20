@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "mech-interp-relativity"
@@ -16,12 +16,6 @@ dependencies = [
     "pandas>=2.2",
     "matplotlib>=3.8",
     "seaborn>=0.13",
-    "torch>=2.2",
-    "transformers>=4.45",
-    "accelerate>=0.33",
-    "safetensors>=0.4",
-    "anthropic>=0.39",
-    "httpx[socks]>=0.27",
 ]
 
 [project.optional-dependencies]
@@ -35,6 +29,10 @@ gpu = [
     "transformers>=4.45",
     "accelerate>=0.33",
     "safetensors>=0.4",
+]
+api = [
+    "anthropic>=0.39",
+    "httpx[socks]>=0.27",
 ]
 
 [tool.ruff]
