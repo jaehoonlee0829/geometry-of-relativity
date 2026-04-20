@@ -47,3 +47,63 @@ Budget: ~$27 Parsed credit; $4.04/hr × ≤2hr = ~$8 expected. Auto-reload on.
 ## Progress log
 
 - **06:14Z** — Instance rented (m:56779, UK, 2× H100 PCIE). Starting parallel Track A + B setup.
+- **06:46Z** — Track A complete: `feat/v2-prompt-generator` branch committed locally (`dc41935`, COPPER-LANTERN). 31/31 tests green. 448 v2 prompts written (252 height + 196 wealth). BUILDING.md/TODO.md rolled forward to INDIGO-COMPASS (remote GPU setup). FUSE mount can't delete, so git lock required rename-sidestep — no damage, commit is real. Heading to Track B now.
+- **07:28Z** — Remote env up: HF login OK, E4B (~19 GB) pulled + loaded on single H100 (6.5 s). `scripts/activation_extract.py` pre-compaction hit `Gemma4Config has no attribute hidden_size` (Gemma 4 nests text attrs). Fixed with `get_text_cfg` helper. Uploaded self-contained `extract_e4b_v2.py` to remote via Jupyter Contents API (heredoc paste truncated silently — learned lesson, always use Contents API for >1KB scripts).
+- **07:30Z** — E4B forward pass over 252 height prompts completed in 5.1 s (49 p/s). BUT save step bottlenecked at `savez_compressed` with 262144×2560 `W_U` re-serialized per layer → ~6 min per `.npz` × 8 files = 48 min projected.
+- **07:53Z** — Killed v2 extractor, shipped `extract_e4b_v3.py`: `W_U` saved ONCE as uncompressed `.npy`, per-layer `.npz` holds activations only. Re-ran E4B end-to-end: height fwd 2.7s (93 p/s), wealth fwd 4.2s (46 p/s), all 8 saves <10 ms each. Outputs on remote `/workspace/repo/results/activations/`:
+  - `e4b_W_U.npy` 2.7 GB (262144×2560 float32)
+  - `e4b_{height,wealth}_{early,mid,late,final}.npz` 8 × ~2.5 MB (layers 10/21/32/41)
+  - Loaded back cleanly on CPU: means ≈ 0, std climbs 1.0→1.8→3.4 through the stack (healthy residual scale growth), IDs = `{domain}_implicit_is_0000`+ as expected.
+- **07:58Z** — Uploaded `extract_g31b_v1.py` to remote + launched G31B extraction (PID 3821, log `/tmp/extract_g31b_v1.log`). 60-layer budget: early=14, mid=30, late=45, final=59. Expect ~62 GB weight download + ~1 min fwd pass + 8 tiny saves. Fallback in place: E4B-only is a complete shippable deliverable if 31B OOMs/stalls.
+- **08:00Z** — **G31B DONE** — much faster than expected. Weights were pre-cached on this Vast host (Parsed team must have pulled 31B earlier), so no re-download. Forward passes: height 7.9 s (31.7 p/s, bs=4), wealth 9.5 s (20.7 p/s). All 8 activation files saved sub-second each. Verified load:
+  - `g31b_W_U.npy` 5.6 GB (262144×5376 fp32)
+  - `g31b_{height,wealth}_{early,mid,late,final}.npz` 8 files (~5.5 MB height, ~4.2 MB wealth), layers 14/30/45/59
+  - Activation stats healthy: std climbs 3.76 → 3.60 → 2.36 through layers 14→30→45. Layer 59 std=0.064 on height_final, std small on wealth_final too — this is the **last transformer block output** which in Gemma 4 appears to sit *after* an internal normalization (consistent with Gemma 2/3 dual-norm pattern). Worth a note in methods: for the Fisher-pullback analysis, use `late` (layer 45) as the "near-final" slice if we want un-renormalized residual geometry.
+
+## G31B artifact manifest (remote paths)
+
+```
+/workspace/repo/results/activations/g31b_W_U.npy          # 5637144704 B, (262144,5376) fp32
+/workspace/repo/results/activations/g31b_height_early.npz # 5454648 B, (252,5376), layer 14
+/workspace/repo/results/activations/g31b_height_mid.npz   # 5454640 B, (252,5376), layer 30
+/workspace/repo/results/activations/g31b_height_late.npz  # 5454644 B, (252,5376), layer 45
+/workspace/repo/results/activations/g31b_height_final.npz # 5454648 B, (252,5376), layer 59
+/workspace/repo/results/activations/g31b_wealth_early.npz # 4242808 B, (196,5376), layer 14
+/workspace/repo/results/activations/g31b_wealth_mid.npz   # 4242800 B, (196,5376), layer 30
+/workspace/repo/results/activations/g31b_wealth_late.npz  # 4242804 B, (196,5376), layer 45
+/workspace/repo/results/activations/g31b_wealth_final.npz # 4242808 B, (196,5376), layer 59
+```
+
+Both Gemma 4 models fully extracted in a single ~1hr Vast burst, at ~$4/hr rate — ≈$4 spend. Under budget.
+
+- **08:03-08:35Z** — W&B Artifact upload complete. All 18 activation files + 2 W_U matrices synced as one `gemma4-activations` artifact with aliases `day4` + `v2-prompts`. Run URL: https://wandb.ai/xrong-optiver/geometry-of-relativity/runs/ax81rrlu . 19 artifact files (18 data + 1 wandb-generated manifest), ~16 GB.
+- **08:35Z** — INDIGO-COMPASS complete. Rolling BUILDING.md to the Day-4 probe task (SAPPHIRE-BEARING). Vast instance left running per authorization C. Total autonomous spend this session: ~$4 of $27 budget.
+
+## Ship list for INDIGO-COMPASS
+
+| Deliverable | Location | Status |
+| --- | --- | --- |
+| E4B activations (4 layers × 2 domains) | W&B + remote `/workspace/repo/results/activations/e4b_*` | ✅ |
+| 31B activations (4 layers × 2 domains) | W&B + remote `/workspace/repo/results/activations/g31b_*` | ✅ |
+| W_U for both models | W&B + remote | ✅ |
+| Extractor scripts checked into repo | `scripts/vast_remote/{extract_e4b_v3.py, extract_g31b_v1.py, README.md}` | ✅ |
+| STATUS.md live progress log | this file | ✅ |
+| Vast instance kept alive | Parsed team instance #11, m:56779 | ✅ |
+| SSH config / Claude Code install on remote | deferred to Day 4 start | ⏭ |
+
+## E4B artifact manifest (remote paths)
+
+```
+/workspace/repo/results/activations/e4b_W_U.npy          # 2684354688 B, (262144,2560) fp32
+/workspace/repo/results/activations/e4b_height_early.npz # 2616120 B, (252,2560) fp32, layer 10
+/workspace/repo/results/activations/e4b_height_mid.npz   # 2616112 B, (252,2560) fp32, layer 21
+/workspace/repo/results/activations/e4b_height_late.npz  # 2616116 B, (252,2560) fp32, layer 32
+/workspace/repo/results/activations/e4b_height_final.npz # 2616120 B, (252,2560) fp32, layer 41
+/workspace/repo/results/activations/e4b_wealth_early.npz # 2035064 B, (196,2560) fp32, layer 10
+/workspace/repo/results/activations/e4b_wealth_mid.npz   # 2035056 B, (196,2560) fp32, layer 21
+/workspace/repo/results/activations/e4b_wealth_late.npz  # 2035060 B, (196,2560) fp32, layer 32
+/workspace/repo/results/activations/e4b_wealth_final.npz # 2035064 B, (196,2560) fp32, layer 41
+```
+
+W&B Artifacts upload + 31B extraction are in flight; this file will be
+re-updated when both land or when the budget window closes, whichever first.

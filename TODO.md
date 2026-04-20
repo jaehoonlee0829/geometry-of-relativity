@@ -21,18 +21,27 @@
   - Literal-number hypothesis ruled out (BMI-direct ≡ height+weight)
 - [x] Migrate requirements.txt → pyproject.toml
 - [x] **PLANNING.md v2**: redesigned experiment — implicit context, varying target values, two domains (height + wealth), three metric comparisons (Euclidean / Σ⁻¹ / F⁻¹), Gemma 4 31B primary
+- [x] **v2 prompt generator** (`feat/v2-prompt-generator`, commit `dc41935`, COPPER-LANTERN):
+  - `src/data_gen.py`: DomainSpec + HEIGHT_SPEC + WEALTH_SPEC + TrialV2 + deterministic context sampler + implicit/explicit renderers + JSONL writer
+  - `tests/test_data_gen.py`: 17 new v2 tests, all 31 green
+  - `data_gen/prompts_v2.jsonl`: 448 trials (252 height + 196 wealth)
+  - Branch staged locally; user pushes + opens PR when back
+- [x] **Gemma 4 activation extraction, both models** (`exp/gemma4-activations-day4`, INDIGO-COMPASS):
+  - Vast 2× H100 PCIE box, Jupyter Contents API upload for scripts (heredoc paste was unreliable)
+  - `scripts/vast_remote/extract_e4b_v3.py`: E4B (42L, d=2560) — layers 10/21/32/41 — 252 height + 196 wealth prompts
+  - `scripts/vast_remote/extract_g31b_v1.py`: 31B (60L, d=5376) — layers 14/30/45/59 — same prompts
+  - Schema: `<model>_W_U.npy` once + `<model>_<domain>_<layer>.npz` (activations-only, ~2.5-5.5 MB each)
+  - All 18 files + 2 W_U uploaded to W&B Artifact `gemma4-activations` (alias `day4`, run `ax81rrlu`)
+  - Verified load: shapes, layer_idx, IDs all correct. Note: 31B layer 59 has small std (~0.064) — post-norm output, use `late` (layer 45) for un-renormalized residual geometry
+  - Vast instance left running per authorization C
 
 ## Active (BUILDING.md has the details)
 
-- [ ] Implement v2 prompt generator + update activation extraction for new design
+- [ ] Day-4: probe training + Fisher analysis (SAPPHIRE-BEARING)
 
 ## Queue — Day 4 (Apr 21)
 
 - [ ] Run v2 behavioral sanity check: ~20 implicit-context prompts through Claude API to verify implicit design elicits clean flips
-- [ ] Rent H100 GPU (Vast.ai or similar), single session (~1h wall clock):
-  - Load Gemma 4 31B (60 layers, d=5376), extract activations for both domains (~500 prompts × 4 layers, ~20–30 min)
-  - Load Gemma 4 E4B (42 layers, d=2560), extract activations for scaling comparison (~10 min)
-  - Download all `.npz` results to local (~30MB per model)
 
 ## Queue — Day 5 (Apr 22) — HARD PIVOT CHECK
 
