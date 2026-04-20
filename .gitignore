@@ -36,9 +36,8 @@ results/*.log
 .vscode/
 *.swp
 
-# Figures — keep final PDFs, skip PNG previews
+# Figures — temp files only
 figures/tmp_*
-figures/*.png
 
 # LaTeX
 paper/*.aux
