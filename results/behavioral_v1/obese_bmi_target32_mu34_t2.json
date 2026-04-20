@@ -1,0 +1,26 @@
+{
+  "id": "obese_bmi_target32_mu34_t2",
+  "family": "obese_spectrum_bmi",
+  "adjective_class_expected": "absolute",
+  "target_value": 32,
+  "target_unit": "BMI",
+  "context_mu": 34,
+  "context_sigma": 1,
+  "prompt_style": "bmi_direct",
+  "template_idx": 2,
+  "prompt": "Imagine a group of adults whose typical BMI is about 34. A person with a BMI of 32 would be described as",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "relatively slim",
+    "relatively thin",
+    "relatively thin",
+    "relatively thin",
+    "relatively lean",
+    "relatively slim",
+    "relatively lean",
+    "relatively lean",
+    "relatively lean",
+    "relatively lean"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "obese_hw_target92kg_mu25_t0",
+  "family": "obese_spectrum_hw",
+  "adjective_class_expected": "absolute",
+  "target_value": 92,
+  "target_unit": "kg",
+  "target_height_cm": 170,
+  "target_implied_bmi": 32,
+  "context_mu": 25,
+  "context_mu_kg": 72.2,
+  "context_sigma": 1,
+  "prompt_style": "height_weight",
+  "template_idx": 0,
+  "prompt": "Consider a community where most adults are 170 cm tall and weigh around 72.2 kg. In this community, a person who is 170 cm tall and weighs 92 kg is considered",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight"
+  ]
+}

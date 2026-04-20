@@ -1,0 +1,26 @@
+{
+  "id": "obese_bmi_target32_mu25_t0",
+  "family": "obese_spectrum_bmi",
+  "adjective_class_expected": "absolute",
+  "target_value": 32,
+  "target_unit": "BMI",
+  "context_mu": 25,
+  "context_sigma": 1,
+  "prompt_style": "bmi_direct",
+  "template_idx": 0,
+  "prompt": "Consider a community where most people have a BMI around 25. In this community, a person with a BMI of 32 is considered",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight"
+  ]
+}

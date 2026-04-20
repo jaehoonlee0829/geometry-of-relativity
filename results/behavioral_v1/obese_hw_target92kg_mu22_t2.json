@@ -1,0 +1,29 @@
+{
+  "id": "obese_hw_target92kg_mu22_t2",
+  "family": "obese_spectrum_hw",
+  "adjective_class_expected": "absolute",
+  "target_value": 92,
+  "target_unit": "kg",
+  "target_height_cm": 170,
+  "target_implied_bmi": 32,
+  "context_mu": 22,
+  "context_mu_kg": 63.6,
+  "context_sigma": 1,
+  "prompt_style": "height_weight",
+  "template_idx": 2,
+  "prompt": "Imagine a group where everyone is 170 cm tall and most weigh about 63.6 kg. A person who is 170 cm tall and weighs 92 kg would be described as",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight",
+    "overweight"
+  ]
+}

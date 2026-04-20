@@ -1,0 +1,26 @@
+{
+  "id": "tall_target165_mu155_t2",
+  "family": "tall_spectrum",
+  "adjective_class_expected": "relative",
+  "target_value": 165,
+  "target_unit": "cm",
+  "context_mu": 155,
+  "context_sigma": 3,
+  "prompt_style": "cm_direct",
+  "template_idx": 2,
+  "prompt": "Imagine a village where nearly everyone is close to 155 cm in height. A newcomer who is 165 cm would be seen as",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall",
+    "tall"
+  ]
+}

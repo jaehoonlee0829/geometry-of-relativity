@@ -1,0 +1,26 @@
+{
+  "id": "obese_bmi_target32_mu22_t1",
+  "family": "obese_spectrum_bmi",
+  "adjective_class_expected": "absolute",
+  "target_value": 32,
+  "target_unit": "BMI",
+  "context_mu": 22,
+  "context_sigma": 1,
+  "prompt_style": "bmi_direct",
+  "template_idx": 1,
+  "prompt": "In a population whose BMIs cluster tightly around 22, a person with a BMI of 32 would be medically classified as",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese",
+    "obese"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "tall_target165_mu165_t0",
+  "family": "tall_spectrum",
+  "adjective_class_expected": "relative",
+  "target_value": 165,
+  "target_unit": "cm",
+  "context_mu": 165,
+  "context_sigma": 3,
+  "prompt_style": "cm_direct",
+  "template_idx": 0,
+  "prompt": "Consider a group of people whose heights cluster tightly around 165 cm. In this group, a person who is 165 cm is considered",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "average",
+    "average",
+    "average",
+    "average",
+    "average",
+    "average",
+    "average",
+    "average",
+    "average",
+    "average"
+  ]
+}

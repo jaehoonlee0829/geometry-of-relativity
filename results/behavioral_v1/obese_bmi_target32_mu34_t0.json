@@ -1,0 +1,26 @@
+{
+  "id": "obese_bmi_target32_mu34_t0",
+  "family": "obese_spectrum_bmi",
+  "adjective_class_expected": "absolute",
+  "target_value": 32,
+  "target_unit": "BMI",
+  "context_mu": 34,
+  "context_sigma": 1,
+  "prompt_style": "bmi_direct",
+  "template_idx": 0,
+  "prompt": "Consider a community where most people have a BMI around 34. In this community, a person with a BMI of 32 is considered",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "thin",
+    "thin",
+    "thin",
+    "relatively slim",
+    "thin",
+    "thin",
+    "thin",
+    "thin",
+    "thin",
+    "lean"
+  ]
+}

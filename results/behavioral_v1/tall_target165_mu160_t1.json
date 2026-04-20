@@ -1,0 +1,26 @@
+{
+  "id": "tall_target165_mu160_t1",
+  "family": "tall_spectrum",
+  "adjective_class_expected": "relative",
+  "target_value": 165,
+  "target_unit": "cm",
+  "context_mu": 160,
+  "context_sigma": 3,
+  "prompt_style": "cm_direct",
+  "template_idx": 1,
+  "prompt": "In a community where most adults are about 160 cm tall, a person who is 165 cm would be described as",
+  "model": "claude-sonnet-4-6",
+  "n_samples": 10,
+  "completions": [
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average",
+    "slightly above average"
+  ]
+}
