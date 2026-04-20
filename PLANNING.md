@@ -129,6 +129,18 @@ Early, mid, late, final — exact indices per model in `src/activation_extract.p
 - GPU (H100 80GB, rented in 2–4h bursts): model forward passes, activation caching
 - Total GPU hours budget: **≤30 hours** across the full project
 
+### GPU session plan (single session, ~1h wall clock)
+
+Run both models in one H100 session:
+1. Setup + pip install: ~15 min
+2. Download Gemma 4 31B weights (~62GB): ~10 min
+3. Extract activations for both domains (~500 prompts × 4 layers): ~20–30 min
+4. Download Gemma 2 9B weights (~18GB): ~3 min
+5. Extract activations on Gemma 2 9B (replication): ~10 min
+6. Download .npz results to local (<1 min, ~30MB per model)
+
+Total: **~1 hour** for both models, well within a single Vast.ai burst.
+
 ## Deadlines
 
 - NeurIPS 2026 abstract: **May 4** (Mon)

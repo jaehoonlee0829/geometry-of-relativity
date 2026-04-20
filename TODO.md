@@ -29,9 +29,10 @@
 ## Queue — Day 4 (Apr 21)
 
 - [ ] Run v2 behavioral sanity check: ~20 implicit-context prompts through Claude API to verify implicit design elicits clean flips
-- [ ] Rent H100 GPU (Vast.ai or similar), verify Gemma 4 31B loads
-- [ ] Extract activations for height domain: ~252 prompts × 4 layers on Gemma 4 31B
-- [ ] Save activations to `.npz`, download to local
+- [ ] Rent H100 GPU (Vast.ai or similar), single session (~1h wall clock):
+  - Load Gemma 4 31B, extract activations for both domains (~500 prompts × 4 layers, ~20–30 min)
+  - Load Gemma 2 9B, extract activations for replication (~500 prompts × 4 layers, ~10 min)
+  - Download all `.npz` results to local (~30MB per model)
 
 ## Queue — Day 5 (Apr 22) — HARD PIVOT CHECK
 
