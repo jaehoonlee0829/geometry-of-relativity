@@ -19,6 +19,7 @@ Output:
 import json
 import math
 import random
+import sys
 import time
 import gc
 import os
@@ -27,6 +28,12 @@ from pathlib import Path
 import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# Shared tokenization helper (co-located). Spacing-aware first_token_id
+# avoids the `encode("tall")[0]` pitfall of grabbing a no-space prefix token
+# that the model never predicts after "... is".
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _token_utils import first_token_id, report_tokenization  # noqa: E402
 
 # ---- Config ----
 MODEL_ID = "google/gemma-4-E4B"
@@ -227,13 +234,13 @@ def main():
     model.eval()
     print(f"  Loaded in {time.time()-t0:.1f}s", flush=True)
 
-    # Find token IDs for "tall" and "short"
-    tall_ids = tokenizer.encode("tall", add_special_tokens=False)
-    short_ids = tokenizer.encode("short", add_special_tokens=False)
-    print(f"  'tall' token IDs: {tall_ids} -> {tokenizer.convert_ids_to_tokens(tall_ids)}", flush=True)
-    print(f"  'short' token IDs: {short_ids} -> {tokenizer.convert_ids_to_tokens(short_ids)}", flush=True)
-    tall_id = tall_ids[0]
-    short_id = short_ids[0]
+    # Find token IDs for "tall" and "short" via the unified spacing-aware
+    # helper. This matches extract_v4_adjpairs.py so logit_diff values are
+    # directly comparable across the two extraction scripts.
+    print("  Tokenization check:", flush=True)
+    report_tokenization(tokenizer, ["tall", "short"])
+    tall_id = first_token_id(tokenizer, "tall")
+    short_id = first_token_id(tokenizer, "short")
 
     # Process by condition
     for condition in ["implicit", "explicit", "zero_shot"]:

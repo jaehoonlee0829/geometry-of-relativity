@@ -48,6 +48,7 @@ try:
     from sklearn.linear_model import Ridge
     from sklearn.model_selection import KFold, cross_val_score
     from sklearn.preprocessing import StandardScaler
+    from sklearn.pipeline import Pipeline
 except ImportError as e:
     print(f"[fatal] sklearn missing: {e}", file=sys.stderr)
     sys.exit(2)
@@ -119,12 +120,17 @@ def cv_r2(X: np.ndarray, y: np.ndarray, alpha: float = 1.0,
     distribution matches train (critical for data that comes pre-sorted by
     x/mu/seed — otherwise each fold gets a distinct x bucket and R² collapses
     to spurious negatives).
+
+    Leakage-free: StandardScaler is inside a Pipeline so it refits on each
+    training fold; fitting once before cross_val_score leaks held-out mean/std
+    into training.
     """
-    scaler = StandardScaler()
-    X_s = scaler.fit_transform(X)
-    model = Ridge(alpha=alpha)
+    pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("ridge", Ridge(alpha=alpha)),
+    ])
     kf = KFold(n_splits=cv, shuffle=True, random_state=seed)
-    return float(np.mean(cross_val_score(model, X_s, y, cv=kf, scoring="r2")))
+    return float(np.mean(cross_val_score(pipe, X, y, cv=kf, scoring="r2")))
 
 
 def project_out(H: np.ndarray, v: np.ndarray) -> np.ndarray:
