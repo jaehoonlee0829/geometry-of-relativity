@@ -7,28 +7,41 @@
 - [x] v2 prompt generator with implicit/explicit contexts, height + wealth domains
 - [x] Gemma 4 activation extraction v2: E4B + 31B, 448 prompts, 4 layers each
 - [x] Probe analysis on v2 activations — found: 63 points per condition is too few, weight-vector cosines misleading, need replicates and direct logit extraction
+- [x] **v4 dense extraction** (GARNET-ANVIL): 3540 prompts, activations + logit_diff
 
-## Active (BUILDING.md has the details)
+## Active (see BUILDING.md)
 
-- [ ] **v4 dense extraction** (GARNET-ANVIL): 100 seeds per (x,μ) cell, three conditions (implicit/explicit/zero-shot), activations + logit("tall")-logit("short") + top-5 tokens
+- [ ] **OBSIDIAN-LATTICE — v4 auto-research suite**: analyze_v4, extract+analyze adjpairs,
+  steer_v4. 4 scripts on branch `exp/v4-auto-research`. Ready to run; local smoke
+  test passed.
 
-## Queue — after v4 extraction
+## Queue — after OBSIDIAN-LATTICE
 
-- [ ] Analyze v4 logit diffs: does mean logit_diff track z across (x,μ) grid?
-- [ ] PCA on averaged activations (100 seeds per cell → 35 mean vectors) — manifold viz
-- [ ] Train probes on v4 data with proper replicates (N=3500 implicit trials)
-- [ ] Zero-shot vs implicit vs explicit comparison — does context actually change anything?
-- [ ] Compute Σ⁻¹ and F⁻¹ cosines with enough data to be meaningful
+- [ ] Decide based on results which direction to push:
+  - If relativity generalizes and is causal → start writing ICML MI Workshop paper
+  - If it partially generalizes → investigate which pairs break & why
+  - If steering fails → probe-only + behavioral story for the paper
+- [ ] Run the full suite on G31B once E4B result set is in (1 H100 can host 31B
+  with activation extraction at batch-size 4)
+- [ ] INLP concept erasure — after probe weights land, iterate project-out
+  and measure downstream logit_diff degradation
+- [ ] Additional absolute-adj controls beyond BMI: "freezing"/0°C, "legal age"/18
 
 ## Queue — Paper (May 3–8)
 
 - [ ] Complete paper draft
-- [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full)
-- [ ] Submit ICML 2026 MI Workshop (May 8)
+- [ ] Submit ICML 2026 MI Workshop (May 8) — primary target
+- [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary
 
 ## Backlog
 
-- [ ] Wealth domain (rich/poor) — same v4 treatment
-- [ ] 31B extraction with v4 dense design
-- [ ] BMI / obese revisit
-- [ ] Steering interventions
+- [ ] Replace PCA with a proper sparse factor model on 3500 activations
+- [ ] Layer sweep (early, mid, late, final) once we know which layers matter
+- [ ] Try different context sample sizes (n=5, 15, 50 people) — saturation curve
+- [ ] Multilingual: does the Spanish "alto"/"bajo" show the same relativity?
+
+## Waiting on user
+
+- [ ] Destroy Vast instance m:56779 after OBSIDIAN-LATTICE runs complete
+- [ ] Decide whether to merge `exp/v4-auto-research` into main or keep as review PR
+- [ ] Write local SSH config for vastai host (minor convenience)
