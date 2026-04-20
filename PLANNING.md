@@ -19,12 +19,14 @@ This file is the north star. If BUILDING.md or TODO.md drifts from this, STOP an
 - Y-axis: cosine alignment of (adjusted) probe covector with w_z vs w_x
 - Shows whether Fisher is necessary or Euclidean suffices
 
-## Models
+## Models (Gemma 4 family, same architecture + tokenizer)
 
-1. `google/gemma-4-31B` — primary (31B dense, fits on 1× H100 80GB in bf16)
-2. `google/gemma-2-9b` — secondary / replication (fits on 1× A100 40GB)
+1. `google/gemma-4-31B` — primary (31B dense, 60 layers, d=5376, fits on 1× H100 80GB in bf16)
+2. `google/gemma-4-E4B` — secondary / scaling comparison (4B effective, 42 layers, d=2560, fits on H100 easily)
 
-Compute: rent H100 (or 2× H100 for headroom) via Vast.ai or similar.
+Same architecture family, same tokenizer (vocab=262144). Comparing these two tests whether the signal scales with model capacity.
+
+Compute: H100 80GB via Vast.ai or similar. Both models run in a single session.
 
 ## Domains and adjective pairs
 
@@ -129,14 +131,14 @@ Early, mid, late, final — exact indices per model in `src/activation_extract.p
 - GPU (H100 80GB, rented in 2–4h bursts): model forward passes, activation caching
 - Total GPU hours budget: **≤30 hours** across the full project
 
-### GPU session plan (single session, ~1h wall clock)
+### GPU session plan (single session, ~1h wall clock on H100 80GB)
 
-Run both models in one H100 session:
+Run both Gemma 4 models in one session:
 1. Setup + pip install: ~15 min
 2. Download Gemma 4 31B weights (~62GB): ~10 min
 3. Extract activations for both domains (~500 prompts × 4 layers): ~20–30 min
-4. Download Gemma 2 9B weights (~18GB): ~3 min
-5. Extract activations on Gemma 2 9B (replication): ~10 min
+4. Unload 31B, download Gemma 4 E4B weights (~20GB): ~3 min
+5. Extract activations on E4B (scaling comparison): ~10 min
 6. Download .npz results to local (<1 min, ~30MB per model)
 
 Total: **~1 hour** for both models, well within a single Vast.ai burst.

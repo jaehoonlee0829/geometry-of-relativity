@@ -33,8 +33,8 @@ When implementing:
 
 ```python
 MODELS = {
-    "gemma-4-31b": "google/gemma-4-31B",   # primary (v2)
-    "gemma-2-9b": "google/gemma-2-9b",     # secondary (v2)
+    "gemma-4-31b": "google/gemma-4-31B",   # primary (v2, 60 layers, d=5376)
+    "gemma-4-e4b": "google/gemma-4-E4B",   # secondary (v2, 42 layers, d=2560)
     "gemma-2-2b": "google/gemma-2-2b",     # legacy (v0/v1)
     "llama-3.2-3b": "meta-llama/Llama-3.2-3B",  # legacy (v0/v1)
 }
@@ -43,8 +43,9 @@ MODELS = {
 ## Compute
 
 - CPU is fine for: prompt generation, probe training, Fisher math, plotting
-- GPU is needed for: HuggingFace model forward passes (Gemma 4 31B, Gemma 2 9B)
-- Rent H100 80GB (or 2× H100) via Vast.ai in 2–4h bursts; cache activations locally between bursts
+- GPU is needed for: HuggingFace model forward passes (Gemma 4 31B, Gemma 4 E4B)
+- Rent H100 80GB via Vast.ai in 2–4h bursts; both models fit in a single session (~1h)
+- Cache activations locally between bursts
 
 ## Secrets policy
 

@@ -30,8 +30,8 @@
 
 - [ ] Run v2 behavioral sanity check: ~20 implicit-context prompts through Claude API to verify implicit design elicits clean flips
 - [ ] Rent H100 GPU (Vast.ai or similar), single session (~1h wall clock):
-  - Load Gemma 4 31B, extract activations for both domains (~500 prompts × 4 layers, ~20–30 min)
-  - Load Gemma 2 9B, extract activations for replication (~500 prompts × 4 layers, ~10 min)
+  - Load Gemma 4 31B (60 layers, d=5376), extract activations for both domains (~500 prompts × 4 layers, ~20–30 min)
+  - Load Gemma 4 E4B (42 layers, d=2560), extract activations for scaling comparison (~10 min)
   - Download all `.npz` results to local (~30MB per model)
 
 ## Queue — Day 5 (Apr 22) — HARD PIVOT CHECK
@@ -48,7 +48,7 @@
 - [ ] Extract activations for wealth domain (rich/poor), train probes
 - [ ] Compare "is ___" vs "is considered ___" — does prompt frame affect α/β?
 - [ ] Generate hero figures (α/β decomposition + metric comparison)
-- [ ] Replicate on Gemma 2 9B as secondary model
+- [ ] Compare Gemma 4 31B vs E4B — does signal scale with model size?
 - [ ] Probe-artifact controls (R4): scrambled-label, MLP-vs-linear gap, causal steering validation
 - [ ] Sanity check: scramble adjective labels → probe should fail
 
