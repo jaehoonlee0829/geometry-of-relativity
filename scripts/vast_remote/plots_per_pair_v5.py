@@ -54,7 +54,7 @@ def pair_title(p: str) -> str:
         "speed": "fast / slow (km/h)",
         "wealth": "rich / poor ($k)",
         "weight": "heavy / light (kg)",
-        "bmi_abs": "obese / healthy (BMI)",
+        "bmi_abs": "obese / thin (BMI)",  # extract_v4_adjpairs.py uses low_word='thin'
     }.get(p, p)
 
 

@@ -55,8 +55,6 @@
     0.5284026455978731,
     0.5568418444339267
   ],
-  "welch_t": -2.2446080166271076,
-  "welch_p_twosided": 0.06028665284153658,
   "relative_mean": 0.748735178691949,
   "relative_std": 0.23138826803039125,
   "absolute_mean": 0.5449369646320358,
@@ -80,5 +78,10 @@
   },
   "welch_t_proj": -0.3325576578764742,
   "welch_p_proj": 0.7480419659973977,
-  "interpretation": "Mean relativity_ratio: relative=0.749, absolute=0.708. Welch t=-0.333, p=0.7480. With n=7 relative and n=4 absolute, the distinction is NOT statistically significant. Absolute pairs (bmi_abs, temp_abs, legal_abs, grade_abs) show substantial relativity in the model: slope_mu is nonzero and comparable in magnitude to slope_x. The model does not treat these concepts as purely absolute even where they have canonical thresholds."
+  "interpretation": "Mean relativity_ratio: relative=0.749, absolute=0.708. Welch t=-0.333, p=0.7480. With n=7 relative and n=4 absolute, the distinction is NOT statistically significant. Absolute pairs (bmi_abs, temp_abs, legal_abs, grade_abs) show substantial relativity in the model: slope_mu is nonzero and comparable in magnitude to slope_x. The model does not treat these concepts as purely absolute even where they have canonical thresholds.",
+  "welch_t_mixed_formula_DO_NOT_USE": -2.2446080166271076,
+  "welch_p_twosided_mixed_formula_DO_NOT_USE": 0.06028665284153658,
+  "welch_t": -0.3325576578764742,
+  "welch_p_twosided": 0.7480419659973977,
+  "formula_note": "The canonical relativity_ratio is -slope_\u03bc/slope_x per analyze_v4_adjpairs.py:148. An earlier version of exp7_abs_controls.py used |sx|/(|sx|+|s\u03bc|); those mixed-formula values are preserved only as *_mixed_formula_DO_NOT_USE for audit."
 }
