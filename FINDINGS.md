@@ -431,3 +431,39 @@ On clean grid, no x-pathway exists — INLP actually removes z.
 **Methodological contribution:** grid designs with derived variables
 (z from x, μ) contaminate direction-based analyses. Future mech-interp
 work should use independent-variable grids for geometry analysis.
+
+## 7.7 — v7b addendum: anti-alignment for size and experience
+
+The v7 residual confound (corr(x,z) = 0.20 for experience, 0.13 for size)
+was fixed by dropping the lowest-x value from each pair entirely (x=1 for
+experience, x=5 for size). Result: corr(x, z) = 0.0000 exactly on a 4×5×30
+= 600-prompt grid.
+
+On this fully clean grid:
+  size:       cos(primal_z, primal_x) moves from −0.591 → −0.756
+  experience: cos(primal_z, primal_x) moves from +0.008 → −0.442
+
+Both MORE negative after cleaning, not closer to zero. The residual positive
+corr(x,z) in v7 was PARTIALLY MASKING a real anti-alignment between the z
+and x directions for these pairs.
+
+Updated |cos(primal_z, primal_x)| distribution across all 8 pairs:
+  height 0.18, age 0.16, weight 0.15, size 0.76, speed 0.08,
+  wealth 0.12, experience 0.44, bmi_abs 0.48
+  mean |cos| = 0.30   range [0.08, 0.76]
+
+Three behavioral classes emerging:
+  (a) primal_z ⟂ primal_x   (height, age, weight, speed, wealth): |cos| < 0.20
+  (b) primal_z ANTI-ALIGNED with primal_x   (size, experience): cos ≈ -0.5 to -0.75
+  (c) primal_z POSITIVELY ALIGNED with primal_x   (bmi_abs): cos ≈ +0.48
+
+(c) is expected for a genuine absolute pair where z and x carry similar info.
+(b) is unexpected and interesting: for size/experience, "more z" and "more x"
+point in OPPOSITE directions in activation space. Could reflect context
+CALIBRATION (using z to reduce x-salience). Needs further investigation.
+
+Open question for future v8+: is (b) a model-specific feature, a domain-
+specific feature, or an artifact of these two pairs having been the "dirtiest"
+in the raw Grid A design? If repeating with a different clean-grid design
+(e.g., independent x and μ instead of independent x and z) recovers similar
+patterns, it's likely model/domain; if patterns shift, it's design-artifact.
