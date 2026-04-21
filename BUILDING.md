@@ -1,82 +1,44 @@
 # BUILDING.md — What to run RIGHT NOW
 
-Only one task in this file at a time. When done, move it to TODO.md "done" section
-and pull the next one in.
+## Active task (Day 5→6, Apr 21 2026) — NEXT-GPU-SESSION
 
-## Active task (Day 4, Apr 21 2026) — v4 AUTO-RESEARCH
+Execute all 7 experiments from `docs/NEXT_GPU_SESSION.md` + G31B secondary run, single branch `exp/next-gpu-session`, one commit per experiment, one PR at the end. Critic-agent consensus pass before PR opens.
 
-**Five scripts are staged on branch `exp/v4-auto-research` (NOT merged to main).
-Pull and run on Vast to generate the full v4 research artifact set.**
+### Time budget
 
-### Why
+Not hard-capped. Goal: all 7 done thoroughly, skip rationalization.
 
-v4_dense extraction (GARNET-ANVIL) finished yesterday: 3,500 implicit trials +
-35 explicit + 5 zero-shot, with activations and logit_diff. Behavioral signal
-is strong (~6 logit dynamic range across z). Now we need to:
+### Execution order (unblock first, then priority)
 
-1. Properly analyze what we have (probes, PCA, variance decomposition)
-2. Test if the relativity pattern generalizes beyond tall/short to 7 more
-   gradable-adjective pairs — plus 1 absolute-adjective control (BMI/obese)
-3. Test if the z-direction is *causal* via activation steering
+| # | Experiment | Est GPU | What it unblocks |
+|---|---|---|---|
+| A | Setup: branch, data reuse (copy from `/workspace/repo`), BUILDING.md, port `export_W_U.py` | 0 | Everything |
+| 5 | Per-pair plots from cached logits (8-panel heatmaps, scatter, etc.) | 0 (reuse) | Visual hero figures for paper |
+| 4d | P(short) vs P(tall) zero-shot bias validation | 0 (reuse) | Whether Exp 4a is needed |
+| 3a | Σ⁻¹ cosine JSON persistence | 0 (CPU) | Red-team #3 |
+| 6 | Drop w_adj from main results (editorial) | 0 | Paper cleanup |
+| 2 | Meta-direction w₁ steering × 8 pairs × 9 α | ~15 min | Causal claim |
+| 3b | F⁻¹ cosines (H4 validation) — sample ~50 cell-mean activations | ~30 min | Paper's theoretical anchor |
+| 1 | Zero-shot expansion (5x × 30 seeds × 8 pairs) | ~5 min | Zero-shot direction analysis |
+| 7 | 3 new absolute-adjective controls (freezing, minor/adult, pass/fail) | ~30 min | n=4 absolute → statistical comparison |
+| 4a | Synonym-family re-extraction (conditional on 4d) | ~5 min | Token-design fix |
+| G31B | v4_adjpairs extraction + core analyses on Gemma 4 31B | ~10 min | Paper scaling evidence |
+| C | Spawn 3 critic agents, synthesize consensus | 0 | Skepticism pass |
+| D | Upload new data to HF, commit per-exp, open PR | 0 | Ship |
 
-Per user directive (Apr 20): "do all the research on the cloud before you
-push to main or make a PR." Branch is ready; no main commits until results.
+### Data provenance
 
-### What the five scripts do
+- v4_adjpairs / v4_dense / activations: copied from `/workspace/repo/results/` (same Vast box, same files uploaded to HF at `xrong1729/mech-interp-relativity-activations`).
+- W_U: re-generated on demand via `scripts/vast_remote/export_W_U.py e4b`.
+- Model weights: cached at `/workspace/.hf_home/hub/` (E4B + G31B).
 
-- `scripts/vast_remote/analyze_v4.py` — full probe/PCA/metric analysis
-  on existing v4_dense data. Produces `results/v4_analysis/summary.json`
-  + probe .npz files + figures.
-- `scripts/vast_remote/extract_v4_adjpairs.py` — extracts activations &
-  logit_diff for 8 adjective pairs (7 relative + 1 absolute-control). 6,240
-  prompts total, ~2 min on H100.
-- `scripts/vast_remote/analyze_v4_adjpairs.py` — cross-pair relativity table.
-  Core claim: relative pairs → relativity_ratio ≈ 1; absolute pair (BMI/obese)
-  → relativity_ratio ≈ 0.
-- `scripts/vast_remote/steer_v4.py` — causal test. Adds α·ŵ_z to the
-  residual at a chosen layer, measures logit_diff response curve. Needs
-  analyze_v4.py to have run first (consumes its probe .npz output).
-- `scripts/vast_remote/inlp_v4.py` — concept erasure. Iteratively project
-  out the z-probe direction from activations; compare CV R²(z) collapse
-  against a random-direction null. 5th line of evidence: distinguishes
-  "w_z IS the z-direction" from "w_z correlates with z". No model forward
-  pass required (operates on cached v4_dense activations + logit_diff).
+### Working principles (per user directive Apr 21)
 
-### How to run on Vast
-
-```bash
-cd /workspace/repo
-git fetch origin
-git checkout exp/v4-auto-research    # or merge into main first if preferred
-git pull
-python scripts/vast_remote/analyze_v4.py            # ~1-2 min
-python scripts/vast_remote/extract_v4_adjpairs.py   # ~2 min (model forward)
-python scripts/vast_remote/analyze_v4_adjpairs.py   # seconds
-python scripts/vast_remote/steer_v4.py --layer late # ~1 min
-python scripts/vast_remote/steer_v4.py --layer mid  # ~1 min
-```
-
-Total ~6 min wall time.
-
-### Definition of done
-
-- `results/v4_analysis/summary.json` populated; 3 probe R² values look
-  consistent with smoke-test synthetic ranges (R²(z) > R²(x) for late layer)
-- `results/v4_adjpairs_analysis/summary.json` has per-pair relativity_ratio
-- `results/v4_adjpairs_analysis/figures/relativity_across_pairs.png` rendered
-- `results/v4_steering/steering_late.json` shows monotone curve
-  (slope of logit_diff vs α is non-zero, same sign as positive)
-- A decision made: does the relativity pattern generalize?
+1. Separate branch → one PR (`exp/next-gpu-session`).
+2. Upload data to HF for anything GPU-expensive; results/plots in git.
+3. Surface red flags; never rationalize away a hypothesis-killing result.
+4. Save every relevant plot.
 
 ### Completion promise word
 
-OBSIDIAN-LATTICE
-
-### Scientific pre-commit (what I'm watching for)
-
-- Strong (>0.7) Σ⁻¹ cos(w_adj, w_z) — validates Fisher-Rao framing
-- Relativity ratio distribution: 7/7 relative pairs near 1.0, BMI near 0.0
-- Steering slope > 0.5 per α-unit — clear causal signal
-
-If ANY of these fail, we have an interesting finding and a harder paper
-to write. Either way, we learn something.
+NEXT-ECLIPSE
