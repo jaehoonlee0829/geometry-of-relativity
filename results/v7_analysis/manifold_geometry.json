@@ -1,0 +1,58 @@
+{
+  "height": {
+    "intrinsic_dim": 3.423,
+    "r2_isomap_z": 0.9932,
+    "r2_pca1_z": 0.9498,
+    "geodesic_euclidean_ratio": 7.241,
+    "n_cells": 25
+  },
+  "age": {
+    "intrinsic_dim": 5.265,
+    "r2_isomap_z": 0.2184,
+    "r2_pca1_z": 0.0628,
+    "geodesic_euclidean_ratio": 14.068,
+    "n_cells": 25
+  },
+  "weight": {
+    "intrinsic_dim": 3.553,
+    "r2_isomap_z": 0.969,
+    "r2_pca1_z": 0.97,
+    "geodesic_euclidean_ratio": 7.183,
+    "n_cells": 25
+  },
+  "size": {
+    "intrinsic_dim": 5.471,
+    "r2_isomap_z": 0.0808,
+    "r2_pca1_z": 0.0824,
+    "geodesic_euclidean_ratio": 14.277,
+    "n_cells": 23
+  },
+  "speed": {
+    "intrinsic_dim": 4.476,
+    "r2_isomap_z": 0.9707,
+    "r2_pca1_z": 0.0129,
+    "geodesic_euclidean_ratio": 10.037,
+    "n_cells": 24
+  },
+  "wealth": {
+    "intrinsic_dim": 6.454,
+    "r2_isomap_z": 0.7974,
+    "r2_pca1_z": 0.5953,
+    "geodesic_euclidean_ratio": 13.041,
+    "n_cells": 25
+  },
+  "experience": {
+    "intrinsic_dim": 4.679,
+    "r2_isomap_z": 0.1991,
+    "r2_pca1_z": 0.1187,
+    "geodesic_euclidean_ratio": 10.222,
+    "n_cells": 22
+  },
+  "bmi_abs": {
+    "intrinsic_dim": 6.748,
+    "r2_isomap_z": 0.5805,
+    "r2_pca1_z": 0.6907,
+    "geodesic_euclidean_ratio": 10.724,
+    "n_cells": 25
+  }
+}

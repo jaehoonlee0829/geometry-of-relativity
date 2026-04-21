@@ -6,6 +6,12 @@ with clean Grid B. The key unexplained gap: primal_z steers 18x stronger than
 probe_z, but we don't know WHY mechanistically. SAE decomposition on Gemma 2
 (which has pretrained Gemma Scope SAEs) can answer this.
 
+**New from manifold analysis (Apr 22, CPU-only on fetched .npz):**
+- Intrinsic dimensionality of z-representation: ~5-D (NOT 1-D curve)
+- Speed: isomap R²(z)=0.97 vs PCA R²(z)=0.01 — massive curvature, linear methods miss z entirely
+- primal_z is fully layer-specific: cos(primal_z_mid, primal_z_late) ≈ 0.00 across all 8 pairs
+- Both layers decode z with R² > 0.95, but using completely orthogonal directions
+
 ---
 
 ## Scientific questions

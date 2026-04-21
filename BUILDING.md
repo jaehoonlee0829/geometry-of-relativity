@@ -1,22 +1,32 @@
 # BUILDING.md — What to run RIGHT NOW
 
-## Active task — v8 GPU session prep
+## Active task — v9 GPU session: Gemma 2 SAE decomposition
 
-No GPU task currently running. Next GPU session plan is in `docs/NEXT_GPU_SESSION_v8.md`.
+See `docs/NEXT_GPU_SESSION_v9.md` for full plan.
 
-### What's ready to run (CPU, no GPU needed)
+### Execution order
 
-1. **Fetch Grid B .npz from HF** — `python scripts/fetch_from_hf.py --only v7_xz_grid --data-kind npz`
-2. **Regenerate PCA horseshoe** — needs .npz files, then run CPU PCA scripts
-3. **Regenerate SVD scree + cross-pair PC1 cosine heatmap** — same dependency
+| # | What | GPU? | Time |
+|---|------|------|------|
+| 1 | Replicate 8-pair behavioral signal on `google/gemma-2-2b` | GPU | 5 min |
+| 2 | Load Gemma Scope SAE (`google/gemma-scope-2b-pt-res`, layer 20, 65k width) | CPU | 1 min |
+| 3 | Encode Grid B activations → sparse SAE coefficients | CPU | 2 min |
+| 4 | Find z-correlated SAE features per pair, cross-pair overlap | CPU | 5 min |
+| 5 | Place-cell vs linear feature analysis | CPU | 5 min |
+| 6 | Decompose primal_z vs probe_z in SAE basis | CPU | 2 min |
+| 7 | On-manifold steering (geodesic tangent vs fixed primal_z) | GPU | 5 min |
+| 8 | Park's causal inner product steering test | GPU | 5 min |
 
-### What needs GPU
+### What's already done (CPU, no GPU needed)
 
-See `docs/NEXT_GPU_SESSION_v8.md` for the full plan:
-- Priority 1+2: Direct sign classification + top-K tokens (~3 min)
-- Priority 4: Cross-template transfer test (~5 min)
+- Manifold geometry analysis complete: ID ~5-D, speed has massive curvature (isomap R²=0.97 vs PCA R²=0.01), primal_z is layer-specific (mid ⊥ late)
+- All v7/v8 figures regenerated
+- Grid B .npz activations fetched from HF
+- meta_w1 sign bug fixed in all scripts (JSON needs re-generation on GPU)
 
-### Replot scripts (CPU, already working)
+### Key scientific questions
 
-- `python scripts/plots_v7_behavioral.py` — all behavioral plots from v7 jsonl
-- `python scripts/replot_v7_from_json.py` — all geometry plots from v7 JSON results
+1. Is z a single SAE feature, place-cells, or distributed?
+2. Do the same SAE features fire across pairs? (shared mechanism test)
+3. Does SAE-based steering cause less entropy damage than primal_z?
+4. Can Park's causal metric bridge the probe-vs-steering gap?

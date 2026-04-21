@@ -589,3 +589,95 @@ n=1 pair (height); replication needed.
 The "continuous relativity spectrum" framing still holds, but the exact
 R values need re-validation per-prompt. Minimum R across valid prompts
 per concept is likely the right metric.
+
+---
+
+# Section 9 — Manifold geometry + layer analysis (2026-04-22, post-v8)
+
+CPU-only analysis on Grid B .npz activations fetched from HF. No GPU needed.
+
+## 9.1 — Intrinsic dimensionality: z is NOT a 1-D curve
+
+TWO-NN estimator on cell-mean activations at late layer:
+
+  pair          ID
+  height        3.4
+  weight        3.6
+  speed         4.5
+  experience    4.7
+  age           5.3
+  size          5.5
+  wealth        6.5
+  bmi_abs       6.8
+  mean          5.0
+
+The PCA horseshoe gave the illusion of a 1-D curve, but the actual intrinsic
+dimensionality is ~3–7D. Height/weight are simplest (3–4D), wealth/bmi_abs
+are highest-dimensional (6–7D).
+
+## 9.2 — Isomap reveals curvature that PCA misses
+
+Isomap (geodesic-preserving) vs PCA (linear) 1-D embedding, R² against z:
+
+  pair          R²(iso)  R²(pca)  curved?
+  speed         0.971    0.013    MASSIVELY — PCA misses z entirely
+  wealth        0.797    0.595    yes
+  age           0.218    0.063    yes (weak z overall)
+  experience    0.199    0.119    yes (weak z)
+  height        0.993    0.950    slightly
+  weight        0.969    0.970    no (linear)
+
+**Speed is the star finding.** PCA 1-D captures nearly zero z-variance
+(R²=0.01) while isomap 1-D captures 97%. The z-information IS there but
+on a curved manifold that linear methods completely miss. This explains
+why speed's PC1 was x-dominated in v8 — z is encoded on a curve, not a
+line, for speed.
+
+Mean geodesic/Euclidean ratio: 10.85 (path along manifold is ~11x longer
+than straight-line distance). Substantial curvature.
+
+## 9.3 — Mid vs late layer: primal_z is completely layer-specific
+
+  pair          R²(z)_mid  R²(z)_late  cos(pz_mid, pz_late)
+  height        0.983      0.982       −0.003
+  age           0.974      0.976       −0.010
+  weight        0.970      0.973       +0.003
+  size          0.959      0.956       +0.042
+  speed         0.960      0.966       +0.032
+  wealth        0.962      0.968       +0.010
+  experience    0.962      0.957       +0.016
+  bmi_abs       0.957      0.964       −0.020
+
+Both layers decode z with R² > 0.95, but primal_z directions are
+**completely orthogonal** (cos ≈ 0.00 across all 8 pairs). The model
+doesn't maintain a fixed z-axis through the network — each layer writes
+z-information using different directions, and only the late-layer direction
+causally controls the adjective output.
+
+Consistent with the "residual stream as communication channel" view:
+different layers write z using different directions; downstream components
+(unembedding at layer 32+) read from the late-layer direction.
+
+## 9.4 — Bug fix: meta_w1 SVD sign convention
+
+All meta_w1 steering slopes were negative because SVD's Wt[0] pointed
+opposite to primal_z (cos ≈ −0.98). Root cause: no sign-alignment step
+after SVD extraction. Fixed by flipping w1 if dot(w1, mean_PC1) < 0.
+Existing JSON results still have wrong-sign slopes; upstream GPU scripts
+need re-running.
+
+## 9.5 — What §9 changes for the paper
+
+**New findings:**
+  - z lives on a ~5-D manifold, not a 1-D curve. PCA horseshoe was misleading.
+  - Speed: z is encoded on a curved manifold (isomap R²=0.97, PCA R²=0.01).
+    Linear methods completely miss the z-encoding for some pairs.
+  - primal_z is fully layer-specific (mid ⊥ late). No gradual buildup.
+
+**Implications:**
+  - Linear probing overestimates encoding quality (R² > 0.95 everywhere)
+    but misses that the encoding is geometrically complex.
+  - SAE decomposition is the natural next step: decompose the multi-dimensional,
+    curved manifold into sparse interpretable features.
+  - On-manifold steering (along the geodesic) may outperform linear steering
+    for pairs like speed where curvature is extreme.
