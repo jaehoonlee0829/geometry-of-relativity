@@ -173,3 +173,41 @@ python scripts/vast_remote/inlp_v4.py --layer mid  --steps 8
 ```
 
 Total wall time ~8 min.
+
+---
+
+## Day 5 addendum â v4 analysis pass (2026-04-21)
+
+Pipeline from Day 4 (7-step v4 run) was completed; this day was spent looking at the resulting activation geometry. Three new analyses added on top of the v4 base pipeline:
+
+1. **Per-pair PCA** (`pca_per_pair.py`) â confirmed PC1~z holds for all 7 relative pairs + bmi_abs control. The PCA horseshoe (PC2 quadratic in PC1 coordinate) generalizes. See `results/v4_adjpairs_analysis/figures/pca_per_pair_late.png`.
+2. **PC3~x / cross-pair |cos|** (`pc3_x_and_shared_z.py`) â PC3 is often Î¼-dominant, not x-dominant. Mean off-diagonal |cos(PC1_i, PC1_j)| = 0.32 across the 8 pairs â not orthogonal, not identical. See `pc_correlations_and_shared_z.png`.
+3. **Meta z-direction** (`meta_z_direction.py`) â SVD the stack of 8 sign-aligned PC1 vectors. Top right singular vector `wâ` captures **41.6%** of cross-concept PC1 variance. RÂ²(meta wâ ~ z) â¥ 0.76 for all pairs; matches or beats own-PC1 in 5 of 8 cases. This is the main v4 interpretability finding: a domain-general "relativity direction" exists. See `meta_z_direction.png`.
+
+### Open threads (deferred, next session)
+
+- **No-ICL control** â use `format_prompt_zero` (raw x, no reference examples) to separate raw-x encoding from z-encoding. Will disambiguate whether `wâ` is truly "z-like" or partly "x-magnitude." (Task #23)
+- **Meta-direction steering** â causal test: add Â±Î±Â·wâ at layer 32 on prompts from all 8 concepts, compare to random-direction baseline, measure logit-diff shift for high-word vs low-word. If wâ is a real computational feature (not just correlational), this should shift adjective extremity uniformly across concepts. (Task #27)
+- **Llama-3.2-3B replication** â does `wâ` transfer to a different model family?
+
+### New docs
+
+- `FINDINGS.md` â consolidated writeup of v4 results, interpretation, and caveats.
+
+### Run command reference
+
+```bash
+# v4 pipeline (from Day 4, still current):
+python scripts/vast_remote/analyze_v4.py
+python scripts/vast_remote/extract_v4_adjpairs.py      # ~10 min on 2ÃH100
+python scripts/vast_remote/analyze_v4_adjpairs.py      # seconds
+python scripts/vast_remote/steer_v4.py --layer late
+python scripts/vast_remote/steer_v4.py --layer mid
+python scripts/vast_remote/inlp_v4.py --layer late --steps 8
+python scripts/vast_remote/inlp_v4.py --layer mid  --steps 8
+
+# Day 5 analysis (cached NPZs only, no GPU needed):
+python3 pca_per_pair.py
+python3 pc3_x_and_shared_z.py
+python3 meta_z_direction.py
+```
