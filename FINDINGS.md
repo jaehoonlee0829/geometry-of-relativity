@@ -311,3 +311,123 @@ Recommended framing shift for ICML MI Workshop (May 8):
 
 The paper will likely be narrower in its causal claim (polarity ≠ relativity)
 but stronger in evidence (null-controlled steering, 2-model scaling).
+
+---
+
+# Section 7 — v7 clean-grid rerun (2026-04-21, post-v6 red-team)
+
+v6 red-team noted a design confound: the (x, μ) grid used in v4-v6 creates
+corr(x, z) ∈ [+0.58, +0.86] per pair because only 5 x × 5 μ cells are
+sampled. Every z-direction (primal, PC1, probe) was contaminated with x.
+
+v7 fixes this with Grid B (iterate x, z; derive μ). The 6 follow-up
+experiments rerun v4-v6 analyses on clean activations.
+
+Branch: `exp/v7-clean-grid`. PR: (link after creation).
+
+## 7.1 — The confound was real (Priority 1+2)
+
+Grid A had corr(x, z) ∈ [+0.58, +0.86] per pair. Grid B has corr(x, z) ≈ 0
+for 5/8 pairs and < 0.20 for 3 pairs with dropped cells.
+
+**Mean |cos| across 8 pairs, direction × direction (z vs x comparisons):**
+
+|  | Grid A | Grid B | Δ |
+|---|---|---|---|
+| primal_z × primal_x | **0.907** | **0.033** | −0.874 |
+| primal_z × PC1 | 0.946 | 0.676 | −0.270 |
+| primal_x × PC1 | 0.798 | 0.105 | −0.693 |
+| probe_z × probe_x | 0.544 | 0.268 | −0.276 |
+| zeroshot_wx × primal_x | 0.149 | 0.168 | +0.019 |
+
+The v6 "4 clusters collapse" story was substantially a grid artifact.
+
+## 7.2 — Primal_z steering gap widens (Priority 3)
+
+v6 found primal_z slopes 13× larger than probe_z slopes. v7 clean-grid
+directions: the gap is 18× averaged across pairs.
+
+  height 9.6×, age 14.3×, weight 13.4×, size 5.8×, speed 48.5×,
+  wealth 17.4×, experience 17.3×, bmi_abs 20.6× → mean ~18×
+
+Primal_z slopes are stable across grids (0.10-0.16 per α-unit).
+Probe_z slopes are stable too (near 0.01). The widening comes from
+primal_x's slope dropping — it was a confound-inflated direction.
+
+## 7.3 — Primal_z transfers across pairs (Priority 4)
+
+The biggest v7 positive finding. Cross-pair transfer matrix using
+primal_z_clean at α=±4:
+
+  diagonal (primal_z on own pair)      mean = 0.126 per α-unit
+  off-diagonal (A → B)                 mean = 0.051 per α-unit
+  random unit vector null              mean = 0.009 per α-unit
+
+Ratios:
+  off-diag / own-pair: **0.40** — transfer at 40% of own-pair strength
+  off-diag / random:   **5.50** — way above chance
+
+v6 concluded "probe_z doesn't transfer, no shared substrate" using the
+weak probe_z direction. Using the strong primal_z direction on clean
+grid, transfer is substantial.
+
+Cluster patterns:
+  weight ↔ size ↔ bmi_abs: mutual transfer 0.10-0.13 (near own-pair)
+  age ↔ experience:        transfer 0.07 (modest)
+  speed → age:             −0.002 (near zero)
+
+This suggests the "shared substrate" isn't perfectly universal — there
+are semantic clusters where transfer is near-complete and outside them
+transfer is weak. Body-attribute pairs form one tight cluster.
+
+## 7.4 — Park + Fisher still negative (Priority 5)
+
+Recomputed Park Cov(W_U)^{-1/2} cosines on Grid B probes AND Fisher F⁻¹
+at softmax-entropy-binned activations (bottom 10% vs top 10% entropy).
+
+Results:
+  Park |cos(w_z, w_ld)| ≈ Euclidean |cos| within 0.02-0.04 — no help.
+  Fisher F⁻¹ low-entropy vs high-entropy bin: max delta = 0.005.
+  Fisher F⁻¹ ~1.5× Euclidean in magnitude (weak amplification).
+  Max F⁻¹ |cos(w_z, w_ld)| observed: 0.14 (still far from H4's > 0.7).
+
+Entropy range sampled: 3.69-5.39 nats (of ln(262144) = 12.5 nats max).
+We never hit "peaked softmax" regime. H4 remains refuted across all
+tested regimes.
+
+## 7.5 — INLP ACTUALLY WORKS on clean grid (Priority 6)
+
+v4 INLP on tall/short (Grid A dense) found R²(z) dropped only 0.04 after
+8 iterations — interpreted as "z is distributed, INLP can't remove it".
+
+v7 INLP on clean Grid B across 8 pairs:
+  per-pair R²(z) starts ~0.97, drops to 0.45-0.70 after 8 iterations
+  Δ(INLP) ranges 0.29-0.51; random-direction null shows Δ ≈ 0.00
+
+The v4 finding was driven by the x↔z confound: projecting out the
+z-direction partially removed x, but x still carried z-info via the
+design correlation. Ridge re-learned a z-probe from x-like features.
+
+On clean grid, no x-pathway exists — INLP actually removes z.
+
+## 7.6 — Summary: what v7 changes
+
+**NEW strong findings:**
+  - Cross-pair transfer of primal_z at 40% own-pair strength, 5.5× null
+  - INLP actually works on clean grid (R² drops 30-50%)
+  - Body-attribute semantic cluster in transfer matrix
+
+**v5/v6 findings that held up:**
+  - primal_z steers 13-18× stronger than probe_z
+  - cos(w_z, w_ld) ≈ 0 at late layer
+  - H4 (Fisher) refuted
+  - Meta w₁ causally effective across all 8 pairs
+
+**v5/v6 findings that were artifacts:**
+  - "primal_z ≈ primal_x" (same direction) — false on clean grid
+  - "INLP barely reduces R²(z)" — false on clean grid
+  - "v6 7 directions collapse to 4 clusters" — partially false
+
+**Methodological contribution:** grid designs with derived variables
+(z from x, μ) contaminate direction-based analyses. Future mech-interp
+work should use independent-variable grids for geometry analysis.
