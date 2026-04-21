@@ -1,5 +1,0 @@
-{"id": "zeroshot_03535", "logit_tall": 16.75, "logit_short": 12.625, "logit_diff": 4.125, "top5_tokens": ["\u2581standing", "\u2581", "\u2581tall", "\u2581taller", "\u2581sitting"], "top5_logits": [24.25, 24.25, 23.875, 23.25, 22.5]}
-{"id": "zeroshot_03536", "logit_tall": 17.125, "logit_short": 12.6875, "logit_diff": 4.4375, "top5_tokens": ["\u2581standing", "\u2581", "\u2581tall", "\u2581taller", "\u2581sitting"], "top5_logits": [24.625, 24.625, 24.0, 23.5, 23.0]}
-{"id": "zeroshot_03537", "logit_tall": 17.25, "logit_short": 12.5, "logit_diff": 4.75, "top5_tokens": ["\u2581standing", "\u2581", "\u2581tall", "\u2581taller", "\u2581sitting"], "top5_logits": [24.5, 24.375, 23.875, 23.125, 22.75]}
-{"id": "zeroshot_03538", "logit_tall": 16.625, "logit_short": 11.6875, "logit_diff": 4.9375, "top5_tokens": ["\u2581standing", "\u2581", "\u2581tall", "\u2581taller", "\u2581sitting"], "top5_logits": [24.5, 24.125, 23.625, 23.0, 22.625]}
-{"id": "zeroshot_03539", "logit_tall": 17.0, "logit_short": 11.0625, "logit_diff": 5.9375, "top5_tokens": ["\u2581standing", "\u2581", "\u2581tall", "\u2581taller", "\u2581walking"], "top5_logits": [24.375, 24.25, 23.875, 23.25, 22.625]}
