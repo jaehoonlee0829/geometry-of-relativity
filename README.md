@@ -28,6 +28,22 @@ Legacy models (gemma-2-2b, Llama-3.2-3B) were used in v0/v1 behavioral experimen
 | **v2** | Prompt design + activation extraction | 448 systematic prompts (height + wealth domains), implicit/explicit contexts, two prompt frames. Gemma 4 E4B + 31B activations extracted on Vast.ai H100. |
 | **v3** | Extraction format fix | Refactored activation storage: W_U saved once per model instead of per-layer (30x speedup). No new scientific content. |
 | **v4** | Dense extraction + auto-research | 3540 implicit trials with 30 resampling seeds per (x, mu) cell. Five analysis scripts (probes, PCA, adjective-pair generalization, causal steering, INLP erasure) staged on branch `exp/v4-auto-research`. |
+| **v5** | Red-team follow-up + critic consensus | 7 experiments from `docs/NEXT_GPU_SESSION.md` + G31B replication + random-direction null for meta-steering + 3 parallel skeptical-critic agents. Branch `exp/next-gpu-session`, see `docs/PR_next_gpu_session.md` and FINDINGS.md §6 for the honest summary. |
+
+### v5 headline results (Apr 21 2026)
+
+**What survived scrutiny** (still publishable):
+- **Causal steering** — a single shared direction `w₁` (from SVD of stacked per-pair PC1s) shifts `logit_diff` monotonically for all 8 adjective pairs at layer 32. Slopes are **3.1–28.5× larger** than steering with random unit vectors in the same space. See `figures/v4_adjpairs/meta_w1_steering_curves.png` and `meta_w1_vs_random_null.png`.
+- **Behavioral hero figure** — `figures/v4_adjpairs/logit_diff_heatmap_xmu_8panel.png` shows the anti-diagonal relativity pattern for tall/short, old/young, heavy/light, and the x-dominant vertical stripes for the absolute control `bmi_abs`.
+- **Scaling evidence (G31B)** — the same 8-pair extraction on Gemma 4 31B replicates the effect; pairs become *more* relative at scale, not less.
+
+**What got weaker under scrutiny** (paper framing should soften):
+- **H4 (Fisher-pullback) not supported.** `cos_F⁻¹(w_adj, w_z)` ≈ `cos_Euclidean(w_adj, w_z)` within 0.01–0.04 (max cosine 0.30; H4 predicted > 0.7). F(h) is near-isotropic at the cell-mean activations we tested. See `figures/v4_adjpairs/fisher_vs_euclid_cosines.png`.
+- **Relative-vs-absolute dichotomy not significant.** With n=4 absolute + n=7 relative pairs: Welch `t=-0.33, p=0.75`. Pairs like `legal_abs` (minor/adult, supposed to be anchored at 18) show strong context sensitivity (relativity_ratio = 0.89). The dichotomy may not be the right carving.
+- **Zero-shot x-direction "orthogonal to z-direction" is null-consistent.** `|cos(w_x_zeroshot, w_z_implicit)| ≤ 0.08` across 8 pairs is only 2–4σ above the √(1/d) ≈ 0.02 chance floor — directional, not quantitative.
+- **Meta-direction `w₁` steers bmi_abs (the absolute control) with the LARGEST slope.** So `w₁` is probably a generic "adjective polarity" knob, not specifically a relativity substrate. Framing should shift from "relativity direction" to "shared polarity direction".
+
+Full writeup in `FINDINGS.md` §6 and `docs/PR_next_gpu_session.md`.
 
 ## Five lines of evidence (v4 pipeline)
 
