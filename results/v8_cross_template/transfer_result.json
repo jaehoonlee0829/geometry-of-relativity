@@ -1,0 +1,15 @@
+{
+  "cos_primal_z_A_B": 0.7274459600448608,
+  "steering_on_template_B": {
+    "self_primal_z_B_slope": 0.15210685800103582,
+    "cross_primal_z_A_slope": 0.14729902253431434,
+    "random_slopes": [
+      0.00036863018484677173,
+      -0.006434308781343336,
+      0.003263727356405842
+    ],
+    "random_mean_abs": 0.0033555554408653166
+  },
+  "transfer_ratio_cross_over_self": 0.9683917245358054,
+  "transfer_ratio_cross_over_random": 43.89706118294157
+}
