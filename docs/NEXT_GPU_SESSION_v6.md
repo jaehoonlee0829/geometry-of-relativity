@@ -57,6 +57,26 @@
 
 **Estimated time:** ~10 min (post-processing, no GPU needed if we save steered activations)
 
+### Priority 2b: Fix Σ⁻¹ — Use Unembedding Covariance (Park et al. Method)
+
+**Motivation:** Our Σ⁻¹ was null because we computed covariance from N=750 activation samples in d=2560 dimensions (N/d=0.29, rank-deficient). This is NOT what Park et al. did.
+
+**Park et al.'s actual method:** They compute `Cov(γ)⁻¹` from the **unembedding matrix** W_U (vocab×d), not from activation samples. With vocab=32K and d=4096, they have N/d=7.8 — well-conditioned, no regularization needed.
+
+**Our fix:** Gemma 4 E4B has vocab=262,144, d=2,560 → N/d=102. Compute:
+```python
+gamma = model.lm_head.weight  # (262144, 2560) — already exported as W_U
+centered = gamma - gamma.mean(0)
+Cov_gamma = centered.T @ centered / 262144  # (2560, 2560), full rank
+eigenvalues, eigvecs = eigh(Cov_gamma)
+inv_sqrt_Cov = eigvecs @ diag(1/sqrt(eigenvalues)) @ eigvecs.T
+```
+Then use `inv_sqrt_Cov` as the metric for comparing probe directions: `cos_C(w_z, w_ld) = w_z @ inv_sqrt_Cov @ w_ld / ...`
+
+**This could rescue the cos(w_z, w_ld) ≈ 0 mystery.** Under the unembedding metric, w_z and w_ld might actually align — Park et al. found that their causal inner product revealed structure invisible in Euclidean space.
+
+**Estimated time:** ~5 min (we already have W_U exported from `scripts/vast_remote/export_W_U.py`)
+
 ### Priority 3: Fisher at Peaked Activations
 
 **Motivation:** H4 failed at cell-mean activations because softmax is near-uniform there (high entropy → F ≈ (1/V)·I). But the model DOES make peaked predictions — at extreme z values, softmax concentrates on "tall" or "short". Fisher might be non-trivial there.
