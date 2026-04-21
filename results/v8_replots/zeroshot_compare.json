@@ -1,0 +1,34 @@
+{
+  "height": {
+    "cos_wx_zs_vs_wz_imp": 0.02826513903382937,
+    "cos_pc1_zs_vs_wz_imp": -0.00021203822374077635
+  },
+  "age": {
+    "cos_wx_zs_vs_wz_imp": 0.006672963751788897,
+    "cos_pc1_zs_vs_wz_imp": -0.008285069593152604
+  },
+  "weight": {
+    "cos_wx_zs_vs_wz_imp": 0.027743211859442837,
+    "cos_pc1_zs_vs_wz_imp": -0.013432282400668828
+  },
+  "size": {
+    "cos_wx_zs_vs_wz_imp": 0.016099949968590665,
+    "cos_pc1_zs_vs_wz_imp": -0.043801217490123466
+  },
+  "speed": {
+    "cos_wx_zs_vs_wz_imp": 0.01730351784607056,
+    "cos_pc1_zs_vs_wz_imp": -0.052506323790551195
+  },
+  "wealth": {
+    "cos_wx_zs_vs_wz_imp": -0.0047918764330546135,
+    "cos_pc1_zs_vs_wz_imp": -0.029089926244456422
+  },
+  "experience": {
+    "cos_wx_zs_vs_wz_imp": -0.002731051066874545,
+    "cos_pc1_zs_vs_wz_imp": -0.008174943048277521
+  },
+  "bmi_abs": {
+    "cos_wx_zs_vs_wz_imp": -0.04810561183817831,
+    "cos_pc1_zs_vs_wz_imp": -0.0049022064253121745
+  }
+}
