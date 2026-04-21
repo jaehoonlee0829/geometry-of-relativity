@@ -25,6 +25,17 @@ venv/
 *.npz
 *.pt
 
+# Bulk experiment data — lives on HF dataset xrong1729/mech-interp-relativity-activations
+# Fetch via `python scripts/fetch_from_hf.py` before running analysis scripts.
+results/v4_adjpairs/*_trials.jsonl
+results/v4_adjpairs/*_logits.jsonl
+results/v4_dense/*_trials.jsonl
+results/v4_dense/*_logits.jsonl
+results/v4_zeroshot_expanded/*_trials.jsonl
+results/v4_zeroshot_expanded/*_logits.jsonl
+results/v4_abs_controls/*_trials.jsonl
+results/v4_abs_controls/*_logits.jsonl
+
 # OS / editor
 .DS_Store
 .idea/

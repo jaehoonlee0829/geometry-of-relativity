@@ -1,0 +1,99 @@
+{
+  "pairs": {
+    "height": {
+      "low_word": "short",
+      "high_word": "tall",
+      "x_min": 150.0,
+      "x_max": 180.0,
+      "ld_at_xmin": 2.75,
+      "ld_at_xmax": 4.125,
+      "ld_range": 1.375,
+      "bias_toward_high": true,
+      "x_insensitive": false
+    },
+    "age": {
+      "low_word": "young",
+      "high_word": "old",
+      "x_min": 20.0,
+      "x_max": 60.0,
+      "ld_at_xmin": 0.25,
+      "ld_at_xmax": 1.875,
+      "ld_range": 1.625,
+      "bias_toward_high": true,
+      "x_insensitive": false
+    },
+    "experience": {
+      "low_word": "novice",
+      "high_word": "expert",
+      "x_min": 1.0,
+      "x_max": 25.0,
+      "ld_at_xmin": 2.5625,
+      "ld_at_xmax": 5.375,
+      "ld_range": 2.8125,
+      "bias_toward_high": true,
+      "x_insensitive": false
+    },
+    "size": {
+      "low_word": "small",
+      "high_word": "big",
+      "x_min": 5.0,
+      "x_max": 60.0,
+      "ld_at_xmin": -2.25,
+      "ld_at_xmax": -1.6875,
+      "ld_range": 0.5625,
+      "bias_toward_high": false,
+      "x_insensitive": false
+    },
+    "speed": {
+      "low_word": "slow",
+      "high_word": "fast",
+      "x_min": 20.0,
+      "x_max": 150.0,
+      "ld_at_xmin": -1.9375,
+      "ld_at_xmax": -1.9375,
+      "ld_range": 0.0,
+      "bias_toward_high": false,
+      "x_insensitive": true
+    },
+    "wealth": {
+      "low_word": "poor",
+      "high_word": "rich",
+      "x_min": 20000.0,
+      "x_max": 600000.0,
+      "ld_at_xmin": -1.25,
+      "ld_at_xmax": 1.5,
+      "ld_range": 2.75,
+      "bias_toward_high": false,
+      "x_insensitive": false
+    },
+    "weight": {
+      "low_word": "light",
+      "high_word": "heavy",
+      "x_min": 50.0,
+      "x_max": 100.0,
+      "ld_at_xmin": -2.5625,
+      "ld_at_xmax": -1.875,
+      "ld_range": 0.6875,
+      "bias_toward_high": false,
+      "x_insensitive": false
+    },
+    "bmi_abs": {
+      "low_word": "thin",
+      "high_word": "obese",
+      "x_min": 17.0,
+      "x_max": 38.0,
+      "ld_at_xmin": 0.375,
+      "ld_at_xmax": 6.5,
+      "ld_range": 6.125,
+      "bias_toward_high": true,
+      "x_insensitive": false
+    }
+  },
+  "summary": {
+    "n_pairs": 8,
+    "n_biased_high": 4,
+    "n_x_insensitive": 1,
+    "interpretation": "E4B is a BASE model; any bias here is most likely frequency-based rather than RLHF-politeness. Confirmed bias in: height, age, experience, bmi_abs; x-insensitive: speed",
+    "synonym_family_fix_recommendation": "Synonym family aggregation (4a) would help pairs where the tokenizer splits 'taller', 'tallest', etc. into different IDs. It does NOT fix x-insensitivity (size/speed/weight). Those pairs likely need prompt-design redesign or x-range widening."
+  }
+}

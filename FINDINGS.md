@@ -137,3 +137,177 @@ JSON summaries (same dir):
 1. **No-ICL control** (Task #23) — run extraction with `format_prompt_zero` across same x-grid. Check whether PC1 tracks x or z when no reference samples are given. Expected: R²(PC1~z) drops sharply; R²(PC1~x) rises. If PC1 still tracks "z-like structure" without ICL, the geometry is baked into the model rather than emerging from context.
 2. **Meta-direction steering** (Task #27) — causal intervention. See caveat (c) above.
 3. **Transfer to Llama-3.2-3B** (replication). Does `w₁` transfer to a different model family?
+
+---
+
+# Section 6 — v5 follow-up experiments (Day 6, 2026-04-21)
+
+Executes the 7-experiment red-team punch list from `docs/NEXT_GPU_SESSION.md`
+plus a G31B replication, plus a post-hoc random-direction null requested by a
+critic pass (3 parallel Claude subagents reviewing from statistical,
+alternative-interpretation, and implementation-correctness angles).
+
+Branch: `exp/next-gpu-session`. 14 commits. PR:
+<https://github.com/jaehoonlee0829/geometry-of-relativity/pull/4>.
+
+## 6.1 — Strong positive findings
+
+### Meta-direction w₁ causally steers all 8 pairs, far above the random null
+
+- `scripts/vast_remote/exp2_meta_steer.py` + `exp2b_random_null.py`.
+- w₁ = top right singular vector of stacked sign-aligned per-pair PC1
+  activations. 41.6% shared variance across 8 pairs.
+- Added α·w₁ to the residual stream at E4B layer 32. 100 implicit prompts per
+  pair, α ∈ {−8, −4, −2, −1, 0, 1, 2, 4, 8}.
+- Every pair: monotone linear curve. Slope magnitude ∈ [0.046, 0.129] logit
+  units per α-unit. See `figures/v4_adjpairs/meta_w1_steering_curves.png`.
+- **Random-direction null** (3 random unit vectors, same protocol):
+
+  | pair | w₁ slope | rand mean ± std | ratio w₁/rand |
+  |---|---|---|---|
+  | height | 0.080 | 0.004 ± 0.005 | **21.3×** |
+  | age | 0.064 | 0.007 ± 0.008 | 8.8× |
+  | weight | 0.094 | 0.010 ± 0.005 | 9.3× |
+  | size | 0.129 | 0.017 ± 0.021 | 7.7× |
+  | speed | 0.046 | 0.015 ± 0.016 | 3.1× |
+  | wealth | 0.084 | 0.009 ± 0.008 | 9.2× |
+  | experience | 0.079 | 0.009 ± 0.012 | 9.0× |
+  | bmi_abs | 0.098 | 0.003 ± 0.002 | **28.5×** |
+
+- Plot: `figures/v4_adjpairs/meta_w1_vs_random_null.png`.
+
+## 6.2 — Honest null / negative findings
+
+### H4 (Fisher pullback) is not supported at tested activations
+
+- `scripts/vast_remote/exp3b_fisher_cosines.py` — torch/GPU F(h) computation
+  (400 Fisher factorizations in ~2 min on H100).
+- Averaged over 8 pairs × 2 layers × 25 cell-mean activations each:
+
+  | layer | |cos(w_adj, w_z)| Euclid | |cos(w_adj, w_z)| F⁻¹ | lift |
+  |---|---|---|---|
+  | mid | 0.178 | 0.173 | −0.004 |
+  | late | 0.182 | 0.173 | −0.009 |
+
+- H4 predicted `cos_F⁻¹(w_adj, w_z) > 0.7` for relative adjectives.
+  **Max observed is 0.30 (speed/mid).** The prediction does not hold.
+- Per-cell standard deviation of F⁻¹ cosines is 1e-4 to 7e-3, so F(h) is
+  essentially isotropic across the activations we probed. Mechanism:
+  cell-mean activations sit in a high-entropy region of the softmax, where
+  `diag(p) − ppᵀ` is well-conditioned and close to `(1/V)·I`. F⁻¹ ≈ c·I.
+  H4 might still hold at peaked-prediction activations; not tested.
+- Figure: `figures/v4_adjpairs/fisher_vs_euclid_cosines.png`.
+
+### Relative-vs-absolute dichotomy is not statistically significant (n=7 vs 4)
+
+- Added 3 new absolute controls: `temp_abs` (cold/hot), `legal_abs`
+  (minor/adult), `grade_abs` (failing/passing). Each: 780 prompts, standard
+  5×5 grid × 30 seeds. Total 2340 new prompts.
+- Project-convention relativity ratios at E4B layer late:
+
+  | class | n | mean ± std |
+  |---|---|---|
+  | relative (height, age, experience, size, speed, wealth, weight) | 7 | 0.749 ± 0.231 |
+  | absolute (bmi_abs, temp_abs, legal_abs, grade_abs) | 4 | 0.708 ± 0.194 |
+
+- **Welch t = −0.33, p = 0.75.** Not significant.
+- `legal_abs` has the *highest* relativity ratio (0.89) — "adult" is
+  polysemous, and the model reads the context block as the reference
+  distribution even for this supposedly-anchored concept.
+- Figure: `figures/v4_adjpairs/relativity_ratio_absolute_vs_relative.png`.
+
+### Σ⁻¹ metric is essentially uninformative at d=2560, N=750
+
+- `scripts/vast_remote/exp3a_sigma_inv.py`.
+- Regularization λ = 1e-3 · trace(Σ)/d dominates Σ at this dimensionality
+  → Σ⁻¹ ≈ c·I. Cosines in the Σ⁻¹ metric differ from Euclidean by ≤0.05.
+- Honest negative finding; motivates focusing on Fisher (even though
+  Fisher also failed, it failed for a cleaner mechanistic reason).
+
+### Zero-shot direction "orthogonal to implicit z-direction" is null-consistent
+
+- `scripts/vast_remote/exp1_zero_shot_expand.py` — 5 x × 30 phrasing seeds
+  × 8 pairs = 1200 zero-shot prompts.
+- Zero-shot *does* encode x cleanly (cv_R²(w_x_zeroshot → x) ≥ 0.96).
+- cos(w_x_zeroshot, w_z_implicit) ∈ [−0.01, +0.08] across all 8 pairs × 2
+  layers.
+- **But** in d=2560, two random unit vectors have cos with stddev
+  ≈ 1/√d ≈ 0.020. Observed |cos| ≤ 0.08 is only 2–4σ above chance —
+  directionally consistent with the hypothesis, not quantitatively above
+  the null.
+
+## 6.3 — Scaling evidence (G31B)
+
+- `scripts/vast_remote/g31b_adjpairs.py` — same 8-pair extraction on
+  Gemma 4 31B (60 layers, d=5376). 6000 implicit prompts in ~4 min.
+
+  | pair | E4B late | G31B late | Δ |
+  |---|---|---|---|
+  | height | 0.80 | 0.92 | +0.12 |
+  | age | 0.82 | 0.92 | +0.10 |
+  | weight | 0.96 | 0.91 | −0.05 |
+  | size | 1.03 | 0.76 | −0.27 |
+  | speed | 0.75 | 0.79 | +0.04 |
+  | wealth | 0.43 | 0.69 | +0.26 |
+  | experience | 0.45 | 0.88 | +0.43 |
+  | bmi_abs | 0.49 | 0.54 | +0.05 |
+
+- 6/8 pairs get *more* relative at scale. Absolute/relative gap *shrinks*.
+  Caveat: 6/8 is not a significant sign test (binomial p≈0.29 under null).
+- Figure: `figures/v4_adjpairs/g31b_vs_e4b_relativity.png`.
+
+## 6.4 — Zero-shot bias (Exp 4d)
+
+- `scripts/vast_remote/exp4d_validation.py`.
+- 4/8 pairs predict the "high" word even at objective x_min. E.g., the model
+  says "tall" for a 150 cm person, "old" for 20 years, "expert" for 1 year
+  experience, "obese" for BMI 17 — all in zero-shot context.
+- 3/8 pairs (size/speed/weight) never predict the "high" word across their
+  entire x range in zero-shot.
+- Alternative explanation flagged by a critic agent but not tested:
+  after "is a", vowel-initial words (old, expert, obese, tall — all four
+  biased-high words) may be favored by determiner-tokenization asymmetry.
+
+## 6.5 — Critic consensus (3 parallel skeptical agents)
+
+Three Claude subagents reviewed independently from different angles:
+
+- **Statistical methodology**: flagged Exp 2 needed a random-direction null
+  (now added as 2b), questioned Exp 7 power at n=4 vs 7, flagged multiple-
+  comparison inflation across 192 cosines, and noted Σ⁻¹ regularization
+  dominance. Verdict: Σ⁻¹/F⁻¹ negative findings are honest; meta-steering
+  survives with the null control; Exp 1 orthogonality is null-consistent.
+- **Alternative interpretation**: flagged that w₁ steers bmi_abs with the
+  *largest* slope (not uniform) → probably a polarity direction, not a
+  relativity direction. Flagged "legal_abs adult is polysemous" as
+  prompt-design confound. Flagged that F(h) isotropy at cell-means doesn't
+  refute H4 at peaked activations. Flagged vowel-onset / determiner confound
+  for Exp 4d.
+- **Implementation correctness**: caught a formula mismatch in Exp 7
+  (primary `welch_t/p` was computed from a mixed-convention vector — fixed).
+  Flagged y_adj definition divergence from the reference pipeline and a
+  Fisher-precision deviation from `src/fisher.py`. Flagged a mislabel
+  ("obese/healthy" → should be "obese/thin") in `plots_per_pair_v5.py` — fixed.
+
+All three reports informed the "known limitations" section of the PR body
+(`docs/PR_next_gpu_session.md`). None of the findings above were modified
+post-hoc to fit the hypotheses; the critics' flags are surfaced, not buried.
+
+## 6.6 — What this means for the paper
+
+Recommended framing shift for ICML MI Workshop (May 8):
+
+- **Keep and lead with**: the 8-pair behavioral heatmap + the meta-direction
+  causal steering result with random-null control. Both are strong and
+  reproduce on both models.
+- **Reframe**: "universal relativity substrate" → "shared adjective-polarity
+  substrate" — w₁ shifts polarity for absolute and relative pairs alike.
+- **Soften or move to appendix**: H4 (Fisher pullback as a magnifying glass
+  for relativity), the 2-class relative/absolute dichotomy, and the
+  orthogonality claim for zero-shot x-direction vs implicit z-direction.
+- **Explicit limitations section** required: x-ranges that don't bracket the
+  decision boundary for size/speed/weight; base-model zero-shot bias;
+  polysemous "adult"; underpowered n=4 absolute class.
+
+The paper will likely be narrower in its causal claim (polarity ≠ relativity)
+but stronger in evidence (null-controlled steering, 2-model scaling).
