@@ -1,0 +1,10 @@
+{
+  "grid": "B (x, z independent)",
+  "pair": "posneg_abs",
+  "slope_x": 0.26600875190258716,
+  "slope_mu": -0.1250555555555556,
+  "relativity_ratio": 0.47011819972506447,
+  "v6_grid_A_relativity_ratio": 0.41612260950789015,
+  "n_trials": 750,
+  "corr_xz": 0.0
+}
