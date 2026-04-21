@@ -174,20 +174,18 @@ def main():
     for p in PAIRS:
         print(f"  {p.name:12s}  A={confound_xz_gridA[p.name]:+.3f}  B={confound_xz_gridB[p.name]:+.3f}")
 
-    # Figure: Grid B matrix heatmap
-    fig, axes = plt.subplots(1, 2, figsize=(18, 7))
-    for ax, M, title in [(axes[0], mean_A, "Grid A (x,μ) — v4/v6 — CONFOUNDED"),
-                           (axes[1], mean_B, "Grid B (x,z) — v7 — CLEAN")]:
-        im = ax.imshow(np.abs(M), cmap="Blues", vmin=0, vmax=1)
-        ax.set_xticks(range(len(DIR_NAMES))); ax.set_xticklabels(DIR_NAMES, rotation=30, ha="right")
-        ax.set_yticks(range(len(DIR_NAMES))); ax.set_yticklabels(DIR_NAMES)
-        for i in range(len(DIR_NAMES)):
-            for j in range(len(DIR_NAMES)):
-                ax.text(j, i, f"{abs(M[i][j]):.2f}", ha="center", va="center",
-                        color="white" if abs(M[i][j]) > 0.5 else "black", fontsize=9)
-        plt.colorbar(im, ax=ax, fraction=0.04)
-        ax.set_title(title)
-    fig.suptitle("Direction cosines: confounded (Grid A) vs clean (Grid B)")
+    # Figure: Grid B matrix heatmap (clean grid only)
+    fig, ax = plt.subplots(figsize=(9, 7))
+    M = mean_B
+    im = ax.imshow(np.abs(M), cmap="Blues", vmin=0, vmax=1)
+    ax.set_xticks(range(len(DIR_NAMES))); ax.set_xticklabels(DIR_NAMES, rotation=30, ha="right")
+    ax.set_yticks(range(len(DIR_NAMES))); ax.set_yticklabels(DIR_NAMES)
+    for i in range(len(DIR_NAMES)):
+        for j in range(len(DIR_NAMES)):
+            ax.text(j, i, f"{abs(M[i][j]):.2f}", ha="center", va="center",
+                    color="white" if abs(M[i][j]) > 0.5 else "black", fontsize=9)
+    plt.colorbar(im, ax=ax, fraction=0.04)
+    ax.set_title("Direction cosines — Grid B (x, z) — v7 clean", fontsize=12)
     fig.tight_layout()
     fig.savefig(OUT_FIG / "direction_confound_matrix_gridB.png", dpi=140)
     plt.close(fig)

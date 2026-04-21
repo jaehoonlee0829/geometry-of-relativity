@@ -35,6 +35,10 @@ results/v4_zeroshot_expanded/*_trials.jsonl
 results/v4_zeroshot_expanded/*_logits.jsonl
 results/v4_abs_controls/*_trials.jsonl
 results/v4_abs_controls/*_logits.jsonl
+results/v7_xz_grid/*_trials.jsonl
+results/v7_xz_grid/*_logits.jsonl
+results/v7b_xz_grid/*_trials.jsonl
+results/v7b_xz_grid/*_logits.jsonl
 
 # OS / editor
 .DS_Store

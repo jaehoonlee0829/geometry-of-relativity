@@ -1,44 +1,22 @@
 # BUILDING.md — What to run RIGHT NOW
 
-## Active task (Day 5→6, Apr 21 2026) — NEXT-GPU-SESSION
+## Active task — v8 GPU session prep
 
-Execute all 7 experiments from `docs/NEXT_GPU_SESSION.md` + G31B secondary run, single branch `exp/next-gpu-session`, one commit per experiment, one PR at the end. Critic-agent consensus pass before PR opens.
+No GPU task currently running. Next GPU session plan is in `docs/NEXT_GPU_SESSION_v8.md`.
 
-### Time budget
+### What's ready to run (CPU, no GPU needed)
 
-Not hard-capped. Goal: all 7 done thoroughly, skip rationalization.
+1. **Fetch Grid B .npz from HF** — `python scripts/fetch_from_hf.py --only v7_xz_grid --data-kind npz`
+2. **Regenerate PCA horseshoe** — needs .npz files, then run CPU PCA scripts
+3. **Regenerate SVD scree + cross-pair PC1 cosine heatmap** — same dependency
 
-### Execution order (unblock first, then priority)
+### What needs GPU
 
-| # | Experiment | Est GPU | What it unblocks |
-|---|---|---|---|
-| A | Setup: branch, data reuse (copy from `/workspace/repo`), BUILDING.md, port `export_W_U.py` | 0 | Everything |
-| 5 | Per-pair plots from cached logits (8-panel heatmaps, scatter, etc.) | 0 (reuse) | Visual hero figures for paper |
-| 4d | P(short) vs P(tall) zero-shot bias validation | 0 (reuse) | Whether Exp 4a is needed |
-| 3a | Σ⁻¹ cosine JSON persistence | 0 (CPU) | Red-team #3 |
-| 6 | Drop w_adj from main results (editorial) | 0 | Paper cleanup |
-| 2 | Meta-direction w₁ steering × 8 pairs × 9 α | ~15 min | Causal claim |
-| 3b | F⁻¹ cosines (H4 validation) — sample ~50 cell-mean activations | ~30 min | Paper's theoretical anchor |
-| 1 | Zero-shot expansion (5x × 30 seeds × 8 pairs) | ~5 min | Zero-shot direction analysis |
-| 7 | 3 new absolute-adjective controls (freezing, minor/adult, pass/fail) | ~30 min | n=4 absolute → statistical comparison |
-| 4a | Synonym-family re-extraction (conditional on 4d) | ~5 min | Token-design fix |
-| G31B | v4_adjpairs extraction + core analyses on Gemma 4 31B | ~10 min | Paper scaling evidence |
-| C | Spawn 3 critic agents, synthesize consensus | 0 | Skepticism pass |
-| D | Upload new data to HF, commit per-exp, open PR | 0 | Ship |
+See `docs/NEXT_GPU_SESSION_v8.md` for the full plan:
+- Priority 1+2: Direct sign classification + top-K tokens (~3 min)
+- Priority 4: Cross-template transfer test (~5 min)
 
-### Data provenance
+### Replot scripts (CPU, already working)
 
-- v4_adjpairs / v4_dense / activations: copied from `/workspace/repo/results/` (same Vast box, same files uploaded to HF at `xrong1729/mech-interp-relativity-activations`).
-- W_U: re-generated on demand via `scripts/vast_remote/export_W_U.py e4b`.
-- Model weights: cached at `/workspace/.hf_home/hub/` (E4B + G31B).
-
-### Working principles (per user directive Apr 21)
-
-1. Separate branch → one PR (`exp/next-gpu-session`).
-2. Upload data to HF for anything GPU-expensive; results/plots in git.
-3. Surface red flags; never rationalize away a hypothesis-killing result.
-4. Save every relevant plot.
-
-### Completion promise word
-
-NEXT-ECLIPSE
+- `python scripts/plots_v7_behavioral.py` — all behavioral plots from v7 jsonl
+- `python scripts/replot_v7_from_json.py` — all geometry plots from v7 JSON results

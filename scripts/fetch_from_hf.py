@@ -29,6 +29,7 @@ FOLDERS = {
     "v4_adjpairs":          "results/v4_adjpairs",
     "v4_zeroshot_expanded": "results/v4_zeroshot_expanded",
     "v4_abs_controls":      "results/v4_abs_controls",
+    "v7_xz_grid":           "results/v7_xz_grid",
     "prompts":              "data_gen",  # prompts_v*.jsonl live here in repo
 }
 
