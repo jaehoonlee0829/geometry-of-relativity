@@ -467,3 +467,125 @@ specific feature, or an artifact of these two pairs having been the "dirtiest"
 in the raw Grid A design? If repeating with a different clean-grid design
 (e.g., independent x and μ instead of independent x and z) recovers similar
 patterns, it's likely model/domain; if patterns shift, it's design-artifact.
+
+---
+
+# Section 8 — v8 prompt-sensitivity + clean-grid replots (2026-04-21)
+
+Tests whether v7's R=0.47 for pos/neg math is prompt-design artifact;
+replots v4/v6 activation-geometry figures on clean Grid B; validates
+cross-pair transfer with cross-template test.
+
+Branch: `exp/v8-direct-sign`. 5 commits. Critic-agent pass confirmed
+scoring-token validity is the biggest unreported concern.
+
+## 8.1 — Direct sign classification: only 1 of 4 variants is valid
+
+Tested 4 prompts on Grid B pos/neg math. Top-K diagnostic revealed that
+only ONE variant has its scoring tokens reliably in the model's top-10
+predictions:
+
+  variant     scoring tokens    high in top-10  low in top-10   R
+  orig        positive/negative    16%             54%         0.47
+  compared    above/below           0%              0%         0.24 (invalid)
+  relative    higher/lower          0%              0%         0.47 (invalid)
+  forced_qa   Above/Below         100%            100%         0.31  ← only valid
+
+The "compared" and "relative" variants measure logit_diff on tokens that
+never appear in top-10 — essentially tail-distribution noise. Forced Q/A
+("Is this number above or below zero? Answer:") is the only variant where
+the scoring tokens are the model's actual top completions.
+
+Refined pos/neg claim: R = 0.31, accuracy = 0.95.
+  - Non-zero → residual context effect exists.
+  - Substantially smaller than v7's 0.47 → earlier headline was inflated
+    by ambiguous-prompt scoring on out-of-top-10 tokens.
+
+## 8.2 — PCA on clean Grid B: PC1 is NOT universally the z-axis
+
+v4 reported "horseshoe: PC1 = z, PC2 = z²" as universal. On Grid B
+(clean), PC1 splits into two classes:
+
+  PC1 ≈ z-axis (4 pairs):     height 0.95, weight 0.97, wealth 0.60, bmi_abs 0.69
+  PC1 ≈ x-axis (4 pairs):     age 0.87, size 0.67, speed 0.88, experience 0.62
+
+The model represents height and weight with z as the primary variance
+axis (context dominates). But age, size, speed, and experience have x as
+the primary axis (raw magnitude dominates). The v4 universality claim was
+driven by the Grid A x-z confound.
+
+Correlation of R²(PC1~x) with x_range/σ across pairs: −0.42 (weak). So
+the split isn't purely a "variance of x vs variance of μ" artifact.
+
+## 8.3 — Meta-direction shared variance: 32.6% (vs Grid A 41.6%)
+
+SVD of stacked per-pair PC1s on Grid B: top singular vector captures 32.6%
+of shared variance, vs 41.6% on Grid A. Confound inflated the shared
+variance metric by ~25%.
+
+Cross-pair PC1 |cos| mean off-diagonal: 0.19 (vs Grid A 0.32). Confound
+inflated this by ~40%.
+
+## 8.4 — Zero-shot × implicit orthogonality confirmed on clean grid
+
+|cos(w_x_zeroshot, w_z_implicit)| across 8 pairs on Grid B: all values
+in [0.003, 0.048], at or below the √(1/d) ≈ 0.020 chance floor. The v5
+claim that zero-shot x-direction is orthogonal to implicit z-direction
+holds on clean grid (slightly stronger evidence).
+
+## 8.5 — Cross-template transfer: 97% of self-steering (height)
+
+Extracted height activations for two templates:
+  A: "This person is"
+  B: "Among the individuals listed, the one measuring X cm would be described as"
+
+Results:
+  cos(primal_z_A, primal_z_B)          = +0.727
+  slope(primal_z_B → B)                = +0.152 (self)
+  slope(primal_z_A → B)                = +0.147 (cross-template)
+  slope(random → B)                    =  0.003 (null, 3 seeds)
+
+  cross / self:    0.968  (97%)
+  cross / random: 43.9×
+
+Verified: Template B has "tall"/"short" in top-10 for 99%/53% of prompts
+(Template A: 34%/1%) — so the steering evaluation on B is clean
+regardless of A's scoring quality.
+
+The primal_z direction at layer 32 is template-invariant. Tested on
+n=1 pair (height); replication needed.
+
+## 8.6 — What v8 changes for the paper
+
+**Reframe from v7**:
+  - Pos/neg math: "R=0.47" → "R=0.31" (on the only valid prompt variant).
+  - PC1 horseshoe: "universal z-axis" → "z-axis for 4 pairs, x-axis for 4
+    pairs". Model's internal representation is heterogeneous.
+  - Meta-direction shared variance: 41.6% → 32.6%.
+  - Cross-pair PC1 cosine: 0.32 → 0.19.
+
+**New evidence**:
+  - Cross-template transfer at 97% of self-steering (height only).
+    Adds confidence that primal_z captures a semantic (not syntactic)
+    object — at least in mid-to-late layers.
+  - top-K scoring validity check becomes a methodological requirement:
+    future R measurements should verify scoring tokens are in top-K before
+    quantitative claims.
+
+**Spectrum of R across concepts × prompts (all Grid B, clean):**
+
+  concept × prompt                       R        valid?
+  posneg × orig                          0.47     noisy (16% top-10)
+  posneg × forced_qa                     0.31     ✓ clean
+  bmi_abs × "This person is"             0.49     TBD (needs top-K check)
+  legal_abs × "is a"                     0.89     invalid? (top-K unchecked)
+  grade_abs × "This student is"          0.80     TBD
+  temp_abs × "This liquid is"            0.65     TBD
+  experience × "is"                      0.45     TBD
+  wealth × "is"                          0.43     TBD
+  height × "This person is"              0.80     ≈ clean (many-shot context)
+  ...
+
+The "continuous relativity spectrum" framing still holds, but the exact
+R values need re-validation per-prompt. Minimum R across valid prompts
+per concept is likely the right metric.
