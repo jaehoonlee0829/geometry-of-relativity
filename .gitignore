@@ -4,8 +4,7 @@
 *.key
 anthropic_key*
 
-# Personal / local-only notes (not for the repo)
-VAST_INSTRUCTIONS.md
+# Personal / local-only
 .vast/
 ssh_config_vast*
 
@@ -20,17 +19,7 @@ venv/
 .ruff_cache/
 .mypy_cache/
 
-# Experimental outputs (kept local, too large for git)
-results/behavioral_v0/*.json
-results/activations/
-results/probes/
-results/v4_dense/
-results/v4_analysis/
-results/v4_adjpairs/
-results/*.log
-# Smoke-test leftover backups on FUSE mounts
-results/*.bak_smoke/
-results/*.bak_inlp_smoke/
+# Large binary model artifacts
 *.safetensors
 *.pkl
 *.npz
@@ -41,14 +30,3 @@ results/*.bak_inlp_smoke/
 .idea/
 .vscode/
 *.swp
-
-# Figures — temp files only
-figures/tmp_*
-
-# LaTeX
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.synctex.gz

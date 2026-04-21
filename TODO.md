@@ -45,6 +45,5 @@
 
 ## Waiting on user
 
-- [ ] Destroy Vast instance m:56779 after OBSIDIAN-LATTICE runs complete
 - [ ] Decide whether to merge `exp/v4-auto-research` into main or keep as review PR
-- [ ] Write local SSH config for vastai host (minor convenience)
+- [ ] Destroy Vast instance after OBSIDIAN-LATTICE runs complete
