@@ -1,0 +1,84 @@
+{
+  "per_pair_new": {
+    "temp_abs": {
+      "slope_x": 0.05353750000000008,
+      "slope_mu": -0.034926104972375714,
+      "slope_z_alone": 0.6704379921259846,
+      "relativity_ratio": 0.6051923841009288,
+      "n_implicit": 750,
+      "relativity_ratio_proj": 0.6523671253303883
+    },
+    "legal_abs": {
+      "slope_x": 0.26157318376068395,
+      "slope_mu": -0.23345307308970087,
+      "slope_z_alone": 0.9830093457943937,
+      "relativity_ratio": 0.5284026455978731,
+      "n_implicit": 750,
+      "relativity_ratio_proj": 0.8924962021462014
+    },
+    "grade_abs": {
+      "slope_x": 0.02454869684498548,
+      "slope_mu": -0.019536885245894038,
+      "slope_z_alone": 0.27448219178082156,
+      "relativity_ratio": 0.5568418444339267,
+      "n_implicit": 750,
+      "relativity_ratio_proj": 0.795842050975704
+    }
+  },
+  "relative_pairs": [
+    "height",
+    "age",
+    "experience",
+    "size",
+    "speed",
+    "wealth",
+    "weight"
+  ],
+  "relative_relativity_ratios": [
+    0.7978772074297756,
+    0.8214254481853948,
+    0.45243460997916624,
+    1.031417167212634,
+    0.7469800887329264,
+    0.4307687917998822,
+    0.9602429375038635
+  ],
+  "absolute_pairs": [
+    "bmi_abs",
+    "temp_abs",
+    "legal_abs",
+    "grade_abs"
+  ],
+  "absolute_relativity_ratios": [
+    0.4893109843954143,
+    0.6051923841009288,
+    0.5284026455978731,
+    0.5568418444339267
+  ],
+  "welch_t": -2.2446080166271076,
+  "welch_p_twosided": 0.06028665284153658,
+  "relative_mean": 0.748735178691949,
+  "relative_std": 0.23138826803039125,
+  "absolute_mean": 0.5449369646320358,
+  "absolute_std": 0.04878550031063942,
+  "note": "relativity_ratio = |slope_x| / (|slope_x| + |slope_\u03bc|). Absolute pairs should have ratio\u21921 (pure-x); relative should have ratio<<1 (\u03bc matters as much as x).",
+  "project_convention_note": "relativity_ratio = -slope_mu / slope_x (1=perfect relativity, 0=perfect absolute)",
+  "relative_ratios_proj": {
+    "height": 0.7978772074297756,
+    "age": 0.8214254481853948,
+    "experience": 0.45243460997916624,
+    "size": 1.031417167212634,
+    "speed": 0.7469800887329264,
+    "wealth": 0.4307687917998822,
+    "weight": 0.9602429375038635
+  },
+  "absolute_ratios_proj": {
+    "bmi_abs": 0.4893109843954143,
+    "temp_abs": 0.6523671253303883,
+    "legal_abs": 0.8924962021462014,
+    "grade_abs": 0.795842050975704
+  },
+  "welch_t_proj": -0.3325576578764742,
+  "welch_p_proj": 0.7480419659973977,
+  "interpretation": "Mean relativity_ratio: relative=0.749, absolute=0.708. Welch t=-0.333, p=0.7480. With n=7 relative and n=4 absolute, the distinction is NOT statistically significant. Absolute pairs (bmi_abs, temp_abs, legal_abs, grade_abs) show substantial relativity in the model: slope_mu is nonzero and comparable in magnitude to slope_x. The model does not treat these concepts as purely absolute even where they have canonical thresholds."
+}
