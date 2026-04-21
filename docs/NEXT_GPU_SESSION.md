@@ -110,10 +110,14 @@
 - Run `analyze_v4_adjpairs.py` to generate per-pair heatmaps
 - Fix `pca_per_pair_late.png` — text labels are overlapping, need layout fix
 
-**Additional plots needed:**
+**Plots to generate once data is re-extracted:**
 - 8-panel logit_diff heatmap grid (x vs μ, one panel per pair) — the "hero" behavioral figure
+- 8-panel (x vs z) heatmap grid — shows within-column constancy (pure relativity test)
 - Per-pair implicit vs explicit comparison scatter
-- Zero-shot logit_diff by x per pair (showing prior biases)
+- Per-pair logit_diff vs z scatter (colored by x) with cell means overlaid
+- Zero-shot logit_diff by x per pair (already generated from summary.json, but re-do with full data)
+
+**NOTE:** These plots CANNOT be generated locally — the per-prompt `.jsonl` logit files were left on the Vast GPU instance. Only aggregate stats in `summary.json` are available locally. This re-extraction is BLOCKING for most visualization work.
 
 ## 6. Drop w_adj or Justify It
 
