@@ -77,19 +77,26 @@ Then use `inv_sqrt_Cov` as the metric for comparing probe directions: `cos_C(w_z
 
 **Estimated time:** ~5 min (we already have W_U exported from `scripts/vast_remote/export_W_U.py`)
 
-### Priority 3: Fisher at Peaked Activations
+### Priority 3: Fisher at Peaked Activations + Park's Cov(W_U)⁻¹
 
-**Motivation:** H4 failed at cell-mean activations because softmax is near-uniform there (high entropy → F ≈ (1/V)·I). But the model DOES make peaked predictions — at extreme z values, softmax concentrates on "tall" or "short". Fisher might be non-trivial there.
+**Background from web search:** Nobody else has implemented F(h)⁻¹·w for LLM steering — our implementation is novel. Park et al.'s "causal inner product" uses Cov(W_U)⁻¹ (static, from unembedding matrix), NOT Fisher. When softmax is uniform, F(h) ≈ (1/V)·W_Uᵀ W_U ≈ Cov(γ), explaining why our result matches Park's regime.
 
-**What to do:**
-- Select activations where |logit_diff| > 3 (confident predictions)
-- Recompute F(h) at these peaked activations
+**Two things to try:**
+
+**3a. Fisher at peaked activations:**
+- Select activations where |logit_diff| > 3 (confident predictions, low-entropy softmax)
+- Recompute F(h) — diag(p) − ppᵀ should now be highly anisotropic
 - Check if F⁻¹ is no longer isotropic
-- Recompute cos_F⁻¹(w_adj, w_z) at peaked vs flat activations
+- Recompute cos_F⁻¹(w_z, w_ld) at peaked vs flat activations
+- If cos increases at peaked activations, H4 is scope-limited (not refuted)
 
-**Why this matters:** If Fisher only works at peaked predictions, H4 isn't refuted — it's scope-limited. The paper could say "Fisher-pullback diagnosis works when the model is confident, but not at average activations."
+**3b. Park's causal inner product (properly):**
+- Use Cov(W_U)⁻¹ from unembedding matrix as a GLOBAL metric (not per-activation)
+- This is different from what we computed as Σ⁻¹ (which was activation covariance, wrong object)
+- Park used Ledoit-Wolf shrinkage, not naive Tikhonov
+- Compute cos_Park(w_z, w_ld) — does the "mystery" cos ≈ 0 resolve?
 
-**Estimated time:** ~20 min on H100
+**Estimated time:** ~25 min on H100
 
 ### Priority 4: PC2 Steering (Surprise/Atypicality Direction)
 
