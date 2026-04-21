@@ -98,6 +98,31 @@ Then use `inv_sqrt_Cov` as the metric for comparing probe directions: `cos_C(w_z
 
 **Estimated time:** ~25 min on H100
 
+### Priority 3c: Positive/Negative (Math) — Best Absolute Control
+
+**Motivation:** All previous absolute controls failed: "adult" is polysemous, "hot" is linguistically relative, "obese" shows R=0.49. We need a concept with a truly fixed, unambiguous threshold.
+
+**Positive/negative math** has threshold at exactly 0, no polysemy, no cultural dependence:
+- Low word: "negative" (single token ✓)
+- High word: "positive" (single token ✓)
+- Threshold: 0 (mathematically absolute)
+- x values: [−8, −3, 0, 3, 8]
+- μ values: [−6, −2, 0, 2, 6]
+- σ: 3
+
+**Prompt format:**
+```
+Number 1: 3.2
+Number 2: −1.5
+...
+Number 15: 0.8
+Number 16: −5. This number is
+```
+
+**Prediction:** If any concept is truly absolute, this one should show R ≈ 0. If even positive/negative is context-relative (R > 0.3), then the "all adjectives are relative" finding becomes very strong.
+
+**Estimated time:** ~5 min (780 prompts, same pipeline)
+
 ### Priority 4: PC2 Steering (Surprise/Atypicality Direction)
 
 **Motivation:** PC2 correlates with z² across all pairs. If steering along PC2 changes hedging/uncertainty language without flipping tall/short, it's a real "surprise" feature. If nothing happens, it's a PCA artifact.
