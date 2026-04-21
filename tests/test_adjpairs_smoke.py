@@ -11,6 +11,7 @@ Verifies:
 """
 from __future__ import annotations
 
+import math
 import re
 import sys
 import statistics
@@ -75,8 +76,10 @@ def test_implicit_sampling_varies_across_seeds():
 
 
 def test_implicit_sampling_mean_near_mu():
-    """Across many seeds, the mean of the sampled context values should be near mu
-    (within ~3*sigma / sqrt(n*15) — loose, just to catch gross bugs).
+    """Across many seeds, the CENTRAL TENDENCY of the sampled context values
+    should track mu. For linear-space pairs that means the arithmetic mean;
+    for log-space pairs (wealth) it means the geometric mean (== median of
+    the log-normal), since the arithmetic mean is biased up by exp(σ_log²/2).
 
     Lines look like 'Person 7: 165 cm' or 'Worker 3: 12 years experience' or
     'Person 12 earns $75000/year'. The *last* number on the line is always the
@@ -84,6 +87,7 @@ def test_implicit_sampling_mean_near_mu():
     """
     number_re = re.compile(r"(-?\d+(?:\.\d+)?)")
     for pair in ev.PAIRS:
+        log_space = pair.name in ev.LOG_SPACE_PAIRS
         mu = pair.mu_values[len(pair.mu_values) // 2]  # middle value
         all_vals = []
         for s in range(30):
@@ -91,15 +95,22 @@ def test_implicit_sampling_mean_near_mu():
             for line in items:
                 nums = number_re.findall(line)
                 if nums:
-                    # Last number = value; first is typically the index.
                     all_vals.append(float(nums[-1]))
         assert len(all_vals) > 200, f"{pair.name}: too few sampled values ({len(all_vals)})"
-        sample_mean = statistics.mean(all_vals)
-        # Allow a generous slack: clipping effects + SE of the mean.
-        slack = 3 * pair.sigma / (len(all_vals) ** 0.5) + 0.15 * abs(mu) + pair.sigma * 0.5
-        assert abs(sample_mean - mu) < slack, (
-            f"{pair.name}: implicit sample mean {sample_mean:.2f} far from mu {mu:.2f} "
-            f"(slack={slack:.2f})")
+        if log_space:
+            # Geometric mean ≈ mu for a log-normal centered at log(mu).
+            # Use the log-mean to compare (avoids the exp(σ²/2) bias).
+            log_mean = statistics.mean(math.log(v) for v in all_vals if v > 0)
+            slack = math.log(pair.sigma) * 0.6  # generous: ~1 s.d. in log-space
+            assert abs(log_mean - math.log(mu)) < slack, (
+                f"{pair.name}: log-space sample log-mean {log_mean:.3f} far from "
+                f"log(mu)={math.log(mu):.3f} (slack={slack:.3f})")
+        else:
+            sample_mean = statistics.mean(all_vals)
+            slack = 3 * pair.sigma / (len(all_vals) ** 0.5) + 0.15 * abs(mu) + pair.sigma * 0.5
+            assert abs(sample_mean - mu) < slack, (
+                f"{pair.name}: implicit sample mean {sample_mean:.2f} far from mu {mu:.2f} "
+                f"(slack={slack:.2f})")
 
 
 def test_bmi_abs_prompts_look_like_bmi():

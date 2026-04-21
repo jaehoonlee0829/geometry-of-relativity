@@ -38,6 +38,7 @@ try:
     from sklearn.model_selection import KFold, cross_val_score
     from sklearn.preprocessing import StandardScaler
     from sklearn.decomposition import PCA
+    from sklearn.pipeline import Pipeline
 except ImportError as e:
     print(f"[fatal] scikit-learn not installed: {e}", file=sys.stderr)
     sys.exit(2)
@@ -233,19 +234,28 @@ def train_ridge_probe(X: np.ndarray, y: np.ndarray, alpha: float = 1.0,
     (x, mu, seed). Without shuffling, each fold becomes a distinct x-bucket
     and CV R² collapses (generalization to unseen x is not what we want to
     measure — we want within-distribution generalization to new seeds).
+
+    NOTE on leakage: StandardScaler is fit INSIDE a Pipeline for CV, so the
+    scaler refits on each training fold. Fitting the scaler once on all
+    rows before cross_val_score leaks per-feature mean/std from the held-out
+    fold into training — small effect in our regime but wrong in principle.
+    The returned w (for downstream geometry/steering) is still fit on all
+    rows; only the reported CV R² uses a clean Pipeline.
     """
+    # Final probe weights: fit on full data (for steering / geometry)
     scaler = StandardScaler()
     X_s = scaler.fit_transform(X)
-    # Fit on full data to get final w
     model = Ridge(alpha=alpha, fit_intercept=True)
     model.fit(X_s, y)
     w_scaled = model.coef_
-    # Back-transform to original space
     w = w_scaled / scaler.scale_
-    # 5-fold shuffled CV
+    # Leakage-free CV: scaler refits inside each training fold
+    pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("ridge", Ridge(alpha=alpha, fit_intercept=True)),
+    ])
     kf = KFold(n_splits=5, shuffle=True, random_state=cv_seed)
-    cv_r2 = float(np.mean(cross_val_score(Ridge(alpha=alpha), X_s, y,
-                                          cv=kf, scoring="r2")))
+    cv_r2 = float(np.mean(cross_val_score(pipe, X, y, cv=kf, scoring="r2")))
     return w, w_scaled, cv_r2, scaler
 
 

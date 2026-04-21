@@ -1,0 +1,118 @@
+
+--- height/mid ---
+  N=750  ld_mean=+0.74 sd=1.47
+  Behavioral: R²(z)=0.862  R²(x_alone)=0.384  R²(x+μ)=0.872  relativity_ratio=0.7978772074297756
+  Probes:    R²(z)=0.993  R²(x)=0.990  R²(adj)=0.922  R²(logit_diff)=0.991
+  Decomp:    α=+0.425  β=-0.265  α_frac=0.616  R²_recon=0.112
+
+--- height/late ---
+  N=750  ld_mean=+0.74 sd=1.47
+  Behavioral: R²(z)=0.862  R²(x_alone)=0.384  R²(x+μ)=0.872  relativity_ratio=0.7978772074297756
+  Probes:    R²(z)=0.992  R²(x)=0.985  R²(adj)=0.887  R²(logit_diff)=0.995
+  Decomp:    α=+0.309  β=-0.168  α_frac=0.648  R²_recon=0.063
+
+--- age/mid ---
+  N=750  ld_mean=+0.68 sd=1.66
+  Behavioral: R²(z)=0.880  R²(x_alone)=0.663  R²(x+μ)=0.887  relativity_ratio=0.8214254481853948
+  Probes:    R²(z)=0.997  R²(x)=0.996  R²(adj)=0.939  R²(logit_diff)=0.991
+  Decomp:    α=+0.041  β=+0.276  α_frac=0.130  R²_recon=0.092
+
+--- age/late ---
+  N=750  ld_mean=+0.68 sd=1.66
+  Behavioral: R²(z)=0.880  R²(x_alone)=0.663  R²(x+μ)=0.887  relativity_ratio=0.8214254481853948
+  Probes:    R²(z)=0.995  R²(x)=0.996  R²(adj)=0.933  R²(logit_diff)=0.996
+  Decomp:    α=+0.115  β=+0.166  α_frac=0.410  R²_recon=0.068
+
+--- weight/mid ---
+  N=750  ld_mean=+1.34 sd=2.18
+  Behavioral: R²(z)=0.861  R²(x_alone)=0.527  R²(x+μ)=0.862  relativity_ratio=0.9602429375038635
+  Probes:    R²(z)=0.993  R²(x)=0.991  R²(adj)=0.961  R²(logit_diff)=0.993
+  Decomp:    α=+0.200  β=-0.064  α_frac=0.759  R²_recon=0.029
+
+--- weight/late ---
+  N=750  ld_mean=+1.34 sd=2.18
+  Behavioral: R²(z)=0.861  R²(x_alone)=0.527  R²(x+μ)=0.862  relativity_ratio=0.9602429375038635
+  Probes:    R²(z)=0.993  R²(x)=0.992  R²(adj)=0.944  R²(logit_diff)=0.997
+  Decomp:    α=+0.143  β=+0.122  α_frac=0.540  R²_recon=0.053
+
+--- size/mid ---
+  N=750  ld_mean=-2.88 sd=1.97
+  Behavioral: R²(z)=0.873  R²(x_alone)=0.516  R²(x+μ)=0.873  relativity_ratio=1.031417167212634
+  Probes:    R²(z)=0.994  R²(x)=0.989  R²(adj)=0.945  R²(logit_diff)=0.992
+  Decomp:    α=-0.154  β=+0.314  α_frac=0.330  R²_recon=0.057
+
+--- size/late ---
+  N=750  ld_mean=-2.88 sd=1.97
+  Behavioral: R²(z)=0.873  R²(x_alone)=0.516  R²(x+μ)=0.873  relativity_ratio=1.031417167212634
+  Probes:    R²(z)=0.993  R²(x)=0.992  R²(adj)=0.941  R²(logit_diff)=0.996
+  Decomp:    α=+0.071  β=+0.166  α_frac=0.299  R²_recon=0.049
+
+--- speed/mid ---
+  N=750  ld_mean=-0.98 sd=1.76
+  Behavioral: R²(z)=0.863  R²(x_alone)=0.640  R²(x+μ)=0.879  relativity_ratio=0.7469800887329264
+  Probes:    R²(z)=0.994  R²(x)=0.992  R²(adj)=0.959  R²(logit_diff)=0.989
+  Decomp:    α=+0.386  β=-0.186  α_frac=0.675  R²_recon=0.075
+
+--- speed/late ---
+  N=750  ld_mean=-0.98 sd=1.76
+  Behavioral: R²(z)=0.863  R²(x_alone)=0.640  R²(x+μ)=0.879  relativity_ratio=0.7469800887329264
+  Probes:    R²(z)=0.994  R²(x)=0.992  R²(adj)=0.948  R²(logit_diff)=0.996
+  Decomp:    α=+0.075  β=+0.154  α_frac=0.329  R²_recon=0.046
+
+--- wealth/mid ---
+  N=750  ld_mean=+1.96 sd=1.52
+  Behavioral: R²(z)=0.859  R²(x_alone)=0.458  R²(x+μ)=0.699  relativity_ratio=0.4307687917998822
+  Probes:    R²(z)=0.993  R²(x)=0.987  R²(adj)=0.918  R²(logit_diff)=0.985
+  Decomp:    α=+0.073  β=+0.191  α_frac=0.277  R²_recon=0.052
+
+--- wealth/late ---
+  N=750  ld_mean=+1.96 sd=1.52
+  Behavioral: R²(z)=0.859  R²(x_alone)=0.458  R²(x+μ)=0.699  relativity_ratio=0.4307687917998822
+  Probes:    R²(z)=0.993  R²(x)=0.980  R²(adj)=0.915  R²(logit_diff)=0.995
+  Decomp:    α=+0.132  β=+0.072  α_frac=0.648  R²_recon=0.030
+
+--- experience/mid ---
+  N=750  ld_mean=+2.70 sd=2.24
+  Behavioral: R²(z)=0.728  R²(x_alone)=0.696  R²(x+μ)=0.829  relativity_ratio=0.45243460997916624
+  Probes:    R²(z)=0.993  R²(x)=0.991  R²(adj)=0.934  R²(logit_diff)=0.994
+  Decomp:    α=-0.011  β=+0.030  α_frac=0.261  R²_recon=0.000
+
+--- experience/late ---
+  N=750  ld_mean=+2.70 sd=2.24
+  Behavioral: R²(z)=0.728  R²(x_alone)=0.696  R²(x+μ)=0.829  relativity_ratio=0.45243460997916624
+  Probes:    R²(z)=0.992  R²(x)=0.991  R²(adj)=0.918  R²(logit_diff)=0.997
+  Decomp:    α=+0.162  β=-0.075  α_frac=0.683  R²_recon=0.015
+
+--- bmi_abs/mid ---
+  N=750  ld_mean=+4.02 sd=3.76
+  Behavioral: R²(z)=0.854  R²(x_alone)=0.839  R²(x+μ)=0.912  relativity_ratio=0.4893109843954143
+  Probes:    R²(z)=0.992  R²(x)=0.991  R²(adj)=0.896  R²(logit_diff)=0.986
+  Decomp:    α=+0.100  β=+0.073  α_frac=0.578  R²_recon=0.024
+
+--- bmi_abs/late ---
+  N=750  ld_mean=+4.02 sd=3.76
+  Behavioral: R²(z)=0.854  R²(x_alone)=0.839  R²(x+μ)=0.912  relativity_ratio=0.4893109843954143
+  Probes:    R²(z)=0.993  R²(x)=0.993  R²(adj)=0.916  R²(logit_diff)=0.999
+  Decomp:    α=+0.240  β=-0.032  α_frac=0.884  R²_recon=0.050
+
+====================================================================================================
+CROSS-PAIR SUMMARY (layer=late)
+====================================================================================================
+pair        kind      R²(z)   R²(x+μ) rel_ratio    CVR²(z)  CVR²(x)   α_frac  cos(adj,z)
+----------------------------------------------------------------------------------------------------
+height      REL       0.862     0.872     +0.80      0.992    0.985    0.648       0.211
+age         REL       0.880     0.887     +0.82      0.995    0.996    0.410       0.232
+weight      REL       0.861     0.862     +0.96      0.993    0.992    0.540       0.206
+size        REL       0.873     0.873     +1.03      0.993    0.992    0.299       0.184
+speed       REL       0.863     0.879     +0.75      0.994    0.992    0.329       0.182
+wealth      REL       0.859     0.699     +0.43      0.993    0.980    0.648       0.160
+experience  REL       0.728     0.829     +0.45      0.992    0.991    0.683       0.111
+bmi_abs     ABS       0.854     0.912     +0.49      0.993    0.993    0.884       0.222
+
+CORE CLAIM TEST:
+  mean relativity_ratio, RELATIVE pairs (7): +0.749
+  mean relativity_ratio, ABSOLUTE pairs (1): +0.489
+  (expect REL → 1.0, ABS → 0.0 for clean relative/absolute distinction)
+
+Saved /workspace/repo/results/v4_adjpairs_analysis/summary.json
+Saved /workspace/repo/results/v4_adjpairs_analysis/figures/relativity_across_pairs.png

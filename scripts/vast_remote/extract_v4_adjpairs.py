@@ -34,12 +34,19 @@ Output: results/v4_adjpairs/e4b_{domain}_{condition}_{layer}.npz
 from __future__ import annotations
 
 import json
+import math
 import random
+import sys
 import time
 from pathlib import Path
 from typing import NamedTuple
 
 import numpy as np
+
+# Shared tokenization helper (co-located with this script). sys.path needs to
+# include this directory since tests import this module directly.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _token_utils import tokens_of_word, first_token_id, report_tokenization  # noqa: E402
 # torch / transformers imported lazily inside main() so tests can import this
 # module on CPU-only machines without the heavy deps.
 
@@ -63,11 +70,27 @@ class Pair(NamedTuple):
     high_word: str         # "tall"
     target_values: list[float]   # 5 target x values
     mu_values: list[float]       # 5 context means
-    sigma: float
+    sigma: float           # if name in LOG_SPACE_PAIRS: multiplicative factor; else additive stdev
     format_prompt_implicit: str   # template; placeholders {items} and {x_unit}
     format_prompt_explicit: str
     format_prompt_zero: str
     value_label: str       # "tall", "old", "heavy" etc. — how model is asked
+
+
+# PLANNING.md specifies wealth in log-space: z = (log(x) - log(μ)) / log(σ_factor).
+# For log-space pairs, `sigma` on the Pair is interpreted as a multiplicative
+# factor (e.g. 2.0 ≈ "spread is doubling/halving"), context samples are drawn
+# from a log-normal, and the z-score uses natural logarithms.
+LOG_SPACE_PAIRS: set[str] = {"wealth"}
+
+
+def compute_z(pair: "Pair", x: float, mu: float) -> float:
+    """Domain-appropriate z-score. Log-space for wealth per PLANNING.md §Domain 2."""
+    if pair.name in LOG_SPACE_PAIRS:
+        if x <= 0 or mu <= 0 or pair.sigma <= 1.0:
+            raise ValueError(f"log-space pair {pair.name} needs x>0, mu>0, sigma>1")
+        return (math.log(x) - math.log(mu)) / math.log(pair.sigma)
+    return (x - mu) / pair.sigma
 
 
 PAIRS: list[Pair] = [
@@ -172,21 +195,26 @@ PAIRS: list[Pair] = [
         value_label="speed",
     ),
     Pair(
+        # Wealth uses LOG-SPACE z per PLANNING.md §Domain 2:
+        #   z = (log(x) - log(μ)) / log(σ_factor), σ_factor = 2.0.
+        # target_values & mu_values are roughly log-spaced (factor ~2-3 apart).
+        # The context sampler uses a log-normal distribution (see sample_context).
         name="wealth",
         domain="wealth",
         unit="USD annual income",
         low_word="poor",
         high_word="rich",
-        target_values=[20000.0, 50000.0, 80000.0, 150000.0, 300000.0],
-        mu_values=[30000.0, 60000.0, 90000.0, 150000.0, 250000.0],
-        sigma=30000.0,
+        target_values=[20000.0, 50000.0, 100000.0, 250000.0, 600000.0],
+        mu_values=[30000.0, 70000.0, 150000.0, 400000.0, 1000000.0],
+        sigma=2.0,  # multiplicative factor — in log-space this is log(2) ≈ 0.693
         format_prompt_implicit=(
             "{items}\n"
             "Person {n_last} earns ${x_str}/year. This person is"
         ),
         format_prompt_explicit=(
             "In a group where most people earn around ${mu_str}/year "
-            "(give or take ${sigma_str}), a person earning ${x_str}/year is"
+            "(incomes spread by roughly a factor of {sigma_str}), "
+            "a person earning ${x_str}/year is"
         ),
         format_prompt_zero="A person earning ${x_str}/year is",
         value_label="wealth",
@@ -212,16 +240,20 @@ PAIRS: list[Pair] = [
         value_label="experience",
     ),
     # --- ABSOLUTE ADJECTIVE CONTROL ---
-    # BMI with "underweight"/"obese" — both anchored to fixed clinical thresholds
-    # (BMI < 18.5 and BMI ≥ 30). Hypothesis: relativity_ratio ≈ 0 here, because
-    # the thresholds are contextually invariant. If the model still shows
-    # relativity for BMI labels, that would be evidence that its usage of
-    # medical-vocabulary adjectives is also contextually drifting.
+    # BMI with "thin"/"obese" — "obese" is clinically anchored at BMI ≥ 30,
+    # "thin" is paired to keep both words single-token under the Gemma 4
+    # tokenizer (the clinical term "underweight" splits into 3+ subtokens,
+    # which biases a next-token logit lookup). The relativity ratio depends
+    # mostly on the threshold-anchored HIGH side, so "thin" vs "obese"
+    # still tests the absolute-adjective prediction even though "thin"
+    # carries some residual context dependence.
+    # A startup tokenization check (see main()) asserts both words are
+    # single-token on the actual tokenizer at extract time.
     Pair(
         name="bmi_abs",
         domain="BMI",
         unit="BMI",
-        low_word="underweight",
+        low_word="thin",
         high_word="obese",
         target_values=[17.0, 22.0, 27.0, 32.0, 38.0],
         mu_values=[20.0, 25.0, 28.0, 30.0, 33.0],
@@ -248,11 +280,24 @@ def fmt_num(v: float) -> str:
 
 
 def sample_context(mu: float, sigma: float, seed: int, n: int = 15,
-                   low: float = None, high: float = None) -> list[float]:
+                   low: float = None, high: float = None,
+                   log_space: bool = False) -> list[float]:
+    """Sample `n` values from a per-person distribution around `mu`.
+
+    log_space=False: v ~ Normal(mu, sigma).
+    log_space=True:  v ~ LogNormal(log(mu), log(sigma))
+                     i.e. log(v) ~ Normal(log(mu), log(sigma_factor)).
+                     sigma is the multiplicative factor; for sigma=2.0 about
+                     68% of samples fall in [mu/2, mu*2].
+    """
     rng = random.Random(seed)
     out = []
     for _ in range(n):
-        v = rng.gauss(mu, sigma)
+        if log_space:
+            log_v = rng.gauss(math.log(mu), math.log(sigma))
+            v = math.exp(log_v)
+        else:
+            v = rng.gauss(mu, sigma)
         if low is not None:
             v = max(low, v)
         if high is not None:
@@ -265,7 +310,8 @@ def build_implicit_items(pair: Pair, mu: float, seed: int, n: int = 15) -> list[
     """Build the 'items' block for an implicit prompt."""
     low = pair.target_values[0] * 0.4
     high = pair.target_values[-1] * 2.5
-    sample = sample_context(mu, pair.sigma, seed, n, low, high)
+    sample = sample_context(mu, pair.sigma, seed, n, low, high,
+                            log_space=(pair.name in LOG_SPACE_PAIRS))
     if pair.name == "height":
         return [f"Person {i+1}: {int(v)} cm" for i, v in enumerate(sample)]
     elif pair.name == "age":
@@ -316,7 +362,7 @@ def generate_all_prompts() -> list[dict]:
     for pair in PAIRS:
         for x in pair.target_values:
             for mu in pair.mu_values:
-                z = (x - mu) / pair.sigma
+                z = compute_z(pair, x, mu)
                 for s in range(N_SEEDS_IMPLICIT):
                     trials.append({
                         "id": f"{pair.name}_implicit_{idx:06d}",
@@ -423,16 +469,8 @@ def extract_batch(model, tokenizer, prompts, layer_indices, token_ids):
 
 
 def get_first_token(tokenizer, word: str) -> int:
-    """Try multiple spacings to find a clean single-token encoding for `word`."""
-    candidates = [f" {word}", word, word.capitalize(), f" {word.capitalize()}"]
-    best = None
-    for c in candidates:
-        ids = tokenizer.encode(c, add_special_tokens=False)
-        if len(ids) == 1:
-            return ids[0]
-        if best is None:
-            best = ids[0]
-    return best
+    """Backward-compat alias for scripts.vast_remote._token_utils.first_token_id."""
+    return first_token_id(tokenizer, word)
 
 
 def main():
@@ -462,13 +500,21 @@ def main():
     model.eval()
     print(f"  Loaded in {time.time()-t0:.1f}s", flush=True)
 
-    # Build per-pair token mapping
-    all_labels = set()
-    for pair in PAIRS:
-        all_labels.add(pair.low_word)
-        all_labels.add(pair.high_word)
-    label_to_id = {lab: get_first_token(tokenizer, lab) for lab in sorted(all_labels)}
-    print(f"  Token IDs: {label_to_id}", flush=True)
+    # Build per-pair token mapping. Startup tokenization check:
+    # every scored adjective MUST be single-token under the best spacing
+    # variant, otherwise logit_diff lookup becomes a sub-token lookup and
+    # the relativity ratio for that pair is polluted.
+    all_labels = sorted({w for p in PAIRS for w in (p.low_word, p.high_word)})
+    print("\n  Tokenization check:", flush=True)
+    token_table = report_tokenization(tokenizer, all_labels)
+    multi = {w: ids for w, ids in token_table.items() if len(ids) > 1}
+    if multi:
+        print(f"\n[FATAL] Multi-token adjectives detected: {multi}", flush=True)
+        print("Either substitute single-token alternatives, or extend "
+              "extract_batch to score log P(word | prompt) autoregressively.",
+              flush=True)
+        raise SystemExit(2)
+    label_to_id = {w: ids[0] for w, ids in token_table.items()}
 
     # Process per-pair × per-condition
     for pair in PAIRS:
