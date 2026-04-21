@@ -1,0 +1,407 @@
+{
+  "K_samples": 10,
+  "peaked_pct": 90,
+  "flat_pct": 30,
+  "per_pair": {
+    "height": {
+      "mid": {
+        "euclid_cos_z_ld": 0.21570239817624495,
+        "euclid_cos_z_x": 0.4450631985703119,
+        "peaked_threshold_|ld|": 2.625,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.2292995640452867,
+          "F_cos_z_ld_std": 0.0010690458833086797,
+          "F_cos_z_x_mean": 0.4610935255878871,
+          "F_cos_z_x_std": 0.0008543027109043746,
+          "entropy_mean": 11.246202438800498,
+          "entropy_std": 0.004951377205822198
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.2282487850607819,
+          "F_cos_z_ld_std": 0.0015244395393753554,
+          "F_cos_z_x_mean": 0.45988304977293976,
+          "F_cos_z_x_std": 0.0005966126649407945,
+          "entropy_mean": 11.259434535730795,
+          "entropy_std": 0.01557852014860418
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": 0.03266804304402094,
+        "euclid_cos_z_x": 0.4876603420305861,
+        "peaked_threshold_|ld|": 2.625,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.033542041334765835,
+          "F_cos_z_ld_std": 0.002779215662254227,
+          "F_cos_z_x_mean": 0.5002172640346688,
+          "F_cos_z_x_std": 0.00043528685495839033,
+          "entropy_mean": 2.606229265910979,
+          "entropy_std": 0.03483810853030196
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.028458478735249215,
+          "F_cos_z_ld_std": 0.008189678955825503,
+          "F_cos_z_x_mean": 0.498267518632557,
+          "F_cos_z_x_std": 0.001268975413465086,
+          "entropy_mean": 2.4776347336969113,
+          "entropy_std": 0.07468057242555935
+        }
+      }
+    },
+    "age": {
+      "mid": {
+        "euclid_cos_z_ld": 0.23513343927853927,
+        "euclid_cos_z_x": 0.606559972769968,
+        "peaked_threshold_|ld|": 2.75,
+        "flat_threshold_|ld|": 1.125,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.2422969736978579,
+          "F_cos_z_ld_std": 0.000478393213622224,
+          "F_cos_z_x_mean": 0.6040473140870499,
+          "F_cos_z_x_std": 0.0004517965062675572,
+          "entropy_mean": 11.263215555285555,
+          "entropy_std": 0.03031770431027882
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.2412291652603114,
+          "F_cos_z_ld_std": 0.0009898213953021338,
+          "F_cos_z_x_mean": 0.603126961205941,
+          "F_cos_z_x_std": 0.00038940875672074536,
+          "entropy_mean": 11.286081837780946,
+          "entropy_std": 0.028438567937553387
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": 0.02773663964007002,
+        "euclid_cos_z_x": 0.6242325507518484,
+        "peaked_threshold_|ld|": 2.75,
+        "flat_threshold_|ld|": 1.125,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.03976849392178462,
+          "F_cos_z_ld_std": 0.0019423894345238653,
+          "F_cos_z_x_mean": 0.6111773233385404,
+          "F_cos_z_x_std": 0.0014341077117373407,
+          "entropy_mean": 2.4744887368359136,
+          "entropy_std": 0.05892686411737579
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.031827085308766226,
+          "F_cos_z_ld_std": 0.0022606668907850366,
+          "F_cos_z_x_mean": 0.6136904409238516,
+          "F_cos_z_x_std": 0.002109846505148005,
+          "entropy_mean": 2.2908049911481845,
+          "entropy_std": 0.09697911583021893
+        }
+      }
+    },
+    "experience": {
+      "mid": {
+        "euclid_cos_z_ld": 0.04601360255404294,
+        "euclid_cos_z_x": 0.6605793410745091,
+        "peaked_threshold_|ld|": 5.131250000000001,
+        "flat_threshold_|ld|": 1.3374999999999986,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.04649564152778975,
+          "F_cos_z_ld_std": 0.0006405872499261072,
+          "F_cos_z_x_mean": 0.6614646329767809,
+          "F_cos_z_x_std": 0.0004482408317372331,
+          "entropy_mean": 11.334489196136767,
+          "entropy_std": 0.013728895709866929
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.045009124382351925,
+          "F_cos_z_ld_std": 0.0004692695804630954,
+          "F_cos_z_x_mean": 0.6614876327491154,
+          "F_cos_z_x_std": 0.00034995460394745485,
+          "entropy_mean": 11.330996300309835,
+          "entropy_std": 0.026026574655418574
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": -0.011625828195901041,
+        "euclid_cos_z_x": 0.6348804936324401,
+        "peaked_threshold_|ld|": 5.131250000000001,
+        "flat_threshold_|ld|": 1.3374999999999986,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.026662560722821742,
+          "F_cos_z_ld_std": 0.0008470353329689916,
+          "F_cos_z_x_mean": 0.6387261429820192,
+          "F_cos_z_x_std": 0.0006177964978511406,
+          "entropy_mean": 2.2560357863352665,
+          "entropy_std": 0.031479094721045514
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.020459276652096826,
+          "F_cos_z_ld_std": 0.0009886397259297505,
+          "F_cos_z_x_mean": 0.6367999764277632,
+          "F_cos_z_x_std": 0.0004059432954668713,
+          "entropy_mean": 2.1097179325270865,
+          "entropy_std": 0.0604747172807786
+        }
+      }
+    },
+    "size": {
+      "mid": {
+        "euclid_cos_z_ld": 0.18308462024001357,
+        "euclid_cos_z_x": 0.6411397480994692,
+        "peaked_threshold_|ld|": 5.25,
+        "flat_threshold_|ld|": 1.25,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.16910387607548122,
+          "F_cos_z_ld_std": 0.0007791585634721924,
+          "F_cos_z_x_mean": 0.6447345454894851,
+          "F_cos_z_x_std": 0.0004255963168323576,
+          "entropy_mean": 11.331148727348825,
+          "entropy_std": 0.016849183435422754
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.17180602768200245,
+          "F_cos_z_ld_std": 0.00123082073679524,
+          "F_cos_z_x_mean": 0.6447067594090361,
+          "F_cos_z_x_std": 0.0003952182866748303,
+          "entropy_mean": 11.255956603187302,
+          "entropy_std": 0.0257705349695517
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": 0.03536858340773569,
+        "euclid_cos_z_x": 0.6336804403214082,
+        "peaked_threshold_|ld|": 5.25,
+        "flat_threshold_|ld|": 1.25,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.0018369178463731983,
+          "F_cos_z_ld_std": 0.0024081715545681147,
+          "F_cos_z_x_mean": 0.6305153035112077,
+          "F_cos_z_x_std": 0.00039994839900414983,
+          "entropy_mean": 1.7955876854513069,
+          "entropy_std": 0.01852051690669758
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.012539494655876804,
+          "F_cos_z_ld_std": 0.005621686105146912,
+          "F_cos_z_x_mean": 0.6343378692052231,
+          "F_cos_z_x_std": 0.0022200944454508474,
+          "entropy_mean": 1.9250569780420625,
+          "entropy_std": 0.055195343169366765
+        }
+      }
+    },
+    "speed": {
+      "mid": {
+        "euclid_cos_z_ld": 0.2821650587784552,
+        "euclid_cos_z_x": 0.6384773083566738,
+        "peaked_threshold_|ld|": 3.25,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.3010806206649853,
+          "F_cos_z_ld_std": 0.0008229461232379838,
+          "F_cos_z_x_mean": 0.6407132372162431,
+          "F_cos_z_x_std": 0.0005205255836318427,
+          "entropy_mean": 11.255170238621044,
+          "entropy_std": 0.02008331510815642
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.3022819002832645,
+          "F_cos_z_ld_std": 0.0007818908742072688,
+          "F_cos_z_x_mean": 0.6413196350114582,
+          "F_cos_z_x_std": 0.0005214866681126617,
+          "entropy_mean": 11.30915936167707,
+          "entropy_std": 0.022789491291583683
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": -0.02750540425352469,
+        "euclid_cos_z_x": 0.6195782571851594,
+        "peaked_threshold_|ld|": 3.25,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.0264581616772405,
+          "F_cos_z_ld_std": 0.0009867087642421591,
+          "F_cos_z_x_mean": 0.6297180969119773,
+          "F_cos_z_x_std": 0.0004828215106216275,
+          "entropy_mean": 1.8978237348647142,
+          "entropy_std": 0.03772824384041352
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.024204718587553287,
+          "F_cos_z_ld_std": 0.0016835787054912386,
+          "F_cos_z_x_mean": 0.6312829527246271,
+          "F_cos_z_x_std": 0.0007762919170080327,
+          "entropy_mean": 1.9987093751642977,
+          "entropy_std": 0.040756618024274494
+        }
+      }
+    },
+    "wealth": {
+      "mid": {
+        "euclid_cos_z_ld": 0.07037058527714316,
+        "euclid_cos_z_x": 0.3686632596948065,
+        "peaked_threshold_|ld|": 4.25,
+        "flat_threshold_|ld|": 0.625,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.057544679972770796,
+          "F_cos_z_ld_std": 0.0006236229465927945,
+          "F_cos_z_x_mean": 0.37257527736179324,
+          "F_cos_z_x_std": 0.0007378104521117018,
+          "entropy_mean": 11.159812585750897,
+          "entropy_std": 0.012864609682625561
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.060472849985980584,
+          "F_cos_z_ld_std": 0.0006004692991418247,
+          "F_cos_z_x_mean": 0.37363000804740826,
+          "F_cos_z_x_std": 0.0006625524542016899,
+          "entropy_mean": 11.193643546274284,
+          "entropy_std": 0.03663955557908151
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": 0.02400357580161458,
+        "euclid_cos_z_x": 0.35798639896833623,
+        "peaked_threshold_|ld|": 4.25,
+        "flat_threshold_|ld|": 0.625,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.008037432991321408,
+          "F_cos_z_ld_std": 0.001986016549342101,
+          "F_cos_z_x_mean": 0.3173512663327435,
+          "F_cos_z_x_std": 0.0016658308855782022,
+          "entropy_mean": 2.514939980983576,
+          "entropy_std": 0.06975395810281898
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.005104688300733553,
+          "F_cos_z_ld_std": 0.0010624006722868248,
+          "F_cos_z_x_mean": 0.31085816493169194,
+          "F_cos_z_x_std": 0.0015943828147556324,
+          "entropy_mean": 2.321256275718538,
+          "entropy_std": 0.08265151179177647
+        }
+      }
+    },
+    "weight": {
+      "mid": {
+        "euclid_cos_z_ld": 0.16965678372572324,
+        "euclid_cos_z_x": 0.430647005691117,
+        "peaked_threshold_|ld|": 4.25,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.12742654414840465,
+          "F_cos_z_ld_std": 0.0008198692149678131,
+          "F_cos_z_x_mean": 0.43232829899183134,
+          "F_cos_z_x_std": 0.00042101305884789474,
+          "entropy_mean": 11.26275220636023,
+          "entropy_std": 0.018005619620902198
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.12571368841566505,
+          "F_cos_z_ld_std": 0.0013570847018327115,
+          "F_cos_z_x_mean": 0.4323784280645972,
+          "F_cos_z_x_std": 0.0004304485364883755,
+          "entropy_mean": 11.286340706157057,
+          "entropy_std": 0.01872418311802363
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": 0.016008626629510563,
+        "euclid_cos_z_x": 0.4632409191297137,
+        "peaked_threshold_|ld|": 4.25,
+        "flat_threshold_|ld|": 1.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.03639776798204341,
+          "F_cos_z_ld_std": 0.0014480910221639591,
+          "F_cos_z_x_mean": 0.46246151378238987,
+          "F_cos_z_x_std": 0.0007842265437498233,
+          "entropy_mean": 2.47523266185961,
+          "entropy_std": 0.04427240872259751
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.041020842826491946,
+          "F_cos_z_ld_std": 0.0029328054196963893,
+          "F_cos_z_x_mean": 0.46845928598782505,
+          "F_cos_z_x_std": 0.001789668894178507,
+          "entropy_mean": 2.3066062904910045,
+          "entropy_std": 0.046606189392474295
+        }
+      }
+    },
+    "bmi_abs": {
+      "mid": {
+        "euclid_cos_z_ld": 0.2917658904481898,
+        "euclid_cos_z_x": 0.5605075607212127,
+        "peaked_threshold_|ld|": 8.5,
+        "flat_threshold_|ld|": 2.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.29872871895505726,
+          "F_cos_z_ld_std": 0.0006523400478622883,
+          "F_cos_z_x_mean": 0.5621968963420666,
+          "F_cos_z_x_std": 0.0005113676339499887,
+          "entropy_mean": 11.332308516301604,
+          "entropy_std": 0.012663553151686284
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.29768653146353735,
+          "F_cos_z_ld_std": 0.001212980538089016,
+          "F_cos_z_x_mean": 0.5617421921586383,
+          "F_cos_z_x_std": 0.0010720959325169982,
+          "entropy_mean": 11.319449514043871,
+          "entropy_std": 0.03889954661127693
+        }
+      },
+      "late": {
+        "euclid_cos_z_ld": -0.039636632976936,
+        "euclid_cos_z_x": 0.5288612391452063,
+        "peaked_threshold_|ld|": 8.5,
+        "flat_threshold_|ld|": 2.0,
+        "bin_peaked": {
+          "n": 10,
+          "F_cos_z_ld_mean": 0.00526871673641246,
+          "F_cos_z_ld_std": 0.0009691743714377056,
+          "F_cos_z_x_mean": 0.5395470938149505,
+          "F_cos_z_x_std": 0.0007251384567532892,
+          "entropy_mean": 2.0358677080420344,
+          "entropy_std": 0.04051080699397346
+        },
+        "bin_flat": {
+          "n": 10,
+          "F_cos_z_ld_mean": -0.002903791067645701,
+          "F_cos_z_ld_std": 0.002386829749315581,
+          "F_cos_z_x_mean": 0.5423166528945313,
+          "F_cos_z_x_std": 0.0017801223112449967,
+          "entropy_mean": 1.9469484928822702,
+          "entropy_std": 0.030454707231098246
+        }
+      }
+    }
+  }
+}
