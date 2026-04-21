@@ -104,6 +104,10 @@ print(f"Variance ratio: {var_ratio}")
 w1 = W[:, 0]
 w1 = w1 / np.linalg.norm(w1)
 
+# Sign-align w1 to match mean PC1 direction (SVD sign is arbitrary)
+if np.dot(w1, V.mean(axis=0)) < 0:
+    w1 = -w1
+
 # --- Project each pair's cells onto meta direction and measure R²(proj ~ z) ---
 r2_meta = {}
 r2_own = {}

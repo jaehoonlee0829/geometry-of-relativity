@@ -100,7 +100,11 @@ def compute_dirs_clean(pair_name: str):
 def compute_meta_w1_clean(pc1_list):
     V = np.stack(pc1_list)
     _, _, Wt = np.linalg.svd(V, full_matrices=False)
-    return Wt[0] / np.linalg.norm(Wt[0])
+    w1 = Wt[0] / np.linalg.norm(Wt[0])
+    # Sign-align w1 to match mean PC1 direction (SVD sign is arbitrary)
+    if np.dot(w1, V.mean(axis=0)) < 0:
+        w1 = -w1
+    return w1
 
 
 def subsample_prompts(pair_obj, n, rng):

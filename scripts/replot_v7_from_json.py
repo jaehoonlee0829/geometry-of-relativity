@@ -1,5 +1,10 @@
 """Regenerate all v7 figures from pre-computed JSON results (no .npz needed).
 
+NOTE: JSON results generated before the SVD sign-alignment fix (2026-04-06)
+may contain meta_w1 slopes with flipped sign. The replot script itself does
+not recompute meta_w1, so re-running the upstream steering scripts is needed
+to produce corrected JSON data.
+
 Reads:
   results/v7_analysis/direction_confound_audit_clean.json
   results/v7_analysis/inlp_clean.json

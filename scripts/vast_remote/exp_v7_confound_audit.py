@@ -151,6 +151,9 @@ def main():
         V = np.stack(pc1_stack)
         _, _, Wt = np.linalg.svd(V, full_matrices=False)
         w1 = Wt[0] / np.linalg.norm(Wt[0])
+        # Sign-align w1 to match mean PC1 direction (SVD sign is arbitrary)
+        if np.dot(w1, V.mean(axis=0)) < 0:
+            w1 = -w1
         # cos with mean primal_z
         mean_primal_z = np.mean([np.array([[dirs_B[d] for d in [dir_name]] for dir_name in [dir_name]]) for pair_obj in PAIRS for dir_name in ["primal_z"]], axis=0) if grid_name == "gridB" else None
         result[f"meta_w1_{grid_name}"] = w1.tolist()
