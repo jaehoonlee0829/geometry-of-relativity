@@ -1,102 +1,128 @@
 # geometry-of-relativity
 
-Mechanistic interpretability study of **contextual relativity of gradable adjectives** in open-weight LLMs.
+Mechanistic interpretability study of **how LLMs represent contextual relativity** — whether "tall" means tall-for-this-group or tall-in-absolute-terms — via activation geometry and causal steering in Gemma 4.
 
 **Target venue:** ICML 2026 MI Workshop (May 8 AOE), co-submission to NeurIPS 2026 main track.
 
 ## TL;DR
 
-We test whether linear probe covectors for **relative** gradable adjectives ("tall", "short", "rich", "poor") track a **context-dependent Z-score** of a numerical attribute, while probes for **absolute** adjectives ("obese", defined by BMI cutoff) track the **raw value**. The distinction is made rigorous via the Fisher-information pullback `F(h)^{-1} * w` of the probe covector -- our central formal claim is:
+When a language model sees "Person 16: 170 cm. This person is ___", does it complete with "tall" based on the raw number (170 cm) or relative to the surrounding context (the other 15 people in the list)?
 
-> An adjective `A` is *relative* iff `F_ctx(h)^{-1} * w_A` aligns with the gradient of the z-score, and *absolute* iff it aligns with the gradient of the raw value.
+We find:
+- **The model tracks both**, but organizes them differently: a simple mean-difference direction (`primal_z`) in activation space causally controls the adjective output, while the Ridge-regression probe direction (which optimally *decodes* z) has almost no causal effect.
+- **This direction transfers across semantic domains** — the height z-direction steers weight judgments at 40% of own-pair strength, and transfers across prompt templates at 97%.
+- **But the representation is heterogeneous** — for height/weight, the primary variance axis (PC1) tracks context-relative position; for age/speed, it tracks raw magnitude instead.
 
 ## Models
 
-| Short name | HuggingFace ID | Role |
+| Model | HuggingFace ID | Role |
 |---|---|---|
-| Gemma 4 31B | `google/gemma-4-31B` | Primary (60 layers, d=5376) |
-| Gemma 4 E4B | `google/gemma-4-E4B` | Secondary / scaling comparison (42 layers, d=2560) |
+| Gemma 4 E4B | `google/gemma-4-E4B` | Primary (42 layers, d=2560) |
+| Gemma 4 31B | `google/gemma-4-31B` | Scaling comparison (60 layers, d=5376) |
 
-Legacy models (gemma-2-2b, Llama-3.2-3B) were used in v0/v1 behavioral experiments only; they are not part of the current activation-probing pipeline.
+## Setup
 
-## Experiment history
+8 adjective pairs across semantic domains, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction:
 
-| Version | Phase | What happened |
-|---|---|---|
-| **v0** | Behavioral kill-test | 20 hand-crafted prompts, Claude Opus 4.5 API. H1 (relative flip) passed; H2 (absolute stability) partially failed -- "obese" showed context sensitivity. |
-| **v1** | Behavioral spectrum scan | 810 completions across 9 context means, Claude Sonnet 4.6. Confirmed "obese" is a ~1/3 absolute / ~2/3 relative hybrid. |
-| **v2** | Prompt design + extraction | 448 systematic prompts (height + wealth), Gemma 4 E4B + 31B activations on Vast.ai H100. |
-| **v3** | Extraction format fix | Refactored activation storage: W_U saved once per model (30x speedup). |
-| **v4** | Dense extraction + auto-research | 3540 implicit trials, 8 adjective pairs, five analysis scripts (probes, PCA, steering, INLP). |
-| **v5** | Red-team + critic consensus | 7 experiments + G31B replication + random-direction null + 3 skeptical-critic agents. Key finding: meta w1 steers all 8 pairs 3.1-28.5x above null. H4 (Fisher) not supported. |
-| **v6** | Confound discovery | 7-direction analysis revealed Grid A (x, mu) design had corr(x,z) = 0.58-0.86. Direction-based analyses were contaminated. |
-| **v7** | Clean-grid rerun | Grid B (x, z) extraction. Confound fixed. New findings: primal_z transfers at 40% across pairs (5.5x null), INLP works on clean grid, primal_z steers 18x stronger than probe_z. |
+| Pair | Low / High | Unit | Behavior |
+|---|---|---|---|
+| height | short / tall | cm | PC1 = z |
+| weight | light / heavy | kg | PC1 = z |
+| wealth | poor / rich | $/yr | PC1 = z |
+| bmi_abs | thin / obese | BMI | PC1 = z (absolute control) |
+| age | young / old | years | PC1 = x |
+| size | small / big | cm | PC1 = x |
+| speed | slow / fast | km/h | PC1 = x |
+| experience | novice / expert | years | PC1 = x |
 
-### v7 headline results (current)
+Per pair: 5 x-values x 5 z-values x 30 seeds = 750 prompts. Activations extracted at layer 32 (late) of E4B.
 
-**Strong findings (clean Grid B):**
-- **Primal_z steering** — simple mean-difference direction steers logit_diff 13-18x more than Ridge probe direction. Encoding != use.
-- **Cross-pair transfer** — primal_z from one pair steers another at 40% own-pair strength (5.5x random null). Body-attribute pairs form a tight cluster.
-- **INLP works** — on clean grid, R²(z) drops 30-50% after 8 iterations (was <5% on confounded Grid A).
-- **Zero-shot-corrected heatmaps** — subtracting zero-shot ld(x) isolates pure context effect: nearly flat across x, strong z-gradient.
+## Key findings
 
-**Known limitations:**
-- H4 (Fisher pullback) refuted: F(h) near-isotropic at tested activations.
-- Relative/absolute dichotomy not statistically significant (n=7 vs 4, p=0.75).
-- PCA horseshoe + SVD scree need regeneration on Grid B (pending .npz fetch from HF).
+### 1. Encoding != Use: primal_z steers 18x stronger than probe_z
 
-## Five lines of evidence (v4 pipeline)
+The mean-difference direction between high-z and low-z activations (`primal_z`) shifts logit_diff 13-18x more per unit than the Ridge regression probe direction (`probe_z`). The model *encodes* z-score information across many dimensions (Ridge R² > 0.97), but *uses* it for adjective prediction via a geometrically simple axis.
 
-1. **Behavioral relativity ratio** -- regression of logit_diff on x and mu; relative pairs should show R ~ 1, absolute ~ 0.
-2. **Probe decodability** -- ridge probes for x, mu, z, sign(z); CV R²(z) should dominate for relative adjectives.
-3. **PCA geometry** -- PC1 of cell-mean activations should correlate with z (not x) for relative adjectives.
-4. **Causal steering** -- adding alpha * w_z to residual stream should shift logit_diff monotonically.
-5. **INLP concept erasure** -- iteratively projecting out w_z should collapse R²(z) while random projections do not.
+![steering curves](figures/v7/seven_direction_curves_clean_8pair.png)
+
+### 2. Cross-pair transfer at 40% own-pair strength
+
+Steering with pair A's primal_z direction on pair B's prompts works at 40% of own-pair effectiveness (5.5x random null). Body-measurement pairs (height, weight, bmi_abs) form a tight cluster with near-complete mutual transfer (0.10-0.13 slope, close to own-pair 0.13).
+
+![transfer heatmap](figures/v7/clean_transfer_heatmap.png)
+
+### 3. Cross-template transfer at 97%
+
+For height, primal_z extracted from template A ("This person is") steers template B ("Among the individuals listed, the one measuring X cm would be described as") at 97% of self-steering strength and 44x above random null. The z-direction encodes semantics, not syntax.
+
+![cross-template](figures/v8/cross_template_transfer.png)
+
+### 4. PCA geometry is heterogeneous, not universal
+
+On the clean grid, PC1 tracks z (context position) for height, weight, wealth, and bmi_abs — but tracks x (raw magnitude) for age, size, speed, and experience. The v4 "universal horseshoe" was an artifact of a design confound.
+
+![pca horseshoe](figures/v8/pca_horseshoe_gridB_8panel.png)
+
+### 5. INLP confirms z is a removable feature
+
+Iteratively projecting out the z-direction drops CV R²(z) by 30-50% in 8 iterations, while random projections have no effect. The z-information is concentrated in a low-dimensional subspace, not diffusely spread.
+
+![inlp curves](figures/v7/inlp_clean_curves.png)
+
+### 6. Behavioral relativity: context shifts adjective judgments
+
+After subtracting zero-shot bias, the logit_diff heatmap shows a strong z-gradient (horizontal bands) with minimal residual x-dependence — the context effect is real and not driven by the model's prior.
+
+![corrected heatmap](figures/v7_behavioral/logit_diff_corrected_xz_8panel.png)
+
+### 7. Meta-direction captures 33% shared variance
+
+SVD of stacked per-pair PC1s yields a single shared direction (`meta_w1`) capturing 32.6% of cross-pair variance (vs 12.5% chance baseline). This direction predicts z with R² = 0.67-0.97 across all 8 pairs, but the shared structure is weaker than initially estimated on the confounded grid.
+
+![svd scree](figures/v8/meta_w1_svd_scree_gridB.png)
+
+## Honest negatives
+
+- **Fisher pullback (H4) refuted.** F(h) is near-isotropic at tested activations; Fisher-adjusted cosines match Euclidean within 0.01-0.04. The Fisher metric doesn't separate relative from absolute adjectives.
+- **Relative/absolute dichotomy not significant.** With n=7 relative + n=4 absolute pairs, Welch t = -0.33, p = 0.75. The "absolute" control bmi_abs shows context sensitivity too.
+- **Logit_diff R measurements require top-K validation.** The pos/neg R=0.47 was inflated by scoring on tokens outside the model's top-10. On the only valid prompt variant (forced Q/A), R drops to 0.31.
+- **Cross-pair PC1 cosines are modest.** Mean off-diagonal |cos| = 0.19 on clean grid (was 0.32 on confounded grid). The shared substrate exists but is weaker than originally reported.
+
+## Methodological contribution
+
+The v4-v6 experiments used a (x, mu) grid where z was derived, creating corr(x, z) = 0.58-0.86. Every direction-based analysis (PCA, primal vectors, probes) was contaminated. The v7 clean grid (iterate x, z independently; derive mu) fixed this and revealed which findings were artifacts vs genuine. **Lesson: when studying derived variables like z-scores, the experimental grid must make the variables of interest independent by construction.**
 
 ## Repository layout
 
 ```
 geometry-of-relativity/
-  PLANNING.md          # Frozen project spec (do not modify)
+  PLANNING.md          # Frozen project spec
   BUILDING.md          # Current active task
-  TODO.md              # Rolling checklist
-  STATUS.md            # High-level project status
-  FINDINGS.md          # Detailed experimental findings (v4-v7)
-  CLAUDE.md            # Instructions for Claude agents
-  data_gen/            # Prompt JSONL files
-  src/                 # Core library modules
-  scripts/             # Runnable drivers
-    plots_v7_behavioral.py     # Behavioral plots from v7 Grid B jsonl
-    replot_v7_from_json.py     # Geometry plots from v7 pre-computed JSON
-    plot_confound_matrix_gridB.py  # Grid B confound matrix (standalone)
-    fetch_from_hf.py           # Fetch .npz/.jsonl from HF dataset
+  FINDINGS.md          # Full experimental findings (v4-v8)
+  scripts/
+    plots_v7_behavioral.py     # Behavioral plots from v7 Grid B
+    replot_v7_from_json.py     # Geometry plots from pre-computed JSON
+    fetch_from_hf.py           # Fetch data from HF dataset
     vast_remote/               # GPU scripts (run on Vast.ai)
-  results/             # Experimental outputs (large files gitignored)
-    v7_xz_grid/        #   Grid B jsonl data (logits, trials)
-    v7_analysis/        #   Pre-computed JSON (confound, INLP, Fisher)
-    v7_steering/        #   Steering + transfer JSON
-    csv/                #   Zero-shot expanded data
-  figures/             # Publication-quality plots
-    v7/                #   Geometry plots (Grid B)
-    v7_behavioral/     #   Behavioral plots (Grid B)
-    v5_gpu_session/    #   Legacy v5 plots
-  docs/                # Design docs and paper outline
-    NEXT_GPU_SESSION_v8.md  # Next GPU session plan
-    paper_outline.md        # ICML MI Workshop paper skeleton
-    archive/                # Historical session logs and PR descriptions
-  tests/               # Unit + smoke tests (pytest)
+  results/                     # JSON summaries + CSVs (large files on HF)
+  figures/                     # All plots (v7 = clean grid, v8 = replots + new)
+  docs/                        # Design docs, paper outline, archived session logs
+  src/                         # Core library (data_gen, fisher, probe, plots)
+  tests/                       # pytest suite
 ```
 
 ## Quick start
 
 ```bash
-pip install -e ".[dev]"       # CPU-only: prompts, probes, Fisher math, plots
-pip install -e ".[dev,gpu]"   # Add GPU: model forward passes
+pip install -e ".[dev]"       # CPU-only
 pytest tests/ -v -m "not gpu"
 
-# Regenerate all v7 plots (CPU only):
+# Regenerate all plots (CPU, no GPU needed):
 python scripts/plots_v7_behavioral.py
 python scripts/replot_v7_from_json.py
+
+# Fetch activation data from HF (needed for PCA/probe scripts):
+python scripts/fetch_from_hf.py
 ```
 
 ## License
