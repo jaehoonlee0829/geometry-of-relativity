@@ -1,0 +1,110 @@
+{
+  "orig": {
+    "high_word": "positive",
+    "low_word": "negative",
+    "n_trials": 750,
+    "frac_high_in_top10": 0.164,
+    "frac_low_in_top10": 0.5427,
+    "frac_both_in_top10": 0.128,
+    "top5_most_common_top1_tokens": [
+      [
+        "the",
+        397
+      ],
+      [
+        "not",
+        224
+      ],
+      [
+        "negative",
+        69
+      ],
+      [
+        "a",
+        59
+      ],
+      [
+        "positive",
+        1
+      ]
+    ]
+  },
+  "compared": {
+    "high_word": "above",
+    "low_word": "below",
+    "n_trials": 750,
+    "frac_high_in_top10": 0.0,
+    "frac_low_in_top10": 0.0,
+    "frac_both_in_top10": 0.0,
+    "top5_most_common_top1_tokens": [
+      [
+        "",
+        342
+      ],
+      [
+        "negative",
+        332
+      ],
+      [
+        "positive",
+        37
+      ],
+      [
+        "very",
+        18
+      ],
+      [
+        "the",
+        17
+      ]
+    ]
+  },
+  "relative": {
+    "high_word": "higher",
+    "low_word": "lower",
+    "n_trials": 750,
+    "frac_high_in_top10": 0.0,
+    "frac_low_in_top10": 0.0,
+    "frac_both_in_top10": 0.0,
+    "top5_most_common_top1_tokens": [
+      [
+        "",
+        706
+      ],
+      [
+        "the",
+        36
+      ],
+      [
+        "negative",
+        6
+      ],
+      [
+        "very",
+        2
+      ]
+    ]
+  },
+  "forced_qa": {
+    "high_word": "Above",
+    "low_word": "Below",
+    "n_trials": 750,
+    "frac_high_in_top10": 1.0,
+    "frac_low_in_top10": 1.0,
+    "frac_both_in_top10": 1.0,
+    "top5_most_common_top1_tokens": [
+      [
+        "Below",
+        361
+      ],
+      [
+        "Above",
+        361
+      ],
+      [
+        "",
+        28
+      ]
+    ]
+  }
+}
