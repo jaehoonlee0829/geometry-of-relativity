@@ -138,4 +138,24 @@
 6. **Experiment 6** (drop w_adj) — editorial, no GPU needed
 7. **Experiment 4** (token design) — important but may require full re-extraction
 
-**Total estimated GPU time:** ~1.5 hours on H100
+## 7. Add More Absolute-Adjective Controls
+
+**Problem:** We only have 1 absolute control (bmi_abs: underweight/obese). With n=1, we can't claim the absolute class behaves differently with statistical confidence. Need at least 2–3 absolute pairs.
+
+**Candidate absolute adjective pairs:**
+- **Temperature:** freezing / boiling (anchored to 0°C / 100°C) — "This water at X°C is ___"
+- **Legal age:** minor / adult (anchored to 18) — "This person at age X is ___"
+- **Poverty line:** poor / wealthy (anchored to specific income thresholds) — but this overlaps with our relative "wealth" pair
+- **Pass/fail:** failing / passing (anchored to 50% or 60% score) — "A student with a score of X% is ___"
+
+**What to do:**
+- Add 2–3 absolute pairs to the extraction script
+- Same grid design: 5 x × 5 μ × 30 seeds = 780 prompts each
+- Compare relativity ratio R for absolute vs relative pairs
+- With 3+ absolute controls, can do proper t-test: R_relative vs R_absolute
+
+**Why it matters:** With only 1 absolute pair, the relative-vs-absolute distinction is anecdotal. With 3+, it becomes a statistical claim.
+
+---
+
+**Total estimated GPU time:** ~2 hours on H100
