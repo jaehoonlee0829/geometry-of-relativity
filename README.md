@@ -126,15 +126,30 @@ geometry-of-relativity/
 ## Quick start
 
 ```bash
+cp .env.example .env       # then edit .env to add HF_TOKEN at minimum
 pip install -e ".[dev]"
 pytest tests/ -v -m "not gpu"
 
-# Fetch activation data from HF:
+# Fetch activation data from HF (private dataset; HF_TOKEN must have read access):
 python scripts/fetch_from_hf.py
+python scripts/fetch_from_hf.py --only v10   # latest run (FINDINGS §14)
 
 # Regenerate plots (CPU only):
 python scripts/plots_v7_behavioral.py
 python scripts/replot_v7_from_json.py
+
+# Re-run all v10 CPU analyses from the fetched NPZs:
+python scripts/analyze_v10_dimensionality.py
+python scripts/analyze_v10_increment_r2.py
+python scripts/analyze_v10_sae.py
+python scripts/analyze_v10_attention.py
+python scripts/analyze_v10_attention_taxonomy.py
+python scripts/plot_v10_behavioral.py
+
+# Re-run v10 from scratch on a GPU box (Gemma 2 2B; H100 ~2 min cached):
+python scripts/gen_v10_dense_height.py
+python scripts/vast_remote/extract_v10_dense_height.py
+python scripts/vast_remote/exp_v10_layer_sweep_steering.py
 ```
 
 ## License

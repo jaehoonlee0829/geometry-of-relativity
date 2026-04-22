@@ -30,6 +30,7 @@ FOLDERS = {
     "v4_zeroshot_expanded": "results/v4_zeroshot_expanded",
     "v4_abs_controls":      "results/v4_abs_controls",
     "v7_xz_grid":           "results/v7_xz_grid",
+    "v10":                  "results/v10",      # dense-height (FINDINGS §14)
     "prompts":              "data_gen",  # prompts_v*.jsonl live here in repo
 }
 
