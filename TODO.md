@@ -17,13 +17,10 @@
 - [x] v8: direct sign classification (R=0.31 on valid prompt), PCA horseshoe on Grid B, SVD scree, cross-template transfer (97%), cross-pair PC1 cosine (0.19)
 - [x] Fix meta_w1 SVD sign convention bug (sign-align after SVD)
 - [x] Manifold geometry analysis: intrinsic dimensionality (~5-D), isomap vs PCA (speed: curved manifold), mid vs late layer orthogonality
-
-## Queue — v9 GPU session (see `docs/NEXT_GPU_SESSION_v9.md`)
-
-- [ ] **Priority 1: Replicate behavioral signal on Gemma 2 2B** — enables SAE analysis via Gemma Scope. ~5 min GPU.
-- [ ] **Priority 2: SAE feature decomposition of z** — Gemma Scope 65k SAE on Gemma 2 2B. Find z-correlated features, cross-pair overlap, place-cell vs linear, primal_z vs probe_z in SAE basis. ~10 min GPU + CPU analysis.
-- [ ] **Priority 3: On-manifold steering** — steer along geodesic tangent vs fixed primal_z. Compare entropy damage. ~5 min GPU.
-- [ ] **Priority 4: Park's causal inner product** — transform probe_z by W_U metric. Test if causal-adjusted probe steers as well as primal_z. CPU + GPU.
+- [x] **v9 P1: Replicate behavioral signal on Gemma 2 2B** — R>0.3 on 8/8 pairs (R=0.77-1.03).
+- [x] **v9 P2: SAE feature decomposition of z** — distributed-not-sparse; primal vs probe participation 10k vs 18k features; cross-pair Jaccard 0.060.
+- [x] **v9 P3: On-manifold tangent steering** — tangent/primal slope ≈ 0.69; entropy not systematically cleaner.
+- [x] **v9 P4: Park's causal inner product** — (W_U^T W_U)^-1·probe_z does NOT close the 18× gap; cos(probe_causal, primal) < 0.05.
 
 ## Queue — Paper (May 3-8)
 

@@ -1,32 +1,21 @@
 # BUILDING.md — What to run RIGHT NOW
 
-## Active task — v9 GPU session: Gemma 2 SAE decomposition
+## Active task — (empty)
 
-See `docs/NEXT_GPU_SESSION_v9.md` for full plan.
+v9 GPU session is complete (see FINDINGS.md §10, `results/v9_gemma2/`,
+`figures/v9/`). No single task is blocking a next commit.
 
-### Execution order
+Next likely blocks of work, in priority order:
 
-| # | What | GPU? | Time |
-|---|------|------|------|
-| 1 | Replicate 8-pair behavioral signal on `google/gemma-2-2b` | GPU | 5 min |
-| 2 | Load Gemma Scope SAE (`google/gemma-scope-2b-pt-res`, layer 20, 65k width) | CPU | 1 min |
-| 3 | Encode Grid B activations → sparse SAE coefficients | CPU | 2 min |
-| 4 | Find z-correlated SAE features per pair, cross-pair overlap | CPU | 5 min |
-| 5 | Place-cell vs linear feature analysis | CPU | 5 min |
-| 6 | Decompose primal_z vs probe_z in SAE basis | CPU | 2 min |
-| 7 | On-manifold steering (geodesic tangent vs fixed primal_z) | GPU | 5 min |
-| 8 | Park's causal inner product steering test | GPU | 5 min |
+1. **Paper writing** — ICML MI Workshop (May 8 AOE), NeurIPS 2026
+   (May 4 abstract / May 6 full). The workshop draft should lead with
+   the behavioral R heatmap (v9.1), causal steering (v7 + v9.3/9.4),
+   and §10.5's retirement of three alternative explanations.
+2. **Optional v10 follow-up** (arXiv only) — characterize primal_z
+   directly, given that it is NOT a sparse SAE bundle, NOT a local
+   tangent, and NOT a W_U-rotated probe. Candidates: attention-weighted
+   mean-diff, layer-aggregated direction, non-linear decoder.
 
-### What's already done (CPU, no GPU needed)
-
-- Manifold geometry analysis complete: ID ~5-D, speed has massive curvature (isomap R²=0.97 vs PCA R²=0.01), primal_z is layer-specific (mid ⊥ late)
-- All v7/v8 figures regenerated
-- Grid B .npz activations fetched from HF
-- meta_w1 sign bug fixed in all scripts (JSON needs re-generation on GPU)
-
-### Key scientific questions
-
-1. Is z a single SAE feature, place-cells, or distributed?
-2. Do the same SAE features fire across pairs? (shared mechanism test)
-3. Does SAE-based steering cause less entropy damage than primal_z?
-4. Can Park's causal metric bridge the probe-vs-steering gap?
+Ralph loop note: there is no "completion promise word" queued for the
+next iteration. When the next task is selected, add the token here so
+the loop terminates correctly.

@@ -1,10 +1,11 @@
-# STATUS.md — Project status as of Apr 21, 2026
+# STATUS.md — Project status as of Apr 22, 2026
 
 ## Current phase
 
-**v7 clean-grid analysis complete.** All behavioral and activation-geometry plots
-regenerated on Grid B (x, z) data. Confound matrix now shows Grid B only.
-See `docs/NEXT_GPU_SESSION_v8.md` for the next GPU session plan.
+**v9 GPU session complete — Gemma 2 2B replication + SAE decomposition +
+on-manifold / Park causal steering.** Behavioral signal replicates on
+all 8 pairs (R=0.77–1.03 on Gemma 2 2B). All three alternative
+explanations for the encode-vs-use gap refuted. See FINDINGS §10.
 
 ## What's done
 
@@ -13,18 +14,27 @@ See `docs/NEXT_GPU_SESSION_v8.md` for the next GPU session plan.
 - v4 dense extraction (3540 prompts) + 8-pair adjective extraction (6240 prompts)
 - v5 red-team follow-up: meta-direction steering, Fisher/Park metrics, random-null control, G31B scaling, critic consensus
 - v6 red-team: 7-direction analysis, confound discovery (Grid A corr(x,z) = 0.58-0.86)
-- **v7 clean-grid rerun**: Grid B (x, z) extraction, confound audit, INLP, Fisher, steering, cross-pair transfer
+- v7 clean-grid rerun: Grid B (x, z) extraction, confound audit, INLP, Fisher, steering, cross-pair transfer
 - v7b addendum: fixed residual confound for experience/size pairs
-- **v7 plot regeneration**: all figures regenerated from pre-computed JSON (no GPU needed)
-  - Behavioral: 7 plots in `figures/v7_behavioral/` (including zero-shot-corrected heatmaps)
-  - Geometry: 8 plots in `figures/v7/` (confound matrix Grid B only, INLP, steering, transfer, Fisher)
+- v7 plot regeneration: all figures from pre-computed JSON (no GPU needed)
+- v8: direct sign classification, PCA horseshoe on Grid B, SVD scree, cross-template transfer (97%), cross-pair PC1 cosine (0.19)
+- Manifold geometry: ID ~5-D, isomap reveals curvature on speed (R²=0.97 vs PCA 0.01), mid ⊥ late layer primal_z
+- **v9 Gemma 2 2B replication (8/8 pairs R>0.3)**
+- **v9 SAE decomposition**: primal_z is 1.2–1.8× more concentrated than probe_z but both distributed across thousands of features — sparse-SAE hypothesis refuted
+- **v9 on-manifold tangent steering**: tangent steers at 0.63–0.73× primal; NOT systematically kinder to entropy — on-manifold hypothesis refuted
+- **v9 Park causal steering**: (W_U^T W_U)^{-1}·probe_z does NOT bridge the 18× probe/primal gap — Park hypothesis refuted
 
 ## What's next
 
-1. **v8 GPU session** (~15 min GPU): direct sign classification (4 prompt variants), top-K token analysis, cross-template transfer test
-2. **PCA horseshoe on Grid B**: needs .npz fetch from HF (`python scripts/fetch_from_hf.py`) then CPU scripts
-3. **Paper writing**: ICML MI Workshop (May 8), NeurIPS 2026 (May 4/6)
+1. **Paper writing**: ICML MI Workshop (May 8), NeurIPS 2026 (May 4/6).
+   The workshop paper should lead with behavioral R heatmap + causal
+   steering + §10's retirement of three alternative explanations.
+2. **Optional v10 follow-up** (arXiv only): what IS primal_z, if not
+   a sparse SAE bundle / tangent / causally-rotated probe? Candidates:
+   attention-weighted mean-diff, layer-aggregated direction, or a
+   non-linear decoder.
 
 ## Archived session logs
 
-Detailed session logs and PR descriptions from GPU rental bursts are in `docs/archive/`.
+Detailed session logs and PR descriptions from GPU rental bursts are in
+`docs/archive/`.

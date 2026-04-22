@@ -681,3 +681,147 @@ need re-running.
     curved manifold into sparse interpretable features.
   - On-manifold steering (along the geodesic) may outperform linear steering
     for pairs like speed where curvature is extreme.
+
+## §10 — v9: Gemma 2 2B + Gemma Scope SAE + on-manifold / Park steering
+
+Pivot to `google/gemma-2-2b` (26 layers, d=2304) at layer mid=13 / late=20
+to unlock pretrained Gemma Scope residual-stream SAEs. Full v7 Grid B
+(5x × 5z × 30 seeds per pair, 8 pairs) re-run; same analyses as v7–v8 plus
+SAE decomposition, on-manifold (tangent) steering, and Park's causal
+inner product.
+
+## 10.1 — Behavioral signal replicates cleanly on 2B (8/8 pairs)
+
+| pair       | R = −slope(μ)/slope(x) | r²(z) | r²(x,μ) |
+|------------|------------------------|-------|---------|
+| height     | **+0.854**             | 0.876 | 0.889   |
+| age        | **+1.025**             | 0.786 | 0.788   |
+| weight     | **+0.916**             | 0.845 | 0.861   |
+| size       | **+0.925**             | 0.837 | 0.863   |
+| speed      | **+0.769**             | 0.600 | 0.821   |
+| wealth     | **+0.772**             | 0.655 | 0.739   |
+| experience | **+0.862**             | 0.801 | 0.842   |
+| bmi_abs    | **+0.827**             | 0.727 | 0.823   |
+
+All 8 pairs exceed the R > 0.3 acceptance threshold (target: ≥5/8). Notable
+shifts vs E4B: `age` flips from x-dominated on E4B to R≈1.03 (fully
+context-relative) here; all pairs (including bmi_abs) cluster in a tight
+R = 0.77–1.03 band, i.e. **Gemma 2 2B is MORE context-relative than E4B
+across the board, not less.**
+
+## 10.2 — SAE decomposition of z — distributed, not sparse
+
+Gemma Scope width-65k, layer-20, avg_l0_61 JumpReLU SAE. Per pair:
+encoded 660–750 activations, found 446–635 features active across prompts
+(≈1% of the dictionary).
+
+  - **Cross-pair Jaccard** of top-20 z-correlated features:
+    off-diagonal mean = 0.060 (~10× chance baseline).
+    Shared substrate exists but is weak — body-measurement pairs don't
+    share a dominant set of "z-features."
+  - **Participation ratio** (effective # features):
+    primal_z ≈ 10k–15k vs probe_z ≈ 17k–18k.
+    probe_z spreads 1.2–1.8× thinner, but neither direction is
+    sparsely decomposed in SAE basis.
+  - **Energy in top-20 z-features**:
+    primal_z = 0.1%–1.0%,  probe_z ≈ 0.02% (uniform baseline 0.03%).
+    primal IS aligned with the z-feature subspace — just at ~10×
+    uniform, not the near-concentration the plan hypothesized.
+
+**Conclusion:** the ~18× steering gap between primal_z and probe_z is NOT
+explained by primal_z loading onto a handful of SAE features. Both
+directions are broadly distributed across thousands of features;
+primal is only moderately more concentrated and modestly more z-aligned.
+Whatever makes primal_z causally effective is finer-grained than
+SAE-level sparsity.
+
+## 10.3 — On-manifold (tangent) steering — 70% as effective, not kinder
+
+Late-layer (layer 20) causal intervention with forward hooks at the last
+token position. α ∈ {−2, −1, 0, +1, +2}. All directions rescaled to
+‖primal_z‖ so α is comparable. Stratified subset: 20 prompts per z-value.
+
+Tangent(z) = piecewise-linear finite-difference tangent through the five
+z-cell-means, evaluated at each prompt's z-bin.
+
+| pair       | primal slope | tangent slope | t/p ratio | random |
+|------------|--------------|---------------|-----------|--------|
+| height     | +1.79        | +1.24         | 0.69      | +0.22  |
+| age        | +1.77        | +1.29         | 0.73      | +0.16  |
+| weight     | +2.24        | +1.54         | 0.69      | +0.21  |
+| size       | +2.42        | +1.53         | 0.63      | −0.07  |
+| speed      | +1.42        | +0.94         | 0.66      | −0.04  |
+| wealth     | +2.25        | +1.57         | 0.70      | −0.21  |
+| experience | +4.59        | +3.31         | 0.72      | +0.08  |
+| bmi_abs    | +2.12        | +1.46         | 0.69      | −0.48  |
+
+**Tangent steers at 0.63–0.73× primal, remarkably consistent across
+pairs (mean 0.69).** Random null is near zero (direction norm is matched,
+so this is a clean null).
+
+Entropy damage at |α|=2 is small in all cases (|Δent| ≤ 0.15 from a
+~4-nat baseline). Tangent is NOT systematically kinder than primal —
+often within ±0.05 nats. **The "on-manifold = less entropy damage"
+hypothesis is not supported at these α levels.**
+
+Why tangent is weaker: primal_z encodes the full z ∈ [−2, +2] range in
+one direction, while each tangent covers only a 1σ segment. Following
+the local tangent accumulates curvature corrections, but those corrections
+trade off with signed displacement.
+
+## 10.4 — Park causal inner product — does NOT bridge the 18× gap
+
+probe_z_causal = (W_U^T W_U + λI)^{−1} probe_z  with λ = 10⁻²,
+where W_U = lm_head.weight ∈ ℝ^(256000 × 2304).
+
+Steering slopes (rescaled to ‖primal_z‖):
+
+| pair       | primal | probe | probe_causal | probe/primal | causal/primal |
+|------------|--------|-------|--------------|--------------|---------------|
+| height     | +1.79  | +0.07 | +0.14        | 0.04×        | 0.08×         |
+| age        | +1.77  | +0.02 | +0.03        | 0.01×        | 0.02×         |
+| weight     | +2.23  | +0.11 | +0.09        | 0.05×        | 0.04×         |
+| size       | +2.44  | +0.05 | +0.10        | 0.02×        | 0.04×         |
+| speed      | +1.41  | +0.17 | −0.02        | 0.12×        | −0.02×        |
+| wealth     | +2.25  | +0.20 | +0.08        | 0.09×        | 0.04×         |
+| experience | +4.62  | +0.08 | −0.42        | 0.02×        | −0.09×        |
+| bmi_abs    | +2.15  | −0.22 | −0.01        | −0.10×       | ≈0            |
+
+cos(probe_causal, primal_z) stays ≤ 0.05 across all pairs (and flips
+sign for several). **Park's causal transformation leaves probe_z
+essentially unchanged — it does not rotate probe_z toward primal_z.**
+
+This is a cleaner negative than v7 could deliver: on Gemma 2 2B the
+probe-vs-primal gap widens to 10–100× (age reaches ~90× weaker), and
+the causal metric hypothesis fails by every reasonable measure —
+slope, entropy, cosine. The encoding direction (Ridge probe_z) and
+the causal direction (primal_z) are not related by a W_U-induced
+inner product.
+
+## 10.5 — What §10 changes for the paper
+
+**Positive for the thesis:**
+  - Behavioral signal replicates cleanly on a second model (2B) with
+    cleaner per-pair R than the primary (E4B). Reviewers should buy
+    the cross-model stability now.
+  - `age` switching from x-dominated (E4B) to z-dominated (2B) is a
+    small-but-real scaling observation — worth a sentence in the paper.
+
+**Refines or refutes three specific follow-up hypotheses:**
+  - **Sparse SAE decomposition of z**: refuted in its strong form.
+    z is not carried by a handful of SAE features; both primal and
+    probe spread across thousands. Paper should *not* claim
+    SAE-interpretable sparsity for z.
+  - **On-manifold tangent is kinder to entropy**: refuted at tested α.
+    The curved manifold is real (§9.2 isomap R²=0.97 on speed), but the
+    payoff for tangent steering is not entropy safety.
+  - **Park's causal metric bridges encode-vs-use**: refuted. The
+    ~18× primal/probe gap (now 10–100× on 2B) is NOT explained by a
+    W_U-induced metric. Probe_z is a genuinely different direction,
+    not a metric-rotated copy of primal_z.
+
+**Net:** v9 strengthens the behavioral + primal-z story and retires three
+alternative explanations for why probe_z underperforms. The remaining
+open question (what IS primal_z, if not a sparse SAE feature bundle,
+an on-manifold tangent, or a causally-rotated probe?) is a good arXiv
+follow-up but does not block the workshop paper.
