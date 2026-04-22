@@ -2,7 +2,8 @@
 
 ## Active task — none
 
-v10 (DENSE-MANGO) shipped. See FINDINGS §14 and `docs/NEXT_GPU_SESSION_v10.md`.
+v10 dense-height deep dive shipped (completion-promise word: **DENSE-MANGO**).
+See FINDINGS §14 and `docs/NEXT_GPU_SESSION_v10.md` for the original plan.
 
 ## Next candidate tasks (pull from TODO.md when ready)
 
