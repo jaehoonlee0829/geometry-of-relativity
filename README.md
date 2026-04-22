@@ -41,9 +41,19 @@ We find:
 
 ## Key findings
 
-### 1. Encoding != Use is a layer-depth phenomenon
+### 1. Encoding != Use is a layer-depth phenomenon (the headline result)
 
 z is decodable (R² = 0.94) from layer 7, but primal_z steering is zero at layers 5–10. Causal potency emerges at layer 13 (slope 0.57), peaks at layers 20–22 (slope 2.3–2.6), and the probe/primal gap widens to 0.03x. **The dimensions that encode z early are not the dimensions downstream layers read from.**
+
+The full 26-layer sweep reveals a three-phase computation:
+
+| Phase | Layers | What happens |
+|---|---|---|
+| **Encode** | L0–L7 | z computed from tokens. R²(z) ramps 0.45→0.94. primal_z direction actively rotates (cos ≈ 0.3–0.5 between adjacent layers). |
+| **Compute** | L7–L17 | Manifold unfolds (ID rises from 5→7). Direction continues rotating. Causal potency emerges at L13. ‖primal_z‖ grows 10x. |
+| **Broadcast** | L18–L25 | Direction locks (cos > 0.9). ‖primal_z‖ amplified another 4x (total 400x from L0). Steering peaks at L20–22. |
+
+The primal_z direction is not a static feature — it's the endpoint of a ~90° arc the model traces through activation space over 10+ layers of computation, then amplifies for readout.
 
 ![layer sweep](figures/v9/layer_sweep_combined.png)
 
