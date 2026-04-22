@@ -1,96 +1,99 @@
 # geometry-of-relativity
 
-Mechanistic interpretability study of **how LLMs represent contextual relativity** — whether "tall" means tall-for-this-group or tall-in-absolute-terms — via activation geometry and causal steering in Gemma 4.
+Mechanistic interpretability study of **how LLMs represent contextual relativity** — whether "tall" means tall-for-this-group or tall-in-absolute-terms — via activation geometry, causal steering, and SAE decomposition in Gemma.
 
 **Target venue:** ICML 2026 MI Workshop (May 8 AOE), co-submission to NeurIPS 2026 main track.
 
 ## TL;DR
 
-When a language model sees "Person 16: 170 cm. This person is ___", does it complete with "tall" based on the raw number (170 cm) or relative to the surrounding context (the other 15 people in the list)?
+When a language model sees "Person 16: 170 cm. This person is ___", does it complete with "tall" based on the raw number (170 cm) or relative to the surrounding context (the other 15 people)?
 
 We find:
-- **The model tracks both**, but organizes them differently: a simple mean-difference direction (`primal_z`) in activation space causally controls the adjective output, while the Ridge-regression probe direction (which optimally *decodes* z) has almost no causal effect.
-- **This direction transfers across semantic domains** — the height z-direction steers weight judgments at 40% of own-pair strength, and transfers across prompt templates at 97%.
-- **But the representation is heterogeneous** — for height/weight, the primary variance axis (PC1) tracks context-relative position; for age/speed, it tracks raw magnitude instead.
+- **The model tracks context-relative z-scores** with R = 0.77–1.03 across 8 adjective pairs on two models (Gemma 4 E4B, Gemma 2 2B).
+- **Encoding != Use**: z is decodable from layer 7, but the network only *reads* it causally from layer 13 onward, peaking at layer 20–22. A simple mean-difference direction (`primal_z`) steers adjective output 10–100x stronger than the Ridge probe direction.
+- **z lives on a ~5-D curved manifold**, not a 1-D line. Intrinsic dimensionality peaks mid-network (~7 at L13–17) and compresses to ~5 at the final layer — matching Goodfire's predictions for belief manifolds.
+- **Three alternative explanations fail**: sparse SAE decomposition, on-manifold tangent steering, and Park's causal inner product all fail to bridge the encoding-vs-use gap.
 
 ## Models
 
 | Model | HuggingFace ID | Role |
 |---|---|---|
-| Gemma 4 E4B | `google/gemma-4-E4B` | Primary (42 layers, d=2560) |
+| Gemma 2 2B | `google/gemma-2-2b` | Primary + SAE analysis via Gemma Scope |
+| Gemma 4 E4B | `google/gemma-4-E4B` | Original extraction (42 layers, d=2560) |
 | Gemma 4 31B | `google/gemma-4-31B` | Scaling comparison (60 layers, d=5376) |
 
 ## Setup
 
-8 adjective pairs across semantic domains, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction:
+8 adjective pairs, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction. Per pair: 5 x-values x 5 z-values x 30 seeds = 750 prompts.
 
-| Pair | Low / High | Unit | Behavior |
-|---|---|---|---|
-| height | short / tall | cm | PC1 = z |
-| weight | light / heavy | kg | PC1 = z |
-| wealth | poor / rich | $/yr | PC1 = z |
-| bmi_abs | thin / obese | BMI | PC1 = z (absolute control) |
-| age | young / old | years | PC1 = x |
-| size | small / big | cm | PC1 = x |
-| speed | slow / fast | km/h | PC1 = x |
-| experience | novice / expert | years | PC1 = x |
+| Pair | Adjectives | R (Gemma 2 2B) |
+|---|---|---|
+| height | short / tall | 0.85 |
+| age | young / old | 1.03 |
+| weight | light / heavy | 0.92 |
+| size | small / big | 0.93 |
+| speed | slow / fast | 0.77 |
+| wealth | poor / rich | 0.77 |
+| experience | novice / expert | 0.86 |
+| bmi_abs | thin / obese | 0.83 |
 
-Per pair: 5 x-values x 5 z-values x 30 seeds = 750 prompts. Activations extracted at layer 32 (late) of E4B.
+![behavioral heatmap](figures/v9/gemma2_logit_diff_xz_8panel.png)
 
 ## Key findings
 
-### 1. Encoding != Use: primal_z steers 18x stronger than probe_z
+### 1. Encoding != Use is a layer-depth phenomenon
 
-The mean-difference direction between high-z and low-z activations (`primal_z`) shifts logit_diff 13-18x more per unit than the Ridge regression probe direction (`probe_z`). The model *encodes* z-score information across many dimensions (Ridge R² > 0.97), but *uses* it for adjective prediction via a geometrically simple axis.
+z is decodable (R² = 0.94) from layer 7, but primal_z steering is zero at layers 5–10. Causal potency emerges at layer 13 (slope 0.57), peaks at layers 20–22 (slope 2.3–2.6), and the probe/primal gap widens to 0.03x. **The dimensions that encode z early are not the dimensions downstream layers read from.**
 
-![steering curves](figures/v7/seven_direction_curves_clean_8pair.png)
+![layer sweep](figures/v9/layer_sweep_combined.png)
 
-### 2. Cross-pair transfer at 40% own-pair strength
+### 2. z lives on a ~5-D curved manifold
 
-Steering with pair A's primal_z direction on pair B's prompts works at 40% of own-pair effectiveness (5.5x random null). Body-measurement pairs (height, weight, bmi_abs) form a tight cluster with near-complete mutual transfer (0.10-0.13 slope, close to own-pair 0.13).
+Intrinsic dimensionality (TWO-NN) reveals z occupies a ~5-D manifold at the late layer, peaking at ~7 mid-network then compressing — matching Goodfire/Sarfati et al.'s predictions. For speed, isomap captures z with R²=0.97 while PCA gets R²=0.01 — z is on a curve that linear methods completely miss.
+
+### 3. Cross-pair transfer at 40% own-pair strength
+
+Steering with pair A's primal_z direction on pair B's prompts works at 40% of own-pair effectiveness (5.5x random null). Cross-template transfer reaches 97% (44x null). The z-direction encodes semantics, not syntax.
 
 ![transfer heatmap](figures/v7/clean_transfer_heatmap.png)
 
-### 3. Cross-template transfer at 97%
+### 4. primal_z is more concentrated than probe_z in SAE basis (but not sparse)
 
-For height, primal_z extracted from template A ("This person is") steers template B ("Among the individuals listed, the one measuring X cm would be described as") at 97% of self-steering strength and 44x above random null. The z-direction encodes semantics, not syntax.
+Using Gemma Scope SAEs (65k features, layer 20), primal_z has 4–10x lower participation ratio than probe_z in the decoder-row basis. But both still spread across thousands of features. The top-20 z-correlated SAE features show only 6% cross-pair Jaccard overlap — each pair uses mostly different features.
 
-![cross-template](figures/v8/cross_template_transfer.png)
+![sae decomposition](figures/v9/sae_primal_vs_probe_decomposition.png)
 
-### 4. PCA geometry is heterogeneous, not universal
+### 5. SAE features are linear in z, not place-cells
 
-On the clean grid, PC1 tracks z (context position) for height, weight, wealth, and bmi_abs — but tracks x (raw magnitude) for age, size, speed, and experience. The v4 "universal horseshoe" was an artifact of a design confound.
+Unlike Anthropic's character-count manifold (discretized by place-cell features), z-correlated SAE features activate **monotonically** with z (r = 0.7–0.9), not as localized bumps. The context-relative representation is continuous, not discretized.
 
-![pca horseshoe](figures/v8/pca_horseshoe_gridB_8panel.png)
+![place cell profiles](figures/v9/sae_place_cell_profiles.png)
 
-### 5. INLP confirms z is a removable feature
+### 6. primal_z direction rotates through a ~90° arc mid-network, then stabilizes
 
-Iteratively projecting out the z-direction drops CV R²(z) by 30-50% in 8 iterations, while random projections have no effect. The z-information is concentrated in a low-dimensional subspace, not diffusely spread.
+cos(primal_z[L], primal_z[L-1]) starts at 0.3 (early layers — active rotation), reaches 0.88+ by layer 18, and stabilizes. The "mid ⊥ late" finding from earlier is explained: primal_z sweeps through ~90° over the middle layers, then settles into its final orientation.
 
-![inlp curves](figures/v7/inlp_clean_curves.png)
+## Three hypotheses tested and refuted
 
-### 6. Behavioral relativity: context shifts adjective judgments
+### On-manifold tangent steering
 
-After subtracting zero-shot bias, the logit_diff heatmap shows a strong z-gradient (horizontal bands) with minimal residual x-dependence — the context effect is real and not driven by the model's prior.
+Tangent(z) steers at 0.63–0.73x of primal_z. At low α, entropy damage is similar; at high α (=8), tangent is kinder on 6/8 pairs but the effect is modest (0.1–0.6 nats). Not the clean win predicted.
 
-![corrected heatmap](figures/v7_behavioral/logit_diff_corrected_xz_8panel.png)
+### Park's causal inner product
 
-### 7. Meta-direction captures 33% shared variance
+(W_U^T W_U)^{-1} · probe_z does NOT rotate probe toward primal. cos(probe_causal, primal) < 0.05 across all pairs, at both layer 20 and the theoretically-favored layer 25, across a λ sweep from 10^-5 to 10.
 
-SVD of stacked per-pair PC1s yields a single shared direction (`meta_w1`) capturing 32.6% of cross-pair variance (vs 12.5% chance baseline). This direction predicts z with R² = 0.67-0.97 across all 8 pairs, but the shared structure is weaker than initially estimated on the confounded grid.
+### Sparse SAE decomposition
 
-![svd scree](figures/v8/meta_w1_svd_scree_gridB.png)
+z is not carried by a handful of SAE features. primal_z is 4–10x more concentrated than probe_z but still fires ~3–8k effective features in the 65k dictionary. The encoding-vs-use gap is finer-grained than SAE sparsity.
 
 ## Honest negatives
 
-- **Fisher pullback (H4) refuted.** F(h) is near-isotropic at tested activations; Fisher-adjusted cosines match Euclidean within 0.01-0.04. The Fisher metric doesn't separate relative from absolute adjectives.
-- **Relative/absolute dichotomy not significant.** With n=7 relative + n=4 absolute pairs, Welch t = -0.33, p = 0.75. The "absolute" control bmi_abs shows context sensitivity too.
-- **Logit_diff R measurements require top-K validation.** The pos/neg R=0.47 was inflated by scoring on tokens outside the model's top-10. On the only valid prompt variant (forced Q/A), R drops to 0.31.
-- **Cross-pair PC1 cosines are modest.** Mean off-diagonal |cos| = 0.19 on clean grid (was 0.32 on confounded grid). The shared substrate exists but is weaker than originally reported.
-
-## Methodological contribution
-
-The v4-v6 experiments used a (x, mu) grid where z was derived, creating corr(x, z) = 0.58-0.86. Every direction-based analysis (PCA, primal vectors, probes) was contaminated. The v7 clean grid (iterate x, z independently; derive mu) fixed this and revealed which findings were artifacts vs genuine. **Lesson: when studying derived variables like z-scores, the experimental grid must make the variables of interest independent by construction.**
+- **Fisher pullback (H4) refuted.** F(h) near-isotropic at tested activations.
+- **Relative/absolute dichotomy not significant** (n=7 vs 4, p=0.75).
+- **Cross-pair PC1 cosines modest** (0.19 on clean grid). Shared substrate is real but weak.
+- **logit_diff R requires top-K validation.** Pos/neg R=0.47 dropped to R=0.31 on the only valid prompt.
+- **SAE-basis PCA is worse than raw PCA** for recovering z (catastrophic for curved-manifold pairs like speed).
 
 ## Repository layout
 
@@ -98,31 +101,30 @@ The v4-v6 experiments used a (x, mu) grid where z was derived, creating corr(x, 
 geometry-of-relativity/
   PLANNING.md          # Frozen project spec
   BUILDING.md          # Current active task
-  FINDINGS.md          # Full experimental findings (v4-v8)
+  FINDINGS.md          # Full experimental findings (v4-v9, §1-§13)
   scripts/
-    plots_v7_behavioral.py     # Behavioral plots from v7 Grid B
-    replot_v7_from_json.py     # Geometry plots from pre-computed JSON
-    fetch_from_hf.py           # Fetch data from HF dataset
-    vast_remote/               # GPU scripts (run on Vast.ai)
-  results/                     # JSON summaries + CSVs (large files on HF)
-  figures/                     # All plots (v7 = clean grid, v8 = replots + new)
-  docs/                        # Design docs, paper outline, archived session logs
-  src/                         # Core library (data_gen, fisher, probe, plots)
-  tests/                       # pytest suite
+    vast_remote/       # GPU scripts (Vast.ai)
+    analyze_v9_*.py    # v9 analysis scripts (CPU)
+    plot_v9_*.py       # v9 plot scripts (CPU)
+  results/             # JSON summaries (large activations on HF)
+  figures/             # v7 (clean grid), v8 (replots), v9 (SAE + layer sweep)
+  docs/                # Session plans, paper outline, archive
+  src/                 # Core library
+  tests/               # pytest suite
 ```
 
 ## Quick start
 
 ```bash
-pip install -e ".[dev]"       # CPU-only
+pip install -e ".[dev]"
 pytest tests/ -v -m "not gpu"
 
-# Regenerate all plots (CPU, no GPU needed):
+# Fetch activation data from HF:
+python scripts/fetch_from_hf.py
+
+# Regenerate plots (CPU only):
 python scripts/plots_v7_behavioral.py
 python scripts/replot_v7_from_json.py
-
-# Fetch activation data from HF (needed for PCA/probe scripts):
-python scripts/fetch_from_hf.py
 ```
 
 ## License
