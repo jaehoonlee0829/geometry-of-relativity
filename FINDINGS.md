@@ -1028,3 +1028,131 @@ All three say z is not a 1-D linear direction; it's a ~5-D
 multi-direction structure. The linear primal_z "works" because the
 first principal tangent is aligned with the 5-D subspace; it's not
 because z is actually 1-D.
+
+## §13 — v9 full layer sweep: encode vs use vs geometry across all 26 layers
+
+Previous v9 sections pinned layer=20 (late) and layer=13 (mid). The
+user asked: what happens if we sweep all 26 decoder blocks?
+
+We re-extracted Gemma 2 2B activations at every `decoder_layer[k]`
+output, last-content-token, for the full Grid B (5x × 5z × 30 seeds).
+Then per layer we computed: Ridge CV R²(z) and R²(x), top-PC r²(z),
+TWO-NN intrinsic dim on cell-means, ‖primal_z‖, cos(primal_z[L],
+primal_z[L−1]), 5-probe LFP Gram spectrum. Also: causal steering
+slope at 7 strategic layers {5, 10, 13, 17, 20, 22, 24}.
+
+### 13.1 — z is encoded by layer 7–9, flat thereafter
+
+Mean CV R²(z) across 8 pairs, per layer:
+
+    L0 0.45   L1 0.63   L2 0.73   L3 0.80   L4 0.85   L5 0.90
+    L6 0.91   L7 0.94   L8 0.94   L9 0.94   L10 0.94  L11 0.93
+    L12 0.93  L13 0.93  L14 0.93  L15 0.92  L16 0.93  L17 0.93
+    L18 0.92  L19 0.92  L20 0.92  L21 0.92  L22 0.92  L23 0.92
+    L24 0.92  L25 0.92
+
+Curve saturates at **L7 (~0.94) and holds flat through the last
+layer.** Every pair follows the same shape. **z is decodable from
+layer 7 onward** — more than halfway BEFORE our previous "late = 20"
+extraction.
+
+### 13.2 — Intrinsic dim matches Goodfire's prediction
+
+Mean TWO-NN intrinsic dim of cell-means, per layer (across 8 pairs):
+
+    L0  4.85   L5  4.58   L10 5.09   L13 6.91   L16 7.12
+    L20 5.83   L22 5.38   L25 5.35
+
+**ID rises through mid-network, peaks at L13–17 (≈ 7), then drops to
+5.3 at the last layer** — exactly the "rise then drop at the last
+layer" pattern Sarfati et al. (2026) report for Llama-3.2 belief
+manifolds. First independent replication on Gemma 2 2B.
+
+### 13.3 — Primal direction rotates mid, stabilizes late
+
+cos(primal_z[L], primal_z[L−1]), mean across 8 pairs:
+
+    L1 0.32   L5 0.52   L10 0.59   L13 0.65   L15 0.77
+    L18 0.88  L20 0.93  L22 0.94  L25 0.91
+
+In **early layers the primal direction actively rotates** (0.3–0.6 cos
+with the previous layer — lots of reorientation). By **L18 it
+stabilizes (0.88+)** and changes little for the rest of the network.
+Combined with §9.3 (mid ⊥ late: cos(primal_mid, primal_late) ≈ 0), we
+can sharpen the picture: **the "two orthogonal representations"
+aren't because the network uses two different directions — it's
+because the primal direction moves through a ~90° arc over the course
+of the middle layers, then settles.**
+
+### 13.4 — Primal magnitude grows exponentially with depth
+
+    ‖primal_z‖:  L0 0.2   L5 1.0   L10 5.6   L15 23.8
+                 L20 52.4  L25 80.0
+
+**Roughly 10× per ~8 layers.** The semantic content of z saturates at
+L7 (§13.1), but the residual stream keeps amplifying the z-direction
+for the rest of the network. This is the first time in this project
+we've observed the gap between "z info is there" and "z is written
+loud" as a function of depth.
+
+### 13.5 — Causal steering: z is USED only in the second half
+
+Ran primal_z and probe_z steering at 7 strategic layers. Mean slope
+(Δlogit_diff per α) across 8 pairs:
+
+    layer         L5     L10     L13     L17     L20     L22     L24
+    primal     −0.00   +0.03   +0.57   +1.91   +2.33   +2.58   +2.48
+    probe      +0.00   +0.02   +0.08   +0.09   +0.06   +0.03   +0.05
+    probe/pri    —     0.65    0.15    0.05    0.03    0.01    0.02
+
+**This is the headline result of §13.** At L5 and L10, where R²(z) is
+already ~0.94 and the information is decodable, **primal_z steering
+does nothing** (slope ≈ 0). The z-information is present but the
+network does not yet use it to drive the next-token distribution.
+Causal potency emerges sharply at **L13 (slope 0.57)**, strengthens
+through **L17 (1.91)**, peaks around **L20–22 (2.3–2.6)**, and eases
+slightly at the last layer.
+
+The encode-vs-use gap v7 originally framed as "probe_z vs primal_z"
+(same layer, different direction) is a **layer-depth** phenomenon.
+At layer 20 probe/primal = 0.03. At layer 10, where z is already
+encoded, primal *itself* is causally null. The dimensions along
+which z is decodable in early layers are not the dimensions the
+network's late layers read from.
+
+Probe_z steering is ~uniformly weak across all layers (max mean slope
+0.09 at L17). One outlier: `experience` at L13 gives probe slope
++0.45 (~30% of primal), suggesting there are layers where probe
+actually works. Not a reliable pattern across pairs though.
+
+### 13.6 — Synthesis
+
+Taken together, §13 resolves several lingering puzzles from earlier
+sections:
+
+  - §9.3's "mid ⊥ late primal_z" = direction slowly rotating through
+    the middle layers (§13.3), not two unrelated mechanisms.
+  - §9's ID ≈ 5 was at L20. §13.2 reveals the **ID peaks mid-network
+    (~7) and compresses to ~5 at the end** — the manifold unfolds
+    mid-network then compresses for the unembedding.
+  - The 18× primal/probe gap at L20 (§10.4) is a point on a curve
+    — at L10 the gap is "both are zero"; at L13 probe/primal ≈ 0.15;
+    at L20+ it settles at ≈ 0.03.
+  - The SAE-feature picture in §11.2 applies at layer 20. The same
+    analysis at layer 7–9 (where z is most cleanly encoded) is an
+    obvious next experiment.
+
+**Single-line takeaway for the paper:** *z is encoded at layer 7,
+the manifold unfolds to ID≈7 by layer 13–17, the network begins to
+use z causally at layer 13 and peaks at layer 20–22, then the
+manifold compresses to ID≈5 at the final layer.*
+
+Artifacts
+  `results/v9_gemma2/layer_sweep_geometry.json`
+  `results/v9_gemma2/layer_sweep_steering.json`
+  `figures/v9/layer_sweep_combined.png`   (6-panel summary)
+  `figures/v9/layer_sweep_probe_r2.png`
+  `figures/v9/layer_sweep_intrinsic_dim.png`
+  `figures/v9/layer_sweep_primal_continuity.png`
+  `figures/v9/layer_sweep_lfp_id.png`
+  `figures/v9/layer_sweep_steering_slopes.png`

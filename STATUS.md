@@ -2,12 +2,13 @@
 
 ## Current phase
 
-**v9 GPU session complete, critic-reviewed, robustness checks incorporated.**
-Four headline claims in §10; each tested by a red-team pass (3 critics) and
-re-verified in §11. Added SAE-geometry + Goodfire-style LFP in §12.
-Two claims sharpened (behavioral R CI, primal-z sparsity via W_dec),
-one amended (on-manifold kinder at high |α|, not low), two held firm
-(Park refuted, primal/probe gap holds under 5-fold CV).
+**v9 complete, critic-reviewed, robustness checks incorporated, full
+26-layer sweep added.** Four headline claims in §10; each red-teamed
+by 3 critics and re-verified in §11. Added SAE-geometry + Goodfire-style
+LFP in §12. Full layer sweep in §13: **z is encoded by layer 7 but
+causally used only from layer 13 onward; peak primal steering at
+layer 20–22; intrinsic dim rises mid-network (~7 at L13–17) and drops
+to ~5 at the last layer — matches Sarfati et al.'s Goodfire prediction.**
 
 ## What's done
 
