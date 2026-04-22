@@ -681,3 +681,478 @@ need re-running.
     curved manifold into sparse interpretable features.
   - On-manifold steering (along the geodesic) may outperform linear steering
     for pairs like speed where curvature is extreme.
+
+## §10 — v9: Gemma 2 2B + Gemma Scope SAE + on-manifold / Park steering
+
+Pivot to `google/gemma-2-2b` (26 layers, d=2304) at layer mid=13 / late=20
+to unlock pretrained Gemma Scope residual-stream SAEs. Full v7 Grid B
+(5x × 5z × 30 seeds per pair, 8 pairs) re-run; same analyses as v7–v8 plus
+SAE decomposition, on-manifold (tangent) steering, and Park's causal
+inner product.
+
+## 10.1 — Behavioral signal replicates cleanly on 2B (8/8 pairs)
+
+| pair       | R = −slope(μ)/slope(x) | r²(z) | r²(x,μ) |
+|------------|------------------------|-------|---------|
+| height     | **+0.854**             | 0.876 | 0.889   |
+| age        | **+1.025**             | 0.786 | 0.788   |
+| weight     | **+0.916**             | 0.845 | 0.861   |
+| size       | **+0.925**             | 0.837 | 0.863   |
+| speed      | **+0.769**             | 0.600 | 0.821   |
+| wealth     | **+0.772**             | 0.655 | 0.739   |
+| experience | **+0.862**             | 0.801 | 0.842   |
+| bmi_abs    | **+0.827**             | 0.727 | 0.823   |
+
+All 8 pairs exceed the R > 0.3 acceptance threshold (target: ≥5/8). Notable
+shifts vs E4B: `age` flips from x-dominated on E4B to R≈1.03 (fully
+context-relative) here; all pairs (including bmi_abs) cluster in a tight
+R = 0.77–1.03 band, i.e. **Gemma 2 2B is MORE context-relative than E4B
+across the board, not less.**
+
+## 10.2 — SAE decomposition of z — distributed, not sparse
+
+Gemma Scope width-65k, layer-20, avg_l0_61 JumpReLU SAE. Per pair:
+encoded 660–750 activations, found 446–635 features active across prompts
+(≈1% of the dictionary).
+
+  - **Cross-pair Jaccard** of top-20 z-correlated features:
+    off-diagonal mean = 0.060 (~10× chance baseline).
+    Shared substrate exists but is weak — body-measurement pairs don't
+    share a dominant set of "z-features."
+  - **Participation ratio** (effective # features):
+    primal_z ≈ 10k–15k vs probe_z ≈ 17k–18k.
+    probe_z spreads 1.2–1.8× thinner, but neither direction is
+    sparsely decomposed in SAE basis.
+  - **Energy in top-20 z-features**:
+    primal_z = 0.1%–1.0%,  probe_z ≈ 0.02% (uniform baseline 0.03%).
+    primal IS aligned with the z-feature subspace — just at ~10×
+    uniform, not the near-concentration the plan hypothesized.
+
+**Conclusion:** the ~18× steering gap between primal_z and probe_z is NOT
+explained by primal_z loading onto a handful of SAE features. Both
+directions are broadly distributed across thousands of features;
+primal is only moderately more concentrated and modestly more z-aligned.
+Whatever makes primal_z causally effective is finer-grained than
+SAE-level sparsity.
+
+## 10.3 — On-manifold (tangent) steering — 70% as effective, not kinder
+
+Late-layer (layer 20) causal intervention with forward hooks at the last
+token position. α ∈ {−2, −1, 0, +1, +2}. All directions rescaled to
+‖primal_z‖ so α is comparable. Stratified subset: 20 prompts per z-value.
+
+Tangent(z) = piecewise-linear finite-difference tangent through the five
+z-cell-means, evaluated at each prompt's z-bin.
+
+| pair       | primal slope | tangent slope | t/p ratio | random |
+|------------|--------------|---------------|-----------|--------|
+| height     | +1.79        | +1.24         | 0.69      | +0.22  |
+| age        | +1.77        | +1.29         | 0.73      | +0.16  |
+| weight     | +2.24        | +1.54         | 0.69      | +0.21  |
+| size       | +2.42        | +1.53         | 0.63      | −0.07  |
+| speed      | +1.42        | +0.94         | 0.66      | −0.04  |
+| wealth     | +2.25        | +1.57         | 0.70      | −0.21  |
+| experience | +4.59        | +3.31         | 0.72      | +0.08  |
+| bmi_abs    | +2.12        | +1.46         | 0.69      | −0.48  |
+
+**Tangent steers at 0.63–0.73× primal, remarkably consistent across
+pairs (mean 0.69).** Random null is near zero (direction norm is matched,
+so this is a clean null).
+
+Entropy damage at |α|=2 is small in all cases (|Δent| ≤ 0.15 from a
+~4-nat baseline). Tangent is NOT systematically kinder than primal —
+often within ±0.05 nats. **The "on-manifold = less entropy damage"
+hypothesis is not supported at these α levels.**
+
+Why tangent is weaker: primal_z encodes the full z ∈ [−2, +2] range in
+one direction, while each tangent covers only a 1σ segment. Following
+the local tangent accumulates curvature corrections, but those corrections
+trade off with signed displacement.
+
+## 10.4 — Park causal inner product — does NOT bridge the 18× gap
+
+probe_z_causal = (W_U^T W_U + λI)^{−1} probe_z  with λ = 10⁻²,
+where W_U = lm_head.weight ∈ ℝ^(256000 × 2304).
+
+Steering slopes (rescaled to ‖primal_z‖):
+
+| pair       | primal | probe | probe_causal | probe/primal | causal/primal |
+|------------|--------|-------|--------------|--------------|---------------|
+| height     | +1.79  | +0.07 | +0.14        | 0.04×        | 0.08×         |
+| age        | +1.77  | +0.02 | +0.03        | 0.01×        | 0.02×         |
+| weight     | +2.23  | +0.11 | +0.09        | 0.05×        | 0.04×         |
+| size       | +2.44  | +0.05 | +0.10        | 0.02×        | 0.04×         |
+| speed      | +1.41  | +0.17 | −0.02        | 0.12×        | −0.02×        |
+| wealth     | +2.25  | +0.20 | +0.08        | 0.09×        | 0.04×         |
+| experience | +4.62  | +0.08 | −0.42        | 0.02×        | −0.09×        |
+| bmi_abs    | +2.15  | −0.22 | −0.01        | −0.10×       | ≈0            |
+
+cos(probe_causal, primal_z) stays ≤ 0.05 across all pairs (and flips
+sign for several). **Park's causal transformation leaves probe_z
+essentially unchanged — it does not rotate probe_z toward primal_z.**
+
+This is a cleaner negative than v7 could deliver: on Gemma 2 2B the
+probe-vs-primal gap widens to 10–100× (age reaches ~90× weaker), and
+the causal metric hypothesis fails by every reasonable measure —
+slope, entropy, cosine. The encoding direction (Ridge probe_z) and
+the causal direction (primal_z) are not related by a W_U-induced
+inner product.
+
+## 10.5 — What §10 changes for the paper
+
+**Positive for the thesis:**
+  - Behavioral signal replicates cleanly on a second model (2B) with
+    cleaner per-pair R than the primary (E4B). Reviewers should buy
+    the cross-model stability now.
+  - `age` switching from x-dominated (E4B) to z-dominated (2B) is a
+    small-but-real scaling observation — worth a sentence in the paper.
+
+**Refines or refutes three specific follow-up hypotheses:**
+  - **Sparse SAE decomposition of z**: refuted in its strong form.
+    z is not carried by a handful of SAE features; both primal and
+    probe spread across thousands. Paper should *not* claim
+    SAE-interpretable sparsity for z.
+  - **On-manifold tangent is kinder to entropy**: refuted at tested α.
+    The curved manifold is real (§9.2 isomap R²=0.97 on speed), but the
+    payoff for tangent steering is not entropy safety.
+  - **Park's causal metric bridges encode-vs-use**: refuted. The
+    ~18× primal/probe gap (now 10–100× on 2B) is NOT explained by a
+    W_U-induced metric. Probe_z is a genuinely different direction,
+    not a metric-rotated copy of primal_z.
+
+**Net:** v9 strengthens the behavioral + primal-z story and retires three
+alternative explanations for why probe_z underperforms. The remaining
+open question (what IS primal_z, if not a sparse SAE feature bundle,
+an on-manifold tangent, or a causally-rotated probe?) is a good arXiv
+follow-up but does not block the workshop paper.
+
+## §11 — v9 robustness: critic-driven reruns amending §10
+
+Three skeptical critics (stats, implementation, interpretation) raised
+concerns on §10's four claims. We addressed them with targeted reruns
+(no new GPU data collection — all on the same Grid B activations). The
+net effect is a sharper §10, not a retraction: two claims strengthen,
+two receive narrower scope, one auxiliary claim ("age flipped to
+z-dominated") becomes statistically solid.
+
+### 11.1 — Behavioral R: tight bootstrap CIs; simulation calibration
+
+  - 1000-sample bootstrap gives CI95 widths of **0.02–0.05** for every
+    pair — R is well-determined, not a ratio-estimator artifact.
+  - Synthetic calibration on each pair's Grid B design:
+    pure-z model → R = 0.997–1.003, pure-x model → R ≈ 0.00,
+    half-x + half-z → R = 0.42–0.69. R is a well-behaved variance-share
+    statistic and our threshold "R > 0.3" maps to a meaningful
+    "z explains ≥ ~1/3 of the variance" regime.
+  - **`age` at 2B**: CI95 = [+1.003, +1.048] — definitively pure-z.
+    Not a noise flip. Worth promoting to a headline paragraph in the
+    paper's scaling section.
+
+  Artifacts: `results/v9_gemma2/behavioral_bootstrap.json`,
+  `figures/v9/behavioral_R_ci_vs_simulation.png`.
+
+### 11.2 — SAE decomposition: the projection matters — primal IS sparser
+
+A critic noted that `sae_project(v)` used encoder-columns (`v @ W_enc`),
+which rolls in the constant b_enc and is the wrong operator for
+"direction in SAE basis." The scientifically correct choice is
+decoder-row projection (`v @ W_dec.T`), because Gemma-Scope's W_dec rows
+are unit-normalized feature contribution directions. We re-ran P2 with
+both:
+
+| SAE variant                      | mean probe/primal participation-ratio |
+|----------------------------------|----------------------------------------|
+| layer 20, width 65k, L0 = 61     | **5.93×**   (W_dec;  was 1.50× with W_enc) |
+| layer 20, width 65k, L0 = 20     | **5.02×**   (sparser dictionary)       |
+| layer 13, width 65k, L0 = 74     | **2.65×**   (mid-layer — smaller gap)  |
+
+**primal_z is 4–10× more concentrated than probe_z at late layer in
+the correct basis** — far closer to the v9-plan's "few features"
+hypothesis than P2's original numbers. The statement in §10.2 that
+"the sparse-SAE hypothesis is refuted" was too strong; amended to:
+
+> primal_z loads onto a much more concentrated set of SAE features
+> than probe_z (participation ratio 4–10× smaller at late layer, 2.6×
+> at mid layer). This is a real sparsity signal, but still not as
+> extreme as "3 features" — primal fires ~3–8k effective features in
+> the 65k width-65k dictionary vs ~22k for probe.
+
+Artifacts: `results/v9_gemma2/sae_sensitivity.json`,
+`figures/v9/sae_sensitivity_participation_and_energy.png`.
+
+### 11.3 — On-manifold tangent steering: kinder at high |α|, not at |α|=2
+
+§10.3 reported Δentropy ≤ 0.15 at |α| = 2 and concluded "tangent NOT
+systematically kinder." At that α we hadn't left the data cloud. At
+|α| = 8 (extended sweep), entropy damage is 0.2–1.4 nats and
+
+| pair       | Δent primal @ α=8 | Δent tangent @ α=8 | tangent kinder? |
+|------------|-------------------|--------------------|-----------------|
+| height     | −0.67             | −0.41              | yes (Δ=0.26)    |
+| age        | −0.74             | −0.47              | yes (Δ=0.27)    |
+| weight     | −0.24             | −0.58              | NO              |
+| size       | −0.61             | −0.49              | yes (Δ=0.12)    |
+| speed      | −0.33             | −0.24              | yes (Δ=0.09)    |
+| wealth     | −1.41             | −1.26              | yes (Δ=0.15)    |
+| experience | −1.42             | −0.85              | yes (Δ=0.57)    |
+| bmi_abs    | −0.27             | −0.54              | NO              |
+
+**Tangent is kinder on 6/8 pairs at α=8** (wealth, experience most
+dramatic; weight and bmi_abs invert). §10.3's refutation applied only
+to the near-cloud regime (|α|≤2); the on-manifold-safety hypothesis
+is **partially supported at high α** — the effect size is modest
+(0.1–0.6 nats) and pair-dependent. Not a clean win, but not dead.
+
+### 11.4 — Park causal metric: layer 25 + λ sweep — still refuted
+
+Two critics flagged §10.4: λ = 10⁻² may have been effectively zero,
+and Park's geometry is theoretically sharpest at the pre-unembedding
+layer (25), not at 20.
+
+  - **Eigendecomposition of W_U^T W_U**: min eigenvalue = 3.4, median
+    242, max 168,000. λ=10⁻² is ~340× smaller than the smallest
+    eigenvalue — critic was right, it was essentially zero.
+  - **λ sweep ∈ {10⁻⁵, 10⁻³, 10⁻¹, 1, 10}**: at λ=10, 0.3% of
+    eigenvalues are below λ (first real regularization). Across all λ,
+    the probe_causal slope at layer 25 ranges over a small band —
+    **no λ brings probe_causal near primal** on any pair.
+  - **Layer 25 (pre-unembedding)**: primal slopes 1.5–4.5 (stronger
+    than at layer 20), probe slopes −1.1…+0.6, probe_causal similar.
+    Probe/primal ratio at layer 25 ≈ 0.05, essentially identical to
+    layer 20. Park's hypothesis does NOT improve at the theoretically
+    favored layer.
+
+Claim stands: the W_U-induced inner product does not bridge the
+encode-vs-use gap at any layer or λ tested. §10.4 now reads with
+numerical backing rather than "maybe wrong layer / maybe wrong λ."
+
+Artifacts: `results/v9_gemma2/park_layer25_summary.json`,
+`figures/v9/park_layer20_vs_layer25.png`.
+
+### 11.5 — Steering null band + held-out CV
+
+Two more critic concerns resolved:
+
+**Multi-seed random null (30 seeds × Gaussian directions rescaled to
+‖primal_z‖)**: the 97.5th percentile of the null slope distribution is
+0.2–0.7 per pair (much wider than the single-seed 0.2 used in §10).
+**Both primal and tangent slopes remain clearly above the null q975
+for every pair.** Null validity confirmed.
+
+**5-fold CV on primal_z and probe_z**: we fit each direction on 80%
+of Grid B and steered on held-out 20%. The primal in-sample slope
+equals the out-of-sample slope to 3 decimals (e.g. height 1.796 both,
+weight 2.181 both) — **primal has zero train-set overfitting**. The
+probe slope is likewise within 0.05 of its in-sample value. **The
+probe/primal gap persists cleanly out-of-sample (0.01–0.11× across
+pairs)** — NOT a leakage artifact.
+
+Artifacts: `results/v9_gemma2/steering_robust_summary.json`,
+`figures/v9/steering_extended_alpha.png`,
+`figures/v9/steering_extended_alpha_entropy.png`,
+`figures/v9/steering_multiseed_null.png`,
+`figures/v9/steering_heldout_cv.png`.
+
+## §12 — SAE feature geometry + Goodfire-style LFP
+
+Per user request (influenced by Sarfati et al. 2026, "The Shape of
+Beliefs"), we added two geometry analyses on top of the SAE codes.
+
+### 12.1 — PCA in SAE feature space is WORSE than raw-activation PCA
+
+For each pair, we did PCA on (n_prompts × n_active_features) SAE
+coefficients and compared r²(z) of the top 2 SAE PCs against the top
+2 raw-activation PCs.
+
+| pair       | r²(z) raw PC1/2 | r²(z) SAE PC1/2 |
+|------------|------------------|------------------|
+| height     | 0.89             | 0.88             |
+| age        | 0.68             | **0.12**         |
+| weight     | 0.89             | 0.89             |
+| size       | 0.74             | 0.70             |
+| speed      | 0.53             | **0.08**         |
+| wealth     | 0.72             | 0.66             |
+| experience | 0.84             | 0.83             |
+| bmi_abs    | 0.80             | 0.74             |
+
+**SAE PCA is uniformly ≤ raw PCA for recovering z in the top two
+components** (catastrophic for age and speed — the two pairs with the
+most curved z-manifolds per §9.2). Consistent with §11.2's finding
+that z lives on *many* SAE features: the top variance-axes in SAE
+space mix z with unrelated features, so first-2-PC reconstruction of
+z degrades.
+
+### 12.2 — Linear Field Probes + Gram kernel PCA
+
+Following Sarfati et al.'s LFP procedure: per pair, train one logistic
+probe per z-value (K=5), stack into W_pair ∈ ℝ^(K×d), compute Gram
+G = W_n W_n^T on row-normalized probes, eigendecompose.
+
+Per-pair Gram spectrum (both raw and SAE bases):
+
+  - Top eigenvalue captures ≈ **30% of the total** — not rank-1.
+  - Participation ratio (effective rank) ≈ **4.2 out of 5**, meaning
+    **the 5 per-z-value probes are nearly orthogonal**. This is
+    incompatible with "z is a single linear direction"; it's
+    consistent with §9.1's ID-5 manifold claim.
+
+**Stacked cross-pair LFP Gram** (40 probes = 5 z-values × 8 pairs):
+
+  - Participation ratio 26 (raw) / 31.6 (SAE) out of 40.
+  - Cross-pair z-probes do NOT collapse into a shared z-axis; each
+    pair's z-subspace is largely its own. Matches §8.2's cross-pair
+    PC1 cosine of 0.19 and §7's cross-pair transfer of ~40%.
+
+Artifacts:
+  `results/v9_gemma2/sae_feature_pca.json`,
+  `results/v9_gemma2/lfp_gram_per_pair.json`,
+  `results/v9_gemma2/lfp_stacked_cross_pair.json`,
+  `figures/v9/sae_feature_pca_8panel.png`,
+  `figures/v9/lfp_gram_spectra.png`,
+  `figures/v9/lfp_kernel_pca_per_pair.png`,
+  `figures/v9/lfp_stacked_cross_pair.png`.
+
+### 12.3 — Synthesis across §§9, 11.2, 12
+
+Three converging views of z's geometry on Gemma 2 2B layer 20:
+
+  - **Manifold geometry (§9)**: intrinsic dim ≈ 5 via TWO-NN estimator
+    on cell-means.
+  - **SAE decomposition (§11.2)**: primal_z is 4–10× sparser than probe
+    in decoder-row basis, but still spreads across thousands of
+    features.
+  - **LFP Gram (§12.2)**: 5 per-z-value probes have effective rank
+    ≈ 4.2 — near-orthogonal.
+
+All three say z is not a 1-D linear direction; it's a ~5-D
+multi-direction structure. The linear primal_z "works" because the
+first principal tangent is aligned with the 5-D subspace; it's not
+because z is actually 1-D.
+
+## §13 — v9 full layer sweep: encode vs use vs geometry across all 26 layers
+
+Previous v9 sections pinned layer=20 (late) and layer=13 (mid). The
+user asked: what happens if we sweep all 26 decoder blocks?
+
+We re-extracted Gemma 2 2B activations at every `decoder_layer[k]`
+output, last-content-token, for the full Grid B (5x × 5z × 30 seeds).
+Then per layer we computed: Ridge CV R²(z) and R²(x), top-PC r²(z),
+TWO-NN intrinsic dim on cell-means, ‖primal_z‖, cos(primal_z[L],
+primal_z[L−1]), 5-probe LFP Gram spectrum. Also: causal steering
+slope at 7 strategic layers {5, 10, 13, 17, 20, 22, 24}.
+
+### 13.1 — z is encoded by layer 7–9, flat thereafter
+
+Mean CV R²(z) across 8 pairs, per layer:
+
+    L0 0.45   L1 0.63   L2 0.73   L3 0.80   L4 0.85   L5 0.90
+    L6 0.91   L7 0.94   L8 0.94   L9 0.94   L10 0.94  L11 0.93
+    L12 0.93  L13 0.93  L14 0.93  L15 0.92  L16 0.93  L17 0.93
+    L18 0.92  L19 0.92  L20 0.92  L21 0.92  L22 0.92  L23 0.92
+    L24 0.92  L25 0.92
+
+Curve saturates at **L7 (~0.94) and holds flat through the last
+layer.** Every pair follows the same shape. **z is decodable from
+layer 7 onward** — more than halfway BEFORE our previous "late = 20"
+extraction.
+
+### 13.2 — Intrinsic dim matches Goodfire's prediction
+
+Mean TWO-NN intrinsic dim of cell-means, per layer (across 8 pairs):
+
+    L0  4.85   L5  4.58   L10 5.09   L13 6.91   L16 7.12
+    L20 5.83   L22 5.38   L25 5.35
+
+**ID rises through mid-network, peaks at L13–17 (≈ 7), then drops to
+5.3 at the last layer** — exactly the "rise then drop at the last
+layer" pattern Sarfati et al. (2026) report for Llama-3.2 belief
+manifolds. First independent replication on Gemma 2 2B.
+
+### 13.3 — Primal direction rotates mid, stabilizes late
+
+cos(primal_z[L], primal_z[L−1]), mean across 8 pairs:
+
+    L1 0.32   L5 0.52   L10 0.59   L13 0.65   L15 0.77
+    L18 0.88  L20 0.93  L22 0.94  L25 0.91
+
+In **early layers the primal direction actively rotates** (0.3–0.6 cos
+with the previous layer — lots of reorientation). By **L18 it
+stabilizes (0.88+)** and changes little for the rest of the network.
+Combined with §9.3 (mid ⊥ late: cos(primal_mid, primal_late) ≈ 0), we
+can sharpen the picture: **the "two orthogonal representations"
+aren't because the network uses two different directions — it's
+because the primal direction moves through a ~90° arc over the course
+of the middle layers, then settles.**
+
+### 13.4 — Primal magnitude grows exponentially with depth
+
+    ‖primal_z‖:  L0 0.2   L5 1.0   L10 5.6   L15 23.8
+                 L20 52.4  L25 80.0
+
+**Roughly 10× per ~8 layers.** The semantic content of z saturates at
+L7 (§13.1), but the residual stream keeps amplifying the z-direction
+for the rest of the network. This is the first time in this project
+we've observed the gap between "z info is there" and "z is written
+loud" as a function of depth.
+
+### 13.5 — Causal steering: z is USED only in the second half
+
+Ran primal_z and probe_z steering at 7 strategic layers. Mean slope
+(Δlogit_diff per α) across 8 pairs:
+
+    layer         L5     L10     L13     L17     L20     L22     L24
+    primal     −0.00   +0.03   +0.57   +1.91   +2.33   +2.58   +2.48
+    probe      +0.00   +0.02   +0.08   +0.09   +0.06   +0.03   +0.05
+    probe/pri    —     0.65    0.15    0.05    0.03    0.01    0.02
+
+**This is the headline result of §13.** At L5 and L10, where R²(z) is
+already ~0.94 and the information is decodable, **primal_z steering
+does nothing** (slope ≈ 0). The z-information is present but the
+network does not yet use it to drive the next-token distribution.
+Causal potency emerges sharply at **L13 (slope 0.57)**, strengthens
+through **L17 (1.91)**, peaks around **L20–22 (2.3–2.6)**, and eases
+slightly at the last layer.
+
+The encode-vs-use gap v7 originally framed as "probe_z vs primal_z"
+(same layer, different direction) is a **layer-depth** phenomenon.
+At layer 20 probe/primal = 0.03. At layer 10, where z is already
+encoded, primal *itself* is causally null. The dimensions along
+which z is decodable in early layers are not the dimensions the
+network's late layers read from.
+
+Probe_z steering is ~uniformly weak across all layers (max mean slope
+0.09 at L17). One outlier: `experience` at L13 gives probe slope
++0.45 (~30% of primal), suggesting there are layers where probe
+actually works. Not a reliable pattern across pairs though.
+
+### 13.6 — Synthesis
+
+Taken together, §13 resolves several lingering puzzles from earlier
+sections:
+
+  - §9.3's "mid ⊥ late primal_z" = direction slowly rotating through
+    the middle layers (§13.3), not two unrelated mechanisms.
+  - §9's ID ≈ 5 was at L20. §13.2 reveals the **ID peaks mid-network
+    (~7) and compresses to ~5 at the end** — the manifold unfolds
+    mid-network then compresses for the unembedding.
+  - The 18× primal/probe gap at L20 (§10.4) is a point on a curve
+    — at L10 the gap is "both are zero"; at L13 probe/primal ≈ 0.15;
+    at L20+ it settles at ≈ 0.03.
+  - The SAE-feature picture in §11.2 applies at layer 20. The same
+    analysis at layer 7–9 (where z is most cleanly encoded) is an
+    obvious next experiment.
+
+**Single-line takeaway for the paper:** *z is encoded at layer 7,
+the manifold unfolds to ID≈7 by layer 13–17, the network begins to
+use z causally at layer 13 and peaks at layer 20–22, then the
+manifold compresses to ID≈5 at the final layer.*
+
+Artifacts
+  `results/v9_gemma2/layer_sweep_geometry.json`
+  `results/v9_gemma2/layer_sweep_steering.json`
+  `figures/v9/layer_sweep_combined.png`   (6-panel summary)
+  `figures/v9/layer_sweep_probe_r2.png`
+  `figures/v9/layer_sweep_intrinsic_dim.png`
+  `figures/v9/layer_sweep_primal_continuity.png`
+  `figures/v9/layer_sweep_lfp_id.png`
+  `figures/v9/layer_sweep_steering_slopes.png`

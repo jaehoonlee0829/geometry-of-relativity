@@ -1,0 +1,199 @@
+{
+  "model": "google/gemma-2-2b",
+  "layer": 20,
+  "alphas": [
+    -2.0,
+    -1.0,
+    0.0,
+    1.0,
+    2.0
+  ],
+  "ridge_alpha": 1.0,
+  "causal_lambda": 0.01,
+  "per_pair": {
+    "height": {
+      "primal": {
+        "slope": 1.7937500178813932,
+        "entropy_at_0": 3.690955400466919,
+        "entropy_at_abs2": 3.6092658042907715,
+        "entropy_shift_2": -0.08168959617614746,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.07225000858306875,
+        "entropy_at_0": 3.690955400466919,
+        "entropy_at_abs2": 3.6806139945983887,
+        "entropy_shift_2": -0.010341405868530273,
+        "cos_with_primal": 0.03775012120604515
+      },
+      "probe_causal": {
+        "slope": 0.13999999165534965,
+        "entropy_at_0": 3.690955400466919,
+        "entropy_at_abs2": 3.6950278282165527,
+        "entropy_shift_2": 0.004072427749633789,
+        "cos_with_primal": -0.010978315956890583
+      }
+    },
+    "age": {
+      "primal": {
+        "slope": 1.7706249475479123,
+        "entropy_at_0": 3.6490142345428467,
+        "entropy_at_abs2": 3.6301565170288086,
+        "entropy_shift_2": -0.018857717514038086,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.019499999284744253,
+        "entropy_at_0": 3.6490142345428467,
+        "entropy_at_abs2": 3.6372451782226562,
+        "entropy_shift_2": -0.01176905632019043,
+        "cos_with_primal": 0.0586351715028286
+      },
+      "probe_causal": {
+        "slope": 0.02762500047683709,
+        "entropy_at_0": 3.6490142345428467,
+        "entropy_at_abs2": 3.6396965980529785,
+        "entropy_shift_2": -0.009317636489868164,
+        "cos_with_primal": 0.0010463045910000801
+      }
+    },
+    "weight": {
+      "primal": {
+        "slope": 2.232624983787537,
+        "entropy_at_0": 3.924278974533081,
+        "entropy_at_abs2": 3.875723123550415,
+        "entropy_shift_2": -0.048555850982666016,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.10687499046325677,
+        "entropy_at_0": 3.924278974533081,
+        "entropy_at_abs2": 3.9197707176208496,
+        "entropy_shift_2": -0.004508256912231445,
+        "cos_with_primal": 0.03308595344424248
+      },
+      "probe_causal": {
+        "slope": 0.0910000085830688,
+        "entropy_at_0": 3.924278974533081,
+        "entropy_at_abs2": 3.8888094425201416,
+        "entropy_shift_2": -0.03546953201293945,
+        "cos_with_primal": 0.002879022154957056
+      }
+    },
+    "size": {
+      "primal": {
+        "slope": 2.439624986052513,
+        "entropy_at_0": 4.0193376541137695,
+        "entropy_at_abs2": 3.9471354484558105,
+        "entropy_shift_2": -0.07220220565795898,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.04912497997283944,
+        "entropy_at_0": 4.0193376541137695,
+        "entropy_at_abs2": 4.003051280975342,
+        "entropy_shift_2": -0.016286373138427734,
+        "cos_with_primal": 0.05499281361699104
+      },
+      "probe_causal": {
+        "slope": 0.09500000476837174,
+        "entropy_at_0": 4.0193376541137695,
+        "entropy_at_abs2": 4.00653076171875,
+        "entropy_shift_2": -0.012806892395019531,
+        "cos_with_primal": 0.017834171652793884
+      }
+    },
+    "speed": {
+      "primal": {
+        "slope": 1.405999970436096,
+        "entropy_at_0": 4.23573112487793,
+        "entropy_at_abs2": 4.18791389465332,
+        "entropy_shift_2": -0.047817230224609375,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.17024999558925633,
+        "entropy_at_0": 4.23573112487793,
+        "entropy_at_abs2": 4.230278968811035,
+        "entropy_shift_2": -0.005452156066894531,
+        "cos_with_primal": 0.046729110181331635
+      },
+      "probe_causal": {
+        "slope": -0.024124999810010192,
+        "entropy_at_0": 4.23573112487793,
+        "entropy_at_abs2": 4.221659183502197,
+        "entropy_shift_2": -0.014071941375732422,
+        "cos_with_primal": -0.025776052847504616
+      }
+    },
+    "wealth": {
+      "primal": {
+        "slope": 2.2477499723434446,
+        "entropy_at_0": 3.6322402954101562,
+        "entropy_at_abs2": 3.5731968879699707,
+        "entropy_shift_2": -0.05904340744018555,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.19837496280670153,
+        "entropy_at_0": 3.6322402954101562,
+        "entropy_at_abs2": 3.669045925140381,
+        "entropy_shift_2": 0.03680562973022461,
+        "cos_with_primal": 0.03333641216158867
+      },
+      "probe_causal": {
+        "slope": 0.08274998664855944,
+        "entropy_at_0": 3.6322402954101562,
+        "entropy_at_abs2": 3.596876621246338,
+        "entropy_shift_2": -0.03536367416381836,
+        "cos_with_primal": 0.04280388727784157
+      }
+    },
+    "experience": {
+      "primal": {
+        "slope": 4.6174375385046,
+        "entropy_at_0": 3.930314302444458,
+        "entropy_at_abs2": 3.7896509170532227,
+        "entropy_shift_2": -0.14066338539123535,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": 0.08249998092651332,
+        "entropy_at_0": 3.930314302444458,
+        "entropy_at_abs2": 3.8779921531677246,
+        "entropy_shift_2": -0.0523221492767334,
+        "cos_with_primal": 0.03591621294617653
+      },
+      "probe_causal": {
+        "slope": -0.41850001811981247,
+        "entropy_at_0": 3.930314302444458,
+        "entropy_at_abs2": 3.894570827484131,
+        "entropy_shift_2": -0.03574347496032715,
+        "cos_with_primal": 0.008859449066221714
+      }
+    },
+    "bmi_abs": {
+      "primal": {
+        "slope": 2.145249986648559,
+        "entropy_at_0": 4.145495414733887,
+        "entropy_at_abs2": 3.9998722076416016,
+        "entropy_shift_2": -0.14562320709228516,
+        "cos_with_primal": 1.0
+      },
+      "probe": {
+        "slope": -0.21974999904632614,
+        "entropy_at_0": 4.145495414733887,
+        "entropy_at_abs2": 4.136181354522705,
+        "entropy_shift_2": -0.00931406021118164,
+        "cos_with_primal": 0.03585188090801239
+      },
+      "probe_causal": {
+        "slope": -0.007749986648559645,
+        "entropy_at_0": 4.145495414733887,
+        "entropy_at_abs2": 4.120611190795898,
+        "entropy_shift_2": -0.02488422393798828,
+        "cos_with_primal": 0.027864452451467514
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "height": [],
+  "age": [],
+  "weight": [],
+  "size": [
+    {
+      "x": 5.0,
+      "z": 1.0,
+      "derived_mu": -1.0
+    },
+    {
+      "x": 5.0,
+      "z": 2.0,
+      "derived_mu": -7.0
+    }
+  ],
+  "speed": [
+    {
+      "x": 20.0,
+      "z": 2.0,
+      "derived_mu": -10.0
+    }
+  ],
+  "wealth": [],
+  "experience": [
+    {
+      "x": 1.0,
+      "z": 1.0,
+      "derived_mu": -3.0
+    },
+    {
+      "x": 1.0,
+      "z": 2.0,
+      "derived_mu": -7.0
+    },
+    {
+      "x": 5.0,
+      "z": 2.0,
+      "derived_mu": -3.0
+    }
+  ],
+  "bmi_abs": []
+}

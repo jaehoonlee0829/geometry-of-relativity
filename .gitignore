@@ -39,6 +39,14 @@ results/v7_xz_grid/*_trials.jsonl
 results/v7_xz_grid/*_logits.jsonl
 results/v7b_xz_grid/*_trials.jsonl
 results/v7b_xz_grid/*_logits.jsonl
+results/v9_gemma2/*_trials.jsonl
+results/v9_gemma2/*_logits.jsonl
+results/v9_gemma2/*_rows.jsonl
+
+# Local session artifacts (logs, HF cache, secrets)
+logs/
+.hf_home/
+data_gen/
 
 # OS / editor
 .DS_Store
