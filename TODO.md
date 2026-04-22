@@ -24,6 +24,7 @@
 - [x] **v9 robustness (critic-driven)**: SAE sensitivity (layer 13 + lower L0 + W_dec projection), Park at layer 25 + λ sweep, behavioral bootstrap + Grid-B simulation, extended α + multi-seed null + 5-fold CV. FINDINGS §11.
 - [x] **v9 SAE geometry + LFP** (Goodfire-style): SAE-basis PCA (worse than raw), per-pair LFP Gram (ID ≈ 4.2 / 5, near-orthogonal z-probes), cross-pair 40-probe Gram (ID = 26 / 40). FINDINGS §12.
 - [x] **v9 full 26-layer sweep**: z encoded by L7 (R²=0.94 flat through L25); TWO-NN ID peaks at L13-17 (≈7) and drops to ≈5 at L25 (Goodfire replication); primal_z steering ≈ 0 at L5/L10, emerges at L13, peaks at L20-22. Encode vs. use is a layer-depth phenomenon. FINDINGS §13.
+- [x] **v10 dense-height deep dive** (DENSE-MANGO): height-only on Gemma 2 2B, 4,000-prompt 20×20×10 grid; cell-mean R(z)=0.972, peak primal steering at L14 (slope 0.086, gap to probe 8×); v9 ID hunchback retired (low-N TWO-NN artefact); attention DLA taxonomy: 15 μ-aggregators, 18 comparators, 5 z-writers across 8 strategic layers; SAE features mostly monotonic. FINDINGS §14.
 
 ## Queue — Paper (May 3-8)
 

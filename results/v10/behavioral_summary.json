@@ -1,0 +1,11 @@
+{
+  "r_z_cellmean": 0.9717898402769899,
+  "r_x_cellmean": 0.13384329825740227,
+  "r_z_per_prompt": 0.9358538416469748,
+  "n_prompts": 4000,
+  "n_cells": 400,
+  "entropy_mean": 3.640511206746101,
+  "entropy_std": 0.07346020863653854,
+  "logit_diff_min": -1.5,
+  "logit_diff_max": 3.0
+}

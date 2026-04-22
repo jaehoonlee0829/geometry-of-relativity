@@ -2,13 +2,18 @@
 
 ## Current phase
 
-**v9 complete, critic-reviewed, robustness checks incorporated, full
+**v10 complete (DENSE-MANGO).** Dense single-pair deep dive: height
+only, Gemma 2 2B, 4,000 prompts, 20×20×10 grid. **Confirms encode-vs-use
+as layer-depth phenomenon at higher density (cell-mean R(z)=0.972, peak
+primal steering at L14 with 8× probe gap), retires the v9 mid-network
+TWO-NN hunchback (low-N artefact), adds an attention-head taxonomy with
+explicit μ-aggregator/comparator/z-writer candidates (DLA on dumped
+activations, faithfulness 0.67).** FINDINGS §14.
+
+Prior phase: **v9 complete, critic-reviewed, robustness checks incorporated, full
 26-layer sweep added.** Four headline claims in §10; each red-teamed
-by 3 critics and re-verified in §11. Added SAE-geometry + Goodfire-style
-LFP in §12. Full layer sweep in §13: **z is encoded by layer 7 but
-causally used only from layer 13 onward; peak primal steering at
-layer 20–22; intrinsic dim rises mid-network (~7 at L13–17) and drops
-to ~5 at the last layer — matches Sarfati et al.'s Goodfire prediction.**
+by 3 critics and re-verified in §11. SAE-geometry + Goodfire-style
+LFP in §12. Full layer sweep in §13.
 
 ## What's done
 
@@ -26,6 +31,7 @@ to ~5 at the last layer — matches Sarfati et al.'s Goodfire prediction.**
 - **v9 SAE decomposition**: primal_z is 1.2–1.8× more concentrated than probe_z but both distributed across thousands of features — sparse-SAE hypothesis refuted
 - **v9 on-manifold tangent steering**: tangent steers at 0.63–0.73× primal; NOT systematically kinder to entropy — on-manifold hypothesis refuted
 - **v9 Park causal steering**: (W_U^T W_U)^{-1}·probe_z does NOT bridge the 18× probe/primal gap — Park hypothesis refuted
+- **v10 dense-height** (DENSE-MANGO): 4,000-prompt 20×20×10 grid; encode-vs-use peak shifted L14 (vs v9 L20-22), 8× probe/primal gap reproduced; v9 ID hunchback was a 25-pt TWO-NN artefact; attention DLA produces explicit head taxonomy.
 
 ## What's next
 
