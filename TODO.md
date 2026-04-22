@@ -21,6 +21,8 @@
 - [x] **v9 P2: SAE feature decomposition of z** — distributed-not-sparse; primal vs probe participation 10k vs 18k features; cross-pair Jaccard 0.060.
 - [x] **v9 P3: On-manifold tangent steering** — tangent/primal slope ≈ 0.69; entropy not systematically cleaner.
 - [x] **v9 P4: Park's causal inner product** — (W_U^T W_U)^-1·probe_z does NOT close the 18× gap; cos(probe_causal, primal) < 0.05.
+- [x] **v9 robustness (critic-driven)**: SAE sensitivity (layer 13 + lower L0 + W_dec projection), Park at layer 25 + λ sweep, behavioral bootstrap + Grid-B simulation, extended α + multi-seed null + 5-fold CV. FINDINGS §11.
+- [x] **v9 SAE geometry + LFP** (Goodfire-style): SAE-basis PCA (worse than raw), per-pair LFP Gram (ID ≈ 4.2 / 5, near-orthogonal z-probes), cross-pair 40-probe Gram (ID = 26 / 40). FINDINGS §12.
 
 ## Queue — Paper (May 3-8)
 

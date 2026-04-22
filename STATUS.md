@@ -2,10 +2,12 @@
 
 ## Current phase
 
-**v9 GPU session complete — Gemma 2 2B replication + SAE decomposition +
-on-manifold / Park causal steering.** Behavioral signal replicates on
-all 8 pairs (R=0.77–1.03 on Gemma 2 2B). All three alternative
-explanations for the encode-vs-use gap refuted. See FINDINGS §10.
+**v9 GPU session complete, critic-reviewed, robustness checks incorporated.**
+Four headline claims in §10; each tested by a red-team pass (3 critics) and
+re-verified in §11. Added SAE-geometry + Goodfire-style LFP in §12.
+Two claims sharpened (behavioral R CI, primal-z sparsity via W_dec),
+one amended (on-manifold kinder at high |α|, not low), two held firm
+(Park refuted, primal/probe gap holds under 5-fold CV).
 
 ## What's done
 
