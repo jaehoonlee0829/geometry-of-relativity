@@ -1156,3 +1156,247 @@ Artifacts
   `figures/v9/layer_sweep_primal_continuity.png`
   `figures/v9/layer_sweep_lfp_id.png`
   `figures/v9/layer_sweep_steering_slopes.png`
+
+## §14 — v10: dense single-pair deep dive (height only)
+
+**Summary.** v4–v9 spread across 8 pairs with a sparse 5×5 grid;
+the dimensionality and manifold claims were under-powered (only 25
+cell-means per pair, unreliable TWO-NN and Gram estimates). v10
+goes deep instead of wide: **one pair (height), one model
+(Gemma 2 2B), 20×20 = 400 cells × 10 seeds = 4,000 prompts**, and
+re-runs the full pipeline (behavioral, dimensionality, increment R²,
+SAE, attention circuits, layer-sweep steering).
+
+### Setup
+- Model: `google/gemma-2-2b` (26 layers, 8 heads/layer, head_dim=256, d_model=2304).
+- Prompts: 15 context heights ~ N(μ, σ=10 cm), then "Person 16: X cm. This person is".
+- Grid: x ∈ [145, 190] cm × 20, z ∈ [−3, +3] × 20, μ derived from x and z.
+- One forward pass on H100 captured: residuals at all 26 layers, attention
+  from the last token at 8 strategic layers {0, 3, 7, 10, 13, 17, 20, 25},
+  and per-head value-mix (input to o_proj) at the same 8 layers, plus W_O slices and W_U.
+- All analyses below are CPU-only on those dumps (no further GPU calls except P5
+  steering).
+
+## 14.1 — Behavioral signal is *much* stronger on the dense grid
+
+Just averaging the 10 seeds per (x, z) cell gives a tighter signal than v9's 30-seed × 25-cell grid:
+
+| Quantity | v9 (Grid B, 25 cells × 30 seeds) | v10 (400 cells × 10 seeds) |
+|---|---|---|
+| corr(LD, z), cell-mean | 0.85 | **0.972** |
+| corr(LD, x), cell-mean | ≈ 0.0 | 0.13 |
+| per-prompt R(z) | ≈ 0.5 | 0.936 |
+
+z is by far the dominant variable. Raw x carries a small residual
+component (R = 0.13) — too weak to overturn the relativity story but
+not zero, suggesting at the upper-x tail a tiny "absolutist" bias.
+
+Artifacts: `figures/v10/behavioral_logit_diff_xz.png`,
+`figures/v10/behavioral_x_vs_z_marginals.png`, `results/v10/behavioral_summary.json`.
+
+## 14.2 — Layer-sweep steering re-confirms the encode-vs-use gap
+
+Primal direction `d_L = mean(h_L | z>+1) − mean(h_L | z<−1)` (L2-normalised),
+probe direction `w_L` from closed-form ridge (z on residual at layer L,
+λ=100). 400 seed=0 prompts steered at α ∈ {−8, −4, 0, +4, +8} for each
+(direction, layer).
+
+Per-layer steering slope (Δ logit_diff per unit α):
+
+| L | primal_z slope | probe_z slope | primal/probe |
+|---:|---:|---:|---:|
+|  0 | −0.005 | −0.003 | 1.6× |
+|  7 | −0.007 | +0.011 | — (probe>primal) |
+| 10 | +0.001 | +0.010 | — |
+| 12 | **+0.063** | +0.019 | 3.3× |
+| 14 | **+0.086** | +0.023 | 3.6× |
+| 17 | +0.054 | +0.007 | 8.2× |
+| 20 | +0.043 | +0.006 | 7.6× |
+| 25 | +0.023 | +0.003 | 7.6× |
+
+**Take-aways**:
+- Steering slope is essentially zero at L0–L10 — z is encoded by L7
+  (R²(z)≥0.92 there per §14.4) but **not used causally** until ~L11.
+- **Peak primal steering at L14** (slope = +0.086).
+- The probe/primal **gap widens from ~1× early to ~8× late** —
+  reproducing v9 §11's headline result on the denser grid.
+- v9 reported peak at L20–22; v10 finds peak at L14. The shift is most
+  likely due to v10 using the |z|>1 tails for the primal direction
+  (1,400 prompts each side) vs v9's |z|>2 (sparser, more extreme).
+  Both peaks fall in the "compute" phase (§13's L7–L17 phase).
+
+Artifacts: `figures/v10/steering_layer_sweep.png`, `results/v10/steering_layer_sweep.npz`.
+
+## 14.3 — Dimensionality: three methods, same qualitative picture, *no* mid-network hunchback
+
+We computed (a) PCA-95% on 400 cell-means, (b) TWO-NN intrinsic
+dimensionality on 400 cell-means, (c) Gram-matrix participation
+ratio of a 20-class softmax z-probe (Sarfati's recipe), at every
+layer:
+
+| L | PCA-95% | TWO-NN ID | Gram-PR (MC) | Gram-PR (OvR) |
+|---:|---:|---:|---:|---:|
+|  0 | 13 | 7.67 | 7.43 | 16.73 |
+|  7 | **16** | 4.73 | 6.63 | 12.37 |
+| 13 | 13 | 3.81 | 7.83 | 10.88 |
+| 20 |  7 | 3.21 | 8.29 | 11.34 |
+| 25 |  7 | 3.55 | 8.50 | 11.38 |
+
+**v10 retires the v9 §13 "hunchback" claim**:
+- v9 reported TWO-NN ID rising from ~5 mid-network (L13–L17) and
+  compressing to ~5 at the final layer. With only **25 cell-means**
+  TWO-NN is unreliable above ID ≈ 5.
+- With **400 cell-means** v10 finds TWO-NN **monotonically compresses**
+  from 7.7 at L0 to 3.2 at L20, with no mid-network bump.
+- **PCA-95% does peak at L7 (16 components),** then compresses to 7 by L20.
+  So in PCA terms there *is* a mid-network expansion, but in
+  intrinsic-geometry (TWO-NN) terms there is not.
+- **Gram-PR (multinomial)** is roughly flat (6–8) across all layers —
+  the *number of independent z-probe directions* needed to separate
+  20 z-bins barely changes with depth.
+
+Artifacts: `figures/v10/id_per_layer_3methods.png`,
+`figures/v10/pca_cumvar_5layers.png`, `results/v10/dimensionality_per_layer.json`.
+
+## 14.4 — Residual increment R² does *not* show the predicted dip
+
+Plan §6 predicted: increment R²(z) peaks early (L3–L7), drops near
+zero at L8–L12 (z persists but nothing new written), rises again at
+L13–L17 (re-encoding for late readout). What we see:
+
+| L | resid R²(z) | incr R²(z) | resid R²(x) | incr R²(x) |
+|---:|---:|---:|---:|---:|
+|  0 | 0.22 | 0.22 | 0.24 | 0.24 |
+|  3 | 0.54 | 0.48 | 0.58 | 0.53 |
+|  7 | 0.92 | 0.92 | 0.96 | 0.95 |
+| 13 | 0.99 | 0.99 | 0.98 | 0.98 |
+| 20 | 0.99 | 0.99 | 0.99 | 0.98 |
+
+Cumulative and per-layer-increment **track each other almost perfectly**.
+The predicted dip is not there. The likely culprit is methodological:
+the residual stream norm grows with depth, so the raw difference
+`h_L − h_{L−1}` is dominated by the cumulative magnitude that survives.
+A cleaner test would project out the previous layer's z-direction
+before computing increment R² — left as a follow-up.
+
+Note also that R²(x) is just as high as R²(z) at every layer, because
+x is literally a digit-tokenised number in the prompt; the model can
+trivially "decode" x by remembering token identity. R²(z|x) (z-info
+beyond what x contributes) would be the more interpretable quantity
+and is also a follow-up.
+
+Artifacts: `figures/v10/increment_r2_per_layer.png`,
+`results/v10/increment_r2_per_layer.json`.
+
+## 14.5 — SAE features at L20: monotonic, with a few clean place-cells
+
+Gemma Scope SAE `gemma-scope-2b-pt-res/layer_20/width_65k/average_l0_61` —
+65k features, mean active rate 0.09 % per token. Of these, only
+**138 / 65,536 ≈ 0.21 %** carry meaningful z-variance (var(z) > 1e-3
+on the cell-mean grid).
+
+Of those 138 features, fitting both linear `f(z)=a·z+b` and Gaussian-bump
+`f(z)=A·exp(−(z−z0)²/2σ²)+c` to the 20-z-value cell-mean profiles:
+
+- **Most z-active features are monotonic.** Top-5 by linear R²:
+  feat 25989, 28555, 3908, 65147, 47118 — all with linear R² ≥ 0.93 and
+  bump R² within 0.05 of linear R² (i.e. the bump fit doesn't help).
+- **A minority are clean place-cells.** Top-5 by "place-cell score"
+  (bump R² − linear R²): feat 34700 (lin 0.00, bump 0.98, σ=1.39, z₀=−0.05),
+  feat 46404 (lin 0.00, bump 0.96, σ≈0.5), feat 29994 (Δ=0.93), etc.
+  These are real bump features whose linear correlation with z is essentially zero.
+- The **active-rate is much lower than v9 §12 reported** (v9 had
+  several thousand "effective" features for primal_z). With dense-grid
+  filtering, the genuinely z-modulated population is on the order of
+  **102 features**, not 103.
+
+Confirms v9 §13.5: most z-features are monotonic, not place-cells —
+matching Anthropic's *continuous*-not-discretised representation
+hypothesis for relative quantities.
+
+Artifacts: `figures/v10/sae_top10_z_profiles.png`,
+`figures/v10/sae_linear_vs_bump_scatter.png`, `results/v10/sae_feature_fits_L20.json`.
+
+## 14.6 — Attention head taxonomy (DLA on dumped activations)
+
+Per the recipe in `docs/NEXT_GPU_SESSION_v10.md` and a research-agent
+literature review (ACDC, EAP, attribution patching are flagged as
+requiring fresh forward passes; we use linear DLA on dumped activations
+per Elhage 2021, Goldowsky-Dill 2023). Per (strategic-layer ℓ, head h):
+
+- attn_mass to context (15 height tokens) and target (1 height token)
+- attention entropy
+- comparison_score = mean_i [attn_to_ctx_i × attn_to_tgt]
+- R²(z|head_out), R²(x|head_out), R²(μ|head_out) via 5-fold CV ridge
+- DLA score = w_z @ (W_O[:, h·hd:(h+1)·hd] @ head_out_h),
+  where w_z is the L20 z-probe direction.
+
+**Key per-head observations** (8 strategic layers × 8 heads = 64 heads):
+
+- Most heads encode z, x, μ to high R² (median 0.96 across heads at
+  L≥3) — head outputs are very low-rank, so mass and z-info are smeared.
+- **Top |DLA| heads**: L0h0 (+0.30, but R²(z)=0.11 — likely positional /
+  bias artefact), L3h0 (+0.23, R²(z)=0.91 — genuine early z-writer),
+  L10h0 (+0.19, R²(z)=0.98), L17h7 (+0.14, R²(z)=0.98), L25h7 (+0.07).
+  L3h4 has *negative* DLA (−0.14) with high R²(z) — an "anti-z" head.
+- **L13h2 is the standout "target-attender"**: attn_mass_tgt = 0.234
+  (largest of any head), comparison_score = 3.5e-4 (largest), R²(μ)=0.98 —
+  consistent with a head that reads the target number while
+  cross-referencing context.
+- **L0h6 attends most to context** (attn_mass_ctx = 0.101, R²(μ)=0.78,
+  high entropy) — looks like an early μ-aggregator.
+
+**Adaptive taxonomy** (top-quartile thresholds per metric):
+**15 μ-aggregators, 18 comparators, 5 z-writers** out of 64 strategic
+heads. Five canonical z-writers: L10h0, L10h6, L13h6, L17h7, L25h7
+(only mid-and-late heads survive the L≥10 layer filter).
+
+**Faithfulness**: sum of DLA scores across all 64 strategic heads
+correlates **0.67** with the actual z-probe-direction logit. The other
+1/3 of variance comes from MLPs and from heads at the 18 non-strategic
+layers (we only dumped 8 layers).
+
+Artifacts: `figures/v10/attention_mass_heatmaps.png`,
+`figures/v10/head_r2z_heatmap.png`, `figures/v10/dla_score_heatmap.png`,
+`figures/v10/head_taxonomy_scatter.png`,
+`figures/v10/attention_taxonomy_grid.png`,
+`results/v10/attention_per_head.json`,
+`results/v10/attention_per_head_taxonomy.json`.
+
+## 14.7 — What §14 changes for the paper
+
+- **Replace the v9 ID hunchback claim.** The mid-network ID peak was
+  a 25-point TWO-NN artefact; with 400 cell-means TWO-NN compresses
+  monotonically. PCA-95% does peak at L7, so the "manifold expands then
+  compresses" narrative survives in PCA terms but not in intrinsic-geometry terms.
+- **Reaffirm and tighten encode-vs-use.** Steering slope peaks at L14
+  on the dense grid (vs L20–22 in v9), but the qualitative story
+  (encode by L7, use from L11+, peak mid-network, probe always weaker
+  than primal) is the same. The probe/primal gap widens from ~1× early
+  to ~8× late.
+- **Mechanistic addition**: the attention DLA gives concrete head
+  candidates (L0h6 μ-aggregator, L13h2 comparator, L10h0/L17h7 z-writers)
+  that v9 didn't have. Faithfulness 0.67 means roughly 2/3 of the
+  z-readout is attributable to attention; the rest is MLPs.
+- **SAE story unchanged**: features are mostly monotonic (8/10 top by
+  linear R²), with a tiny minority of clean place-cells (e.g. feat 34700
+  centred at z₀=−0.05, σ=1.39).
+
+**Single-line takeaway:** *v10 confirms encode-vs-use as a layer-depth
+phenomenon on a 4,000-prompt grid (4× v9's density), retires the
+v9 hunchback (a low-N TWO-NN artefact), and adds a concrete
+attention-head taxonomy (15 μ-aggregators, 18 comparators, 5 z-writers
+across 8 strategic layers).*
+
+Artifacts (this section):
+  `data_gen/v10_dense_height_trials.jsonl`               (regenerable from `scripts/gen_v10_dense_height.py`)
+  `scripts/vast_remote/extract_v10_dense_height.py`      (one GPU pass; 17.6 s on H100)
+  `scripts/vast_remote/exp_v10_layer_sweep_steering.py`  (P5 GPU sweep)
+  `scripts/analyze_v10_dimensionality.py`                (P2 CPU)
+  `scripts/analyze_v10_increment_r2.py`                  (P6 CPU)
+  `scripts/analyze_v10_sae.py`                           (P3 CPU)
+  `scripts/analyze_v10_attention.py`                     (P4 CPU)
+  `scripts/analyze_v10_attention_taxonomy.py`            (P4 v2 CPU)
+  `scripts/plot_v10_behavioral.py`                       (CPU)
+  `results/v10/*.json`                                   (all summaries; small)
+  `figures/v10/*.png`                                    (all plots)

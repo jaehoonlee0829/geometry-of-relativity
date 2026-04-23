@@ -1,0 +1,292 @@
+{
+  "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25
+  ],
+  "per_layer": [
+    {
+      "layer": 0,
+      "pca_n80": 3,
+      "pca_n90": 7,
+      "pca_n95": 13,
+      "pca_n99": 101,
+      "two_nn_id": 7.669314155023512,
+      "gram_pr_ovr": 16.73025894165039,
+      "gram_pr_multinomial": 7.429965186897661
+    },
+    {
+      "layer": 1,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 8,
+      "pca_n99": 35,
+      "two_nn_id": 6.911486942626065,
+      "gram_pr_ovr": 16.7645206451416,
+      "gram_pr_multinomial": 6.4468282395802925
+    },
+    {
+      "layer": 2,
+      "pca_n80": 3,
+      "pca_n90": 5,
+      "pca_n95": 9,
+      "pca_n99": 31,
+      "two_nn_id": 6.094444374798826,
+      "gram_pr_ovr": 16.252639770507812,
+      "gram_pr_multinomial": 7.422266178238073
+    },
+    {
+      "layer": 3,
+      "pca_n80": 3,
+      "pca_n90": 6,
+      "pca_n95": 10,
+      "pca_n99": 32,
+      "two_nn_id": 5.376146750269419,
+      "gram_pr_ovr": 15.91673755645752,
+      "gram_pr_multinomial": 8.200461896066049
+    },
+    {
+      "layer": 4,
+      "pca_n80": 3,
+      "pca_n90": 6,
+      "pca_n95": 11,
+      "pca_n99": 27,
+      "two_nn_id": 4.180167462146751,
+      "gram_pr_ovr": 15.574292182922363,
+      "gram_pr_multinomial": 7.813749158594751
+    },
+    {
+      "layer": 5,
+      "pca_n80": 3,
+      "pca_n90": 8,
+      "pca_n95": 13,
+      "pca_n99": 27,
+      "two_nn_id": 4.0517969655492525,
+      "gram_pr_ovr": 14.96863842010498,
+      "gram_pr_multinomial": 7.541877956022428
+    },
+    {
+      "layer": 6,
+      "pca_n80": 3,
+      "pca_n90": 7,
+      "pca_n95": 12,
+      "pca_n99": 26,
+      "two_nn_id": 3.858033691542226,
+      "gram_pr_ovr": 14.945711135864258,
+      "gram_pr_multinomial": 7.405842258897049
+    },
+    {
+      "layer": 7,
+      "pca_n80": 5,
+      "pca_n90": 10,
+      "pca_n95": 16,
+      "pca_n99": 33,
+      "two_nn_id": 4.731939252927929,
+      "gram_pr_ovr": 12.36596393585205,
+      "gram_pr_multinomial": 6.627928430182026
+    },
+    {
+      "layer": 8,
+      "pca_n80": 4,
+      "pca_n90": 8,
+      "pca_n95": 14,
+      "pca_n99": 32,
+      "two_nn_id": 4.296084484520577,
+      "gram_pr_ovr": 11.892129898071289,
+      "gram_pr_multinomial": 6.733335130490826
+    },
+    {
+      "layer": 9,
+      "pca_n80": 4,
+      "pca_n90": 9,
+      "pca_n95": 15,
+      "pca_n99": 36,
+      "two_nn_id": 4.638832475401611,
+      "gram_pr_ovr": 11.450729370117188,
+      "gram_pr_multinomial": 6.929985443775506
+    },
+    {
+      "layer": 10,
+      "pca_n80": 4,
+      "pca_n90": 8,
+      "pca_n95": 15,
+      "pca_n99": 40,
+      "two_nn_id": 4.705211351476008,
+      "gram_pr_ovr": 11.218128204345703,
+      "gram_pr_multinomial": 7.504783707667977
+    },
+    {
+      "layer": 11,
+      "pca_n80": 4,
+      "pca_n90": 8,
+      "pca_n95": 14,
+      "pca_n99": 40,
+      "two_nn_id": 4.3977320912893845,
+      "gram_pr_ovr": 10.971253395080566,
+      "gram_pr_multinomial": 7.379983126811578
+    },
+    {
+      "layer": 12,
+      "pca_n80": 4,
+      "pca_n90": 7,
+      "pca_n95": 13,
+      "pca_n99": 39,
+      "two_nn_id": 4.063796855639981,
+      "gram_pr_ovr": 10.924468994140625,
+      "gram_pr_multinomial": 7.222795844322087
+    },
+    {
+      "layer": 13,
+      "pca_n80": 4,
+      "pca_n90": 7,
+      "pca_n95": 13,
+      "pca_n99": 40,
+      "two_nn_id": 3.8077797812198417,
+      "gram_pr_ovr": 10.881600379943848,
+      "gram_pr_multinomial": 7.831014216583694
+    },
+    {
+      "layer": 14,
+      "pca_n80": 4,
+      "pca_n90": 6,
+      "pca_n95": 13,
+      "pca_n99": 40,
+      "two_nn_id": 3.8479309161574964,
+      "gram_pr_ovr": 10.877466201782227,
+      "gram_pr_multinomial": 7.989732388842206
+    },
+    {
+      "layer": 15,
+      "pca_n80": 3,
+      "pca_n90": 6,
+      "pca_n95": 11,
+      "pca_n99": 35,
+      "two_nn_id": 3.927511281597927,
+      "gram_pr_ovr": 10.941400527954102,
+      "gram_pr_multinomial": 8.124730792949384
+    },
+    {
+      "layer": 16,
+      "pca_n80": 3,
+      "pca_n90": 5,
+      "pca_n95": 10,
+      "pca_n99": 32,
+      "two_nn_id": 3.3153764435979824,
+      "gram_pr_ovr": 11.020110130310059,
+      "gram_pr_multinomial": 8.35923388825523
+    },
+    {
+      "layer": 17,
+      "pca_n80": 3,
+      "pca_n90": 5,
+      "pca_n95": 9,
+      "pca_n99": 29,
+      "two_nn_id": 3.391109181169407,
+      "gram_pr_ovr": 11.005847930908203,
+      "gram_pr_multinomial": 8.457758151289275
+    },
+    {
+      "layer": 18,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 8,
+      "pca_n99": 26,
+      "two_nn_id": 3.2721709885449597,
+      "gram_pr_ovr": 11.213010787963867,
+      "gram_pr_multinomial": 8.32498484498329
+    },
+    {
+      "layer": 19,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 25,
+      "two_nn_id": 3.2582322257615144,
+      "gram_pr_ovr": 11.352399826049805,
+      "gram_pr_multinomial": 8.351449599171778
+    },
+    {
+      "layer": 20,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 24,
+      "two_nn_id": 3.20575667202523,
+      "gram_pr_ovr": 11.338851928710938,
+      "gram_pr_multinomial": 8.289495853973346
+    },
+    {
+      "layer": 21,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 23,
+      "two_nn_id": 3.2786555550110004,
+      "gram_pr_ovr": 11.336084365844727,
+      "gram_pr_multinomial": 8.276405737985648
+    },
+    {
+      "layer": 22,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 23,
+      "two_nn_id": 3.2959532394060544,
+      "gram_pr_ovr": 11.409547805786133,
+      "gram_pr_multinomial": 8.346938876494791
+    },
+    {
+      "layer": 23,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 23,
+      "two_nn_id": 3.343729158349675,
+      "gram_pr_ovr": 11.384406089782715,
+      "gram_pr_multinomial": 8.388918499407305
+    },
+    {
+      "layer": 24,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 23,
+      "two_nn_id": 3.4686599660232247,
+      "gram_pr_ovr": 11.363980293273926,
+      "gram_pr_multinomial": 8.31611292142538
+    },
+    {
+      "layer": 25,
+      "pca_n80": 3,
+      "pca_n90": 4,
+      "pca_n95": 7,
+      "pca_n99": 24,
+      "two_nn_id": 3.550679822740051,
+      "gram_pr_ovr": 11.375104904174805,
+      "gram_pr_multinomial": 8.498681651252111
+    }
+  ]
+}
