@@ -10,8 +10,8 @@ When a language model sees "Person 16: 170 cm. This person is ___", does it comp
 
 We find:
 - **The model tracks context-relative z-scores** with R = 0.77–1.03 across 8 adjective pairs on two models (Gemma 4 E4B, Gemma 2 2B).
-- **Encoding != Use**: z is decodable from layer 7, but the network only *reads* it causally from layer 13 onward, peaking at layer 20–22. A simple mean-difference direction (`primal_z`) steers adjective output 10–100x stronger than the Ridge probe direction.
-- **z lives on a ~5-D curved manifold**, not a 1-D line. Intrinsic dimensionality peaks mid-network (~7 at L13–17) and compresses to ~5 at the final layer — matching Goodfire's predictions for belief manifolds.
+- **Encoding != Use**: z is decodable from layer 7, but the network only *reads* it causally from layer 13 onward, peaking at **layer 14** (v10 dense grid). A simple mean-difference direction (`primal_z`) steers adjective output 10–100x stronger than the Ridge probe direction, with the probe/primal gap widening to ~8x in late layers.
+- **z representation compresses monotonically.** TWO-NN intrinsic dimensionality drops from 7.7 (L0) to 3.2 (L20); PCA-95% peaks at L7 (16 components) then compresses to 7. The v9 "hunchback" (ID peaking mid-network) was a 25-point TWO-NN artefact resolved by v10's 400-cell dense grid.
 - **Three alternative explanations fail**: sparse SAE decomposition, on-manifold tangent steering, and Park's causal inner product all fail to bridge the encoding-vs-use gap.
 
 ## Models
@@ -37,29 +37,35 @@ We find:
 | experience | novice / expert | 0.86 |
 | bmi_abs | thin / obese | 0.83 |
 
-![behavioral heatmap](figures/v9/gemma2_logit_diff_xz_8panel.png)
+v10 goes deep on *height* with a 20x20 dense grid (400 cells, 4000 prompts) to stress-test dimensionality and steering results at higher resolution.
+
+![behavioral heatmap](figures/v10/behavioral_logit_diff_xz.png)
 
 ## Key findings
 
 ### 1. Encoding != Use is a layer-depth phenomenon (the headline result)
 
-z is decodable (R² = 0.94) from layer 7, but primal_z steering is zero at layers 5–10. Causal potency emerges at layer 13 (slope 0.57), peaks at layers 20–22 (slope 2.3–2.6), and the probe/primal gap widens to 0.03x. **The dimensions that encode z early are not the dimensions downstream layers read from.**
+z is decodable (R² = 0.94) from layer 7, but primal_z steering is zero at layers 5–10. Causal potency emerges at layer 13, peaks at **layer 14** (v10 dense grid), and the probe/primal gap widens to ~8x in late layers. **The dimensions that encode z early are not the dimensions downstream layers read from.**
 
 The full 26-layer sweep reveals a three-phase computation:
 
 | Phase | Layers | What happens |
 |---|---|---|
 | **Encode** | L0–L7 | z computed from tokens. R²(z) ramps 0.45→0.94. primal_z direction actively rotates (cos ≈ 0.3–0.5 between adjacent layers). |
-| **Compute** | L7–L17 | Manifold unfolds (ID rises from 5→7). Direction continues rotating. Causal potency emerges at L13. ‖primal_z‖ grows 10x. |
-| **Broadcast** | L18–L25 | Direction locks (cos > 0.9). ‖primal_z‖ amplified another 4x (total 400x from L0). Steering peaks at L20–22. |
+| **Compute** | L7–L14 | Direction continues rotating. Causal potency emerges at L13, peaks at L14. ‖primal_z‖ grows 10x. |
+| **Broadcast** | L15–L25 | Direction locks (cos > 0.9). ‖primal_z‖ amplified further (total 400x from L0). Probe/primal gap widens to ~8x. |
 
-The primal_z direction is not a static feature — it's the endpoint of a ~90° arc the model traces through activation space over 10+ layers of computation, then amplifies for readout.
+The primal_z direction is not a static feature — it's the endpoint of a ~90° arc the model traces through activation space over 10+ layers of computation, then amplifies for readout. v10's dense grid (400 cells) confirms peak steering at L14, revising the v9 estimate of L20–22.
 
-![layer sweep](figures/v9/layer_sweep_combined.png)
+![layer sweep](figures/v10/steering_layer_sweep.png)
 
-### 2. z lives on a ~5-D curved manifold
+### 2. z representation compresses monotonically
 
-Intrinsic dimensionality (TWO-NN) reveals z occupies a ~5-D manifold at the late layer, peaking at ~7 mid-network then compressing — matching Goodfire/Sarfati et al.'s predictions. For speed, isomap captures z with R²=0.97 while PCA gets R²=0.01 — z is on a curve that linear methods completely miss.
+v10's 400-cell dense grid resolves the manifold geometry clearly: TWO-NN intrinsic dimensionality drops monotonically from 7.7 (L0) to 3.2 (L20). PCA-95% variance peaks at L7 (16 components) then compresses to 7. The v9 "hunchback" pattern (ID peaking mid-network at ~7) was a 25-point TWO-NN artefact that disappears with denser sampling.
+
+Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z with R²=0.97 while PCA gets R²=0.01 — z is on a curve that linear methods miss.
+
+![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
 
 ### 3. Cross-pair transfer at 40% own-pair strength
 
@@ -67,21 +73,37 @@ Steering with pair A's primal_z direction on pair B's prompts works at 40% of ow
 
 ![transfer heatmap](figures/v7/clean_transfer_heatmap.png)
 
-### 4. primal_z is more concentrated than probe_z in SAE basis (but not sparse)
+### 4. z-variance concentrates in ~138 of 65k SAE features
 
-Using Gemma Scope SAEs (65k features, layer 20), primal_z has 4–10x lower participation ratio than probe_z in the decoder-row basis. But both still spread across thousands of features. The top-20 z-correlated SAE features show only 6% cross-pair Jaccard overlap — each pair uses mostly different features.
+Using Gemma Scope SAEs (65k features, layer 20) on the v10 dense grid, only ~138 features carry meaningful z-variance — far sparser than the v9 estimate of "thousands." primal_z remains 4–10x more concentrated than probe_z in the decoder-row basis, but the overall picture is much sparser than previously reported.
 
 ![sae decomposition](figures/v9/sae_primal_vs_probe_decomposition.png)
 
-### 5. SAE features are linear in z, not place-cells
+### 5. SAE features are mostly linear in z, with one genuine place-cell
 
-Unlike Anthropic's character-count manifold (discretized by place-cell features), z-correlated SAE features activate **monotonically** with z (r = 0.7–0.9), not as localized bumps. The context-relative representation is continuous, not discretized.
+Most z-correlated SAE features activate **monotonically** with z (r = 0.7–0.9), not as localized bumps. However, v10 reveals one genuine place-cell exception: feature 34700 (bump R²=0.98, linear R²=0.00) — a highly localized activation tuned to a narrow z range. The context-relative representation is predominantly continuous, with rare discrete exceptions.
 
-![place cell profiles](figures/v9/sae_place_cell_profiles.png)
+![sae z profiles](figures/v10/sae_top10_z_profiles.png)
+![place cell scatter](figures/v10/sae_linear_vs_bump_scatter.png)
 
 ### 6. primal_z direction rotates through a ~90° arc mid-network, then stabilizes
 
 cos(primal_z[L], primal_z[L-1]) starts at 0.3 (early layers — active rotation), reaches 0.88+ by layer 18, and stabilizes. The "mid ⊥ late" finding from earlier is explained: primal_z sweeps through ~90° over the middle layers, then settles into its final orientation.
+
+### 7. Attention head taxonomy: 38 heads across 8 layers implement z-computation
+
+v10 identifies three functional classes of attention heads via DLA (direct logit attribution) and attention-pattern analysis across 8 strategic layers:
+
+| Class | Count | Role | Standout |
+|---|---|---|---|
+| **mu-aggregators** | 15 | Attend broadly to context members, computing running means | — |
+| **Comparators** | 18 | Attend to target vs. context, computing deviation signals | L13h2 |
+| **z-writers** | 5 | Project comparison output toward the adjective logit | — |
+
+L13h2 is the standout comparator head, consistent with causal potency emerging at L13. DLA faithfulness (correlation between DLA-predicted and actual logit-diff) is 0.67.
+
+![attention taxonomy](figures/v10/attention_taxonomy_grid.png)
+![head taxonomy scatter](figures/v10/head_taxonomy_scatter.png)
 
 ## Three hypotheses tested and refuted
 
@@ -104,6 +126,7 @@ z is not carried by a handful of SAE features. primal_z is 4–10x more concentr
 - **Cross-pair PC1 cosines modest** (0.19 on clean grid). Shared substrate is real but weak.
 - **logit_diff R requires top-K validation.** Pos/neg R=0.47 dropped to R=0.31 on the only valid prompt.
 - **SAE-basis PCA is worse than raw PCA** for recovering z (catastrophic for curved-manifold pairs like speed).
+- **Increment R² dip not observed.** The predicted encode/re-encode dip (where per-layer increment R² should drop as the model re-encodes z into a new basis) does not exist; increment R² tracks cumulative R² almost perfectly.
 
 ## Repository layout
 
@@ -111,13 +134,16 @@ z is not carried by a handful of SAE features. primal_z is 4–10x more concentr
 geometry-of-relativity/
   PLANNING.md          # Frozen project spec
   BUILDING.md          # Current active task
-  FINDINGS.md          # Full experimental findings (v4-v9, §1-§13)
+  FINDINGS.md          # Full experimental findings (v4-v9 §1-§13, v10 §14)
   scripts/
     vast_remote/       # GPU scripts (Vast.ai)
     analyze_v9_*.py    # v9 analysis scripts (CPU)
     plot_v9_*.py       # v9 plot scripts (CPU)
+    analyze_v10_*.py   # v10 analysis: dimensionality, SAE, attention, increment R²
+    plot_v10_*.py      # v10 behavioral plots
+    gen_v10_*.py       # v10 prompt generation (dense height grid)
   results/             # JSON summaries (large activations on HF)
-  figures/             # v7 (clean grid), v8 (replots), v9 (SAE + layer sweep)
+  figures/             # v7 (clean grid), v8 (replots), v9 (SAE + layer sweep), v10 (dense grid)
   docs/                # Session plans, paper outline, archive
   src/                 # Core library
   tests/               # pytest suite
