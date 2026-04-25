@@ -95,9 +95,12 @@ def main() -> None:
     api = HfApi()
     who = api.whoami(token=token)
     role = who.get("auth", {}).get("accessToken", {}).get("role", "?")
-    if role != "write":
-        print(f"ERROR: HF token role is '{role}', need 'write'. "
-              f"Generate a write token at https://huggingface.co/settings/tokens",
+    # fineGrained tokens can carry write scope on a specific repo even though
+    # the role string is "fineGrained" rather than "write". Accept both;
+    # if the actual scope is insufficient, create_commit below will fail.
+    if role not in ("write", "fineGrained"):
+        print(f"ERROR: HF token role is '{role}', need 'write' or 'fineGrained'. "
+              f"Generate a token at https://huggingface.co/settings/tokens",
               file=sys.stderr)
         sys.exit(3)
 

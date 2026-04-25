@@ -20,7 +20,7 @@
   "batch_size": 16,
   "tall_id": 13754,
   "short_id": 3309,
-  "elapsed_sec": 29.2,
-  "trials_path": "/home/claude/geometry-of-relativity/data_gen/v10_dense_height_trials.jsonl",
+  "elapsed_sec": 61.5,
+  "trials_path": "/workspace/geometry-of-relativity/data_gen/v10_dense_height_trials.jsonl",
   "extractor": "scripts/vast_remote/extract_v10_dense_height.py"
 }
