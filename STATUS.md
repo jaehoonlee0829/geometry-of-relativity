@@ -1,71 +1,82 @@
-# STATUS.md — Project status as of Apr 25, 2026
+# STATUS.md — Project status as of Apr 26, 2026
 
 ## Current phase
 
-**v11 complete (RIPE-MANGO).** Cross-model dense extraction across 8
-pairs × 2 models (Gemma 2 2B + Gemma 2 9B), 4,000 prompts per (pair,
-model) cell, 96k forward passes total + per-pair HF upload. Pre-flight
-3-critic round drove three methodology fixes; post-hoc 5-critic round
-flagged four issues that bound the headline claims. **What survived:
-8/8-pair behavioral signal on both models (cell-mean R(z) ≥ 0.92),
-9B replicates more uniformly than 2B (PCA R²(z) median 0.87 vs 0.90
-but 0.43–0.94 spread vs 0.075–0.97 spread), and the methodology-fixed
-P3d shows primal_z is W_U-orthogonal at every layer (cos in [−0.05,
-+0.12]) — the genuinely novel piece.** What didn't: single-head
-ablations of the v10 §14.6 canonical heads (L13h2/L3h0/L0h6) are null
-on both models (Δcorr_z ≤ 2σ); **the "causal head taxonomy" framing
-is retracted**. P3c orth-R² has a residualization-fold bug; P3d
-ambiguous-cells variant returned NaN; P3e cross-pair transfer is
-single-seed without Bonferroni control. FINDINGS §15.
+**v11.5 complete (SHARED-AMBER).** Re-ran the v4–v9 foundational research
+questions on v11's enriched data. Headline results:
 
-Prior phase: **v10 complete (DENSE-MANGO).** Dense single-pair deep
-dive: height only, Gemma 2 2B, 4,000 prompts, 20×20×10 grid. Confirmed
-encode-vs-use as layer-depth phenomenon (cell-mean R(z)=0.972, peak
-primal steering at L14 with 8× probe gap), retired the v9 mid-network
-TWO-NN hunchback (low-N artefact), added an attention-head taxonomy
-with explicit μ-aggregator/comparator/z-writer candidates (DLA on
-dumped activations, faithfulness 0.67). FINDINGS §14. v10 NPZs
-re-extracted and uploaded to HF on 2026-04-25 after the previous
-Vast.ai instance died before upload.
+- **Domain-agnostic shared z-direction EXISTS.** Per-pair primal_z's
+  are 55% aligned on average (cos(P_i,P_j) mean: 2B=+0.559, 9B=+0.516);
+  a single Procrustes-aligned `w_shared` steers 6/8 pairs at 2B (7/8 at
+  9B) at ≥50% within-pair efficiency. *Speed* and *experience* are the
+  two pair-specific exceptions. FINDINGS §16.1.
+- **Cross-pair transfer is statistically real.** 56/56 off-diagonal
+  cells significant under BH-FDR q=0.05 on both models (5-seed
+  multi-seed). FINDINGS §16.2.
+- **z is encoded at L1 in one shot, then carried forward.** Fold-aware
+  P3c orthogonalized R² peaks at L1 (e.g. bmi_abs/2B=0.256, height/2B=0.145)
+  and is near-zero at every later layer, sharper than v10 §14's "by L7
+  naive plateau." FINDINGS §16.5.
+- **Top SAE z-features are pure-z, not numeral-magnitude trackers.**
+  R²(z) ≈ 0.7–0.84 with R²(x), R²(token) ≈ 0 across all pairs/models
+  for the top feature. 9B cross-pair Jaccard 0.22 (2× 2B's 0.11).
+  FINDINGS §16.7.
+- **v10 §14.6 causal head taxonomy is TRIPLE-REFUTED.** Single-head
+  ablations null (v11 §15.4); joint-tag-set ablations null on 2B and
+  *helping* on 9B (v11.5 §16.3); permutation null on the taxonomy
+  thresholds shows the tag counts are mostly chance-consistent
+  (v11.5 §16.4).
+- **primal_z is W_U-orthogonal but decision-aligned.** cos(primal,
+  W_U[high]−W_U[low]) ≈ 0.15; cos(primal, leans-high−leans-low) ≈
+  0.7–0.86 across most pairs/models. The direction that carries the
+  high-vs-low semantic decision is *not* the same object as the
+  unembedding readout. FINDINGS §15.3 + §16.6.
+
+Prior phase: **v11 cross-model dense (RIPE-MANGO).** 8 pairs × 2 models
+× 4,000 prompts. Behavioral 8/8 R(z) ≥ 0.92 on both models; 9B
+replicates more uniformly than 2B. 5-critic post-hoc round drove
+the v11.5 follow-up. FINDINGS §15.
 
 ## What's done
 
-- v0/v1 behavioral kill-tests (Claude Opus 4.5 + Sonnet 4.6)
-- v2 prompt generator + Gemma 4 activation extraction (E4B + 31B)
-- v4 dense extraction (3540 prompts) + 8-pair adjective extraction (6240 prompts)
-- v5 red-team follow-up: meta-direction steering, Fisher/Park metrics, random-null control, G31B scaling, critic consensus
-- v6 red-team: 7-direction analysis, confound discovery (Grid A corr(x,z) = 0.58-0.86)
-- v7 clean-grid rerun: Grid B (x, z) extraction, confound audit, INLP, Fisher, steering, cross-pair transfer
-- v7b addendum: fixed residual confound for experience/size pairs
-- v7 plot regeneration: all figures from pre-computed JSON (no GPU needed)
-- v8: direct sign classification, PCA horseshoe on Grid B, SVD scree, cross-template transfer (97%), cross-pair PC1 cosine (0.19)
-- Manifold geometry: ID ~5-D, isomap reveals curvature on speed (R²=0.97 vs PCA 0.01), mid ⊥ late layer primal_z
-- v9 Gemma 2 2B replication (8/8 pairs R>0.3)
-- v9 SAE decomposition: primal_z is 1.2–1.8× more concentrated than probe_z but both distributed across thousands of features — sparse-SAE hypothesis refuted
-- v9 on-manifold tangent steering: tangent steers at 0.63–0.73× primal; NOT systematically kinder to entropy — on-manifold hypothesis refuted
-- v9 Park causal steering: (W_U^T W_U)^{-1}·probe_z does NOT bridge the 18× probe/primal gap — Park hypothesis refuted
-- v10 dense-height (DENSE-MANGO): 4,000-prompt 20×20×10 grid; encode-vs-use peak shifted L14 (vs v9 L20-22), 8× probe/primal gap reproduced; v9 ID hunchback was a 25-pt TWO-NN artefact; attention DLA produces explicit head taxonomy.
-- **v10 reproducibility close (RIPE-MANGO step 1)**: re-extracted dense-height NPZs (corr=0.972 byte-faithful), uploaded to `xrong1729/mech-interp-relativity-activations`.
-- **v11 cross-model dense (RIPE-MANGO step 2)**: 8 pairs × 2 models × 4,000 prompts; behavioral R(z) ≥ 0.92 on 8/8 pairs both models; 9B replicates more uniformly; primal_z is W_U-orthogonal (genuinely new); 5-critic post-hoc round flagged 4 issues. FINDINGS §15.
+- v0/v1 behavioral kill-tests
+- v2 prompt generator + Gemma 4 activations
+- v4 dense + 8-pair extraction
+- v5/v6/v7/v7b red-team and clean-grid
+- v8 direct sign / cross-template / PCA horseshoe
+- v9 Gemma 2 2B replication, SAE decomposition, on-manifold + Park steering, robustness, layer sweep (FINDINGS §10–§13)
+- v10 dense-height deep dive (DENSE-MANGO; FINDINGS §14)
+- v10 reproducibility close (re-extracted NPZs, uploaded to HF) — RIPE-MANGO step 1
+- v11 cross-model dense + 5-critic post-hoc round (FINDINGS §15) — RIPE-MANGO step 2
+- **v11.5 v4–v9 question replication on enriched data** (FINDINGS §16): shared z-direction, multi-seed cross-pair transfer with FDR, joint head ablation, fold-aware P3c, widened P3d, SAE token-freq control, bootstrap CIs throughout — SHARED-AMBER
 
-## Retracted / re-frame needed
+## Retracted (replace in any draft)
 
-- **v10 §14.6 "causal head taxonomy"** (L13h2 comparator, L3h0 early-writer, L0h6 μ-aggregator): single-head ablations on the v11 dense grid produce Δcorr(z) ≤ 0.008 on 2B and ≤ 0.003 on 9B — within ~2σ of zero. Re-frame these as DLA-correlational tags, not causal mechanisms.
-- **v11 P3c orthogonalized increment R²**: residualization is not fold-aware → out-of-sample R² goes negative (down to −23.5). Pipeline bug; re-run with within-fold residualization or drop.
-- **v11 P3d ambiguous-cells lexical variant**: returned NaN at every layer (model never argmaxes to high/low at |z|<eps). The W_U-cosine variant survives.
-- **v11 P3e cross-pair transfer**: single-seed, no Bonferroni; alternative "shared numeral-magnitude" explanation untested.
+- **v10 §14.6 causal head taxonomy framing** (L13h2 / L3h0 / L0h6 as
+  "causally necessary"). Refuted three independent ways in v11/v11.5
+  — single-head ablations within ~2σ of zero, joint tag-set ablations
+  null on 2B and helping on 9B, permutation null shows tag intersections
+  largely chance-consistent. Re-frame as DLA-correlational only.
+- **v11 §15.5 single-seed cross-pair transfer**. Now upgraded to multi-
+  seed BH-FDR-controlled (v11.5 §16.2) — 56/56 cells significant.
+- **v11 §15.7 P3c "results"** (negative out-of-sample R²). Pipeline bug
+  fixed in v11.5 §16.5; the actual story is L1 = encoding, then
+  carry-forward.
+- **v11 §15.3 P3d ambiguous-cells NaN**. Fixed in v11.5 §16.6 via
+  widened |z|<0.7 + LD-sign substitute for argmax.
 
 ## What's next
 
-1. **Paper writing** (May 4 abstract → May 8 ICML MI Workshop deadline).
-   Lead with §15.1 (8/8 behavioral), §15.2 (9B uniformity), §15.3
-   (W_U-orthogonality). Retract §14.6 causal framing; describe head
-   taxonomy as descriptive only.
-2. **Optional v11 follow-up** (arXiv v2 only, post-May-7): fold-aware
-   P3c, multi-seed P3e + Bonferroni, joint head-set ablation, ambiguous-
-   cells P3d fix.
+1. **Paper writing** (May 4 abstract → May 8 ICML MI Workshop).
+   Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled
+   transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned
+   primal_z). Three-way refutation of §14.6 in the Limitations section.
+   Bootstrap CIs everywhere per §16.8.
+2. **arXiv v2 follow-ups** (post-May-7): pure-x control on the 16.2
+   transfer matrix (rules out residual "make-numeral-bigger"); 9B
+   pure-z feature asymmetry (1–16 features vs 2B's 11–50);
+   speed/experience pair-specific direction analysis.
 
 ## Archived session logs
 
-Detailed session logs and PR descriptions from GPU rental bursts are in
-`docs/archive/`.
+`docs/archive/` contains GPU-burst session logs and PR descriptions.
