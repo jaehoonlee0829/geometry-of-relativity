@@ -2,30 +2,26 @@
 
 ## Active task — none
 
-v11 cross-model dense + 5-critic round shipped (completion-promise word:
-**RIPE-MANGO**). See FINDINGS §15 for the result writeup, §15.7 for the
-retraction list, and §15.9 for the v11.5 follow-up scope.
+v11.5 v4–v9 question replication shipped (completion-promise word:
+**SHARED-AMBER**). See FINDINGS §16 for the full writeup; STATUS.md
+has the headline summary and retraction list.
 
 ## Next candidate tasks (pull from TODO.md when ready)
 
-- **Paper draft (ICML MI Workshop, May 8 deadline — 13 days from
-  2026-04-25).** Headline §15.1 (8/8-pair behavioral on both models) +
-  §15.2 (9B uniformity) + §15.3 (W_U-orthogonality of primal_z). Retract
-  §14.6's causal head taxonomy framing per §15.4 / §15.7. Use the 5
-  critic reports under `results/v11/critic_*.md` as the basis for the
-  Limitations section. **This is the highest-EV task pre-deadline.**
+- **Paper draft (ICML MI Workshop, May 8 deadline — 12 days from
+  2026-04-26).** Headline §16.1 (shared z-direction) + §16.2
+  (FDR-controlled cross-pair transfer) + §15.3 + §16.6 (primal_z is
+  W_U-orthogonal but decision-aligned) + §16.5 (z encoded at L1, then
+  carried forward) + §16.7 (top SAE features are pure-z). Three-way
+  refutation of §14.6 belongs in Limitations. Bootstrap CIs on every
+  reported R² and cosine per §16.8. **Highest-EV task pre-deadline.**
 
-- **v11.5 follow-up — domain-agnostic shared z-direction** (arXiv v2
-  scope per FINDINGS §15.9 A→D, post-submission). Constructs `w_shared`,
-  steers all 8 pairs simultaneously with multi-seed + FDR control, and
-  re-derives the attention-head taxonomy on the joint cross-pair signal.
-  Defer until the workshop draft is done.
-
-- **v11.5 pipeline fixes** (TODO §G/§H): fold-aware P3c orthogonalized
-  R² and P3d ambiguous-cells fix-or-drop. Smaller scope; either before
-  or after the paper draft depending on author preference.
+- **arXiv v2 follow-ups** (post-May-7): pure-x control on §16.2's
+  transfer matrix; 9B pure-z feature count asymmetry investigation;
+  speed/experience pair-specific direction analysis (the two pair-
+  specific exceptions to domain-generality).
 
 - **v11 reproducibility close**: all 16 (pair × model) NPZs are on
   `xrong1729/mech-interp-relativity-activations` under
-  `v11/<model_short>/<pair>/`. Verify with
-  `python scripts/fetch_from_hf.py --only v11`.
+  `v11/<model_short>/<pair>/`. v11.5 outputs are JSON-only (small);
+  no HF upload needed.

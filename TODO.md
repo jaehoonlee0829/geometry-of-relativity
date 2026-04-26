@@ -28,36 +28,36 @@
 - [x] **v10 reproducibility close (RIPE-MANGO step 1)**: re-extracted dense-height NPZs after the prior Vast.ai instance died, uploaded to HF dataset. corr(LD,z)=0.972 byte-faithful.
 - [x] **v11 cross-model dense (RIPE-MANGO step 2)**: 8 pairs × 2 models × 4,000 prompts. 8/8 pairs cell-mean R(z)≥0.92 on both 2B and 9B; 9B replicates more uniformly than 2B; primal_z is W_U-orthogonal at every layer. FINDINGS §15.
 - [x] **v11 P6 critic round**: 5 post-hoc Anthropic-API critics (methodology / alternative / statistical / novelty / narrative). Reports under `results/v11/critic_*.md`.
+- [x] **v11.5 §A: shared z-direction** (SHARED-AMBER). Per-pair primal_z's are 55% aligned; `w_shared` (Procrustes-aligned mean) steers 6/8 pairs at 2B (7/8 at 9B) at ≥50% within-pair efficiency. Speed/experience are pair-specific exceptions. FINDINGS §16.1.
+- [x] **v11.5 §B: taxonomy permutation null** — only 9B comparator tag count is structurally non-random; combined with §I, the structural signal is not load-bearing causally. FINDINGS §16.4.
+- [x] **v11.5 §C+§D: multi-seed cross-pair steering with BH-FDR**. 56/56 off-diagonal cells significant on both models. Within/off ratios reveal speed/experience asymmetry. FINDINGS §16.2.
+- [x] **v11.5 §E: SAE features with token-frequency control**. Top z-features are pure-z (R²(z) ≈ 0.7–0.84, R²(x), R²(token) ≈ 0). 9B cross-pair Jaccard 0.22 vs 2B 0.11. FINDINGS §16.7.
+- [x] **v11.5 §F: bootstrap CIs throughout**. Every PC1.R²(z) gets a 95% block-bootstrap CI; every head-ablation Δr gets a Fisher-z CI. FINDINGS §16.8.
+- [x] **v11.5 §G: fold-aware P3c**. Bug fixed; orthogonalized R²(z) peaks at L1 (e.g. bmi_abs/2B = 0.256), then near-zero — z is encoded in one shot at L1 then carried forward. FINDINGS §16.5.
+- [x] **v11.5 §H: P3d widened ambiguous cells**. Recovers signal: cos(primal, leans-high−leans-low) ≈ 0.7–0.86 across most pairs/models. primal_z is W_U-orthogonal but decision-aligned. FINDINGS §16.6.
+- [x] **v11.5 §I: joint head-set ablation with held-out split**. Δcorr(z) is null on 2B and *helping* on 9B (ablating 32 heads raises corr by +0.016). v10 §14.6 causal taxonomy triple-refuted. FINDINGS §16.3.
 
-## Retract / re-frame (driven by v11 P6 critic round)
+## Retract / re-frame (concluded; bake into the paper draft)
 
-- [ ] **Retract v10 §14.6 "causal head taxonomy" framing.** Single-head ablations (L13h2 / L3h0 / L0h6 on 2B; top derived heads on 9B) yield Δcorr(z) ≤ 2σ on both models. Re-write FINDINGS §14.6 to describe these as DLA-correlational tags, not causal mechanisms.
-- [ ] **Retract v11 P3c "orthogonalized increment R²" results.** The residualization is not fold-aware → out-of-sample R² goes negative (down to −23.5). Pipeline bug, not "no new info." Either re-implement (see v11.5-G below) or drop from FINDINGS §15.
+- [x] **Retract v10 §14.6 "causal head taxonomy" framing.** Triple-refuted: single-head ablations within ~2σ of zero (v11 §15.4), joint tag-set ablations null on 2B and helping on 9B (v11.5 §16.3), permutation null shows tag intersections largely chance-consistent (v11.5 §16.4). Re-frame as DLA-correlational only.
+- [x] **Retract v11 P3c "orthogonalized increment R²" results.** Pipeline bug fixed in v11.5 §16.5 (fold-aware residualization). Use the v11.5 numbers — peaks at L1, then near-zero — not the v11 broken ones.
+- [x] **Retract v11 §15.5 single-seed cross-pair transfer framing.** Replaced by v11.5 §16.2 multi-seed BH-FDR (56/56 cells significant).
 
 ## Queue — Paper (May 3-8)
 
-- [ ] Complete paper draft (lead with §15.1 8/8 behavioral + §15.2 9B uniformity + §15.3 W_U-orthogonality of primal_z; retract §14.6 causal framing).
+- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled cross-pair transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned primal_z) + §16.5 (z encoded at L1, then carried forward) + §16.7 (top SAE features are pure-z). v10 §14.6 causal framing in Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
 - [ ] Submit ICML 2026 MI Workshop (May 8) — primary target.
 - [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary.
-- [ ] Update `docs/paper_outline.md` with v9–v11 findings.
+- [ ] Update `docs/paper_outline.md` with v9–v11.5 findings.
 
-## v11.5 follow-up backlog (post-submission, arXiv v2)
+## arXiv v2 follow-ups (post-May-7)
 
-The post-hoc critic round + user feedback identified a comprehensive set
-of v4–v9-style research questions that should be re-run on the enriched
-v11 data. Sequencing per FINDINGS §15.9.
+- [ ] **Pure-x control on §16.2's transfer matrix.** Re-run cross-pair steering with μ held constant in target prompts to rule out the alternative critic's residual "shared numeral-magnitude direction" cheap explanation. The fact that the absolute-adjective bmi_abs aligns with the relative pairs at 0.65–0.77 ratio (§16.1) already partially refutes that hypothesis, but the explicit μ-fixed test is the gold standard.
+- [ ] **9B pure-z feature count asymmetry.** 9B has 1–16 pure-z features per pair while 2B has 11–50. Investigate: smaller k or larger superposition in 9B SAEs? Different SAE training regime? Compare with width_131k SAE if available.
+- [ ] **Speed and experience pair-specific direction analysis.** These two pairs are the exceptions to domain-generality (§16.1 ratios 0.27/0.44 and 0.50/0.42 across models). Vehicle vs person framing in speed; experience-domain shift. Worth a focused mini-study.
+- [ ] **|LD|-quantile sensitivity for §16.6.** The widened P3d uses bottom-40% |LD| as the "ambiguous" threshold; report cos sensitivity across {20%, 40%, 60%}.
 
-- [ ] **A. Domain-agnostic shared z-direction.** Build `w_shared` from per-pair primal_z directions (mean / first-PC / Procrustes); steer all 8 pairs simultaneously; measure per-pair slope. Claim "domain-general z-code" only if shared slope ≥50% of within-pair slope on 8/8 pairs.
-- [ ] **B. Attention-head mapping of `w_shared`.** Re-derive head DLA jointly across all 8 pairs (not per-pair). Permutation null on top-quartile thresholds (1000 shuffles).
-- [ ] **C. Multi-seed cross-pair steering with FDR control.** ≥5 seeds; block-bootstrap CIs; Bonferroni or BH-FDR at q=0.05 across the 56 off-diagonal cells per model. Pure-x control (μ held constant) to distinguish "shared z-code" from "shared numeral-magnitude direction."
-- [ ] **D. Cross-feature steering effects.** When steering with `w_shared`, measure off-target pair LD changes. Distinguish transfer (correct-sign LD shift) from interference (orthogonal shift).
-- [ ] **E. SAE-feature replication of v9 §12 / §14.5.** Replicate the 0.06 cross-pair Jaccard at v11's higher N. Add R²(numeral_token_id | feature) control to disambiguate from "feature tracks numeral magnitude."
-- [ ] **F. Statistical hardening.** Bootstrap CIs on every reported R² and cosine; Fisher-z CIs on ablation deltas; PCA eigenvalue-gap stability under subsampling; TWO-NN ID stability across N.
-- [ ] **G. P3c fold-aware orthogonalized R².** Within-fold residualization (fit ẑ on train, project on test). Re-run on all 8 pairs × 2 models.
-- [ ] **H. P3d ambiguous-cells fix or drop.** At |z| < eps the model never argmaxes to the polar word — widen the band, use top-K predictions, or drop the variant.
-- [ ] **I. Joint head-set ablation.** Single-head ablations are null; ablate full tag-sets jointly (all comparators / all z-writers) to test for head redundancy. Held-out threshold split (pick on half, ablate on the other half) to break circularity.
-
-## Backlog (deferred — out of scope for v11.5)
+## Backlog (deferred — out of scope)
 
 - [ ] Context sample size saturation curve (n=5, 15, 50)
 - [ ] Multilingual: Spanish "alto"/"bajo" relativity test

@@ -1,0 +1,101 @@
+{
+  "model_short": "gemma2-2b",
+  "layer": 20,
+  "alpha": 4.0,
+  "pairs": [
+    "height",
+    "age",
+    "weight",
+    "size",
+    "speed",
+    "wealth",
+    "experience",
+    "bmi_abs"
+  ],
+  "pairwise_primal_cos_mean": 0.5593605496502209,
+  "cos_w_shared_vs_primal_per_pair": {
+    "mean": {
+      "height": 0.8886999185241908,
+      "age": 0.781623614555784,
+      "weight": 0.8970366573734587,
+      "size": 0.810744838338501,
+      "speed": 0.6983124442186435,
+      "wealth": 0.7397189358203852,
+      "experience": 0.7182595481834655,
+      "bmi_abs": 0.724454054642229
+    },
+    "pc1": {
+      "height": -0.18090044495232582,
+      "age": -0.1883514650425254,
+      "weight": -0.48937324124302684,
+      "size": -0.11885794860888707,
+      "speed": 0.13725253002239443,
+      "wealth": 0.2692146435691035,
+      "experience": 0.3211227532477211,
+      "bmi_abs": -0.713266480841914
+    },
+    "proc": {
+      "height": 0.8886999185241908,
+      "age": 0.781623614555784,
+      "weight": 0.8970366573734587,
+      "size": 0.810744838338501,
+      "speed": 0.6983124442186435,
+      "wealth": 0.7397189358203852,
+      "experience": 0.7182595481834655,
+      "bmi_abs": 0.724454054642229
+    }
+  },
+  "by_pair_steering": {
+    "height": {
+      "within_slope": 0.04023437574505806,
+      "shared_slope_proc": 0.037617187947034836,
+      "ratio_shared_to_within": 0.9349514501080661,
+      "n_prompts": 400
+    },
+    "age": {
+      "within_slope": 0.06746795028448105,
+      "shared_slope_proc": 0.04062499850988388,
+      "ratio_shared_to_within": 0.6021377311536382,
+      "n_prompts": 390
+    },
+    "weight": {
+      "within_slope": 0.058085937052965164,
+      "shared_slope_proc": 0.05156249925494194,
+      "ratio_shared_to_within": 0.8876933363048808,
+      "n_prompts": 400
+    },
+    "size": {
+      "within_slope": 0.10048342496156693,
+      "shared_slope_proc": 0.08727554976940155,
+      "ratio_shared_to_within": 0.8685566779076535,
+      "n_prompts": 362
+    },
+    "speed": {
+      "within_slope": 0.07251712679862976,
+      "shared_slope_proc": 0.031678080558776855,
+      "ratio_shared_to_within": 0.43683584771281125,
+      "n_prompts": 365
+    },
+    "wealth": {
+      "within_slope": 0.052017901092767715,
+      "shared_slope_proc": 0.03772770240902901,
+      "ratio_shared_to_within": 0.7252830586483325,
+      "n_prompts": 398
+    },
+    "experience": {
+      "within_slope": 0.10790598392486572,
+      "shared_slope_proc": 0.02953614667057991,
+      "ratio_shared_to_within": 0.2737211190358613,
+      "n_prompts": 351
+    },
+    "bmi_abs": {
+      "within_slope": 0.04558270797133446,
+      "shared_slope_proc": 0.03500939905643463,
+      "ratio_shared_to_within": 0.7680412291093138,
+      "n_prompts": 399
+    }
+  },
+  "n_pass_ratio_gt_0p5": 6,
+  "domain_general_8of8": false,
+  "domain_general_6of8": true
+}

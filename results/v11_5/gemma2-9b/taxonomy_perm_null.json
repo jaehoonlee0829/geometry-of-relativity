@@ -1,0 +1,26 @@
+{
+  "model_short": "gemma2-9b",
+  "n_shuffle": 1000,
+  "n_heads_total": 128,
+  "observed": {
+    "mu_aggregator": 3,
+    "comparator": 26,
+    "z_writer": 6
+  },
+  "null_mean": {
+    "mu_aggregator": 7.489,
+    "comparator": 15.993,
+    "z_writer": 15.328
+  },
+  "null_q95": {
+    "mu_aggregator": 11.0,
+    "comparator": 20.0,
+    "z_writer": 19.0
+  },
+  "p_value_observed_geq": {
+    "mu_aggregator": 0.995,
+    "comparator": 0.0,
+    "z_writer": 1.0
+  },
+  "interpretation": "p < 0.05 \u2192 observed tag count exceeds 95% of permutation null \u2192 the (layer, head) \u2192 metric mapping carries real structure for that tag. p \u2265 0.05 \u2192 tag count is consistent with quartile-cutoff structure alone."
+}
