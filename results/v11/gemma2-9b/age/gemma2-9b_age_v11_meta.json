@@ -1,0 +1,30 @@
+{
+  "model_id": "google/gemma-2-9b",
+  "model_short": "gemma2-9b",
+  "pair": "age",
+  "low_word": "young",
+  "high_word": "old",
+  "n_prompts": 3900,
+  "n_layers": 42,
+  "n_heads": 16,
+  "head_dim": 256,
+  "d_model": 3584,
+  "vocab_size": 256000,
+  "strategic_layers": [
+    0,
+    5,
+    10,
+    16,
+    21,
+    28,
+    34,
+    41
+  ],
+  "max_seq": 288,
+  "batch_size": 8,
+  "low_id": 3486,
+  "high_id": 2187,
+  "elapsed_sec": 84.7,
+  "trials_path": "data_gen/v11_age_trials.jsonl",
+  "extractor": "scripts/vast_remote/extract_v11_dense.py"
+}

@@ -1,0 +1,30 @@
+{
+  "model_short": "gemma2-2b",
+  "baseline_corr_z": 0.9757045555733982,
+  "ablations": [
+    {
+      "label": "comparator",
+      "layer": 13,
+      "head": 2,
+      "corr_z_after_ablation": 0.9725034464072337,
+      "delta_corr_z_vs_baseline": -0.003201109166164451,
+      "logit_diff_std": 1.0169776678085327
+    },
+    {
+      "label": "early_writer",
+      "layer": 3,
+      "head": 0,
+      "corr_z_after_ablation": 0.9682001370548852,
+      "delta_corr_z_vs_baseline": -0.007504418518513023,
+      "logit_diff_std": 1.2044376134872437
+    },
+    {
+      "label": "mu_aggregator",
+      "layer": 0,
+      "head": 6,
+      "corr_z_after_ablation": 0.9759012992918661,
+      "delta_corr_z_vs_baseline": 0.0001967437184678955,
+      "logit_diff_std": 1.2127677202224731
+    }
+  ]
+}

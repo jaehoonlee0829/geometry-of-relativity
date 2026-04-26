@@ -1,0 +1,30 @@
+{
+  "model_id": "google/gemma-2-9b",
+  "model_short": "gemma2-9b",
+  "pair": "speed",
+  "low_word": "slow",
+  "high_word": "fast",
+  "n_prompts": 3650,
+  "n_layers": 42,
+  "n_heads": 16,
+  "head_dim": 256,
+  "d_model": 3584,
+  "vocab_size": 256000,
+  "strategic_layers": [
+    0,
+    5,
+    10,
+    16,
+    21,
+    28,
+    34,
+    41
+  ],
+  "max_seq": 288,
+  "batch_size": 8,
+  "low_id": 6080,
+  "high_id": 4847,
+  "elapsed_sec": 76.9,
+  "trials_path": "data_gen/v11_speed_trials.jsonl",
+  "extractor": "scripts/vast_remote/extract_v11_dense.py"
+}

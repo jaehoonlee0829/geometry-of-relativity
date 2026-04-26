@@ -1,0 +1,30 @@
+{
+  "model_id": "google/gemma-2-2b",
+  "model_short": "gemma2-2b",
+  "pair": "experience",
+  "low_word": "novice",
+  "high_word": "expert",
+  "n_prompts": 3510,
+  "n_layers": 26,
+  "n_heads": 8,
+  "head_dim": 256,
+  "d_model": 2304,
+  "vocab_size": 256000,
+  "strategic_layers": [
+    0,
+    3,
+    7,
+    10,
+    13,
+    17,
+    20,
+    25
+  ],
+  "max_seq": 288,
+  "batch_size": 16,
+  "low_id": 90564,
+  "high_id": 13865,
+  "elapsed_sec": 28.6,
+  "trials_path": "data_gen/v11_experience_trials.jsonl",
+  "extractor": "scripts/vast_remote/extract_v11_dense.py"
+}

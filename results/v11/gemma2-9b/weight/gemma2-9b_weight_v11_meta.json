@@ -1,0 +1,30 @@
+{
+  "model_id": "google/gemma-2-9b",
+  "model_short": "gemma2-9b",
+  "pair": "weight",
+  "low_word": "light",
+  "high_word": "heavy",
+  "n_prompts": 4000,
+  "n_layers": 42,
+  "n_heads": 16,
+  "head_dim": 256,
+  "d_model": 3584,
+  "vocab_size": 256000,
+  "strategic_layers": [
+    0,
+    5,
+    10,
+    16,
+    21,
+    28,
+    34,
+    41
+  ],
+  "max_seq": 288,
+  "batch_size": 8,
+  "low_id": 2611,
+  "high_id": 8090,
+  "elapsed_sec": 86.3,
+  "trials_path": "data_gen/v11_weight_trials.jsonl",
+  "extractor": "scripts/vast_remote/extract_v11_dense.py"
+}

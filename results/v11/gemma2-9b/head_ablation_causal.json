@@ -1,0 +1,30 @@
+{
+  "model_short": "gemma2-9b",
+  "baseline_corr_z": 0.9748905072357399,
+  "ablations": [
+    {
+      "label": "z_writer_top",
+      "layer": 21,
+      "head": 3,
+      "corr_z_after_ablation": 0.9737660848137375,
+      "delta_corr_z_vs_baseline": -0.0011244224220023913,
+      "logit_diff_std": 2.2022221088409424
+    },
+    {
+      "label": "comparator_top",
+      "layer": 16,
+      "head": 3,
+      "corr_z_after_ablation": 0.977271210400212,
+      "delta_corr_z_vs_baseline": 0.002380703164472142,
+      "logit_diff_std": 2.355050563812256
+    },
+    {
+      "label": "mu_aggregator_top",
+      "layer": 0,
+      "head": 3,
+      "corr_z_after_ablation": 0.9752479462610495,
+      "delta_corr_z_vs_baseline": 0.0003574390253096027,
+      "logit_diff_std": 2.313436985015869
+    }
+  ]
+}

@@ -1,0 +1,2786 @@
+{
+  "height": {
+    "model_short": "gemma2-9b",
+    "pair": "height",
+    "n_prompts": 4000,
+    "n_high_z": 1400,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 400,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.015674605503837615,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": -0.008108854186366652,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": -0.0024164046525678696,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": -0.009005140246645374,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": -0.009208759347029725,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": 0.0034159146368210594,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": -0.00662468801169302,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": 0.009778681627612003,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": -0.008305471272770234,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": 0.01178651835576406,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.009589849582078295,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": 0.010257221643778583,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": 0.025801165008802456,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": -0.0006339187130073665,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": -0.0022270907807188565,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": -0.01705866282522249,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": -0.0402343374924894,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": -0.01603315253227373,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.021523729203965457,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.007695836083563189,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.010037980153490387,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.009209318275646123,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": -0.005355763524675107,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.04482627232168868,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.05935564867381375,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.05610042507120479,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.07183802622061367,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.0805740571189145,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.08675929723508446,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.10143840610031879,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.10125966489026697,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.11864748651930529,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.13301560410350854,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.17016820128403992,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.17265011537565325,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.23925683160758615,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.22524172398004558,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.2592406718313202,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.22925779562686235,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.22691879449847094,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.19205066789297348,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.11919215627880793,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "age": {
+    "model_short": "gemma2-9b",
+    "pair": "age",
+    "n_prompts": 3900,
+    "n_high_z": 1300,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 400,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.010586959710064058,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.004183076343005712,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": -0.009534317010283698,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": -0.004237556323029402,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": 0.021422373458646546,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": 0.041246436559648894,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": 0.042462695568610306,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": 0.02403913347471873,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": 0.014943459125151604,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": -0.0019365782522724772,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.0334854337107469,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": -0.02948604989090812,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.020710965166475904,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": -0.005893390900660526,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.003906644347317226,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": 0.01100585961072009,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": 0.002841439705177631,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": 0.03879781269544668,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.052898716451945715,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.051542093647565256,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.05677480634715541,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.07141069492817241,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.0524307513870434,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.1292585097371923,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.11657187926040731,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.14115138261904853,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.15670833453717614,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.17913881908324875,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.2003961797979843,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.2018190300327104,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.19532924480736397,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.20255019768383165,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.24646268218001946,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.24394410236544037,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.23908971666767614,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.24238004600744487,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.2730239132250127,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.26628697499045245,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.2673893417170624,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.22766574898198447,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.22398216997190892,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.13707551923026512,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "weight": {
+    "model_short": "gemma2-9b",
+    "pair": "weight",
+    "n_prompts": 4000,
+    "n_high_z": 1400,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 400,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.010445482201666918,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.005723712384045979,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": 0.00335619600119957,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": 0.014028691340619445,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": 0.04529484818662818,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": 0.032959197946805914,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": 0.011118543251302297,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": 0.0072133887388589795,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": 0.007269496987133494,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": 0.01916920477863086,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": 0.01316280182223616,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": 0.023013074439201555,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.0010616829360827326,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": 0.008983988719032263,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.014913176062057823,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": -0.006881776728213103,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": -0.025735311682497996,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": -0.0032008043626802186,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.0537880809362918,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.04736246783235593,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.033517400438908156,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.05374553463309961,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.0228015167602256,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.06123538557945769,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.07764382420104868,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.07304629293896688,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.07308456866078039,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.08625182948698219,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.08286389635593193,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.08775109223101459,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.1010096440840355,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.11306863210279351,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.11222486641005118,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.1261866773866645,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.1314733851514132,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.12350276926391705,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.1574214612921478,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.15928740849463704,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.15817094255767097,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.14999363134196964,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.16624704622695177,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.11568260438398188,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "size": {
+    "model_short": "gemma2-9b",
+    "pair": "size",
+    "n_prompts": 3620,
+    "n_high_z": 1080,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 380,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.029697482975196303,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.004711150600127173,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": -0.01769817582714447,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": -0.010193392922836147,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": -0.011443176392197635,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": -0.00917436915539736,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": -0.022750841992231916,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": -0.012704706572215783,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": -0.007773336473700936,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": 0.0172424299472824,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": 0.018794657722831416,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": 0.034020134168081896,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.0070740657241043945,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": 0.04033937300566635,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.04118090587725292,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": 0.028487274584152115,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": 0.00798160720990767,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": 0.048591148451722826,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.09469064698388602,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.07688268644196046,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.08034735959520507,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.0930664711999507,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.10045608196696182,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.13057435368541023,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.14667332577961423,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.14250320643276784,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.16768427246499795,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.19391758857822114,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.21407036177988092,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.22637174553423264,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.22556289555162404,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.28426958965401494,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.27497236487946536,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.28118682284710383,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.27346588329244453,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.26888287323187804,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.2933042554394247,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.2980210557258146,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.24442363821902233,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.25470893688724744,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.23528009602042818,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.17934530194099446,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "speed": {
+    "model_short": "gemma2-9b",
+    "pair": "speed",
+    "n_prompts": 3650,
+    "n_high_z": 1090,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 390,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.014947260550508113,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.00868819529135027,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": 0.01928850103830174,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": 0.019961611845081943,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": 0.01574614191984721,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": 0.015922066485122302,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": 0.03219058452969413,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": 0.0334740604785928,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": 0.005735125333672298,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": -0.011323543664179163,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.016227330137289442,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": -0.023658894136806528,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.005253176202331702,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": 0.009682204706991241,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.009217708048978835,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": 0.01246708207260931,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": 0.0163667195066145,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": 0.030499703004138408,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.05166733782251453,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.044337658327599096,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.027184517807371064,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.040238599545412784,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.044426920547752435,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.09183057627441674,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.08458593841371784,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.06750518470876203,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.07946902420286411,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.08032269213986362,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.08801969465702761,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.11034832558118463,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.10819501285706278,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.12128240980593073,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.18670805758077755,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.21931813017398316,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.2241963973016821,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.2085265597180343,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.1990351698939067,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.19198766390702024,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.19067081047845824,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.1419470102728316,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.14283869989684272,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.12706203342911937,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "wealth": {
+    "model_short": "gemma2-9b",
+    "pair": "wealth",
+    "n_prompts": 3980,
+    "n_high_z": 1390,
+    "n_low_z": 1390,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 400,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.008488318871796798,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.0009349949692573653,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": -0.003875341785669376,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": -0.005142743565473079,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": -0.012128710014930651,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": -0.025597748524068438,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": -0.02612498511892058,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": -0.014659202463528868,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": -0.017020682041146526,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": -0.011049179116496314,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.02147595428313453,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": -0.02302934120191644,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.01050538096879785,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": 0.009689964644016528,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.019033569946793755,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": 0.027947732988295327,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": 0.025570816171346347,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": 0.022779439232763474,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.03484563937407809,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.03052740736314936,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.02175990959688914,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.0357763011676294,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.041986429385639686,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.07284356522319922,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.08870821535366244,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.09551135855825114,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.09238096651484394,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.1006030610370243,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.12273364377899874,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.1150507373217477,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.11540278077601124,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.1125132511623357,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.11570352123660585,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.15926534085369767,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.23400866227109768,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.21950617938197647,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.21597565648304223,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.21833438916224596,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.21140105017055916,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.2001074581443102,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.1542653432109635,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.1442479604505566,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "experience": {
+    "model_short": "gemma2-9b",
+    "pair": "experience",
+    "n_prompts": 3510,
+    "n_high_z": 970,
+    "n_low_z": 1400,
+    "n_pred_high": 0,
+    "n_pred_low": 0,
+    "n_near_zero": 390,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": 0.011109572462793484,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": 0.04226334350458868,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": 0.04182123466008618,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": 0.023073496515564954,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": 0.003451379139542411,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": 0.008814095599317968,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": 0.024622437170083986,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": -0.012785099816700297,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": -0.025924925466390504,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": -0.026450730776838717,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.028017940087433198,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": -0.010608107619638636,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.0246482996814273,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": 0.005057417474423102,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": 0.04115287807243083,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": 0.029860612118523346,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": 0.016117566779734062,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": 0.030536246645330414,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.010496307408407091,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.007408587638810756,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.03934185388883093,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.06534358041286153,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.043874786829170974,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.05688086423451044,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.061565172548654845,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.06838902833092475,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.08815539569817854,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.13488055375649297,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.15641565441905722,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.16604499882054122,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.16034557316017586,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.1722752755774848,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.16821269928420302,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.17691630224917032,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.17160198430396278,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.16880227580532964,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.17069746414341175,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.15828185555320143,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.15137710278780867,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.14040130092240988,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.13330880609433438,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.08660104201235826,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 0,
+        "n_pred_low_amb": 0
+      }
+    ]
+  },
+  "bmi_abs": {
+    "model_short": "gemma2-9b",
+    "pair": "bmi_abs",
+    "n_prompts": 3990,
+    "n_high_z": 1390,
+    "n_low_z": 1400,
+    "n_pred_high": 896,
+    "n_pred_low": 0,
+    "n_near_zero": 400,
+    "per_layer": [
+      {
+        "layer": 0,
+        "cos_primal_lexical_unembed": -0.04122371237460923,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 1,
+        "cos_primal_lexical_unembed": -0.020201375025366678,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 2,
+        "cos_primal_lexical_unembed": -0.006578720096874844,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 3,
+        "cos_primal_lexical_unembed": -0.015044261288958541,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 4,
+        "cos_primal_lexical_unembed": -0.01529960127460043,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 5,
+        "cos_primal_lexical_unembed": -0.00766494074963254,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 6,
+        "cos_primal_lexical_unembed": -0.01357344151739426,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 7,
+        "cos_primal_lexical_unembed": -0.031694225939213914,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 8,
+        "cos_primal_lexical_unembed": -0.040238652661794355,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 9,
+        "cos_primal_lexical_unembed": -0.026673776187461497,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 10,
+        "cos_primal_lexical_unembed": -0.012892682414487848,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 11,
+        "cos_primal_lexical_unembed": -0.014187863414463113,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 12,
+        "cos_primal_lexical_unembed": -0.01508584563639579,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 13,
+        "cos_primal_lexical_unembed": -0.010700668360191715,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 14,
+        "cos_primal_lexical_unembed": -0.014718681114998066,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 15,
+        "cos_primal_lexical_unembed": -0.02651469752312142,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 16,
+        "cos_primal_lexical_unembed": -0.03442590998875645,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 17,
+        "cos_primal_lexical_unembed": -0.003244132148238275,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 18,
+        "cos_primal_lexical_unembed": 0.028068626574359087,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 19,
+        "cos_primal_lexical_unembed": 0.028326255131097162,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 20,
+        "cos_primal_lexical_unembed": 0.02103013246832621,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 21,
+        "cos_primal_lexical_unembed": 0.03676600656213347,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 22,
+        "cos_primal_lexical_unembed": 0.030807301757552037,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 23,
+        "cos_primal_lexical_unembed": 0.05984413157176979,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 24,
+        "cos_primal_lexical_unembed": 0.06306207036765042,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 25,
+        "cos_primal_lexical_unembed": 0.07040938415764895,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 26,
+        "cos_primal_lexical_unembed": 0.0822040118487602,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 27,
+        "cos_primal_lexical_unembed": 0.09647385520746889,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 28,
+        "cos_primal_lexical_unembed": 0.10682203538898069,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 29,
+        "cos_primal_lexical_unembed": 0.12918522779180502,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 30,
+        "cos_primal_lexical_unembed": 0.16559700636748442,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 31,
+        "cos_primal_lexical_unembed": 0.16183351985179426,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 32,
+        "cos_primal_lexical_unembed": 0.16699023441136177,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 33,
+        "cos_primal_lexical_unembed": 0.16811651658337068,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 34,
+        "cos_primal_lexical_unembed": 0.1744708897440009,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 35,
+        "cos_primal_lexical_unembed": 0.20664257581680492,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 36,
+        "cos_primal_lexical_unembed": 0.216899838676705,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 37,
+        "cos_primal_lexical_unembed": 0.21339487508730642,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 38,
+        "cos_primal_lexical_unembed": 0.20905775086226758,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 39,
+        "cos_primal_lexical_unembed": 0.18751888922648158,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 40,
+        "cos_primal_lexical_unembed": 0.1817502679990189,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      },
+      {
+        "layer": 41,
+        "cos_primal_lexical_unembed": 0.11431340672616634,
+        "cos_primal_lexical_zero_z": NaN,
+        "cos_primal_lexical_naive": NaN,
+        "n_pred_high_amb": 105,
+        "n_pred_low_amb": 0
+      }
+    ]
+  }
+}

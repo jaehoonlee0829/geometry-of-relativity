@@ -1,0 +1,30 @@
+{
+  "model_id": "google/gemma-2-2b",
+  "model_short": "gemma2-2b",
+  "pair": "wealth",
+  "low_word": "poor",
+  "high_word": "rich",
+  "n_prompts": 3980,
+  "n_layers": 26,
+  "n_heads": 8,
+  "head_dim": 256,
+  "d_model": 2304,
+  "vocab_size": 256000,
+  "strategic_layers": [
+    0,
+    3,
+    7,
+    10,
+    13,
+    17,
+    20,
+    25
+  ],
+  "max_seq": 288,
+  "batch_size": 16,
+  "low_id": 6528,
+  "high_id": 7277,
+  "elapsed_sec": 31.7,
+  "trials_path": "data_gen/v11_wealth_trials.jsonl",
+  "extractor": "scripts/vast_remote/extract_v11_dense.py"
+}

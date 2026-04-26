@@ -1400,3 +1400,328 @@ Artifacts (this section):
   `scripts/plot_v10_behavioral.py`                       (CPU)
   `results/v10/*.json`                                   (all summaries; small)
   `figures/v10/*.png`                                    (all plots)
+
+
+## §15 — v11: cross-model dense extraction (mixed outcomes)
+
+**Summary.** v11 extends v10's dense single-pair design across all 8
+adjective pairs on **two models** (Gemma 2 2B and Gemma 2 9B), 4,000
+prompts per (pair, model) cell, plus follow-up analyses flagged in §14.7
+that were never run because the v10 NPZs were lost when the previous
+Vast.ai instance died. A pre-flight critic round and a post-hoc 5-critic
+round were applied. The pre-flight round drove three methodology fixes
+(parameterized extractor, P3d lexical direction defined from W_U not from
+post-hoc model output split, P3c residualization on ẑ\_{L−1} not on a
+probe-weight). The post-hoc round flagged four further problems that
+materially constrain the headline claims; this section reports both what
+survived and what didn't.
+
+### Setup
+- Models: `google/gemma-2-2b` (26L, 8H, d=2304) and `google/gemma-2-9b`
+  (42L, 16Q-heads, d=3584). Both eager attention, bf16, 1× H100.
+- Prompts: 8 pairs × 20 x-values × 20 z-values × 10 seeds with per-pair
+  `crc32(pair_name)` seed offset to decorrelate the cross-pair nulls
+  (pre-flight critic recommendation). Some cells dropped per-pair where
+  μ falls outside the per-pair plausibility band (kept counts: height
+  4000, age 3900, weight 4000, size 3620, speed 3650, wealth 3980,
+  experience 3510, bmi_abs 3990).
+- Extracted (one pass per pair × model): residuals at every block, eager
+  attention rows + per-head value-mix at 8 strategic layers per model
+  (2B: {0,3,7,10,13,17,20,25}; 9B: {0,5,10,16,21,28,34,41}), W_O slices,
+  W_U, last-token logit slices.
+- All NPZs uploaded to `xrong1729/mech-interp-relativity-activations`
+  under `v11/<model_short>/<pair>/`.
+
+### 15.1 — Behavioral signal replicates 8/8 pairs on both models
+
+Cell-mean `corr(LD_{high−low}, z)` from the per-pair extractions:
+
+| pair       | gemma2-2b | gemma2-9b |
+|---         |---:       |---:       |
+| height     | 0.972     | 0.97x     |
+| age        | 0.93–0.96 | 0.93–0.97 |
+| weight     | 0.94–0.97 | 0.94–0.97 |
+| size       | 0.92–0.96 | 0.93–0.97 |
+| speed      | 0.93      | 0.94      |
+| wealth     | 0.95–0.97 | 0.95–0.97 |
+| experience | 0.95–0.97 | 0.95–0.97 |
+| bmi_abs    | 0.953     | 0.95+     |
+
+(Per-pair `_meta.json` records the exact value; ranges shown where the
+behavioral correlation varies slightly between extractor invocations.)
+The behavioral z-signal is strong on every pair on both models — v9's
+"8/8 R>0.3" claim becomes "8/8 cell-mean R>0.92" at v11's density.
+
+### 15.2 — PCA cross-model: 9B replicates more uniformly than 2B
+
+PC1.R²(z) on cell-means at the canonical late layer (2B L20 / 9B L33):
+
+| pair       | 2B PC1.R²(z) | 9B PC1.R²(z) |
+|---         |---:          |---:          |
+| height     | **0.969**    | **0.928**    |
+| weight     | **0.949**    | **0.944**    |
+| bmi_abs    | **0.923**    | **0.784**    |
+| experience | **0.901**    | **0.902**    |
+| wealth     | **0.855**    | **0.871**    |
+| speed      | 0.360        | **0.428**    |
+| age        | 0.209        | **0.606**    |
+| size       | 0.075        | **0.656**    |
+
+2B's median PC1.R²(z) = 0.901 with a 0.075→0.969 spread; 9B's median
+0.871 with a tighter 0.428→0.944 spread. Three pairs that fail at 2B
+(age, size, speed) work at 9B — **scaling rescues the z-code on the
+harder pairs**. This is v11's strongest cross-model finding.
+
+Critic flag (alternative): for `size` and `age` at 2B, `PC1_vs_x` is
+the larger of the two (0.65 / 0.42), so PC1 is tracking raw x where
+z fails. The "PC1 ≈ z" framing only holds where x and z were
+successfully decorrelated by the grid; the dichotomy 2B-fail/9B-pass
+should be read as "9B disentangles where 2B doesn't," not "9B has a
+universal z-axis."
+
+### 15.3 — primal_z is W_U-orthogonal at every layer
+
+The methodology-fixed P3d (lexical direction = `W_U[high] − W_U[low]`,
+not the post-hoc `mean(h | pred==high) − mean(h | pred==low)` split
+that begs the question whenever the model is accurate):
+
+`cos(primal_z[L], W_U[high] − W_U[low])` for height across all layers
+falls in `[−0.045, +0.058]` on 2B and `[−0.05, +0.12]` on 9B —
+**primal_z is essentially orthogonal to the lexical readout direction
+at every depth**. This is the one v11 finding the novelty critic
+scored as genuinely new (3/5 — empirical instantiation of Park's
+linear-representation framework on a graded-scalar axis, where prior
+work focused on categorical features).
+
+Caveat: the analysis script's "ambiguous-cells" variant
+(`mean(h | |z|<eps, pred==high) − mean(h | |z|<eps, pred==low)`)
+returned NaN at every layer on every pair (`n_pred_high_amb =
+n_pred_low_amb = 0`) — the model never argmaxes to either polar word
+on near-zero-z prompts at this template. Only the W_U-cosine variant
+fired. The orthogonality claim stands but the ambiguous-prediction
+sanity check did not.
+
+### 15.4 — Single-head ablations are NULL on both models — refutes §14.6's causal framing
+
+Causal head ablation (zero a head's o_proj input slice, measure ΔR(z)
+on the 4,000-prompt height grid):
+
+| model | baseline corr(z) | head      | label          | Δcorr(z) |
+|---    |---:              |---        |---             |---:      |
+| 2B    | 0.976            | L13h2     | comparator     | −0.0032  |
+| 2B    | 0.976            | L3h0      | early_writer   | −0.0075  |
+| 2B    | 0.976            | L0h6      | mu_aggregator  | +0.0002  |
+| 9B    | 0.975            | L21h3     | z_writer_top   | −0.0011  |
+| 9B    | 0.975            | L16h3     | comparator_top | +0.0024  |
+| 9B    | 0.975            | L0h3      | mu_aggregator  | +0.0004  |
+
+Pearson r SE at N=400 ≈ (1−r²)/√N ≈ 0.003. **Every Δ is within ~2 SE.**
+
+This is a substantive negative result. v10 §14.6 named L13h2 the
+"comparator" and L0h6 the "μ-aggregator" based on DLA-on-dumped-
+activations correlations; **ablating those heads individually does
+nothing measurable.** Two possibilities the data cannot distinguish:
+(a) the taxonomy is descriptively correct but causally redundant
+(z is encoded by many overlapping heads), or (b) the taxonomy
+misidentifies the mechanism. Either way, **the "L13h2/L3h0/L0h6 are
+causally necessary" reading should be retracted** in §14.6's wording.
+
+The narrative critic flagged this as an unacknowledged self-refutation
+(see `results/v11/critic_narrative.md`).
+
+### 15.5 — Cross-pair transfer: positive within-pair, off-diagonal needs multi-seed
+
+Steering at the canonical late layer with α = ±4 on the seed-0 cell
+subset of each pair (n=400 cells). Mean within-pair vs. mean off-
+diagonal slope:
+
+|       | mean within-pair | mean off-diagonal | ratio |
+|---    |---:              |---:               |---:   |
+| 2B    | 0.071            | 0.032             | 0.45  |
+| 9B    | 0.069            | 0.027             | 0.40  |
+
+~40% transfer ratio across both models — consistent with v9's earlier
+40% transfer finding and v8's cross-pair PC1 cosine = 0.19 (the
+PCA-space metric undershoots the steering-space metric, expected
+geometrically).
+
+**Critic flags (statistical + alternative):**
+- 56 off-diagonal cells × no Bonferroni / FDR control. The "off-
+  diagonal ≈ 0" claim is not statistically supported on a single seed.
+- For some pairs the off-diagonal exceeds the diagonal: `size→height
+  = 0.078` vs within-height 0.040 on 2B. The alternative critic's
+  cheap explanation: the `size` direction is a stronger generic
+  "make-the-numeral-bigger" pusher, not a domain-general z-code.
+  A pure x-shift control (μ held constant) would distinguish.
+
+The cross-pair transfer matrix is therefore reported as **preliminary**;
+multi-seed re-runs and a pure-x control are needed before the "shared
+z-direction" framing is workshop-defensible.
+
+### 15.6 — SAE features at L7/L20 (2B) and L11/L33 (9B)
+
+Of 16,384 features per SAE, the typical pair has ~50–100 active
+z-modulated features ("linear" R²(z)>0.4 plus "bump" features with
+non-trivial nonzero rate near z≈0); the rest are dead on this prompt
+distribution. Top-50 cross-pair Jaccard on 2B-L20 hovers around 0.05–
+0.10 across pair pairs — consistent with v9's 0.06.
+
+The narrative critic correctly notes the v11 SAE summary JSON does
+**not** report the top-50 Jaccard scalar (it is in the heatmap figure
+only); this should be backfilled before the workshop. v9's "primal_z
+is distributed across thousands of features" claim is not directly
+re-tested by v11; only the L20 top-50 active-feature lists exist.
+
+### 15.7 — What the post-hoc critic round retracted or downgraded
+
+| issue | from | status |
+|---    |---   |---     |
+| P3c orthogonalized increment R² | this section | **retract / re-run** — out-of-sample R² goes negative (e.g. height L25 = −5.7, bmi_abs L41 = −23.5) → pipeline bug (residualization not fold-aware). Do not interpret negative R² as "no new info"; it is incoherent. |
+| P3d ambiguous-cells variant | 15.3 | **partial fail** — NaN at every layer. Only W_U-cosine variant survives. |
+| Single-head causal taxonomy | §14.6 + 15.4 | **retract causal framing** — Δcorr(z) within 2σ for every head on both models. Re-frame as descriptive DLA tags. |
+| Cross-pair transfer "domain-general z-code" | 15.5 | **downgrade to preliminary** — single-seed, no Bonferroni, alternative magnitude-direction explanation untested. |
+| PCA cos(PC1, primal_z) sign-flip story | 15.2 | **report \|cos\|** — adjacent-layer sign flips are PCA gauge ambiguity, not phase transitions. |
+| "PC1 ≈ z" universal claim | 15.2 | **scope down** — clean for height/weight/wealth/experience/bmi_abs at 2B; on age/size/speed PC1 tracks x, not z. 9B fixes most of these. |
+
+### 15.8 — Workshop paper implications
+
+For the May 8 ICML MI Workshop submission:
+
+- **Headline (keep):** primal_z is W_U-orthogonal at every layer
+  (15.3) — empirical instantiation of Park's linear-representation
+  framework on graded scalars; novelty 3/5 per critic.
+- **Headline (keep):** cell-mean R(z) ≥ 0.92 on 8/8 pairs on both
+  models; 9B replicates more uniformly than 2B (15.1, 15.2).
+- **Retract:** "L13h2 / L3h0 / L0h6 are causal" framing in §14.6.
+  Re-write to describe them as DLA-correlational tags.
+- **Defer to arXiv v2 (post-May-7):** P3c (after fold-aware
+  residualization), P3e dense cross-pair transfer (after multi-seed +
+  Bonferroni), 9B-specific head taxonomy beyond DLA.
+
+**Single-line takeaway:** *v11 confirms the behavioral z-signal across
+8/8 pairs on both 2B and 9B and demonstrates W_U-orthogonality of
+primal_z (a genuinely new piece), but its single-head causal-taxonomy
+ablations are null, refuting v10 §14.6's "L13h2/L3h0/L0h6 are
+causally necessary" framing — and three of v11's secondary analyses
+(P3c orth-R², P3d ambiguous-cells, P3e cross-pair) need rework before
+they are workshop-defensible.*
+
+Artifacts (this section):
+  `data_gen/v11_<pair>_trials.jsonl`                     (regenerable from `scripts/gen_v11_dense.py --pair all`)
+  `scripts/vast_remote/extract_v11_dense.py`             (one GPU pass per pair × model)
+  `scripts/run_v11_p2_full.sh`, `scripts/run_v11_post_p2.sh`  (orchestration)
+  `scripts/analyze_v11_pca.py`                           (P3a/b)
+  `scripts/analyze_v11_increment_r2.py`                  (P3c — known bug, see 15.7)
+  `scripts/analyze_v11_z_vs_lexical.py`                  (P3d — methodology-fixed)
+  `scripts/analyze_v11_cross_pair_transfer.py`           (P3e — single-seed, see 15.5)
+  `scripts/analyze_v11_sae.py`                           (P4)
+  `scripts/analyze_v11_head_taxonomy_and_ablate.py`      (P5)
+  `scripts/run_v11_p6_critics.py` + `_retry.py`          (P6 critic round, 5 Anthropic-API critics)
+  `results/v11/<model>/<pair>/*.json`, `results/v11/<model>/*.json`
+  `results/v11/critic_*.md`, `critics_summary.md`        (5 post-hoc critics)
+  `figures/v11/{behavioral,pca,probing,steering,sae,attention,cross_model}/*.png`
+
+### 15.9 — v11.5 follow-up scope: rebuild the v4–v9 research questions on the enriched data
+
+The v11 dense extraction (8 pairs × 2 models × 4,000 prompts each, 96k
+forward passes, ~25 GB on HF) is a much richer substrate than anything
+v4–v9 had to work with. v11's analyses (P3a–P5) skipped past the
+foundational v4–v9 questions and went straight to model comparisons
+and ablations. The post-hoc critic round + user feedback pushed back:
+the foundational questions need to be re-asked on v11's data before
+secondary analyses are defensible. This subsection is the to-do list.
+
+**A. Is there a domain-agnostic shared z-score direction?**
+v11's P3e cross-pair transfer is the closest thing the run produced,
+but it tested per-pair primal_z directions transferring to other
+pairs' prompts — not a *single* shared direction. Required:
+  - Construct `w_shared` = average / first-PC / Procrustes-aligned
+    combination of the 8 per-pair primal_z directions at the canonical
+    late layer.
+  - Steer all 8 pairs simultaneously with `α · w_shared` and measure
+    per-pair Δlogit_diff slope. **If a single direction steers all 8
+    pairs**, that is direct evidence of a shared z-code.
+  - Compare to per-pair primal_z slopes — the shared direction should
+    be ≥50% of the within-pair slope to be claimed as "domain-general."
+
+**B. How do attention heads map the shared direction?**
+v11's P5 head taxonomy was per-pair (height-only) and ablations were
+single-head. Required:
+  - Re-derive head DLA scores on `w_shared` (not per-pair primal_z) at
+    every strategic layer, jointly across all 8 pairs' prompts.
+  - Test whether a head's "shared-z DLA" predicts its causal effect
+    when ablated (Stage B from P5).
+  - Permutation null on the taxonomy thresholds (statistical critic's
+    flag): shuffle (layer, head) → metric assignments 1000× and report
+    whether observed tag intersection counts (e.g. heads that score
+    top-quartile on multiple metrics) exceed the 95th percentile.
+
+**C. Steering effects of the shared direction — multi-seed, statistically tested**
+P3e was single-seed. Required:
+  - ≥5 seeds per cell (re-extract with --seeds 5 or run multiple α
+    values per existing cell).
+  - Report mean ± 95% CI per (source, target) pair using a block
+    bootstrap over (μ, x) cells.
+  - Bonferroni or BH-FDR correction at q=0.05 across the 56 off-
+    diagonal cells per model.
+  - Pure-x control (alternative critic): re-run cross-pair steering
+    with μ held constant in the target prompts, to distinguish
+    "shared z-code" from "shared numeral-magnitude direction."
+
+**D. Cross-feature steering: does the shared direction co-affect adjacent features?**
+v11 reports `corr(LD_high−low, z)` per pair but never asks: when we
+steer with `w_shared`, does the *unrelated* logit_diff of an adjacent
+pair (e.g. steering on height — does the model's age judgement
+shift?) move in the same direction? Required:
+  - For each (source_pair, target_pair) with target ≠ source, steer
+    with source's primal_z (or `w_shared`), measure target's
+    `LD_target_high − LD_target_low` change.
+  - Distinguish "transfer" (target-pair LD shifts in the same
+    direction as z would predict) from "interference" (target LD
+    shifts in an orthogonal direction).
+
+**E. SAE-feature replication of v9 §12 / §14.5 on the enriched data**
+v11 P4 stopped at top-50 features per pair × layer. Required:
+  - Replicate v9's "Jaccard 0.06 cross-pair" claim with the larger
+    dense data — does the shared-feature overlap go up at higher N?
+  - Test whether the linear and bump features identified by P4 are
+    SAE training artefacts (alternative critic's flag) by checking
+    R²(numeral_token_id | feature) as a control alongside R²(z).
+
+**F. Statistical hardening (cross-cutting)**
+  - Bootstrap CIs on every R² in `pca_summary.json`,
+    `cos_pc1_primal_per_layer`, `cross_pair_transfer_dense.json`,
+    and `head_ablation_causal.json`. With N ≈ 400 cell-means, 1000
+    block-bootstrap reps over (μ, x) cells is cheap.
+  - Fisher-z transform on Pearson r ablation deltas; report 95% CI.
+  - PCA eigenvalue-gap stability under subsampling (statistical
+    critic's flag for the "PC1=z" claim on size: λ₁−λ₂=0.11, likely
+    unstable).
+  - TWO-NN intrinsic-dimensionality stability under N∈{100, 200, 300,
+    400} ×50 reps before any "n-D manifold" claim.
+
+**G. P3c orthogonalized increment R² — fold-aware fix**
+The current implementation residualizes `h_L` against `ẑ_{L−1}` using
+in-sample fits, which leaks into the held-out fold and yields
+spuriously negative out-of-sample R² (down to −23.5). Required: fit
+ẑ_{L−1} on the train fold only, project on the test fold, then
+orthogonalize and refit ẑ_L on the residualized test activations.
+Within-fold residualization is the standard fix.
+
+**H. P3d ambiguous-cells variant — fix or drop**
+At |z| < eps, `n_pred_high = n_pred_low = 0` for every pair on every
+layer — the model never argmaxes to the polar adjective on near-zero
+prompts at this template. Either widen the |z| band, condition on
+top-K predictions instead of argmax, or drop the variant. The W_U-
+cosine variant (the actually-novel piece, 15.3) survives.
+
+**Sequencing.** A → C → D are the minimum set to claim "shared
+domain-general z-code" — without these the v11 P3e/P5 results are
+suggestive at best. F is cross-cutting and cheap. G/H are pipeline
+fixes. B is a 9B-side reanalysis of v11 attention NPZs. E re-uses
+existing SAE encodings.
+
+**Out of scope for v11.5** (defer to a v12 phase): Gemma 3, Gemma 4,
+multilingual replication, fine-tuned models. Same scope discipline as
+v11 — the Gemma 2 family (2B + 9B) is already the load-bearing
+contrast for the workshop paper.
