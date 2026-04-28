@@ -1,0 +1,309 @@
+{
+  "models": {
+    "gemma2-2b": {
+      "height": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": -0.002452232411266649,
+        "cos_probe_z_probe_x": 0.41805386168432385,
+        "cos_primal_z_probe_x": -2.261655629883336e-05,
+        "cos_probe_z_primal_x": -0.00014124778607165517,
+        "cos_primal_z_unembed_high_low": 0.15084076570366714,
+        "cos_primal_x_unembed_high_low": 0.06536942575043278
+      },
+      "age": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": -0.2716831319783558,
+        "cos_probe_z_probe_x": 0.606995772262079,
+        "cos_primal_z_probe_x": 0.0031286655493716277,
+        "cos_probe_z_primal_x": 0.0014525870408817051,
+        "cos_primal_z_unembed_high_low": 0.21828569951810287,
+        "cos_primal_x_unembed_high_low": 0.06005452227497677
+      },
+      "weight": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": -0.19764383567290192,
+        "cos_probe_z_probe_x": 0.4452294413614092,
+        "cos_primal_z_probe_x": -2.373553971275308e-05,
+        "cos_probe_z_primal_x": -4.717943680108511e-05,
+        "cos_primal_z_unembed_high_low": 0.1571607650151674,
+        "cos_primal_x_unembed_high_low": 0.012758444705920418
+      },
+      "size": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": 0.18783904905793364,
+        "cos_probe_z_probe_x": 0.43358981156248455,
+        "cos_primal_z_probe_x": 0.009958534732838326,
+        "cos_probe_z_primal_x": 0.004677546506905248,
+        "cos_primal_z_unembed_high_low": 0.2972702032750042,
+        "cos_primal_x_unembed_high_low": 0.1479489824313868
+      },
+      "speed": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": -0.03235637460670893,
+        "cos_probe_z_probe_x": 0.4947812769803101,
+        "cos_primal_z_probe_x": 0.00973920543835355,
+        "cos_probe_z_primal_x": 0.0048509405329949,
+        "cos_primal_z_unembed_high_low": 0.1170343956277853,
+        "cos_primal_x_unembed_high_low": 0.058050690201576466
+      },
+      "wealth": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": 0.07897154411079381,
+        "cos_probe_z_probe_x": 0.31012770337266443,
+        "cos_primal_z_probe_x": 0.00013994633167176265,
+        "cos_probe_z_primal_x": 0.00025447762537058135,
+        "cos_primal_z_unembed_high_low": 0.19136970450467225,
+        "cos_primal_x_unembed_high_low": 0.11499605245923637
+      },
+      "experience": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": 0.5285719071134015,
+        "cos_probe_z_probe_x": 0.6106665350192083,
+        "cos_primal_z_probe_x": 0.007716947039559378,
+        "cos_probe_z_primal_x": 0.009114539737729565,
+        "cos_primal_z_unembed_high_low": 0.21655527885427733,
+        "cos_primal_x_unembed_high_low": 0.13873037749641745
+      },
+      "bmi_abs": {
+        "late_layer": 20,
+        "cos_primal_z_primal_x": 0.1804698661555632,
+        "cos_probe_z_probe_x": 0.3803367594308704,
+        "cos_primal_z_probe_x": 0.00010344963751455789,
+        "cos_probe_z_primal_x": 0.00018677319018398455,
+        "cos_primal_z_unembed_high_low": 0.1930537937375596,
+        "cos_primal_x_unembed_high_low": 0.06574814084477087
+      }
+    },
+    "gemma2-9b": {
+      "height": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.267341911970357,
+        "cos_probe_z_probe_x": 0.4236388678752657,
+        "cos_primal_z_probe_x": -4.7519303801835375e-06,
+        "cos_probe_z_primal_x": -1.697167638915455e-05,
+        "cos_primal_z_unembed_high_low": 0.1701682012823955,
+        "cos_primal_x_unembed_high_low": 0.11659367943022363
+      },
+      "age": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": -0.05339451056813,
+        "cos_probe_z_probe_x": 0.5826910471317802,
+        "cos_primal_z_probe_x": 0.0025925578145616474,
+        "cos_probe_z_primal_x": 0.001294765058993019,
+        "cos_primal_z_unembed_high_low": 0.24394410236544037,
+        "cos_primal_x_unembed_high_low": 0.05571720245485384
+      },
+      "weight": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.14485590795050884,
+        "cos_probe_z_probe_x": 0.4692885783089946,
+        "cos_primal_z_probe_x": -4.529098946701213e-06,
+        "cos_probe_z_primal_x": -1.1547131453910585e-05,
+        "cos_primal_z_unembed_high_low": 0.1261866773866645,
+        "cos_primal_x_unembed_high_low": 0.0051568574974636
+      },
+      "size": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.1340551404799805,
+        "cos_probe_z_probe_x": 0.40813906252568577,
+        "cos_primal_z_probe_x": 0.006557315296915229,
+        "cos_probe_z_primal_x": 0.0041752553096525615,
+        "cos_primal_z_unembed_high_low": 0.28118682284710383,
+        "cos_primal_x_unembed_high_low": 0.11542499032447706
+      },
+      "speed": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.3855628117772908,
+        "cos_probe_z_probe_x": 0.47290926206092426,
+        "cos_primal_z_probe_x": 0.005101185844585366,
+        "cos_probe_z_primal_x": 0.0030664490609150384,
+        "cos_primal_z_unembed_high_low": 0.21931813017398316,
+        "cos_primal_x_unembed_high_low": 0.062145999036536684
+      },
+      "wealth": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": -0.09904765179754631,
+        "cos_probe_z_probe_x": 0.3617993568028078,
+        "cos_primal_z_probe_x": 0.00010306765065846373,
+        "cos_probe_z_primal_x": 0.00019891033625529965,
+        "cos_primal_z_unembed_high_low": 0.15926534085369767,
+        "cos_primal_x_unembed_high_low": 0.06538403761065566
+      },
+      "experience": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.4301888170208116,
+        "cos_probe_z_probe_x": 0.536729386166352,
+        "cos_primal_z_probe_x": 0.005792443859863607,
+        "cos_probe_z_primal_x": 0.005692524671788341,
+        "cos_primal_z_unembed_high_low": 0.17691630224917032,
+        "cos_primal_x_unembed_high_low": 0.11951212431659404
+      },
+      "bmi_abs": {
+        "late_layer": 33,
+        "cos_primal_z_primal_x": 0.29990347924964017,
+        "cos_probe_z_probe_x": 0.4764596096754139,
+        "cos_primal_z_probe_x": 8.835080382808684e-05,
+        "cos_probe_z_primal_x": 0.00010255444193997938,
+        "cos_primal_z_unembed_high_low": 0.16811651656873638,
+        "cos_primal_x_unembed_high_low": 0.1135010334877063
+      }
+    }
+  },
+  "lexical_activation_directions": {
+    "model_short": "gemma2-9b",
+    "layer": 33,
+    "by_pair": {
+      "height": {
+        "cos_primal_z_lex_high_low_word": 0.08032090704904772,
+        "cos_primal_x_lex_high_low_word": 0.039057514984805336,
+        "cos_primal_z_lex_sentence": 0.25588198593720946,
+        "cos_primal_x_lex_sentence": 0.1784740037464477,
+        "cos_primal_z_lex_synonym": 0.08820674755107447,
+        "cos_primal_x_lex_synonym": 0.056341127281877006,
+        "cos_primal_z_lex_domain": -0.005255587701549533,
+        "cos_primal_x_lex_domain": -0.016940056705989505
+      },
+      "age": {
+        "cos_primal_z_lex_high_low_word": 0.07593529563066218,
+        "cos_primal_x_lex_high_low_word": 0.06386391743355505,
+        "cos_primal_z_lex_sentence": 0.26916881003825144,
+        "cos_primal_x_lex_sentence": 0.07892814152780252,
+        "cos_primal_z_lex_synonym": 0.058105039208750243,
+        "cos_primal_x_lex_synonym": 0.08448821181807659,
+        "cos_primal_z_lex_domain": 0.016363029755179438,
+        "cos_primal_x_lex_domain": 0.014534813842050204
+      },
+      "weight": {
+        "cos_primal_z_lex_high_low_word": 0.08196200927950319,
+        "cos_primal_x_lex_high_low_word": 0.03030242575872563,
+        "cos_primal_z_lex_sentence": 0.22612850256376618,
+        "cos_primal_x_lex_sentence": 0.0795804357980588,
+        "cos_primal_z_lex_synonym": 0.0771070957450271,
+        "cos_primal_x_lex_synonym": 0.021482793575180657,
+        "cos_primal_z_lex_domain": 0.027386226917781496,
+        "cos_primal_x_lex_domain": -0.033569086823486576
+      },
+      "size": {
+        "cos_primal_z_lex_high_low_word": 0.13858194095024673,
+        "cos_primal_x_lex_high_low_word": 0.07761195332481441,
+        "cos_primal_z_lex_sentence": 0.40197216973860744,
+        "cos_primal_x_lex_sentence": 0.161083443358081,
+        "cos_primal_z_lex_synonym": 0.14101107618205766,
+        "cos_primal_x_lex_synonym": 0.09613664561108874,
+        "cos_primal_z_lex_domain": 0.039891420320342395,
+        "cos_primal_x_lex_domain": -0.0844658635708669
+      },
+      "speed": {
+        "cos_primal_z_lex_high_low_word": 0.08300770571623949,
+        "cos_primal_x_lex_high_low_word": 0.05106578557727436,
+        "cos_primal_z_lex_sentence": 0.2206785707995673,
+        "cos_primal_x_lex_sentence": 0.04877228138645431,
+        "cos_primal_z_lex_synonym": 0.07125043953373278,
+        "cos_primal_x_lex_synonym": 0.04143873484569326,
+        "cos_primal_z_lex_domain": 0.13363154597276125,
+        "cos_primal_x_lex_domain": -0.000756109422633381
+      },
+      "wealth": {
+        "cos_primal_z_lex_high_low_word": 0.09182149497324299,
+        "cos_primal_x_lex_high_low_word": 0.012978523049498588,
+        "cos_primal_z_lex_sentence": 0.22960787332901664,
+        "cos_primal_x_lex_sentence": 0.13702033763288385,
+        "cos_primal_z_lex_synonym": 0.12070213670185317,
+        "cos_primal_x_lex_synonym": 0.08502004973655006,
+        "cos_primal_z_lex_domain": 0.09210668636705285,
+        "cos_primal_x_lex_domain": 0.030940477069101753
+      },
+      "experience": {
+        "cos_primal_z_lex_high_low_word": 0.06289293125800606,
+        "cos_primal_x_lex_high_low_word": 0.05958733672021166,
+        "cos_primal_z_lex_sentence": 0.24600727976389325,
+        "cos_primal_x_lex_sentence": 0.15377306962932316,
+        "cos_primal_z_lex_synonym": 0.0568836829415311,
+        "cos_primal_x_lex_synonym": 0.08142952045448011,
+        "cos_primal_z_lex_domain": 0.0603690279182075,
+        "cos_primal_x_lex_domain": 0.00835213227066611
+      },
+      "bmi_abs": {
+        "cos_primal_z_lex_high_low_word": 0.1310262833612377,
+        "cos_primal_x_lex_high_low_word": 0.06859661375135807,
+        "cos_primal_z_lex_sentence": 0.19378243204031878,
+        "cos_primal_x_lex_sentence": 0.08276850123520431,
+        "cos_primal_z_lex_synonym": 0.09254425148454778,
+        "cos_primal_x_lex_synonym": 0.06573326800596146,
+        "cos_primal_z_lex_domain": 0.019950554317507037,
+        "cos_primal_x_lex_domain": 0.02242244444469257
+      }
+    }
+  },
+  "steering": {
+    "model_short": "gemma2-9b",
+    "layer": 33,
+    "alpha": 4.0,
+    "by_pair": {
+      "height": {
+        "primal_z_context": 0.04599609225988388,
+        "primal_x_context": 0.01894531212747097,
+        "lex_high_low_word": 0.01113281212747097,
+        "lex_sentence_high_low": 0.02802734449505806,
+        "random_null": -9.765625145519152e-05,
+        "n_prompts": 160
+      },
+      "age": {
+        "primal_z_context": 0.05429687350988388,
+        "primal_x_context": -0.0017578124534338713,
+        "lex_high_low_word": 0.01972656324505806,
+        "lex_sentence_high_low": 0.04638671875,
+        "random_null": -0.004199218936264515,
+        "n_prompts": 160
+      },
+      "weight": {
+        "primal_z_context": 0.05615234375,
+        "primal_x_context": 0.0047851563431322575,
+        "lex_high_low_word": 0.05458984524011612,
+        "lex_sentence_high_low": 0.08701171725988388,
+        "random_null": -0.005175781436264515,
+        "n_prompts": 160
+      },
+      "size": {
+        "primal_z_context": 0.09492187201976776,
+        "primal_x_context": 0.015625,
+        "lex_high_low_word": 0.09970702975988388,
+        "lex_sentence_high_low": 0.12197265774011612,
+        "random_null": -0.0008789062267169356,
+        "n_prompts": 160
+      },
+      "speed": {
+        "primal_z_context": 0.07539062201976776,
+        "primal_x_context": 0.0244140625,
+        "lex_high_low_word": 0.04619140550494194,
+        "lex_sentence_high_low": 0.12744140625,
+        "random_null": 0.008593750186264515,
+        "n_prompts": 160
+      },
+      "wealth": {
+        "primal_z_context": 0.05859375,
+        "primal_x_context": 0.02607421949505806,
+        "lex_high_low_word": 0.02656250074505806,
+        "lex_sentence_high_low": 0.06025390699505806,
+        "random_null": 0.0025390624068677425,
+        "n_prompts": 160
+      },
+      "experience": {
+        "primal_z_context": 0.09067382663488388,
+        "primal_x_context": 0.06450195610523224,
+        "lex_high_low_word": 0.09892578423023224,
+        "lex_sentence_high_low": 0.15664061903953552,
+        "random_null": -0.005664062686264515,
+        "n_prompts": 160
+      },
+      "bmi_abs": {
+        "primal_z_context": 0.05698242038488388,
+        "primal_x_context": 0.03676757961511612,
+        "lex_high_low_word": 0.06059570237994194,
+        "lex_sentence_high_low": 0.05922851711511612,
+        "random_null": -0.0015136718284338713,
+        "n_prompts": 160
+      }
+    }
+  }
+}

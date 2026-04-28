@@ -1,6 +1,26 @@
-# STATUS.md — Project status as of Apr 26, 2026
+# STATUS.md — Project status as of Apr 28, 2026
 
 ## Current phase
+
+**v12 complete (CLAIM-HARDENED / MIXED).** Ran the planned Gemma 2 9B
+claim-hardening pass from `docs/NEXT_GPU_SESSION_v12.md`. Outputs are under
+`results/v12/`, `figures/v12/`, and `docs/V12_RESULTS_SUMMARY.md`.
+Headline update: V12 supports early `z` decodability and later `primal_z`
+steering potency, but it softens several stronger paper claims:
+
+- **Layer sweep:** 9B `z` is linearly decodable very early, while `primal_z`
+  steering peaks later (mean slope ≈ +0.097 at L25, +0.067 at L33). Keep this
+  as a strategic-layer intervention result, not a fully identified circuit.
+- **Lexical red-team:** simple raw-x and unembedding directions do not explain
+  `primal_z`, but lexical sentence directions often steer as strongly as
+  `primal_z`. Do not claim "not lexical semantics" without caveat.
+- **Pure-x transfer control:** transfer persists on fixed-x/fixed-mu/matched-z
+  subsets, but matched-z does not weaken cross-transfer. Treat this control as
+  mixed, not as a clean scalar-magnitude refutation.
+- **SAE audit:** z-correlated sparse features exist, but top features are a mix
+  of pure-ish z, lexical z-like, raw numeric, and polysemantic features.
+- **PC audit:** extremeness/curvature appears for some pairs, often PC2 or PC3,
+  but there is no universal "PC2 = extremeness" result.
 
 **v11.5 complete (SHARED-AMBER).** Re-ran the v4–v9 foundational research
 questions on v11's enriched data. Headline results:
@@ -49,6 +69,9 @@ the v11.5 follow-up. FINDINGS §15.
 - v10 reproducibility close (re-extracted NPZs, uploaded to HF) — RIPE-MANGO step 1
 - v11 cross-model dense + 5-critic post-hoc round (FINDINGS §15) — RIPE-MANGO step 2
 - **v11.5 v4–v9 question replication on enriched data** (FINDINGS §16): shared z-direction, multi-seed cross-pair transfer with FDR, joint head ablation, fold-aware P3c, widened P3d, SAE token-freq control, bootstrap CIs throughout — SHARED-AMBER
+- **v12 claim-hardening pass**: 9B strategic-layer sweep, direction red-team
+  against raw-x/lexical probes, pure-x/fixed-mu transfer controls, SAE lexical
+  audit, and PC extremeness/x audit. See `docs/V12_RESULTS_SUMMARY.md`.
 
 ## Retracted (replace in any draft)
 
@@ -70,12 +93,14 @@ the v11.5 follow-up. FINDINGS §15.
 1. **Paper writing** (May 4 abstract → May 8 ICML MI Workshop).
    Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled
    transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned
-   primal_z). Three-way refutation of §14.6 in the Limitations section.
-   Bootstrap CIs everywhere per §16.8.
-2. **arXiv v2 follow-ups** (post-May-7): pure-x control on the 16.2
-   transfer matrix (rules out residual "make-numeral-bigger"); 9B
-   pure-z feature asymmetry (1–16 features vs 2B's 11–50);
-   speed/experience pair-specific direction analysis.
+   primal_z), with V12 caveats: lexical sentence directions remain a serious
+   competitor, pure-x transfer controls are mixed, and SAE/PC interpretations
+   must be framed as z-correlated/mixed rather than pure mechanisms. Three-way
+   refutation of §14.6 in the Limitations section. Bootstrap CIs everywhere per
+   §16.8.
+2. **arXiv v2 follow-ups** (post-May-7): stronger zero-shot raw-x controls,
+   bootstrap/null bands for V12 steering controls, 9B pure-ish-z feature
+   asymmetry, and speed/experience pair-specific direction analysis.
 
 ## Archived session logs
 

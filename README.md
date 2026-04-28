@@ -12,9 +12,14 @@ raw number alone.
 
 Main findings:
 - **Activation geometry is z-structured.** In dense cell-mean PCA, z is often the dominant principal direction; the v10 height grid also shows behavior varies mostly with z rather than raw x.
-- **z is available early and used later.** z-score encodings are available early across adjective domains (roughly L1-L7 depending on analysis/model), while causal steering works best later after the representation has been carried and rotated.
-- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. Speed and experience remain pair-specific.
-- **SAE features support the same story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude), with more cross-pair feature overlap in 9B than 2B; lexical/domain-feature interpretations remain a follow-up.
+- **z is available early and used later.** z-score encodings are available early across adjective domains, while V12's Gemma 2 9B strategic-layer sweep finds `primal_z` steering strongest later, around L25, and still positive at L33.
+- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. V12 pure-x controls preserve an average diagonal advantage but leave meaningful off-diagonal transfer among related variables.
+- **SAE features support a mixed z-like story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude) in v11.5. V12's lexical audit finds a substantial pure-ish-z minority, alongside lexical z-like, raw numeric, and polysemantic features.
+
+V12 red-team caveat: stronger claims should be phrased carefully. Lexical
+sentence directions often steer as strongly as the context `primal_z` direction,
+pure-x transfer controls are not decisive, and extremeness-like PC structure is
+pair-specific rather than a universal PC2 result.
 
 ## Core experimental design
 
@@ -186,12 +191,12 @@ A single direction `w_shared` (Procrustes-aligned mean of the 8 per-pair primal_
 
 Multi-seed cross-pair transfer with BH-FDR correction at q=0.05 shows **all 56/56 off-diagonal cells significant** on both models (FINDINGS section 16.2). This is not single-seed noise.
 
-*Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, ruling out the "shared numeral-magnitude direction" alternative.
+*Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, which weakens a simple "shared numeral-magnitude direction" alternative.
 
 Caveat: the multi-seed transfer result is statistically strong, but the
-gold-standard pure-x transfer control (holding μ fixed while varying x) is still
-queued. So the shared-numeral-magnitude alternative is weakened, not fully
-eliminated, for the cross-pair steering matrix.
+V12 pure-x / fixed-μ controls are mixed. They preserve an average diagonal
+advantage, but meaningful off-diagonal transfer remains among related variables,
+so the shared-numeral-magnitude alternative is weakened rather than eliminated.
 
 ![transfer heatmap 2B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-2b.png)
 ![transfer heatmap 9B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
@@ -219,10 +224,10 @@ context-normalized scalar judgments. Most z-features activate monotonically with
 z, with rare place-cell exceptions (e.g., v10 height feature 34700: bump
 R^2=0.98, linear R^2=0.00).
 
-Caveat: the current controls rule out raw x and numeric-token magnitude, but
-not lexical/domain-feature interpretations. We have not yet audited whether
-these SAE features also fire on words such as "tall", "short", "height", or
-other adjective/domain tokens.
+Caveat: V12's lexical audit finds a mixed feature population: some top features
+look pure-ish z under the probe set, while others are lexical z-like, raw
+numeric, or polysemantic. Treat this as evidence for z-correlated sparse
+features, not proof that SAE features implement a pure relative-standing code.
 
 ![SAE overlap 2B](figures/v11/sae/cross_pair_feature_overlap_gemma2-2b.png)
 ![SAE overlap 9B](figures/v11/sae/cross_pair_feature_overlap_gemma2-9b.png)
