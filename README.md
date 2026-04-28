@@ -270,10 +270,12 @@ miss.
 
 - **On-manifold tangent steering was not a clean win.** Tangent(z) steers at
   0.63-0.73x of primal_z; high-alpha entropy is sometimes lower, but the effect
-  is modest.
-- **Park's causal inner product was refuted.** `(W_U^T W_U)^-1 * probe_z` does
-  not rotate probe toward primal: cos(probe_causal, primal) < 0.05 across pairs,
-  layer choices, and lambda sweeps.
+  is modest. See `APPENDIX.md` for the exact local-tangent construction.
+- **Park-style causal metric transforms did not rescue probes here.** The tested
+  `Cov(W_U)^-1/2` and `(W_U^T W_U + lambda I)^-1 * probe_z` variants did not
+  rotate `probe_z` into `primal_z` or close the steering gap. This is scoped to
+  our directions/models/layers; it is not a refutation of the broader linear
+  representation hypothesis.
 - **The causal head taxonomy was triple-refuted.** Single-head ablations are
   null, joint tagged-head ablations are null/helping, and permutation tests put
   most tag intersections at chance. Treat the taxonomy as correlational DLA, not
@@ -283,9 +285,7 @@ miss.
   unembedding direction; this does not prove a mechanism.
 - **Measurement warnings remain.** Fisher pullback was near-isotropic; the
   relative/absolute split was not significant; PC1~z is weak for size/speed at
-  2B; speed and experience are pair-specific exceptions to shared steering;
-  SAE-basis PCA is worse than raw PCA; the predicted increment-R^2 dip did not
-  survive fold-aware residualization.
+  2B; speed and experience are pair-specific exceptions to shared steering.
 - **Direct-sign positive/negative results are follow-up only.** The
   prompt-sensitive open-ended estimate dropped on the valid forced-QA prompt, so
   this should not be used as a main relativity claim without top-K validation and

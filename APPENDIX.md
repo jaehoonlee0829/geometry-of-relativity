@@ -355,6 +355,257 @@ high fold-aware increment R²: this layer adds new z information
 near-zero later increments: later layers mostly carry forward/rotate existing z
 ```
 
+## On-Manifold Tangent Steering
+
+This experiment asked whether `primal_z` is too crude. `primal_z` is a straight
+line from low-z activations to high-z activations:
+
+```text
+mean(h | z < -1)  -------- primal_z -------->  mean(h | z > +1)
+```
+
+If the true activation geometry is curved, a straight-line vector might cut
+across the manifold. A local tangent tries to move along the curve instead.
+
+Toy 2D curve:
+
+```text
+z = -2: (-2, 4)
+z = -1: (-1, 1)
+z =  0: ( 0, 0)
+z = +1: ( 1, 1)
+z = +2: ( 2, 4)
+```
+
+The straight `primal_z` direction compares the endpoints. The tangent direction
+near `z = 0` compares nearby cells:
+
+```text
+tangent around z=0 ~= h(z=+1) - h(z=0) = (1, 1)
+```
+
+The repo's v9 tangent experiment computed finite-difference tangents between
+neighboring z cell means, selected the local tangent for each prompt's z-bin,
+rescaled tangent norms to match `primal_z`, and then steered with both
+directions.
+
+Result:
+
+```text
+tangent(z) steering ~= 0.63-0.73x primal_z steering
+```
+
+At high alpha, tangent steering was sometimes less damaging to entropy, but the
+effect was modest. Interpretation: the manifold picture is plausible, but local
+tangent steering is weaker and not clean enough to be a headline method.
+
+## Park-Style Causal Inner Product
+
+Park, Choe, and Veitch's linear representation hypothesis paper formalizes the
+idea that high-level concepts can be represented as linear directions, and argues
+that the choice of inner product matters for interpreting geometry. In their
+framework, a non-Euclidean causal inner product can make representation,
+probing, and steering notions line up better than plain Euclidean cosine.
+
+The repo tested two related local hypotheses:
+
+1. **Metric cosine test.** Maybe `w_z` and the logit-difference direction look
+   misaligned only under Euclidean cosine. Compute cosines after applying a
+   Park-style unembedding covariance transform:
+
+   ```math
+   \Sigma = \mathrm{Cov}(W_U)
+   ```
+
+   ```math
+   \cos_{\mathrm{Park}}(u,v)
+   =
+   \cos(\Sigma^{-1/2}u,\Sigma^{-1/2}v)
+   ```
+
+2. **Causal-probe steering test.** Maybe a statistical probe becomes causal if
+   transformed by the unembedding geometry:
+
+   ```math
+   w_{\mathrm{probe\_causal}}
+   =
+   (W_U^T W_U + \lambda I)^{-1}w_{\mathrm{probe\_z}}
+   ```
+
+   Then steer with `w_probe_causal` and compare it to `primal_z`.
+
+What happened locally:
+
+```text
+Park-style cosines changed little relative to Euclidean cosines.
+probe_causal did not align with primal_z.
+probe_causal steering remained tiny or wrong-signed compared with primal_z.
+Layer-25 and lambda-sweep reruns did not rescue it.
+```
+
+This should be read carefully. It does not refute Park et al.'s framework or the
+linear representation hypothesis. It says that, for our z probes, models,
+layers, and steering definitions, the tested Park-style transforms did not
+bridge the gap between "z is decodable" and "this direction causally steers the
+adjective decision."
+
+## Attention-Head Taxonomy
+
+v10 produced a descriptive attention-head taxonomy:
+
+```text
+mu aggregators: heads whose DLA patterns looked like context-mean aggregation
+comparators:    heads whose patterns looked like target-vs-context comparison
+z writers:      heads whose patterns looked like writing the z feature
+```
+
+This was useful for generating hypotheses, but descriptive DLA is not causality.
+The causal tests were:
+
+1. **Single-head ablation.** Remove one tagged head and measure whether
+   `corr(LD,z)` drops. Result: individual effects were near zero.
+2. **Joint tagged-head ablation.** Remove the union of tagged heads. Result:
+   2B was null and 9B slightly improved.
+3. **Permutation null.** Shuffle tags and ask whether the observed tag
+   intersections are structurally surprising. Result: most tag counts were
+   consistent with chance.
+
+Conclusion: the taxonomy is a correlational map of where some relevant-looking
+patterns appear, not a load-bearing circuit claim.
+
+## W_U Orthogonality
+
+For a pair like height:
+
+```math
+w_{\mathrm{lexical}} = W_U[\text{tall}] - W_U[\text{short}]
+```
+
+This is the final vocabulary readout direction for preferring `"tall"` over
+`"short"`. We found `primal_z` is nearly orthogonal to this direction.
+
+Useful interpretation:
+
+```text
+primal_z is not trivially the final "say tall, not short" vector.
+```
+
+Limit:
+
+```text
+orthogonal to final unembedding does not prove the mechanism.
+```
+
+Middle and late layers can rotate or transform representations before final
+readout. So this is a supporting control, not a main causal proof.
+
+## Fisher Pullback and Anisotropy
+
+The Fisher matrix describes how sensitive the output distribution is to small
+activation changes. In simplified form:
+
+```math
+F(h) = W_U^T \left(\mathrm{diag}(p) - pp^T\right) W_U
+```
+
+where `p` is the model's next-token probability distribution at activation `h`.
+
+If `F` is highly anisotropic, it has some directions where small activation
+changes strongly affect the output and other directions where changes barely
+matter.
+
+Toy example:
+
+```text
+F = [[100, 0],
+     [  0, 1]]
+```
+
+A small movement in direction `(1,0)` matters 100x more than the same movement in
+direction `(0,1)`. A Fisher pullback might reveal that two vectors are causally
+close even if Euclidean cosine misses it.
+
+Near-isotropic means roughly sphere-like:
+
+```text
+F = [[1.1, 0],
+     [0,   0.9]]
+```
+
+Now most directions matter similarly. In that regime, Fisher geometry is close
+to Euclidean geometry and does not add much. The repo's tested Fisher regimes
+were near-isotropic or only weakly amplifying, so Fisher did not rescue the
+probe-to-causal alignment story.
+
+## Relative / Absolute Split
+
+The early project framing tried to separate:
+
+```text
+relative concepts: tall, old, heavy, rich
+absolute concepts: positive/negative, boiling, passing, etc.
+```
+
+The hoped-for result was:
+
+```text
+relative concepts: high context dependence
+absolute concepts: low context dependence
+```
+
+But the split was not statistically clean. Some supposedly absolute controls
+still showed context or prompt sensitivity, and the relative/absolute group
+difference was not significant in the tested setup. The better framing is a
+continuum of context sensitivity rather than a binary taxonomy.
+
+## Direct-Sign Positive / Negative Control
+
+Goal: test whether even a mathematically absolute concept, sign of a number,
+shows context effects.
+
+Ambiguous prompt:
+
+```text
+Number 16: -3. This number is ___
+```
+
+Scored tokens:
+
+```text
+logit("positive") - logit("negative")
+```
+
+Problem: after `"This number is"`, `"positive"` and `"negative"` were often not
+natural top completions. The model might prefer `" below"`, `" not"`, `" less"`,
+or other continuations. In that case, the measured logit difference is a noisy
+instrument.
+
+Cleaner forced-QA prompt:
+
+```text
+Number 16: -3.
+Is this number above or below zero? Answer:
+```
+
+Scored tokens:
+
+```text
+logit(" Above") - logit(" Below")
+```
+
+Observed:
+
+```text
+open-ended estimate: R ~= 0.47
+forced-QA estimate:  R ~= 0.31
+forced-QA accuracy:  ~= 95%
+```
+
+Interpretation: there may be residual context sensitivity even for sign, but the
+experiment is too prompt-sensitive to be a main relativity claim. Its main value
+is methodological: only trust logit-difference measurements when the scored
+tokens are plausible completions, ideally verified with top-k diagnostics.
+
 ## Negative and Follow-Up Results Across Experiments
 
 The project has several results that should be treated as retractions,
@@ -375,11 +626,9 @@ measurement warnings, or follow-ups rather than headline claims.
   useful descriptive DLA, but v11/v11.5 ablations and permutation tests refuted
   the causal head-taxonomy framing.
 - **v11 single-seed transfer.** Replaced by v11.5 multi-seed BH-FDR transfer.
-- **v11 orthogonal increment R².** Replaced by v11.5 fold-aware residualization.
 - **SAE interpretation.** Current SAE controls rule out raw x and numeric-token
   magnitude for top z features, but do not yet rule out lexical or domain-word
   features.
 - **PC2 / z² geometry.** Some pairs show high `R²(PC2,z²)`, suggesting possible
   extremeness or curvature structure, but this needs systematic analysis before
   becoming a claim.
-
