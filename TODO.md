@@ -50,6 +50,10 @@
 - [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary.
 - [ ] Update `docs/paper_outline.md` with v9–v11.5 findings.
 
+## Queue — GPU figures for paper/README
+
+- [ ] **Regenerate the v9 2×3 layer-sweep figure on v11 Gemma 2 9B.** Target output: `figures/v11_5/layer_sweep_9b_combined.png`, matching the explanatory structure of `figures/v9/layer_sweep_combined.png` but using the dense v11/v11.5 9B substrate. Minimum panels: cumulative `R²(z)` by layer, fold-aware new `z` information by layer, causal steering strength by layer for `primal_z` vs Ridge probe, `||primal_z||` by layer, and layer-to-layer direction stability. CPU can plot from JSON, but the missing ingredient is per-layer steering; run GPU hook sweeps at strategic/all layers and write a JSON summary first.
+
 ## arXiv v2 follow-ups (post-May-7)
 
 - [ ] **Pure-x control on §16.2's transfer matrix.** Re-run cross-pair steering with μ held constant in target prompts to rule out the alternative critic's residual "shared numeral-magnitude direction" cheap explanation. The fact that the absolute-adjective bmi_abs aligns with the relative pairs at 0.65–0.77 ratio (§16.1) already partially refutes that hypothesis, but the explicit μ-fixed test is the gold standard.
