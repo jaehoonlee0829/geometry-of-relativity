@@ -70,18 +70,22 @@ the feature is not just a numeral-size tracker.
 
 8 adjective pairs, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction. v11 uses a dense 20x20 grid (4,000 prompts per pair per model) on all 8 pairs x 2 models (Gemma 2 2B + 9B), totalling ~64k prompts.
 
-| Pair | Adjectives | v9 relativity ratio R | v11 cell-mean corr(LD, z) 2B | v11 cell-mean corr(LD, z) 9B |
-|---|---|---|---|---|
-| height | short / tall | 0.85 | 0.972 | 0.97+ |
-| age | young / old | 1.03 | 0.93–0.96 | 0.93–0.97 |
-| weight | light / heavy | 0.92 | 0.94–0.97 | 0.94–0.97 |
-| size | small / big | 0.93 | 0.92–0.96 | 0.93–0.97 |
-| speed | slow / fast | 0.77 | 0.93 | 0.94 |
-| wealth | poor / rich | 0.77 | 0.95–0.97 | 0.95–0.97 |
-| experience | novice / expert | 0.86 | 0.95–0.97 | 0.95–0.97 |
-| bmi_abs | thin / obese | 0.83 | 0.953 | 0.95+ |
+| Pair | Adjectives | v11 cell-mean corr(LD, z) |
+|---|---|---:|
+| height | short / tall | ~0.97 |
+| age | young / old | 0.93-0.97 |
+| weight | light / heavy | 0.94-0.97 |
+| size | small / big | 0.92-0.97 |
+| speed | slow / fast | 0.93-0.94 |
+| wealth | poor / rich | 0.95-0.97 |
+| experience | novice / expert | 0.95-0.97 |
+| bmi_abs | thin / obese | ~0.95 |
 
-The v9 relativity ratio R = -c/b from `logit_diff ~ b*x + c*mu` measures how much the context mean shifts the model's adjective decision (R=1 means pure z-score). v11 cell-mean correlations confirm R(z) >= 0.92 on all 8 pairs on both models at dense resolution.
+Here `LD = logit(high adjective) - logit(low adjective)`. The dense v11 result
+is the clean behavioral anchor: after averaging over context seeds inside each
+(x, z) cell, LD is strongly correlated with z for every pair on both Gemma 2 2B
+and 9B. Earlier v9 regressions gave the same qualitative result with a
+relativity ratio near 1, but v11 is the cleaner dense-grid confirmation.
 
 ![behavioral heatmap](figures/v10/behavioral_logit_diff_xz.png)
 
