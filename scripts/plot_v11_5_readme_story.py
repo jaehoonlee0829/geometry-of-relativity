@@ -111,11 +111,11 @@ def main() -> None:
     ax.bar(pos - width / 2, shared_ratios, width, color="#55A868", label="single shared direction / within")
     ax.bar(pos + width / 2, cross_ratios, width, color="#C44E52", label="mean cross-pair transfer / within")
     ax.axhline(0.5, color="black", ls=":", lw=1)
-    ax.set_title("(c) Steering transfers across adjective pairs")
+    ax.set_title("(c) Layer-33 steering transfers across adjective pairs")
     ax.set_xticks(pos)
     ax.set_xticklabels(PAIR_LABELS, rotation=35, ha="right", fontsize=8)
     ax.set_ylim(0, 0.9)
-    ax.set_ylabel("slope ratio")
+    ax.set_ylabel("relative steering efficiency")
     ax.grid(axis="y", alpha=0.3)
     ax.legend(fontsize=8)
 
