@@ -107,7 +107,9 @@ model is just reading the number."
   orthogonal to the implicit-context z-direction on the clean grid (`|cos| <=
   0.05`). This supports the claim that the model constructs a new
   context-dependent direction when context is present. Caveat: this is a
-  supervised probe result; zero-shot PC1 itself does not reliably track x.
+  supervised probe result; zero-shot PC1 itself does not reliably track x, and a
+  dense v11 follow-up should compare zero-shot x, in-context x, and in-context z
+  directions with bootstrap/null bands before treating this as a headline plot.
 - **Zero-shot bias check.** Base Gemma has strong token/logit priors even with
   no context; for example some pairs prefer the high adjective at the lowest raw
   value. This is why the dense context grid and cell-mean analyses are needed.
@@ -116,16 +118,9 @@ model is just reading the number."
   z-sensitive behavior: explicit-context R²(logit_diff ~ z) has median about
   0.75 across 8 pairs. Caveat: this condition was smaller than the dense v11
   grid, so it is a sanity check rather than a headline.
-- **Explicit sign / raw-x absolute prompt control.** v8 showed that open-ended
-  logit-difference measurements can be invalid if the scored tokens are not
-  natural completions. For positive/negative math, the valid forced-QA prompt
-  reduced the estimated context effect from R=0.47 to R=0.31 with about 95%
-  nonzero classification accuracy. The effect remains, but the earlier
-  open-ended estimate was inflated.
 
 ![zero-shot bias](figures/v5_gpu_session/zero_shot_bias_per_pair.png)
 ![zero-shot vs implicit directions](figures/v8/zeroshot_vs_implicit_gridB.png)
-![direct sign comparison](figures/v8/direct_sign_comparison.png)
 
 ## Key findings
 
@@ -197,15 +192,7 @@ eliminated, for the cross-pair steering matrix.
 ![transfer heatmap 2B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-2b.png)
 ![transfer heatmap 9B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
 
-### 4. z representation compresses monotonically
-
-v10's 400-cell dense grid resolves the manifold geometry clearly: TWO-NN intrinsic dimensionality drops monotonically from 7.7 (L0) to 3.2 (L20). PCA-95% variance peaks at L7 (16 components) then compresses to 7. The v9 "hunchback" pattern (ID peaking mid-network at ~7) was a 25-point TWO-NN artefact that disappears with denser sampling.
-
-Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z with R^2=0.97 while PCA gets R^2=0.01 -- z is on a curve that linear methods miss.
-
-![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
-
-### 5. SAE features track z, not just raw numerals
+### 4. SAE features track z, not just raw numerals
 
 The SAE analysis asks whether the z-looking features are actually just
 "large number" or token-frequency features. For each pair, v11.5 takes the top
@@ -220,12 +207,25 @@ R²(z) across pairs while both controls are near zero. This supports the
 interpretation that these features respond to "above vs below the local norm",
 not merely "large-looking number".
 
-### 6. SAE z-features are more shared in 9B
+Caveat: this is a strong numeral-control result, not a full semantic feature
+interpretation. We have not yet audited whether these SAE features also fire on
+lexical words such as "tall", "short", "height", or other adjective/domain
+tokens. That is a queued feature-interpretation follow-up.
+
+### 5. SAE z-features are more shared in 9B
 
 Cross-pair top-50 Jaccard: 2B = 0.11, 9B = **0.22** -- 9B has twice the cross-pair SAE feature overlap. This is one of the more interesting scaling results: the larger model appears to use a more shared SAE feature basis for context-normalized scalar judgments. Most z-features activate monotonically with z, with rare place-cell exceptions (e.g., v10 height feature 34700: bump R^2=0.98, linear R^2=0.00).
 
 ![SAE overlap 2B](figures/v11/sae/cross_pair_feature_overlap_gemma2-2b.png)
 ![SAE overlap 9B](figures/v11/sae/cross_pair_feature_overlap_gemma2-9b.png)
+
+### 6. z representation compresses monotonically
+
+v10's 400-cell dense grid resolves the manifold geometry clearly: TWO-NN intrinsic dimensionality drops monotonically from 7.7 (L0) to 3.2 (L20). PCA-95% variance peaks at L7 (16 components) then compresses to 7. The v9 "hunchback" pattern (ID peaking mid-network at ~7) was a 25-point TWO-NN artefact that disappears with denser sampling.
+
+Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z with R^2=0.97 while PCA gets R^2=0.01 -- z is on a curve that linear methods miss.
+
+![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
 
 ### 7. The z-code replicates across model scales
 
@@ -276,7 +276,7 @@ The taxonomy describes correlational patterns, not causal mechanisms. The z-code
 - **Relative/absolute dichotomy not significant** (n=7 vs 4, p=0.75).
 - **PC1~z not robust for size/speed at 2B.** Bootstrap CIs include zero: size [0.000, 0.254], speed [0.015, 0.627]. 9B rescues these but 9B size CI is bimodal [0.012, 0.853].
 - **Speed and experience are pair-specific exceptions** to the shared z-direction. Shared/within ratio < 0.50 on both models. Their primal_z directions are genuinely pair-specific.
-- **logit_diff R requires top-K validation.** Pos/neg R=0.47 dropped to R=0.31 on the only valid prompt.
+- **logit_diff R requires top-K validation.** Positive/negative sign experiments were prompt-sensitive: the ambiguous open-ended estimate R=0.47 dropped to R=0.31 on the only valid forced-QA prompt. Treat this as a follow-up / measurement warning, not a main relativity claim.
 - **SAE-basis PCA is worse than raw PCA** for recovering z (catastrophic for curved-manifold pairs like speed).
 - **Increment R^2 dip not observed.** The predicted encode/re-encode dip does not exist; naive increment R^2 tracks cumulative R^2 almost perfectly. The fold-aware orthogonalized version (v11.5) shows all encoding at L1.
 
