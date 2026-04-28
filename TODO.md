@@ -45,7 +45,7 @@
 
 ## Queue — Paper (May 3-8)
 
-- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled cross-pair transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned primal_z) + §16.5 (z encoded at L1, then carried forward) + §16.7 (top SAE features are pure-z). v10 §14.6 causal framing in Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
+- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled cross-pair transfer) + §15.3 (dense geometry/behavior) + §16.5 (z encoded at L1, then carried forward) + §16.7 (top SAE features are pure-z). Treat §16.6 / W_U-orthogonal-but-decision-aligned primal_z as a supporting control, not a headline. v10 §14.6 causal framing in Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
 - [ ] Submit ICML 2026 MI Workshop (May 8) — primary target.
 - [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary.
 - [ ] Update `docs/paper_outline.md` with v9–v11.5 findings.
