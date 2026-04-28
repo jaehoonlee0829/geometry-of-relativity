@@ -6,14 +6,60 @@ Mechanistic interpretability study of **how LLMs represent contextual relativity
 
 ## TL;DR
 
-When a language model sees "Person 16: 170 cm. This person is ___", does it complete with "tall" based on the raw number (170 cm) or relative to the surrounding context (the other 15 people)?
+When Gemma sees "Person 16: 170 cm. This person is ___", its adjective choice is
+mostly organized by the target's standing within the local context, not by the
+raw number alone.
 
-We find:
-- **A domain-agnostic shared z-direction exists** in both Gemma 2 2B and 9B. A single direction `w_shared` steers 6/8 pairs (2B) and 7/8 pairs (9B) at >=50% within-pair efficiency. Cross-pair transfer is **56/56 off-diagonal cells significant** under BH-FDR (q=0.05). Speed and experience are the two pair-specific exceptions.
-- **z is encoded at L1 in one shot, then carried forward** (v11.5 fold-aware orthogonalized R^2). The earlier "by L7" plateau was cumulative carry-forward, not encoding. A simple mean-difference direction (`primal_z`) steers adjective output 10-100x stronger than the Ridge probe direction, with the probe/primal gap widening to ~8x in late layers.
-- **Head taxonomy is triple-refuted**: single-head ablation null (v11), joint-head-set ablation null (v11.5), and permutation null on taxonomy thresholds. Even ablating ALL "z-circuit" heads on 9B *raises* corr(z).
-- **primal_z is W_U-orthogonal but decision-aligned** (cos ~0.15 with `W_U[high] - W_U[low]`, but cos 0.47-0.86 with the data-derived "leans high vs leans low" axis). The lexical readout direction and the direction that carries the decision are different objects.
-- **Top SAE z-features are pure-z, not numeral trackers** (R^2(x) and R^2(token) near zero for the top z-feature on every pair). 9B has 2x the cross-pair feature Jaccard of 2B (0.22 vs 0.11).
+Main findings:
+- **Activation geometry is z-structured.** In dense cell-mean PCA, z is often the dominant principal direction; the v10 height grid also shows behavior varies mostly with z rather than raw x.
+- **z is available early and used later.** z-score encodings are available early across adjective domains (roughly L1-L7 depending on analysis/model), while causal steering works best later after the representation has been carried and rotated.
+- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. Speed and experience remain pair-specific.
+- **SAE features support the same story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude), with more cross-pair feature overlap in 9B than 2B; lexical/domain-feature interpretations remain a follow-up.
+
+## Core experimental design
+
+For each prompt, we separate the raw value, the context, and the target's
+relative standing:
+
+- $x$: the raw target value, e.g. 170 cm.
+- $\mu$: the context mean, e.g. the group average height.
+- $\sigma$: the context spread.
+- $z$: the context-normalized value:
+
+```math
+z = \frac{x - \mu}{\sigma}
+```
+
+A model using only $x$ says "170 cm is tall" regardless of the group. A model
+using $z$ says "170 cm is tall in a short group, average in an average group,
+and short in a very tall group."
+
+The dense v11 design samples a **20 x-values x 20 z-values x 10 context-seeds**
+grid. We choose $x$ and $z$ independently, then derive $\mu = x - z\sigma$.
+This is the main hygiene fix: it prevents "raw value" and "relative standing"
+from being accidentally confounded.
+
+![v11.5 9B story](figures/v11_5/readme_9b_story.png)
+
+Panel (c) uses Gemma 2 9B layer 33 with alpha=4 steering. For a direction d,
+the steering slope is:
+
+```math
+\frac{\mathbb{E}[\mathrm{LD}(h+\alpha \hat d)-\mathrm{LD}(h-\alpha \hat d)]}{2\alpha}
+```
+
+where LD is the high-minus-low adjective logit difference. The plotted value is
+this slope divided by the target pair's own within-pair `primal_z` slope, so it
+is a **relative efficiency** rather than a raw logit unit. Green bars use the
+single shared z direction; red bars average the seven off-diagonal source-pair
+directions transferred into that target pair. Panel (d) is a representational
+control: the top SAE feature for each pair is selected by R²(z), then tested
+against raw x and numeric-token magnitude. High z with near-zero controls means
+the feature is not just a numeral-size tracker.
+
+Technical definitions for LD, R², PCA scores, SAE feature scores, steering
+slopes, shared directions, and Jaccard overlap are collected in
+[APPENDIX.md](APPENDIX.md).
 
 ## Models
 
@@ -28,28 +74,84 @@ We find:
 
 8 adjective pairs, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction. v11 uses a dense 20x20 grid (4,000 prompts per pair per model) on all 8 pairs x 2 models (Gemma 2 2B + 9B), totalling ~64k prompts.
 
-| Pair | Adjectives | v9 relativity ratio R | v11 cell-mean corr(LD, z) 2B | v11 cell-mean corr(LD, z) 9B |
-|---|---|---|---|---|
-| height | short / tall | 0.85 | 0.972 | 0.97+ |
-| age | young / old | 1.03 | 0.93–0.96 | 0.93–0.97 |
-| weight | light / heavy | 0.92 | 0.94–0.97 | 0.94–0.97 |
-| size | small / big | 0.93 | 0.92–0.96 | 0.93–0.97 |
-| speed | slow / fast | 0.77 | 0.93 | 0.94 |
-| wealth | poor / rich | 0.77 | 0.95–0.97 | 0.95–0.97 |
-| experience | novice / expert | 0.86 | 0.95–0.97 | 0.95–0.97 |
-| bmi_abs | thin / obese | 0.83 | 0.953 | 0.95+ |
+| Pair | Adjectives | v11 cell-mean corr(LD, z) |
+|---|---|---:|
+| height | short / tall | ~0.97 |
+| age | young / old | 0.93-0.97 |
+| weight | light / heavy | 0.94-0.97 |
+| size | small / big | 0.92-0.97 |
+| speed | slow / fast | 0.93-0.94 |
+| wealth | poor / rich | 0.95-0.97 |
+| experience | novice / expert | 0.95-0.97 |
+| bmi_abs | thin / obese | ~0.95 |
 
-The v9 relativity ratio R = -c/b from `logit_diff ~ b*x + c*mu` measures how much the context mean shifts the model's adjective decision (R=1 means pure z-score). v11 cell-mean correlations confirm R(z) >= 0.92 on all 8 pairs on both models at dense resolution.
+Here `LD = logit(high adjective) - logit(low adjective)`. The dense v11 result
+is the clean behavioral anchor: after averaging over context seeds inside each
+(x, z) cell, LD is strongly correlated with z for every pair on both Gemma 2 2B
+and 9B. Earlier v9 regressions gave the same qualitative result with a
+relativity ratio near 1, but v11 is the cleaner dense-grid confirmation.
+
+The v10 dense-height heatmap is the simplest behavioral picture: once x and z
+are independently sampled, the model's high-minus-low adjective logit is mostly
+a function of z, not raw x.
 
 ![behavioral heatmap](figures/v10/behavioral_logit_diff_xz.png)
 
+## Controls
+
+The project includes several controls against the cheap interpretation "the
+model is just reading the number."
+
+- **Zero-shot raw-x control.** With no context list, zero-shot probes decode raw
+  x very well (`cv_R² >= 0.96`), but the zero-shot raw-x probe direction is nearly
+  orthogonal to the implicit-context z-direction on the clean grid (`|cos| <=
+  0.05`). This supports the claim that the model constructs a new
+  context-dependent direction when context is present. Caveat: this is a
+  supervised probe result; zero-shot PC1 itself does not reliably track x, and a
+  dense v11 follow-up should compare zero-shot x, in-context x, and in-context z
+  directions with bootstrap/null bands before treating this as a headline plot.
+- **Zero-shot bias check.** Base Gemma has strong token/logit priors even with
+  no context; for example some pairs prefer the high adjective at the lowest raw
+  value. This is why the dense context grid and cell-mean analyses are needed.
+- **Explicit-context prompt control.** Earlier v4 data replaced sampled context
+  lists with explicit statements of group mean/spread. This still produced
+  z-sensitive behavior: explicit-context R²(logit_diff ~ z) has median about
+  0.75 across 8 pairs. Caveat: this condition was smaller than the dense v11
+  grid, so it is a sanity check rather than a headline.
+
+![zero-shot bias](figures/v5_gpu_session/zero_shot_bias_per_pair.png)
+![zero-shot vs implicit directions](figures/v8/zeroshot_vs_implicit_gridB.png)
+
 ## Key findings
 
-### 1. z is encoded at L1 in one shot, then carried forward (the headline result)
+### 1. Activation geometry is organized by z
 
-Fold-aware orthogonalized increment R^2 (v11.5 FINDINGS section 16.5) reveals that the new z-information each layer adds is concentrated at **L1** (2B) / **L1-L3** (9B), then near-zero at every later layer. The earlier claim that z is "encoded by L7" was measuring cumulative carry-forward of L1's encoding, not fresh computation.
+The first-order result is geometric: once the prompt grid disentangles raw x
+from relative standing z, the dominant behavioral and activation axes mostly
+track z. On the v10 dense height grid, the model's high-minus-low adjective
+logit follows z much more than raw x. On the v11 dense grid, the late-layer
+cell-mean PCA for Gemma 2 9B shows ordered z arcs or horseshoes across the 8
+adjective pairs.
 
-Meanwhile, primal_z steering is zero at layers 5-10. Causal potency emerges at layer 13, peaks at **layer 14** (v10 dense grid), and the probe/primal gap widens to ~8x in late layers. **The dimensions that encode z early are not the dimensions downstream layers read from.**
+![v11 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
+
+This does not mean every pair is a perfectly linear PC1 story. Some pairs use
+curved manifolds, and speed/size/age are weaker in 2B. The central claim is that
+the model builds a context-relative scalar geometry; PCA is the most readable
+view of it, not the full mechanism.
+
+### 2. z is available early, then carried forward and used later
+
+Layer-wise probes show that z-score encodings are available early across
+adjective domains and remain available through the stack. The exact layer
+depends on the analysis and model: v11.5 fold-aware increments concentrate most
+new linear z information around **L1** (2B) / **L1-L3** (9B), while the older v9
+2B sweep showed usable decodability by roughly **L7**.
+
+The causal story is later. On the v10 dense grid, primal_z steering is zero at
+layers 5-10, emerges at layer 13, peaks at **layer 14**, and the probe/primal
+gap widens to ~8x in late layers. **The dimensions that encode z early are not
+necessarily the dimensions downstream layers read from.**
 
 The full 26-layer sweep reveals a three-phase computation:
 
@@ -61,7 +163,13 @@ The full 26-layer sweep reveals a three-phase computation:
 
 ![layer sweep](figures/v10/steering_layer_sweep.png)
 
-### 2. Domain-agnostic shared z-direction
+The older v9 2x3 layer sweep remains a useful compact visual for the
+encode-vs-use separation: z becomes decodable early, but causal steering
+strength appears later.
+
+![v9 layer sweep](figures/v9/layer_sweep_combined.png)
+
+### 3. Domain-agnostic shared z-direction
 
 A single direction `w_shared` (Procrustes-aligned mean of the 8 per-pair primal_z directions) steers **6/8** pairs at >=50% within-pair efficiency on 2B and **7/8** on 9B (FINDINGS section 16.1). Pairwise mean cosine of per-pair primal_z directions is +0.56 (2B) and +0.52 (9B).
 
@@ -80,33 +188,51 @@ Multi-seed cross-pair transfer with BH-FDR correction at q=0.05 shows **all 56/5
 
 *Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, ruling out the "shared numeral-magnitude direction" alternative.
 
+Caveat: the multi-seed transfer result is statistically strong, but the
+gold-standard pure-x transfer control (holding μ fixed while varying x) is still
+queued. So the shared-numeral-magnitude alternative is weakened, not fully
+eliminated, for the cross-pair steering matrix.
+
 ![transfer heatmap 2B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-2b.png)
 ![transfer heatmap 9B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
 
-### 3. z representation compresses monotonically
+### 4. SAE features pass numeral controls and are more shared in 9B
 
-v10's 400-cell dense grid resolves the manifold geometry clearly: TWO-NN intrinsic dimensionality drops monotonically from 7.7 (L0) to 3.2 (L20). PCA-95% variance peaks at L7 (16 components) then compresses to 7. The v9 "hunchback" pattern (ID peaking mid-network at ~7) was a 25-point TWO-NN artefact that disappears with denser sampling.
+The SAE analysis asks whether the z-looking features are actually just
+"large number" or token-frequency features. For each pair, v11.5 takes the top
+SAE features by R²(z) and then measures two controls:
 
-Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z with R^2=0.97 while PCA gets R^2=0.01 -- z is on a curve that linear methods miss.
+- R²(x): does the feature track raw target value?
+- R²(token): does the feature track numeric token / magnitude proxies?
 
-![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
+The answer is mostly no. The top features have high R²(z) while R²(x) and
+R²(token) are near zero. In Gemma 2 9B, the top feature averages about 0.68
+R²(z) across pairs while both controls are near zero. This supports the
+interpretation that these features respond to "above vs below the local norm",
+not merely "large-looking number".
 
-### 4. primal_z is W_U-orthogonal but decision-aligned
+The same section also tracks feature sharing across adjective domains.
+Cross-pair top-50 Jaccard: 2B = 0.11, 9B = **0.22** -- 9B has twice the
+cross-pair SAE feature overlap. This is one of the more interesting scaling
+results: the larger model appears to use a more shared SAE feature basis for
+context-normalized scalar judgments. Most z-features activate monotonically with
+z, with rare place-cell exceptions (e.g., v10 height feature 34700: bump
+R^2=0.98, linear R^2=0.00).
 
-cos(primal_z, W_U[high] - W_U[low]) falls in [-0.05, +0.12] across all layers on both models (FINDINGS section 15.3) -- primal_z is essentially orthogonal to the lexical readout direction at every depth. But it IS strongly aligned (cos 0.47-0.86) with the data-derived "leans high vs leans low" axis (FINDINGS section 16.6). primal_z carries the above-vs-below-norm semantic decision, just routed through a non-trivial projection before the final logit.
-
-### 5. SAE z-features are pure-z, with 2x overlap at 9B
-
-Top z-correlated SAE features have R^2(z) = 0.63-0.84 while R^2(x) and R^2(token-magnitude) are near zero (FINDINGS section 16.7). The alternative hypothesis that SAE features merely track numeral frequency is refuted at the top of the feature list.
-
-Cross-pair top-50 Jaccard: 2B = 0.11, 9B = **0.22** -- 9B has twice the cross-pair SAE feature overlap, consistent with its stronger shared z-direction. Most z-features activate monotonically with z (r = 0.7-0.9), with rare place-cell exceptions (e.g., feature 34700: bump R^2=0.98, linear R^2=0.00).
+Caveat: the current controls rule out raw x and numeric-token magnitude, but
+not lexical/domain-feature interpretations. We have not yet audited whether
+these SAE features also fire on words such as "tall", "short", "height", or
+other adjective/domain tokens.
 
 ![SAE overlap 2B](figures/v11/sae/cross_pair_feature_overlap_gemma2-2b.png)
 ![SAE overlap 9B](figures/v11/sae/cross_pair_feature_overlap_gemma2-9b.png)
 
-### 6. 9B replicates more uniformly than 2B
+### 5. The z-code replicates across model scales
 
-PC1.R^2(z) on cell-means at the canonical late layer (2B L20, 9B L33):
+The 2B/9B comparison is a robustness check, not the core claim. The point is
+that the same context-relative geometry appears in two different Gemma 2 scales,
+with 9B making the harder pairs more uniform. PC1.R^2(z) on cell-means at the
+canonical late layer (2B L20, 9B L33):
 
 | pair       | 2B PC1.R^2(z) [95% CI]    | 9B PC1.R^2(z) [95% CI]    |
 |---         |---                        |---                        |
@@ -119,39 +245,51 @@ PC1.R^2(z) on cell-means at the canonical late layer (2B L20, 9B L33):
 | age        | 0.209 [0.091, 0.341]      | **0.606** [0.003, 0.843]  |
 | size       | 0.075 [0.000, 0.254]      | **0.656** [0.012, 0.853]  |
 
-2B has median 0.90 but three pairs (age, size, speed) fail (R^2 < 0.4). 9B rescues all three (R^2 0.43-0.66). Bootstrap CIs confirm: 2B size [0.000, 0.254] is not statistically distinguishable from zero; 9B size [0.012, 0.853] is wide but nonzero. **Scaling rescues the z-code on the harder pairs.**
+2B has median 0.90 but three pairs (age, size, speed) fail (R^2 < 0.4). 9B rescues all three (R^2 0.43-0.66). Bootstrap CIs confirm: 2B size [0.000, 0.254] is not statistically distinguishable from zero; 9B size [0.012, 0.853] is wide but nonzero. This is best read as cross-scale replication plus stronger uniformity in the larger model.
 
 ![PCA 2B height](figures/v11/pca/height_gemma2-2b_2d_L20.png)
 ![PCA 9B height](figures/v11/pca/height_gemma2-9b_2d_L33.png)
 
-## Three hypotheses tested and refuted
+## Secondary Geometry Notes
 
-### On-manifold tangent steering
+v10's 400-cell dense grid resolves the manifold geometry more cleanly than the
+earlier sparse grids: TWO-NN intrinsic dimensionality drops from 7.7 (L0) to 3.2
+(L20), while PCA-95% variance peaks at L7 (16 components) then compresses to 7.
+This is useful secondary evidence, but not a headline claim because intrinsic
+dimension estimates are estimator- and sampling-sensitive. The point is that the
+manifold becomes more compact with depth, not that we have identified a causal
+mechanism from dimensionality alone.
 
-Tangent(z) steers at 0.63-0.73x of primal_z. At low alpha, entropy damage is similar; at high alpha (=8), tangent is kinder on 6/8 pairs but the effect is modest (0.1-0.6 nats). Not the clean win predicted.
+Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z
+with R^2=0.97 while PCA gets R^2=0.01 -- z is on a curve that linear methods
+miss.
 
-### Park's causal inner product
+![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
 
-(W_U^T W_U)^{-1} * probe_z does NOT rotate probe toward primal. cos(probe_causal, primal) < 0.05 across all pairs, at both layer 20 and the theoretically-favored layer 25, across a lambda sweep from 10^-5 to 10.
+## Follow-ups and negatives
 
-### Causal head taxonomy (triple-refuted)
-
-v10's DLA-based taxonomy identified mu-aggregators, comparators, and z-writers across 38 heads. v11 and v11.5 conclusively refute the causal framing:
-1. **Single-head ablation null** (v11 FINDINGS section 15.4): ablating any individual tagged head (L13h2, L3h0, L0h6 on 2B; L21h3, L16h3, L0h3 on 9B) changes corr(z) by at most 0.008 -- within 2 SE.
-2. **Joint-head-set ablation null** (v11.5 FINDINGS section 16.3): ablating the *union* of all z-circuit heads (18 on 2B, 32 on 9B) produces Delta corr(z) = -0.009 on 2B and **+0.016** on 9B. Even removing all tagged heads on 9B *raises* the z-correlation.
-3. **Permutation null** (v11.5 FINDINGS section 16.4): only 9B's comparator count exceeds the 95th percentile of shuffled assignments; mu-aggregator and z-writer counts are at chance on both models.
-
-The taxonomy describes correlational patterns, not causal mechanisms. The z-code is highly redundant across heads.
-
-## Honest negatives
-
-- **Fisher pullback (H4) refuted.** F(h) near-isotropic at tested activations.
-- **Relative/absolute dichotomy not significant** (n=7 vs 4, p=0.75).
-- **PC1~z not robust for size/speed at 2B.** Bootstrap CIs include zero: size [0.000, 0.254], speed [0.015, 0.627]. 9B rescues these but 9B size CI is bimodal [0.012, 0.853].
-- **Speed and experience are pair-specific exceptions** to the shared z-direction. Shared/within ratio < 0.50 on both models. Their primal_z directions are genuinely pair-specific.
-- **logit_diff R requires top-K validation.** Pos/neg R=0.47 dropped to R=0.31 on the only valid prompt.
-- **SAE-basis PCA is worse than raw PCA** for recovering z (catastrophic for curved-manifold pairs like speed).
-- **Increment R^2 dip not observed.** The predicted encode/re-encode dip does not exist; naive increment R^2 tracks cumulative R^2 almost perfectly. The fold-aware orthogonalized version (v11.5) shows all encoding at L1.
+- **On-manifold tangent steering was not a clean win.** Tangent(z) steers at
+  0.63-0.73x of primal_z; high-alpha entropy is sometimes lower, but the effect
+  is modest. See `APPENDIX.md` for the exact local-tangent construction.
+- **Park-style causal metric transforms did not rescue probes here.** The tested
+  `Cov(W_U)^-1/2` and `(W_U^T W_U + lambda I)^-1 * probe_z` variants did not
+  rotate `probe_z` into `primal_z` or close the steering gap. This is scoped to
+  our directions/models/layers; it is not a refutation of the broader linear
+  representation hypothesis.
+- **The causal head taxonomy was triple-refuted.** Single-head ablations are
+  null, joint tagged-head ablations are null/helping, and permutation tests put
+  most tag intersections at chance. Treat the taxonomy as correlational DLA, not
+  a causal mechanism.
+- **W_U orthogonality is a supporting control only.** `primal_z` is nearly
+  orthogonal to `W_U[high] - W_U[low]`, so it is not trivially the final
+  unembedding direction; this does not prove a mechanism.
+- **Measurement warnings remain.** Fisher pullback was near-isotropic; the
+  relative/absolute split was not significant; PC1~z is weak for size/speed at
+  2B; speed and experience are pair-specific exceptions to shared steering.
+- **Direct-sign positive/negative results are follow-up only.** The
+  prompt-sensitive open-ended estimate dropped on the valid forced-QA prompt, so
+  this should not be used as a main relativity claim without top-K validation and
+  cleaner forced-choice prompts.
 
 ## Repository layout
 
@@ -159,6 +297,7 @@ The taxonomy describes correlational patterns, not causal mechanisms. The z-code
 geometry-of-relativity/
   PLANNING.md          # Frozen project spec
   BUILDING.md          # Current active task
+  APPENDIX.md          # Technical definitions and calculation details
   FINDINGS.md          # Full experimental log (v4-v9 ss1-ss13, v10 ss14, v11 ss15, v11.5 ss16)
   STATUS.md            # Project status summary and retraction list
   TODO.md              # Rolling task checklist
@@ -166,6 +305,7 @@ geometry-of-relativity/
     vast_remote/       # GPU scripts (Vast.ai)
     analyze_v9_*.py    # v9 analysis scripts (CPU)
     plot_v9_*.py       # v9 plot scripts (CPU)
+    plot_v11_*.py      # README/paper montage plots from existing JSON/PNG artifacts
     analyze_v10_*.py   # v10 analysis: dimensionality, SAE, attention, increment R^2
     plot_v10_*.py      # v10 behavioral plots
     gen_v10_*.py       # v10 prompt generation (dense height grid)
@@ -225,6 +365,10 @@ python scripts/analyze_v11_5_p3c_fold_aware.py
 python scripts/analyze_v11_5_p3d_widened.py
 python scripts/analyze_v11_5_sae_token_freq.py
 python scripts/analyze_v11_5_bootstrap_cis.py
+
+# Regenerate README figures from committed artifacts:
+python scripts/plot_v11_5_readme_story.py
+python scripts/plot_v11_pca_montage_9b.py
 
 # Re-run v10 from scratch on a GPU box (Gemma 2 2B; H100 ~2 min cached):
 python scripts/gen_v10_dense_height.py
