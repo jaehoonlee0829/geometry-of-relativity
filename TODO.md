@@ -52,7 +52,16 @@
 
 ## Queue — Paper (May 3-8)
 
-- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled cross-pair transfer) + §15.3 (dense geometry/behavior) + §16.5 (z encoded early, then carried forward) + §16.7 (top SAE z-features pass raw-x/token-magnitude controls). Treat §16.6 / W_U-orthogonal-but-decision-aligned primal_z as a supporting control, not a headline. Add V12 caveats prominently: lexical sentence directions can steer as strongly as `primal_z`, pure-x controls preserve only an average diagonal advantage, SAE features are mixed rather than purely z, and extremeness geometry is pair-specific. v10 §14.6 causal framing in Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
+- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2
+  (FDR-controlled cross-pair transfer) + §15.3 (dense geometry/behavior) +
+  §16.5/V12 (z available early, used later) + V12.1/V12.2
+  lexical/residual decomposition. Treat §16.6 / W_U-orthogonal-but-decision-
+  aligned primal_z as a supporting control, not a headline. Add caveats
+  prominently: lexical sentence directions can steer as strongly as `primal_z`,
+  residual transfer still tracks target lexical overlap, pure-x controls preserve
+  only an average diagonal advantage, SAE features are mixed rather than purely
+  z, and extremeness geometry is pair-specific. v10 §14.6 causal framing in
+  Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
 - [ ] Submit ICML 2026 MI Workshop (May 8) — primary target.
 - [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary.
 - [ ] Update `docs/paper_outline.md` with v9–v11.5 findings.

@@ -2,16 +2,16 @@
 
 **Target venue (primary):** ICML 2026 Mechanistic Interpretability Workshop, deadline May 8 2026.
 **Target venue (secondary):** NeurIPS 2026 (abstract May 4, full paper May 6).
-**Status:** updated Apr 26 2026 with v9–v11.5 findings. All numbers filled from JSON artifacts.
+**Status:** updated Apr 29 2026 with v12/v12.1/v12.2 claim-hardening findings.
 
 ## One-sentence thesis
 
 Relative gradable adjectives ("tall", "rich", "heavy", "fast", etc.) are represented in
-Gemma 2 (2B and 9B) residual streams along a **domain-agnostic, context-normalized direction**
+Gemma 2 (2B and 9B) residual streams along a **partly shared, context-normalized direction**
 that tracks the z-score `z = (x − μ)/σ` rather than the raw magnitude `x`. This direction is
-encoded in a single shot at L1, is orthogonal to the unembedding readout `W_U[high] − W_U[low]`
-yet aligned with the model's behavioral decision boundary, and is shared across 6/8 adjective
-pairs with speed and experience as pair-specific exceptions.
+available early, becomes causally potent later, and decomposes into a high-gain lexical/output
+component plus a residual component that transfers broadly but still tracks target lexical
+overlap.
 
 ## Section map
 
@@ -24,9 +24,11 @@ pairs with speed and experience as pair-specific exceptions.
   1. Behavioral z-signal replicates 8/8 pairs on both models (cell-mean R(z) ≥ 0.92).
   2. Domain-agnostic shared z-direction exists (55% pairwise alignment; 6/8 pairs steered at ≥50%).
   3. Cross-pair transfer is statistically real (56/56 off-diagonal cells BH-FDR significant).
-  4. z is encoded at L1 in one shot, then carried forward (fold-aware orthogonalized R²).
+  4. z is encoded early and becomes causally potent later (V12 9B layer sweep).
   5. primal_z is W_U-orthogonal but decision-aligned (cos ~0.15 vs cos ~0.7–0.86).
-  6. Top SAE z-features are pure-z, not numeral-magnitude trackers (R²(z)≈0.7–0.84, R²(x)≈0).
+  6. V12.1/V12.2 decompose the causal direction into lexical and residual components.
+  7. SAE features are z-correlated and pass raw-number/token controls, but V12 finds a mixed
+     population rather than pure relative-standing features.
 
 ### §2 Related work
 - Linear representation hypothesis (Mikolov et al.; Park, Choe, Veitch 2024).
@@ -132,7 +134,7 @@ Notably, the absolute-adjective control (bmi_abs) aligns with the relative pairs
 - Off/within ratios per target pair range 0.10–0.72 (2B) and 0.25–0.54 (9B).
 - Same speed/experience asymmetry: experience at 2B = 0.10, lowest of all.
 
-### §8 Evidence Line 5 — z encoded at L1 in one shot (FINDINGS §16.5)
+### §8 Evidence Line 5 — z available early, causal use later (FINDINGS §16.5 + V12)
 
 Fold-aware orthogonalized increment R² (fix of v11's broken pipeline):
 
@@ -145,8 +147,12 @@ Fold-aware orthogonalized increment R² (fix of v11's broken pipeline):
 | height    | L18 (0.998)| L1              | **0.144**       |
 | bmi_abs   | L19 (0.995)| L3              | **0.167**       |
 
-New z-info concentrated at L1 (2B) / L1–L3 (9B), then near-zero. Naive R² plateaus by L7
+New z-info is concentrated at L1 (2B) / L1–L3 (9B), then near-zero. Naive R² plateaus by L7
 because the model carries L1's z-encoding forward, not because L7 encodes it.
+
+V12 adds the causal side on Gemma 2 9B: `z` is decodable early, but `primal_z` steering peaks
+later around L25 (mean slope ≈ +0.097) and remains positive at L33 (≈ +0.067). This should be
+framed as encode-vs-use separation, not as a fully identified circuit.
 
 ### §9 Evidence Line 6 — W_U-orthogonal but decision-aligned (FINDINGS §15.3 + §16.6)
 
@@ -161,7 +167,35 @@ Two disentanglement measures at late layers:
 Interpretation: primal_z carries the "above-vs-below-the-norm" semantic decision through
 a non-trivial projection before the final logit. It is W_U-orthogonal but not decision-orthogonal.
 
-### §10 SAE decomposition — pure-z features (FINDINGS §16.7)
+### §10 Evidence Line 7 — Lexical/residual decomposition (V12.1 + V12.2)
+
+V12 showed that lexical sentence directions can steer as strongly as `primal_z`, motivating
+a decomposition:
+
+```math
+p_z = p_{z,\mathrm{lex}} + p_{z,\mathrm{resid}}
+```
+
+V12.1:
+- mean cos(primal_z, word-token lexical direction) ≈ +0.104.
+- mean cos(primal_z, sentence-final lexical direction) ≈ +0.260.
+- mean norm² of `primal_z` in the lexical subspace ≈ 0.080.
+- lexical projection/primal steering ≈ 1.25; residual/primal steering ≈ 0.69.
+
+V12.2 single-seed cross-pair transfer at Gemma 2 9B L33:
+
+| direction | diagonal mean | off-diagonal mean |
+|---|---:|---:|
+| full `primal_z` | +0.067 | +0.026 |
+| lexical projection | +0.087 | +0.011 |
+| lexical residual | +0.044 | +0.024 |
+
+Residualized directions transfer much better off-diagonal than lexical projections and recover
+most of full `primal_z` transfer. However, residual transfer still correlates with target
+lexical-subspace overlap (r≈+0.79), so this is mixed-mechanism evidence rather than proof of a
+clean non-lexical code.
+
+### §11 SAE decomposition — z-correlated but mixed features (FINDINGS §16.7 + V12)
 
 Top SAE z-features have R²(z) ≈ 0.7–0.84 with R²(x) ≈ 0 and R²(token-frequency) ≈ 0.
 The alternative critic's "SAE features track numeral-magnitude" hypothesis is refuted.
@@ -170,12 +204,18 @@ The alternative critic's "SAE features track numeral-magnitude" hypothesis is re
 - 9B: 1–16 pure-z features per pair; cross-pair Jaccard = 0.223.
 - 9B has 2× 2B's cross-pair feature overlap, consistent with its higher pairwise primal_z alignment.
 
-### §11 Discussion
+V12 lexical audit softens the mechanism claim: among 200 audited top 9B z-features,
+43 are pure-ish z, 39 lexical z-like, 52 raw numeric, and 66 mixed/polysemantic. Use
+"z-correlated sparse features" rather than "pure relative-standing features."
+
+### §12 Discussion
 
 **The shared z-direction.** A single Procrustes-aligned direction steers 6/8 pairs
 at ≥50% of within-pair efficiency on both model scales. This is consistent with the model
-having internalized a domain-general "above-vs-below-the-norm" feature, with pair-specific
-residual for speed (vehicles vs people) and experience (domain shift).
+having internalized a partly domain-general "above-vs-below-the-norm" feature, with pair-specific
+residual for speed (vehicles vs people) and experience (domain shift). V12.2 suggests the residual
+component is more transferable than the lexical projection, but target lexical overlap remains a
+major confound.
 
 **Encode-vs-use gradient.** The fold-aware orthogonalized R² isolates *encoding* from
 *carry-forward*: z is written into the residual stream at L1 in essentially one operation.
@@ -195,18 +235,20 @@ may not generalize to (a) other model families (Gemma 3/4, Llama, etc.), (b) oth
 - bmi_abs behaves more like relative pairs than expected — either the prompt format
   induces unintended relativity, or the model treats BMI as graded too.
 - For size/speed/age at 2B, the "PC1 ≈ z" claim has bootstrap CIs overlapping zero.
-- Pure-x control on the transfer matrix (§16.2) not yet run — the alternative critic's
-  "shared numeral-magnitude" hypothesis is weakened by bmi_abs alignment but not eliminated.
+- V12 pure-x/fixed-mu/matched-z controls are mixed, not a clean scalar-magnitude refutation.
+- V12.1/V12.2 prevent a clean "non-lexical shared code" claim: lexical projections are high-gain,
+  residuals transfer broadly, and target lexical overlap predicts residual transfer.
+- V12 SAE and PC audits are mixed: SAE features are not uniformly pure-z, and PC extremeness is
+  pair-specific rather than a universal PC2 result.
 
-### §12 Conclusion
+### §13 Conclusion
 
-Six converging lines of evidence — behavioral signal, PCA geometry, shared z-direction,
-FDR-controlled cross-pair transfer, one-shot L1 encoding, and pure-z SAE features —
-support the claim that relative gradable adjectives are encoded along a domain-agnostic,
-context-normalized direction in Gemma 2, orthogonal to the unembedding readout but aligned
-with the model's behavioral decision boundary. The direction is shared across 6/8 pairs,
-with speed and experience as the two pair-specific exceptions. 9B replicates more
-uniformly than 2B, with scaling rescuing the z-code on harder pairs.
+Converging evidence — behavioral signal, PCA geometry, shared z-direction,
+FDR-controlled cross-pair transfer, early decodability with later causal potency, and
+z-correlated SAE features — supports the claim that relative gradable adjectives are represented
+with a context-normalized geometry in Gemma 2. The strongest post-V12 framing is not a pure
+domain-agnostic vector, but a mixed mechanism: a partly shared residual relativity component
+coupled to high-gain lexical/output-facing adjective geometry.
 
 ## Figures (to produce)
 
@@ -218,8 +260,9 @@ uniformly than 2B, with scaling rescuing the z-code on harder pairs.
 | 4 | shared_z_steering_ratios.png       | v11_5 shared_z_analysis.json                 | **TODO**    |
 | 5 | cross_pair_transfer_heatmap.png    | v11_5 multiseed_transfer.json                | **TODO**    |
 | 6 | increment_r2_fold_aware.png        | v11_5 increment_r2_fold_aware.json (per pair)| **TODO**    |
-| 7 | z_vs_lexical_disentangle.png       | v11_5 z_vs_lexical_widened.json              | **TODO**    |
-| 8 | sae_pure_z_features.png            | v11_5 sae_features_with_token_freq_control   | **TODO**    |
+| 7 | lexical_residualization.png        | v12_1 lexical_subspace_residualization       | has v12.1 fig |
+| 8 | residual_vs_lexical_transfer.png   | v12_2 residual transfer JSON                 | has v12.2 fig |
+| 9 | sae_mixed_features.png             | v12 SAE lexical audit                        | has v12 fig |
 
 ## Appendix sketches
 
@@ -229,6 +272,7 @@ uniformly than 2B, with scaling rescuing the z-code on harder pairs.
 - D. Joint head-ablation results (§16.3) and permutation null (§16.4).
 - E. Bootstrap CI methodology (block bootstrap over (μ, x) cells, 1000 reps).
 - F. Retracted analyses: v10 §14.6 causal taxonomy, v11 P3c broken pipeline, v11 P3d NaN.
+- G. V12.1 lexical-subspace residualization and V12.2 target lexical leakage metric.
 
 ## Execution checklist
 
@@ -241,6 +285,9 @@ uniformly than 2B, with scaling rescuing the z-code on harder pairs.
 - [x] v11.5 widened P3d (§16.6)
 - [x] v11.5 SAE token-freq control (§16.7)
 - [x] v11.5 bootstrap CIs (§16.8)
+- [x] v12 claim-hardening: layer sweep, lexical red-team, pure-x transfer, SAE/PC audits
+- [x] v12.1 lexical-subspace residualization
+- [x] v12.2 residual-vs-lexical cross-pair transfer
 - [ ] Produce publication-quality figures from v11.5 JSONs (items 3–8 above)
 - [ ] Prose draft in ICML MI Workshop template
 - [ ] Submit (May 8 deadline)

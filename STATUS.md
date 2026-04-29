@@ -67,10 +67,11 @@ questions on v11's enriched data. Headline results:
   P3c orthogonalized R² peaks at L1 (e.g. bmi_abs/2B=0.256, height/2B=0.145)
   and is near-zero at every later layer, sharper than v10 §14's "by L7
   naive plateau." FINDINGS §16.5.
-- **Top SAE z-features are pure-z, not numeral-magnitude trackers.**
+- **Top SAE z-features pass raw-x/token controls, but V12 softens purity.**
   R²(z) ≈ 0.7–0.84 with R²(x), R²(token) ≈ 0 across all pairs/models
   for the top feature. 9B cross-pair Jaccard 0.22 (2× 2B's 0.11).
-  FINDINGS §16.7.
+  FINDINGS §16.7. V12's lexical audit shows the top-feature population is
+  mixed, so use "z-correlated sparse features" rather than "pure z features."
 - **v10 §14.6 causal head taxonomy is TRIPLE-REFUTED.** Single-head
   ablations null (v11 §15.4); joint-tag-set ablations null on 2B and
   *helping* on 9B (v11.5 §16.3); permutation null on the taxonomy
