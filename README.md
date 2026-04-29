@@ -23,7 +23,10 @@ pair-specific rather than a universal PC2 result. V12.1 refines the lexical
 story: literal adjective-token directions align weakly with `primal_z`, but
 sentence-final states align more strongly; subtracting the tested lexical
 subspace leaves residual steering, while the lexical projection is itself
-high-gain. The right framing is mixed mechanism, not clean non-lexical code.
+high-gain. V12.2 adds that residualized directions transfer more broadly
+off-diagonal than lexical projection and recover most of full `primal_z`, but
+the residual transfer still tracks target lexical-subspace overlap. The right
+framing is mixed mechanism, not clean non-lexical code.
 
 ## Core experimental design
 

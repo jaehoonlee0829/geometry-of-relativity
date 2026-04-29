@@ -2,6 +2,21 @@
 
 ## Current phase
 
+**v12.2 complete (RESIDUAL-TRANSFER / MIXED).** Ran the residual-vs-lexical
+cross-pair transfer follow-up from `docs/NEXT_GPU_SESSION_v12_2.md`. Outputs are
+under `results/v12_2/`, `figures/v12_2/`, and
+`docs/V12_2_RESULTS_SUMMARY.md`.
+
+- **Residual vs lexical transfer:** in this single-seed Gemma 2 9B L33 test,
+  residualized directions retain broad off-diagonal transfer (mean +0.024,
+  56/56 positive) and outperform lexical projection off-diagonal (mean +0.011).
+  Full `primal_z` remains slightly stronger off-diagonal (mean +0.026), while
+  lexical projection is strongest on-diagonal.
+- **Leakage caveat:** residual off-diagonal transfer is still strongly
+  correlated with target lexical-subspace overlap (r≈+0.79). This is evidence
+  for a residual shared component, not proof of a clean non-lexical or
+  target-lexical-independent shared code.
+
 **v12.1 complete (LEXICAL-DISENTANGLEMENT / MIXED).** Ran the narrow follow-up
 from `docs/NEXT_GPU_SESSION_v12_1.md`. Outputs are under `results/v12_1/`,
 `figures/v12_1/`, and `docs/V12_1_RESULTS_SUMMARY.md`.
@@ -90,6 +105,9 @@ the v11.5 follow-up. FINDINGS §15.
 - **v12.1 lexical disentanglement follow-up**: token-position lexical capture
   and lexical-subspace residualization of `primal_z`. See
   `docs/V12_1_RESULTS_SUMMARY.md`.
+- **v12.2 residual-vs-lexical cross-pair transfer**: single-seed L33 transfer
+  matrices for full `primal_z`, lexical projection, lexical residual, and
+  target lexical-subspace leakage. See `docs/V12_2_RESULTS_SUMMARY.md`.
 
 ## Retracted (replace in any draft)
 
@@ -112,11 +130,12 @@ the v11.5 follow-up. FINDINGS §15.
    Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled
    transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned
    primal_z), with V12 caveats: lexical sentence directions remain a serious
-   competitor, V12.1 shows both high-gain lexical projection and surviving
-   residual steering, pure-x transfer controls are mixed, and SAE/PC
-   interpretations must be framed as z-correlated/mixed rather than pure
-   mechanisms. Three-way refutation of §14.6 in the Limitations section.
-   Bootstrap CIs everywhere per §16.8.
+   competitor, V12.1/V12.2 show high-gain lexical projections and surviving
+   residual steering/transfer, but target lexical overlap remains a major
+   confound. Pure-x transfer controls are mixed, and SAE/PC interpretations
+   must be framed as z-correlated/mixed rather than pure mechanisms. Three-way
+   refutation of §14.6 in the Limitations section. Bootstrap CIs everywhere per
+   §16.8.
 2. **arXiv v2 follow-ups** (post-May-7): stronger zero-shot raw-x controls,
    bootstrap/null bands for V12 steering controls, 9B pure-ish-z feature
    asymmetry, and speed/experience pair-specific direction analysis.
