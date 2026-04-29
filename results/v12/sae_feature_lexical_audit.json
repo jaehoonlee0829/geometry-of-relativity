@@ -1,0 +1,2440 @@
+{
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "sae_subpath": "layer_33/width_16k/average_l0_11/params.npz",
+  "lexical_zscore_threshold_for_lexical_z_like": 4.0,
+  "by_pair": {
+    "height": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 6,
+        "mixed/polysemantic": 7,
+        "pure-ish z": 10,
+        "raw numeric": 2
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 4.646059036254883,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 0.7377825975418091
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 4.646864414215088,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 0.7485755681991577
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 4.23695707321167,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 4.058745384216309
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 4.567526340484619,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 0.4347543716430664
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 4.299312114715576,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 6.816981792449951
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 4.503518104553223,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 4.0646257400512695
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 4.581082344055176,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 1.5290541648864746
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 4.68624210357666,
+          "max_abs_zscore": 26.70816993713379,
+          "mean_activation": 0.0
+        }
+      },
+      "features": [
+        {
+          "feature_id": 266,
+          "r2_z": 0.7068901186209813,
+          "r2_x": 0.0001309082868536926,
+          "r2_token": 0.00014275106658245829,
+          "max_abs_lexical_zscore": 1.1322842836380005,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 6986,
+          "r2_z": 0.6600899197158308,
+          "r2_x": 0.009226764524105091,
+          "r2_token": 0.009282089119924453,
+          "max_abs_lexical_zscore": 0.7313030362129211,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 5741,
+          "r2_z": 0.65157595224532,
+          "r2_x": 0.0003680508844858821,
+          "r2_token": 0.0003566832531770592,
+          "max_abs_lexical_zscore": 0.8012718558311462,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.6462465692945079,
+          "r2_x": 0.0128659723721406,
+          "r2_token": 0.012821246615952409,
+          "max_abs_lexical_zscore": 15.962071418762207,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.6433667574628372,
+          "r2_x": 0.012992654664398917,
+          "r2_token": 0.012694402029865048,
+          "max_abs_lexical_zscore": 17.535846710205078,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 11726,
+          "r2_z": 0.5856259952030969,
+          "r2_x": 0.019147252764921685,
+          "r2_token": 0.01923613271071334,
+          "max_abs_lexical_zscore": 1.1558364629745483,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is short.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 11633,
+          "r2_z": 0.5801337429022626,
+          "r2_x": 0.05386835550896241,
+          "r2_token": 0.05391258277100386,
+          "max_abs_lexical_zscore": 0.6948502659797668,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 5410,
+          "r2_z": 0.5592755015335789,
+          "r2_x": 0.11632325198194815,
+          "r2_token": 0.115645907247663,
+          "max_abs_lexical_zscore": 12.164624214172363,
+          "top_lexical_probe_kind": "lex_high_low_word_low",
+          "top_lexical_probe": "The word is: short",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 4079,
+          "r2_z": 0.5214948243184734,
+          "r2_x": -0.00035039867625008547,
+          "r2_token": -0.000317380425821856,
+          "max_abs_lexical_zscore": 0.695744514465332,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 13162,
+          "r2_z": 0.5069693125926247,
+          "r2_x": 0.01949680472452131,
+          "r2_token": 0.019130999302761187,
+          "max_abs_lexical_zscore": 26.70816993713379,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 13748,
+          "r2_z": 0.4835464888507023,
+          "r2_x": 0.017443680458501976,
+          "r2_token": 0.017586188311866424,
+          "max_abs_lexical_zscore": 0.7952618598937988,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 9172,
+          "r2_z": 0.4388455913779643,
+          "r2_x": 0.0018985255366607001,
+          "r2_token": 0.0017301896094041869,
+          "max_abs_lexical_zscore": 0.8582715392112732,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 13656,
+          "r2_z": 0.4336396010736412,
+          "r2_x": -0.0012469282665841241,
+          "r2_token": -0.0012285699607148537,
+          "max_abs_lexical_zscore": 15.600664138793945,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 16277,
+          "r2_z": 0.4243835432200036,
+          "r2_x": 0.004802544636134054,
+          "r2_token": 0.004768834039151404,
+          "max_abs_lexical_zscore": 0.9925246238708496,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.4220030514230594,
+          "r2_x": 0.005923783554616757,
+          "r2_token": 0.0057975305119098985,
+          "max_abs_lexical_zscore": 1.615689992904663,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 12520,
+          "r2_z": 0.4196463718402246,
+          "r2_x": 0.09585000107466657,
+          "r2_token": 0.09636081461912316,
+          "max_abs_lexical_zscore": 8.666418075561523,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 4353,
+          "r2_z": 0.3902442731156248,
+          "r2_x": 0.04483619193677213,
+          "r2_token": 0.04472293832258789,
+          "max_abs_lexical_zscore": 0.6068189144134521,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 12419,
+          "r2_z": 0.2900594766820237,
+          "r2_x": 0.053576251774465566,
+          "r2_token": 0.0534953787165654,
+          "max_abs_lexical_zscore": 2.3810791969299316,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 1568,
+          "r2_z": 0.25061825204625754,
+          "r2_x": 0.04079817364974647,
+          "r2_token": 0.04063345602272528,
+          "max_abs_lexical_zscore": 1.327418327331543,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "The described case is tall.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 1048,
+          "r2_z": 0.2351242543686607,
+          "r2_x": 0.03679318938167542,
+          "r2_token": 0.036623295080744356,
+          "max_abs_lexical_zscore": 1.2247405052185059,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 2038,
+          "r2_z": 0.23454403273986169,
+          "r2_x": 0.12501735348384757,
+          "r2_token": 0.12514899400100044,
+          "max_abs_lexical_zscore": 0.5987942218780518,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 5612,
+          "r2_z": 0.21854314864715463,
+          "r2_x": 0.11196672429543186,
+          "r2_token": 0.11273080342830522,
+          "max_abs_lexical_zscore": 3.262751579284668,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 10759,
+          "r2_z": 0.2167739763661667,
+          "r2_x": 0.03534748867830939,
+          "r2_token": 0.0353823839341082,
+          "max_abs_lexical_zscore": 1.4638381004333496,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "The described case is tall.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 12595,
+          "r2_z": 0.20730755423658598,
+          "r2_x": 0.04475285037535015,
+          "r2_token": 0.04421328485606957,
+          "max_abs_lexical_zscore": 1.0364947319030762,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 6185,
+          "r2_z": 0.19123547290550158,
+          "r2_x": 0.014100684694747123,
+          "r2_token": 0.013980999925785387,
+          "max_abs_lexical_zscore": 0.6822241544723511,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: tall",
+          "classification": "mixed/polysemantic"
+        }
+      ]
+    },
+    "age": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 3,
+        "mixed/polysemantic": 8,
+        "pure-ish z": 1,
+        "raw numeric": 13
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 3.8416588306427,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 8.15222454071045
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 3.9168853759765625,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 4.644404411315918
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 3.7859768867492676,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 6.051501274108887
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 3.813793420791626,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 5.85735559463501
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 3.9989311695098877,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 7.815754413604736
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 3.8580384254455566,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 11.165294647216797
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 3.813593864440918,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 5.449375152587891
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 3.7955322265625,
+          "max_abs_zscore": 32.38347625732422,
+          "mean_activation": 5.948104381561279
+        }
+      },
+      "features": [
+        {
+          "feature_id": 2074,
+          "r2_z": 0.6508774551916369,
+          "r2_x": -0.0001510900943482163,
+          "r2_token": -0.0001410125128762374,
+          "max_abs_lexical_zscore": 2.3405520915985107,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is young.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 14932,
+          "r2_z": 0.41192718217167323,
+          "r2_x": 0.20827487702945335,
+          "r2_token": 0.20752799307708114,
+          "max_abs_lexical_zscore": 1.453997254371643,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 6986,
+          "r2_z": 0.3591795637322517,
+          "r2_x": 0.0020903742957819604,
+          "r2_token": 0.0021821793444644078,
+          "max_abs_lexical_zscore": 0.4605092704296112,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10484,
+          "r2_z": 0.31758916670425175,
+          "r2_x": 0.004026720371695824,
+          "r2_token": 0.004513681612795528,
+          "max_abs_lexical_zscore": 32.38347625732422,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 5410,
+          "r2_z": 0.3100906391289787,
+          "r2_x": 0.13553639745039003,
+          "r2_token": 0.1363166847531998,
+          "max_abs_lexical_zscore": 1.9143807888031006,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5923,
+          "r2_z": 0.29387673387441693,
+          "r2_x": 0.08996143142180257,
+          "r2_token": 0.08956100886646545,
+          "max_abs_lexical_zscore": 1.2737878561019897,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5612,
+          "r2_z": 0.2845307152476464,
+          "r2_x": -0.0001211329642583081,
+          "r2_token": -2.5304221462629783e-06,
+          "max_abs_lexical_zscore": 3.179811954498291,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is young.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 11633,
+          "r2_z": 0.280996949253418,
+          "r2_x": 0.38239480595243924,
+          "r2_token": 0.38530137454515256,
+          "max_abs_lexical_zscore": 0.8240339756011963,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is young.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12435,
+          "r2_z": 0.26862621829217825,
+          "r2_x": 0.21309229288726117,
+          "r2_token": 0.2151446659343672,
+          "max_abs_lexical_zscore": 2.1309127807617188,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 3405,
+          "r2_z": 0.25467093126029583,
+          "r2_x": 0.08366511831408896,
+          "r2_token": 0.08326941076435601,
+          "max_abs_lexical_zscore": 0.807013213634491,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 13162,
+          "r2_z": 0.25317734901589095,
+          "r2_x": 0.495237789664129,
+          "r2_token": 0.49419329881761076,
+          "max_abs_lexical_zscore": 14.723233222961426,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 16277,
+          "r2_z": 0.21350330376770255,
+          "r2_x": 0.13437088400610053,
+          "r2_token": 0.13154423953243066,
+          "max_abs_lexical_zscore": 0.6365882754325867,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.2125761829601075,
+          "r2_x": -0.00196813126316564,
+          "r2_token": -0.0019644133580978274,
+          "max_abs_lexical_zscore": 22.905029296875,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 12180,
+          "r2_z": 0.18401633728004574,
+          "r2_x": 0.25460112595442386,
+          "r2_token": 0.2527567143316075,
+          "max_abs_lexical_zscore": 1.1829618215560913,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 3317,
+          "r2_z": 0.18235860403835025,
+          "r2_x": 0.18876274707890472,
+          "r2_token": 0.18809650968956293,
+          "max_abs_lexical_zscore": 0.40547478199005127,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 3685,
+          "r2_z": 0.18144926221079272,
+          "r2_x": 0.3583532539819596,
+          "r2_token": 0.3560517569432847,
+          "max_abs_lexical_zscore": 1.5846779346466064,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "This person is old.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.18133399434248598,
+          "r2_x": 0.23372197423088115,
+          "r2_token": 0.23322499820784315,
+          "max_abs_lexical_zscore": 1.4172120094299316,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 4353,
+          "r2_z": 0.14989960617553733,
+          "r2_x": 0.3744973128584058,
+          "r2_token": 0.37363420584033535,
+          "max_abs_lexical_zscore": 0.990017831325531,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 14208,
+          "r2_z": 0.14673276243426792,
+          "r2_x": 0.42584031857499904,
+          "r2_token": 0.4245863309877491,
+          "max_abs_lexical_zscore": 1.5195724964141846,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 3766,
+          "r2_z": 0.14470822277320528,
+          "r2_x": 0.01895120630645386,
+          "r2_token": 0.019114328846603468,
+          "max_abs_lexical_zscore": 1.8298362493515015,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4480,
+          "r2_z": 0.14400012230060155,
+          "r2_x": 0.27218738312899726,
+          "r2_token": 0.2722624446292726,
+          "max_abs_lexical_zscore": 2.1490986347198486,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 11698,
+          "r2_z": 0.13676802491441264,
+          "r2_x": 0.021174112020589053,
+          "r2_token": 0.02160430532251323,
+          "max_abs_lexical_zscore": 1.1581408977508545,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 15232,
+          "r2_z": 0.11461700761487359,
+          "r2_x": 0.0667372627812427,
+          "r2_token": 0.0644504142251554,
+          "max_abs_lexical_zscore": 0.30322667956352234,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 2207,
+          "r2_z": 0.11461389106394226,
+          "r2_x": 0.015113161207446102,
+          "r2_token": 0.014840062222226336,
+          "max_abs_lexical_zscore": 0.29361793398857117,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: old",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 14941,
+          "r2_z": 0.09676298631559677,
+          "r2_x": 0.019278453451551658,
+          "r2_token": 0.020259530344554633,
+          "max_abs_lexical_zscore": 10.134949684143066,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is young.",
+          "classification": "lexical z-like"
+        }
+      ]
+    },
+    "weight": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 4,
+        "mixed/polysemantic": 11,
+        "pure-ish z": 4,
+        "raw numeric": 6
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 5.299335956573486,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 2.5068726539611816
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 5.147770404815674,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 0.0
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 5.039158344268799,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 0.4321269690990448
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 5.242862224578857,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 1.539823055267334
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 5.221189498901367,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 3.9202826023101807
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 5.3147478103637695,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 2.6371428966522217
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 5.147770404815674,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 0.0
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 5.117361545562744,
+          "max_abs_zscore": 33.357879638671875,
+          "mean_activation": 0.9091638326644897
+        }
+      },
+      "features": [
+        {
+          "feature_id": 6986,
+          "r2_z": 0.7098117279567913,
+          "r2_x": -0.000878237954617278,
+          "r2_token": -0.0008915259760420291,
+          "max_abs_lexical_zscore": 0.7582857608795166,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.6575017006135214,
+          "r2_x": 0.06403599181711228,
+          "r2_token": 0.06399354988819317,
+          "max_abs_lexical_zscore": 14.840866088867188,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 3872,
+          "r2_z": 0.48756517258099963,
+          "r2_x": 0.013118083036701256,
+          "r2_token": 0.013147815803131624,
+          "max_abs_lexical_zscore": 0.5675711631774902,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 5741,
+          "r2_z": 0.4847610788051365,
+          "r2_x": 0.014845998505461977,
+          "r2_token": 0.01487668295903899,
+          "max_abs_lexical_zscore": 0.6193951964378357,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4079,
+          "r2_z": 0.48449500008702895,
+          "r2_x": 0.02563370942378218,
+          "r2_token": 0.025482988107720872,
+          "max_abs_lexical_zscore": 0.6581958532333374,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 1048,
+          "r2_z": 0.3884978300371482,
+          "r2_x": 0.0050803599023234725,
+          "r2_token": 0.005061836438068346,
+          "max_abs_lexical_zscore": 1.914421558380127,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.3141788940129975,
+          "r2_x": 0.08027032160317338,
+          "r2_token": 0.0800424769810606,
+          "max_abs_lexical_zscore": 17.892057418823242,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 12757,
+          "r2_z": 0.27597207844819127,
+          "r2_x": 0.051706829222723516,
+          "r2_token": 0.051462007863761206,
+          "max_abs_lexical_zscore": 0.6363266110420227,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 931,
+          "r2_z": 0.259376143554756,
+          "r2_x": 0.07398580762722518,
+          "r2_token": 0.07384940146467411,
+          "max_abs_lexical_zscore": 0.40081021189689636,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 16069,
+          "r2_z": 0.24438952322888363,
+          "r2_x": 0.0001040525959495886,
+          "r2_token": 0.00010756548541124289,
+          "max_abs_lexical_zscore": 3.9559695720672607,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10966,
+          "r2_z": 0.24380701908183244,
+          "r2_x": 0.05727050373335607,
+          "r2_token": 0.05703900226379288,
+          "max_abs_lexical_zscore": 0.5224384069442749,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 15804,
+          "r2_z": 0.2400255874642102,
+          "r2_x": 0.32678397708213036,
+          "r2_token": 0.32637732872752123,
+          "max_abs_lexical_zscore": 7.31782341003418,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 5410,
+          "r2_z": 0.23149698555179854,
+          "r2_x": 0.005228607919518291,
+          "r2_token": 0.005227745729711075,
+          "max_abs_lexical_zscore": 12.659468650817871,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 10759,
+          "r2_z": 0.21068752728506945,
+          "r2_x": 0.02079358609351567,
+          "r2_token": 0.020796731248194256,
+          "max_abs_lexical_zscore": 3.0321624279022217,
+          "top_lexical_probe_kind": "lex_high_low_word_low",
+          "top_lexical_probe": "A description: light",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 11633,
+          "r2_z": 0.21054836966035662,
+          "r2_x": 0.16202888540108884,
+          "r2_token": 0.16159464385543232,
+          "max_abs_lexical_zscore": 0.39882177114486694,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13162,
+          "r2_z": 0.2052508874742145,
+          "r2_x": 0.25267287536147287,
+          "r2_token": 0.252330228533829,
+          "max_abs_lexical_zscore": 33.357879638671875,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 16091,
+          "r2_z": 0.1765195617374029,
+          "r2_x": 0.19287466631133898,
+          "r2_token": 0.19236449804136901,
+          "max_abs_lexical_zscore": 5.880198955535889,
+          "top_lexical_probe_kind": "lex_domain_high",
+          "top_lexical_probe": "The measurement is weight.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 8097,
+          "r2_z": 0.17616227974948362,
+          "r2_x": 0.010519764199183212,
+          "r2_token": 0.010654583256734518,
+          "max_abs_lexical_zscore": 17.64398193359375,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 6352,
+          "r2_z": 0.16824054525044774,
+          "r2_x": 0.06415058470875123,
+          "r2_token": 0.06379417279320743,
+          "max_abs_lexical_zscore": 0.33068838715553284,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 3003,
+          "r2_z": 0.1647500082989044,
+          "r2_x": 0.030132454895081096,
+          "r2_token": 0.030237822752782084,
+          "max_abs_lexical_zscore": 0.4995983839035034,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 266,
+          "r2_z": 0.16380812593106608,
+          "r2_x": 0.013745748489827236,
+          "r2_token": 0.013729258045136139,
+          "max_abs_lexical_zscore": 2.5960469245910645,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 6185,
+          "r2_z": 0.1397009415514242,
+          "r2_x": 0.00881242700873286,
+          "r2_token": 0.00881592452422153,
+          "max_abs_lexical_zscore": 0.333186537027359,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.13481252110582587,
+          "r2_x": 0.1374465754120765,
+          "r2_token": 0.13790690616297363,
+          "max_abs_lexical_zscore": 3.05397367477417,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13748,
+          "r2_z": 0.1300057647203382,
+          "r2_x": 0.06836591837918793,
+          "r2_token": 0.06844557297796161,
+          "max_abs_lexical_zscore": 4.246540069580078,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 7730,
+          "r2_z": 0.1280954481877632,
+          "r2_x": 0.011375062377424694,
+          "r2_token": 0.011586158088901732,
+          "max_abs_lexical_zscore": 2.6919045448303223,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: heavy",
+          "classification": "mixed/polysemantic"
+        }
+      ]
+    },
+    "size": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 4,
+        "mixed/polysemantic": 11,
+        "pure-ish z": 3,
+        "raw numeric": 7
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 3.0942723751068115,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 7.037137508392334
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 2.681569814682007,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 6.0502238273620605
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 2.723506212234497,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 7.359581470489502
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 2.742363214492798,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 7.896074295043945
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 2.6152265071868896,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 12.407231330871582
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 2.5169870853424072,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 10.838756561279297
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 2.5981011390686035,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 5.867977142333984
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 2.7543652057647705,
+          "max_abs_zscore": 20.825727462768555,
+          "mean_activation": 5.924483776092529
+        }
+      },
+      "features": [
+        {
+          "feature_id": 14410,
+          "r2_z": 0.5592050939108697,
+          "r2_x": 0.05315866258219348,
+          "r2_token": 0.05364376029803364,
+          "max_abs_lexical_zscore": 6.110036849975586,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 9840,
+          "r2_z": 0.45273237897369134,
+          "r2_x": 0.007574257308213261,
+          "r2_token": 0.007536484666793575,
+          "max_abs_lexical_zscore": 4.7858967781066895,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "This person is big.",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 11726,
+          "r2_z": 0.43981820174883857,
+          "r2_x": 0.1167732721116892,
+          "r2_token": 0.11718615820259393,
+          "max_abs_lexical_zscore": 2.9773716926574707,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is small.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.4253144689657474,
+          "r2_x": 0.24387311202971795,
+          "r2_token": 0.24251720213765204,
+          "max_abs_lexical_zscore": 1.0790733098983765,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12757,
+          "r2_z": 0.4209234320193177,
+          "r2_x": 0.03877339338223296,
+          "r2_token": 0.039146934474307504,
+          "max_abs_lexical_zscore": 1.0474257469177246,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 2980,
+          "r2_z": 0.4194318844868252,
+          "r2_x": 0.0010749907260869662,
+          "r2_token": 0.0010132879343002221,
+          "max_abs_lexical_zscore": 1.684442400932312,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "This adjective is big",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 13594,
+          "r2_z": 0.24523121958087202,
+          "r2_x": 0.0025070797743450557,
+          "r2_token": 0.0024670987825181623,
+          "max_abs_lexical_zscore": 0.4664314091205597,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10753,
+          "r2_z": 0.21125655655716147,
+          "r2_x": 0.0201863216364101,
+          "r2_token": 0.019944726341910357,
+          "max_abs_lexical_zscore": 11.977051734924316,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 14908,
+          "r2_z": 0.19747098985690137,
+          "r2_x": 0.0350963995413619,
+          "r2_token": 0.03557750388315206,
+          "max_abs_lexical_zscore": 1.308132529258728,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "The described case is big.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.1968962998070195,
+          "r2_x": 0.0064377287285425355,
+          "r2_token": 0.006446620663346225,
+          "max_abs_lexical_zscore": 1.1128783226013184,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 266,
+          "r2_z": 0.1838948365912556,
+          "r2_x": 0.00413918052952178,
+          "r2_token": 0.00413663673016873,
+          "max_abs_lexical_zscore": 0.36828839778900146,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5741,
+          "r2_z": 0.13383654127531275,
+          "r2_x": 0.016600852482063444,
+          "r2_token": 0.016476077709152825,
+          "max_abs_lexical_zscore": 0.3005293011665344,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4530,
+          "r2_z": 0.13128700363192625,
+          "r2_x": 0.15702578391366184,
+          "r2_token": 0.15670499813511363,
+          "max_abs_lexical_zscore": 20.825727462768555,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 14941,
+          "r2_z": 0.11747474720316686,
+          "r2_x": 0.25328072520000444,
+          "r2_token": 0.25504086477052346,
+          "max_abs_lexical_zscore": 9.557334899902344,
+          "top_lexical_probe_kind": "lex_domain_high",
+          "top_lexical_probe": "The property is size.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13884,
+          "r2_z": 0.11111531760816229,
+          "r2_x": 0.04927721502682636,
+          "r2_token": 0.05043189253893632,
+          "max_abs_lexical_zscore": 3.2409777641296387,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 7893,
+          "r2_z": 0.09602403065472509,
+          "r2_x": 0.06653953755318986,
+          "r2_token": 0.06656017894774724,
+          "max_abs_lexical_zscore": 2.659633159637451,
+          "top_lexical_probe_kind": "lex_domain_low",
+          "top_lexical_probe": "The measurement is baseline.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12169,
+          "r2_z": 0.09181599242812599,
+          "r2_x": 0.0964300989948047,
+          "r2_token": 0.09705864222955662,
+          "max_abs_lexical_zscore": 5.587296485900879,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 14881,
+          "r2_z": 0.08355478068320132,
+          "r2_x": 0.022413900045684665,
+          "r2_token": 0.022338707420988424,
+          "max_abs_lexical_zscore": 0.5585508346557617,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 6394,
+          "r2_z": 0.08296156224426532,
+          "r2_x": 0.031673179425753095,
+          "r2_token": 0.03211398200720761,
+          "max_abs_lexical_zscore": 10.775284767150879,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 9172,
+          "r2_z": 0.07920739022075085,
+          "r2_x": 0.021824078079747844,
+          "r2_token": 0.021421899670348354,
+          "max_abs_lexical_zscore": 0.3918430507183075,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 13656,
+          "r2_z": 0.07412261604230463,
+          "r2_x": 0.016918347235927,
+          "r2_token": 0.01691800943390409,
+          "max_abs_lexical_zscore": 0.3429884910583496,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 9072,
+          "r2_z": 0.06545430595014445,
+          "r2_x": 0.1677827142830034,
+          "r2_token": 0.16644338375892131,
+          "max_abs_lexical_zscore": 0.820570707321167,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 7399,
+          "r2_z": 0.06515819628141573,
+          "r2_x": 0.013967839308071994,
+          "r2_token": 0.014004449094683014,
+          "max_abs_lexical_zscore": 0.18646381795406342,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 1568,
+          "r2_z": 0.06488645933210557,
+          "r2_x": 0.007482779296986264,
+          "r2_token": 0.007370257435645566,
+          "max_abs_lexical_zscore": 3.2660999298095703,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "The described case is small.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4047,
+          "r2_z": 0.0647095792010336,
+          "r2_x": 0.1008393502410031,
+          "r2_token": 0.10159947110312006,
+          "max_abs_lexical_zscore": 1.5714616775512695,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: big",
+          "classification": "raw numeric"
+        }
+      ]
+    },
+    "speed": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 6,
+        "mixed/polysemantic": 7,
+        "pure-ish z": 3,
+        "raw numeric": 9
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 5.263055324554443,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 10.395816802978516
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 5.426567554473877,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 5.392360210418701
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 5.4303812980651855,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 7.132396697998047
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 5.142973899841309,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 5.861730098724365
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 5.39479923248291,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 7.900206089019775
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 5.3905930519104,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 5.946430206298828
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 5.518605709075928,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 4.752377033233643
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 5.150876045227051,
+          "max_abs_zscore": 25.634492874145508,
+          "mean_activation": 6.151420593261719
+        }
+      },
+      "features": [
+        {
+          "feature_id": 5741,
+          "r2_z": 0.6893144501105039,
+          "r2_x": 0.045776467877876925,
+          "r2_token": 0.04578849316680422,
+          "max_abs_lexical_zscore": 1.1587026119232178,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 3239,
+          "r2_z": 0.5374192739338103,
+          "r2_x": 0.05968798543352727,
+          "r2_token": 0.05985984596430771,
+          "max_abs_lexical_zscore": 3.396413564682007,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 6986,
+          "r2_z": 0.450866489837881,
+          "r2_x": 0.0940194686590895,
+          "r2_token": 0.0940843289502794,
+          "max_abs_lexical_zscore": 0.5675680041313171,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 3766,
+          "r2_z": 0.4508129323052873,
+          "r2_x": 0.24556159616115947,
+          "r2_token": 0.2457498935200736,
+          "max_abs_lexical_zscore": 10.609381675720215,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.4375472518223015,
+          "r2_x": 0.2502009261376562,
+          "r2_token": 0.25009323473631484,
+          "max_abs_lexical_zscore": 11.424737930297852,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.432500397637655,
+          "r2_x": 0.07195086409574225,
+          "r2_token": 0.07216364278160858,
+          "max_abs_lexical_zscore": 13.095158576965332,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 6704,
+          "r2_z": 0.42813983916592857,
+          "r2_x": 0.15502342739686314,
+          "r2_token": 0.1549046007325774,
+          "max_abs_lexical_zscore": 8.882969856262207,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 266,
+          "r2_z": 0.37400259415008386,
+          "r2_x": 0.03348405676124255,
+          "r2_token": 0.03347161342656446,
+          "max_abs_lexical_zscore": 1.4859697818756104,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 15095,
+          "r2_z": 0.33634980559926875,
+          "r2_x": 0.09592626223031964,
+          "r2_token": 0.09591601266249739,
+          "max_abs_lexical_zscore": 5.807491302490234,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.33165508288405754,
+          "r2_x": 0.0055075993810101975,
+          "r2_token": 0.005513759314236699,
+          "max_abs_lexical_zscore": 1.3206737041473389,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10484,
+          "r2_z": 0.2942719948351591,
+          "r2_x": 0.16391632160362735,
+          "r2_token": 0.16369187432272858,
+          "max_abs_lexical_zscore": 25.634492874145508,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 2549,
+          "r2_z": 0.24784636322536624,
+          "r2_x": 0.013196304918007273,
+          "r2_token": 0.013150565980735496,
+          "max_abs_lexical_zscore": 0.6458384394645691,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4320,
+          "r2_z": 0.23668353705643475,
+          "r2_x": 0.0025967601773545512,
+          "r2_token": 0.002548786048593432,
+          "max_abs_lexical_zscore": 1.3408054113388062,
+          "top_lexical_probe_kind": "lex_domain_high",
+          "top_lexical_probe": "The property is speed.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 1204,
+          "r2_z": 0.2259066744287338,
+          "r2_x": 0.2162258158979452,
+          "r2_token": 0.2165142059650894,
+          "max_abs_lexical_zscore": 2.461164712905884,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12419,
+          "r2_z": 0.22415738860702594,
+          "r2_x": 0.05270349024792209,
+          "r2_token": 0.052614760681613526,
+          "max_abs_lexical_zscore": 5.298980236053467,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 4530,
+          "r2_z": 0.22288889492994712,
+          "r2_x": 0.30605945531267276,
+          "r2_token": 0.3062945478388387,
+          "max_abs_lexical_zscore": 1.367238163948059,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13748,
+          "r2_z": 0.19611748796395823,
+          "r2_x": 0.056594490593470326,
+          "r2_token": 0.05649775607650587,
+          "max_abs_lexical_zscore": 1.9399529695510864,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 14941,
+          "r2_z": 0.18939089690626065,
+          "r2_x": 0.08702072137581374,
+          "r2_token": 0.08691752969672462,
+          "max_abs_lexical_zscore": 9.152608871459961,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is slow.",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 14908,
+          "r2_z": 0.18034641966721565,
+          "r2_x": 0.005398327333984487,
+          "r2_token": 0.005381951983408739,
+          "max_abs_lexical_zscore": 1.5475430488586426,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5032,
+          "r2_z": 0.1786189035212674,
+          "r2_x": 0.0002704720694640672,
+          "r2_token": 0.00028412351840523264,
+          "max_abs_lexical_zscore": 22.41445541381836,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 10753,
+          "r2_z": 0.1783233311658815,
+          "r2_x": 0.16146226894108573,
+          "r2_token": 0.1612996134933301,
+          "max_abs_lexical_zscore": 2.587549924850464,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 8097,
+          "r2_z": 0.1699736166646646,
+          "r2_x": 0.23595879615870696,
+          "r2_token": 0.23622930453522972,
+          "max_abs_lexical_zscore": 7.893527030944824,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 7835,
+          "r2_z": 0.16331128092749636,
+          "r2_x": 0.30575014744223294,
+          "r2_token": 0.30562047668609416,
+          "max_abs_lexical_zscore": 3.34725022315979,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 1048,
+          "r2_z": 0.16151886031393392,
+          "r2_x": 0.15203762196840775,
+          "r2_token": 0.1520597494513154,
+          "max_abs_lexical_zscore": 0.5197275280952454,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 5241,
+          "r2_z": 0.1518269207610039,
+          "r2_x": 0.0005385716551010722,
+          "r2_token": 0.0005292985821880869,
+          "max_abs_lexical_zscore": 0.290516197681427,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: fast",
+          "classification": "mixed/polysemantic"
+        }
+      ]
+    },
+    "wealth": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 7,
+        "mixed/polysemantic": 6,
+        "pure-ish z": 8,
+        "raw numeric": 4
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 4.640597343444824,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 9.674681663513184
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 4.6828694343566895,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 6.795770168304443
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 4.462364673614502,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 8.556528091430664
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 4.453989028930664,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 8.486778259277344
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 4.866269588470459,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 7.327042102813721
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 4.679061412811279,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 8.749403953552246
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 4.675386905670166,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 7.611640453338623
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 4.611137866973877,
+          "max_abs_zscore": 20.357389450073242,
+          "mean_activation": 7.395376205444336
+        }
+      },
+      "features": [
+        {
+          "feature_id": 5741,
+          "r2_z": 0.6956705525995978,
+          "r2_x": 0.011075552630638419,
+          "r2_token": 0.011075552630638419,
+          "max_abs_lexical_zscore": 0.9174567461013794,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 13656,
+          "r2_z": 0.5562711402388915,
+          "r2_x": 0.08087064631306828,
+          "r2_token": 0.08087064631306828,
+          "max_abs_lexical_zscore": 9.262799263000488,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 5036,
+          "r2_z": 0.5485343119159318,
+          "r2_x": 0.06684197706867956,
+          "r2_token": 0.06684197706867956,
+          "max_abs_lexical_zscore": 3.766833543777466,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "This person is rich.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.4960882690914422,
+          "r2_x": 0.020134962390869315,
+          "r2_token": 0.020134962390869315,
+          "max_abs_lexical_zscore": 19.738182067871094,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 6394,
+          "r2_z": 0.47796280151292103,
+          "r2_x": -0.00043127380124152737,
+          "r2_token": -0.00043127380124152737,
+          "max_abs_lexical_zscore": 7.206500053405762,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 6185,
+          "r2_z": 0.45804974883499094,
+          "r2_x": 0.026837408924616835,
+          "r2_token": 0.026837408924616835,
+          "max_abs_lexical_zscore": 0.6034426093101501,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 7361,
+          "r2_z": 0.45563348678857574,
+          "r2_x": 0.09915390874968333,
+          "r2_token": 0.09915390874968333,
+          "max_abs_lexical_zscore": 1.0944080352783203,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 942,
+          "r2_z": 0.455552265495788,
+          "r2_x": 0.00012090559623734176,
+          "r2_token": 0.00012090559623734176,
+          "max_abs_lexical_zscore": 2.022045373916626,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is poor.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 10484,
+          "r2_z": 0.4552382009710242,
+          "r2_x": 0.012806076439982883,
+          "r2_token": 0.012806076439982883,
+          "max_abs_lexical_zscore": 13.350549697875977,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 2425,
+          "r2_z": 0.4524648569625189,
+          "r2_x": 0.06951757383001755,
+          "r2_token": 0.06951757383001755,
+          "max_abs_lexical_zscore": 1.3778091669082642,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "This person is rich.",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 14338,
+          "r2_z": 0.4197847126252149,
+          "r2_x": 0.015900403961445875,
+          "r2_token": 0.015900403961445875,
+          "max_abs_lexical_zscore": 0.5754134654998779,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 7196,
+          "r2_z": 0.4177031118299156,
+          "r2_x": 0.03651279075707792,
+          "r2_token": 0.03651279075707792,
+          "max_abs_lexical_zscore": 0.8776876330375671,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 9072,
+          "r2_z": 0.3661251545319275,
+          "r2_x": 0.0017167797207885416,
+          "r2_token": 0.0017167797207885416,
+          "max_abs_lexical_zscore": 2.4041221141815186,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 266,
+          "r2_z": 0.35999249163718494,
+          "r2_x": 0.06453135622735129,
+          "r2_token": 0.06453135622735129,
+          "max_abs_lexical_zscore": 10.239665031433105,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 4480,
+          "r2_z": 0.3570405577712954,
+          "r2_x": 0.0033350468751996987,
+          "r2_token": 0.0033350468751996987,
+          "max_abs_lexical_zscore": 1.6593716144561768,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10759,
+          "r2_z": 0.34434357260793613,
+          "r2_x": 0.02191298164755262,
+          "r2_token": 0.02191298164755262,
+          "max_abs_lexical_zscore": 2.2903013229370117,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "A description: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 13162,
+          "r2_z": 0.3346916974558224,
+          "r2_x": 0.021131953945117132,
+          "r2_token": 0.021131953945117132,
+          "max_abs_lexical_zscore": 20.357389450073242,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 1048,
+          "r2_z": 0.3333649306244554,
+          "r2_x": 0.0011952185230398316,
+          "r2_token": 0.0011952185230398316,
+          "max_abs_lexical_zscore": 0.5456617474555969,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 7809,
+          "r2_z": 0.32623761778032145,
+          "r2_x": 0.046901572467905495,
+          "r2_token": 0.046901572467905495,
+          "max_abs_lexical_zscore": 1.6506872177124023,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 14941,
+          "r2_z": 0.3109750297686513,
+          "r2_x": 0.15596920606098197,
+          "r2_token": 0.15596920606098197,
+          "max_abs_lexical_zscore": 10.381485939025879,
+          "top_lexical_probe_kind": "lex_sentence_high",
+          "top_lexical_probe": "This person is rich.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.3089471351127461,
+          "r2_x": -0.0016861045694072097,
+          "r2_token": -0.0016861045694072097,
+          "max_abs_lexical_zscore": 16.957195281982422,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 6986,
+          "r2_z": 0.30455025171916006,
+          "r2_x": 0.07728253117065165,
+          "r2_token": 0.07728253117065165,
+          "max_abs_lexical_zscore": 0.49939191341400146,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 11358,
+          "r2_z": 0.28672475340355763,
+          "r2_x": 0.2561355386694337,
+          "r2_token": 0.2561355386694337,
+          "max_abs_lexical_zscore": 1.0088156461715698,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13093,
+          "r2_z": 0.28669842879380614,
+          "r2_x": 0.15891681284071923,
+          "r2_token": 0.15891681284071923,
+          "max_abs_lexical_zscore": 0.7284749746322632,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 16358,
+          "r2_z": 0.26897269884189423,
+          "r2_x": 0.2523776429145863,
+          "r2_token": 0.2523776429145863,
+          "max_abs_lexical_zscore": 1.5229941606521606,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: rich",
+          "classification": "raw numeric"
+        }
+      ]
+    },
+    "experience": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 4,
+        "mixed/polysemantic": 7,
+        "pure-ish z": 8,
+        "raw numeric": 6
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 5.172987461090088,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 0.6254529356956482
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 5.13106632232666,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 0.8263495564460754
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 5.177689075469971,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 0.6029223799705505
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 5.320094108581543,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 2.2307074069976807
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 5.134240627288818,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 0.8111363053321838
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 5.147330284118652,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 2.9207980632781982
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 5.197909832000732,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 1.183961033821106
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 5.091667652130127,
+          "max_abs_zscore": 41.486358642578125,
+          "mean_activation": 2.4638030529022217
+        }
+      },
+      "features": [
+        {
+          "feature_id": 10147,
+          "r2_z": 0.7798953109732896,
+          "r2_x": 0.048306591970758594,
+          "r2_token": 0.049656950145939294,
+          "max_abs_lexical_zscore": 1.4439723491668701,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 7361,
+          "r2_z": 0.6825129353073769,
+          "r2_x": 0.16316270039099467,
+          "r2_token": 0.16495876250059605,
+          "max_abs_lexical_zscore": 1.3900575637817383,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 6229,
+          "r2_z": 0.611295340269513,
+          "r2_x": 0.06870372446458173,
+          "r2_token": 0.06850460245446388,
+          "max_abs_lexical_zscore": 1.2648109197616577,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 11100,
+          "r2_z": 0.5982920477339155,
+          "r2_x": 0.019070892419021712,
+          "r2_token": 0.019432726662057087,
+          "max_abs_lexical_zscore": 1.8542084693908691,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4713,
+          "r2_z": 0.579464933527781,
+          "r2_x": 0.3647450750251241,
+          "r2_token": 0.3677649938499714,
+          "max_abs_lexical_zscore": 2.031576633453369,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "This person is novice.",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12435,
+          "r2_z": 0.5697358310203693,
+          "r2_x": 0.18309083301943552,
+          "r2_token": 0.18091109161971397,
+          "max_abs_lexical_zscore": 0.749832808971405,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 12901,
+          "r2_z": 0.5421882538780274,
+          "r2_x": 0.04922149905865947,
+          "r2_token": 0.04909554945360506,
+          "max_abs_lexical_zscore": 0.5361223220825195,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 7012,
+          "r2_z": 0.49260909276180975,
+          "r2_x": 0.0245784321411594,
+          "r2_token": 0.02448523093079069,
+          "max_abs_lexical_zscore": 0.7155653834342957,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 9072,
+          "r2_z": 0.47297239193788143,
+          "r2_x": 0.09179946308284437,
+          "r2_token": 0.09276454614975249,
+          "max_abs_lexical_zscore": 6.545409679412842,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 14932,
+          "r2_z": 0.40991739677642924,
+          "r2_x": -0.0001599505105929211,
+          "r2_token": -0.0001742200113175052,
+          "max_abs_lexical_zscore": 3.4242148399353027,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 6394,
+          "r2_z": 0.3852917043515648,
+          "r2_x": -0.0008751527670556314,
+          "r2_token": -0.0008215930124775284,
+          "max_abs_lexical_zscore": 9.590604782104492,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 13656,
+          "r2_z": 0.3614369427939099,
+          "r2_x": 0.14719013556294058,
+          "r2_token": 0.14730652223812557,
+          "max_abs_lexical_zscore": 1.363914966583252,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 2074,
+          "r2_z": 0.3272946307807365,
+          "r2_x": -0.002303983432319745,
+          "r2_token": -0.002271566596414809,
+          "max_abs_lexical_zscore": 0.4402696490287781,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 3646,
+          "r2_z": 0.324961082024663,
+          "r2_x": 0.018668051519922457,
+          "r2_token": 0.018787222104739376,
+          "max_abs_lexical_zscore": 0.40854671597480774,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4480,
+          "r2_z": 0.322318612529498,
+          "r2_x": 0.01859320475542603,
+          "r2_token": 0.019151157688027887,
+          "max_abs_lexical_zscore": 2.054859161376953,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5032,
+          "r2_z": 0.28560086810766816,
+          "r2_x": 0.07290787280579725,
+          "r2_token": 0.07194585702285117,
+          "max_abs_lexical_zscore": 10.725653648376465,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 10955,
+          "r2_z": 0.2583674178901627,
+          "r2_x": 0.16233733303929654,
+          "r2_token": 0.16027387771682,
+          "max_abs_lexical_zscore": 0.775543749332428,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 10484,
+          "r2_z": 0.2532936223538137,
+          "r2_x": 0.24743507582872815,
+          "r2_token": 0.24538939511399782,
+          "max_abs_lexical_zscore": 41.486358642578125,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 12520,
+          "r2_z": 0.24953353463605688,
+          "r2_x": -0.0013440473802737163,
+          "r2_token": -0.0013158742040284555,
+          "max_abs_lexical_zscore": 3.012033462524414,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.2476952751520749,
+          "r2_x": 0.09724394926281599,
+          "r2_token": 0.09929215817959802,
+          "max_abs_lexical_zscore": 3.6661298274993896,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5100,
+          "r2_z": 0.24667850436068572,
+          "r2_x": 0.24975720057387862,
+          "r2_token": 0.25321677427358613,
+          "max_abs_lexical_zscore": 8.964118003845215,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 15232,
+          "r2_z": 0.1995161400648442,
+          "r2_x": 0.012977364931735513,
+          "r2_token": 0.013092600752930506,
+          "max_abs_lexical_zscore": 0.2794089615345001,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 2549,
+          "r2_z": 0.1958129424609648,
+          "r2_x": 0.10737237808146272,
+          "r2_token": 0.10678734711698934,
+          "max_abs_lexical_zscore": 15.562795639038086,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 4530,
+          "r2_z": 0.18562858641800162,
+          "r2_x": -0.0015005708308681864,
+          "r2_token": -0.0013507662506184737,
+          "max_abs_lexical_zscore": 14.310670852661133,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 942,
+          "r2_z": 0.17433834416997995,
+          "r2_x": 0.2074965181488876,
+          "r2_token": 0.2039921129333444,
+          "max_abs_lexical_zscore": 1.0529619455337524,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: expert",
+          "classification": "raw numeric"
+        }
+      ]
+    },
+    "bmi_abs": {
+      "available": true,
+      "n_features_audited": 25,
+      "classification_counts": {
+        "lexical z-like": 5,
+        "mixed/polysemantic": 9,
+        "pure-ish z": 6,
+        "raw numeric": 5
+      },
+      "lexical_probe_kind_scores": {
+        "lex_domain_high": {
+          "mean_abs_zscore": 3.310659408569336,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 3.9969496726989746
+        },
+        "lex_domain_low": {
+          "mean_abs_zscore": 3.5360848903656006,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 1.313926100730896
+        },
+        "lex_high_low_word_high": {
+          "mean_abs_zscore": 3.581779718399048,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 0.4390130639076233
+        },
+        "lex_high_low_word_low": {
+          "mean_abs_zscore": 3.4895527362823486,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 1.6476250886917114
+        },
+        "lex_sentence_high": {
+          "mean_abs_zscore": 3.5228664875030518,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 0.6089862585067749
+        },
+        "lex_sentence_low": {
+          "mean_abs_zscore": 3.6144847869873047,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 1.3901785612106323
+        },
+        "lex_synonym_high": {
+          "mean_abs_zscore": 3.527088165283203,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 1.211274266242981
+        },
+        "lex_synonym_low": {
+          "mean_abs_zscore": 3.340799331665039,
+          "max_abs_zscore": 18.431833267211914,
+          "mean_activation": 1.7234022617340088
+        }
+      },
+      "features": [
+        {
+          "feature_id": 5741,
+          "r2_z": 0.6783589662581246,
+          "r2_x": 0.0008300942695903535,
+          "r2_token": 0.0008489815515996257,
+          "max_abs_lexical_zscore": 0.9950616359710693,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 6986,
+          "r2_z": 0.5877218552345369,
+          "r2_x": 0.09427634295797982,
+          "r2_token": 0.09534175644915688,
+          "max_abs_lexical_zscore": 0.7556039690971375,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 10349,
+          "r2_z": 0.4788924625665518,
+          "r2_x": 0.04274897201458272,
+          "r2_token": 0.04275871489981198,
+          "max_abs_lexical_zscore": 1.854339361190796,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 3872,
+          "r2_z": 0.47524114414250496,
+          "r2_x": 0.007396710027029019,
+          "r2_token": 0.007764365224750103,
+          "max_abs_lexical_zscore": 0.627619743347168,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4480,
+          "r2_z": 0.4678597004528088,
+          "r2_x": 0.026496939771924577,
+          "r2_token": 0.02630702130317808,
+          "max_abs_lexical_zscore": 1.489892840385437,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 3456,
+          "r2_z": 0.460239666381944,
+          "r2_x": 0.07982349738525762,
+          "r2_token": 0.07992936929640859,
+          "max_abs_lexical_zscore": 1.0162734985351562,
+          "top_lexical_probe_kind": "lex_high_low_word_low",
+          "top_lexical_probe": "A description: thin",
+          "classification": "pure-ish z"
+        },
+        {
+          "feature_id": 4394,
+          "r2_z": 0.43898284168689605,
+          "r2_x": 0.02389440842460344,
+          "r2_token": 0.023026895607999087,
+          "max_abs_lexical_zscore": 17.095373153686523,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 10368,
+          "r2_z": 0.411147935725664,
+          "r2_x": 0.05346453287034825,
+          "r2_token": 0.05059584180050025,
+          "max_abs_lexical_zscore": 14.225558280944824,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 266,
+          "r2_z": 0.4041042215450187,
+          "r2_x": 0.04089023287740534,
+          "r2_token": 0.03959063987803424,
+          "max_abs_lexical_zscore": 12.42469310760498,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 81,
+          "r2_z": 0.34402020385482746,
+          "r2_x": 0.010921304014470778,
+          "r2_token": 0.011369234781910653,
+          "max_abs_lexical_zscore": 0.47240230441093445,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 11970,
+          "r2_z": 0.33678302860251197,
+          "r2_x": 0.2229357428382608,
+          "r2_token": 0.2226725006282093,
+          "max_abs_lexical_zscore": 1.404821753501892,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13656,
+          "r2_z": 0.3317516364312719,
+          "r2_x": 0.1251706392418046,
+          "r2_token": 0.12232450495985447,
+          "max_abs_lexical_zscore": 18.431833267211914,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 21,
+          "r2_z": 0.31766047545688825,
+          "r2_x": 0.0031372803993445775,
+          "r2_token": 0.0027690238306805615,
+          "max_abs_lexical_zscore": 1.09391450881958,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 4535,
+          "r2_z": 0.2908909405845552,
+          "r2_x": 0.0029572462336492356,
+          "r2_token": 0.0027111163603115163,
+          "max_abs_lexical_zscore": 0.5189012289047241,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 13529,
+          "r2_z": 0.29037131434259034,
+          "r2_x": 0.2363271553053411,
+          "r2_token": 0.23595263979162218,
+          "max_abs_lexical_zscore": 1.1924437284469604,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 13748,
+          "r2_z": 0.2841021669917133,
+          "r2_x": 0.059510460432252055,
+          "r2_token": 0.05802500758462015,
+          "max_abs_lexical_zscore": 6.008640289306641,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "lexical z-like"
+        },
+        {
+          "feature_id": 5241,
+          "r2_z": 0.27288004894472573,
+          "r2_x": 0.011065084910426903,
+          "r2_token": 0.011151305280438506,
+          "max_abs_lexical_zscore": 0.5775498151779175,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 15526,
+          "r2_z": 0.2697885576200756,
+          "r2_x": 0.03321283773330108,
+          "r2_token": 0.032354519576503704,
+          "max_abs_lexical_zscore": 3.1453182697296143,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 7044,
+          "r2_z": 0.22294156467343773,
+          "r2_x": 0.22593145798385028,
+          "r2_token": 0.2250142278566385,
+          "max_abs_lexical_zscore": 0.9453813433647156,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 2549,
+          "r2_z": 0.22257543988934814,
+          "r2_x": 0.10004324507802664,
+          "r2_token": 0.09943942450084653,
+          "max_abs_lexical_zscore": 0.38802653551101685,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 2197,
+          "r2_z": 0.22227459046343578,
+          "r2_x": 0.04666048757480812,
+          "r2_token": 0.044947382105132605,
+          "max_abs_lexical_zscore": 2.0027544498443604,
+          "top_lexical_probe_kind": "lex_sentence_low",
+          "top_lexical_probe": "The described case is thin.",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 5032,
+          "r2_z": 0.19986695033924706,
+          "r2_x": 0.017253955867264192,
+          "r2_token": 0.01695277142024021,
+          "max_abs_lexical_zscore": 2.1228981018066406,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        },
+        {
+          "feature_id": 6352,
+          "r2_z": 0.1971284744516767,
+          "r2_x": 0.149309654154001,
+          "r2_token": 0.14812723217320434,
+          "max_abs_lexical_zscore": 0.3983142375946045,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 15371,
+          "r2_z": 0.19657730850128696,
+          "r2_x": 0.1600347539494822,
+          "r2_token": 0.1582852605552687,
+          "max_abs_lexical_zscore": 0.37969130277633667,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "raw numeric"
+        },
+        {
+          "feature_id": 10966,
+          "r2_z": 0.19231263762700967,
+          "r2_x": 0.0953087183340876,
+          "r2_token": 0.09600350810193681,
+          "max_abs_lexical_zscore": 1.3000750541687012,
+          "top_lexical_probe_kind": "lex_high_low_word_high",
+          "top_lexical_probe": "The word is: obese",
+          "classification": "mixed/polysemantic"
+        }
+      ]
+    }
+  }
+}

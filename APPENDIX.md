@@ -310,6 +310,166 @@ v11.5 repeats this across seeds and applies BH-FDR correction over the 56
 off-diagonal cells. This is why the result is stronger than a single transfer
 heatmap.
 
+## Lexical Subspace Residualization
+
+V12.1 tests whether the causal `primal_z` direction is just direct adjective
+semantics. The experiment builds lexical directions from token-position captures
+at a fixed layer:
+
+```text
+d_word_token:      adjective-token state, e.g. "tall" - "short"
+d_sentence_token:  adjective-token state inside "This person is tall."
+d_sentence_final:  final-token state after "This person is tall."
+d_synonym_token:   synonym-token mean, e.g. {tall, high, large} - {short, low, small}
+d_domain_token:    domain word, e.g. "height" - "baseline"
+```
+
+The token-position capture uses tokenizer offset mappings: the adjective state
+is the mean hidden state over tokens whose character spans overlap the target
+phrase. This avoids the V12 ambiguity where sentence prompts were captured only
+at the final token.
+
+For each pair, make an orthonormal basis of the lexical subspace:
+
+```math
+Q_L = \operatorname{orth}([d_1,\dots,d_k])
+```
+
+Normalize the original context direction:
+
+```math
+p_z = \operatorname{unit}(\mathrm{primal}_z)
+```
+
+Project `p_z` into the lexical subspace:
+
+```math
+p_{z,\mathrm{lex}} = Q_L Q_L^\top p_z
+```
+
+The residual is the part outside that subspace:
+
+```math
+p_{z,\mathrm{resid}} = p_z - p_{z,\mathrm{lex}}
+```
+
+By construction:
+
+```math
+p_{z,\mathrm{lex}}^\top p_{z,\mathrm{resid}} \approx 0
+```
+
+The reported energy fraction is:
+
+```math
+\|p_{z,\mathrm{lex}}\|^2
+```
+
+because `p_z` is unit norm. V12.1 finds this is small on average, about `0.08`.
+
+Important: steering uses normalized directions:
+
+```math
+\operatorname{unit}(p_{z,\mathrm{lex}})
+\quad \mathrm{and} \quad
+\operatorname{unit}(p_{z,\mathrm{resid}})
+```
+
+Therefore a small lexical projection can steer more strongly than the original
+`primal_z` if it points in a high-gain output direction. The projection/primal
+ratio is an intervention-potency ratio, not a vector-energy ratio.
+
+Toy example:
+
+```text
+p_z = 0.25 lexical + 0.97 residual
+lexical direction sensitivity = 10
+residual direction sensitivity = 3
+```
+
+The lexical component is small by norm, but normalized lexical steering can be
+larger than normalized `p_z` because the lexical axis is more output-sensitive.
+
+V12.1 summary:
+
+```text
+mean cos(primal_z, word-token lexical direction)     ~= +0.10
+mean cos(primal_z, sentence-token lexical direction) ~= +0.10
+mean cos(primal_z, sentence-final direction)         ~= +0.26
+mean norm^2 in lexical subspace                      ~=  0.08
+mean lexical residual / primal steering              ~=  0.69
+```
+
+Interpretation: literal adjective tokens weakly align with `primal_z`, sentence
+final states align more, and the residual direction still has causal effect.
+This supports a mixed mechanism, not a clean lexical-only or non-lexical-only
+story.
+
+## Residual vs Lexical Cross-Pair Transfer
+
+V12.2 asks whether the lexical projection or the residual is more
+domain-general. For each source pair `s`, construct:
+
+```text
+d_full[s]  = unit(primal_z[s])
+d_lex[s]   = unit(p_z,lex[s])
+d_resid[s] = unit(p_z,resid[s])
+```
+
+For every target pair `t`, steer target prompts and read target LD. This gives
+three transfer matrices:
+
+```text
+M_full[target, source]
+M_lex[target, source]
+M_resid[target, source]
+```
+
+V12.2 single-seed Gemma 2 9B L33 summary:
+
+```text
+full primal_z:        diagonal +0.067, off-diagonal +0.026
+lexical projection:   diagonal +0.087, off-diagonal +0.011
+lexical residual:     diagonal +0.044, off-diagonal +0.024
+random null:          diagonal +0.000, off-diagonal -0.001
+```
+
+The residual transfers more broadly off-diagonal than the lexical projection,
+while full `primal_z` remains slightly stronger. This is evidence that the
+residual carries much of the shared cross-domain transfer.
+
+### Target Lexical-Subspace Leakage
+
+Source-side residualization does not guarantee target-side non-lexicality. A
+source residual is orthogonal to the source lexical subspace, but it can still
+land inside the target pair's lexical subspace.
+
+For each source direction `d_s` and target lexical basis `Q_{L,t}`, V12.2
+measures:
+
+```math
+\mathrm{targetLexOverlap}(t,s,d)
+= \|Q_{L,t}^\top d_s\|^2
+```
+
+Then it correlates transfer strength with this overlap across off-diagonal
+cells. V12.2 finds:
+
+```text
+corr(full transfer, target lexical overlap)     ~= +0.855
+corr(lex transfer, target lexical overlap)      ~= +0.659
+corr(resid transfer, target lexical overlap)    ~= +0.788
+```
+
+Interpretation: residualized directions transfer better than lexical projections
+off-diagonal, but their transfer is still organized by target-side lexical
+overlap. So the safe claim is:
+
+```text
+residualized directions retain a broad shared component,
+but they are not proven to be cleanly non-lexical.
+```
+
 ## SAE Jaccard Overlap
 
 For each pair, take the top-k SAE features by `R²(z)`, usually `k=50`.
@@ -626,9 +786,11 @@ measurement warnings, or follow-ups rather than headline claims.
   useful descriptive DLA, but v11/v11.5 ablations and permutation tests refuted
   the causal head-taxonomy framing.
 - **v11 single-seed transfer.** Replaced by v11.5 multi-seed BH-FDR transfer.
-- **SAE interpretation.** Current SAE controls rule out raw x and numeric-token
-  magnitude for top z features, but do not yet rule out lexical or domain-word
-  features.
-- **PC2 / z² geometry.** Some pairs show high `R²(PC2,z²)`, suggesting possible
-  extremeness or curvature structure, but this needs systematic analysis before
-  becoming a claim.
+- **SAE interpretation.** v11.5 controls rule out raw x and numeric-token
+  magnitude for many top z features, but V12 shows the feature population is
+  mixed: pure-ish z, lexical z-like, raw numeric, and polysemantic.
+- **PC2 / z² geometry.** V12 finds extremeness or curvature structure in some
+  secondary/tertiary PCs, but it is pair-specific and not a universal PC2 claim.
+- **Lexical residualization.** V12.1/V12.2 show a surviving residual component
+  after lexical-subspace removal, but target lexical-subspace leakage prevents a
+  clean "non-lexical shared code" claim.

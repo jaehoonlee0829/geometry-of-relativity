@@ -33,9 +33,16 @@
 - [x] **v11.5 §C+§D: multi-seed cross-pair steering with BH-FDR**. 56/56 off-diagonal cells significant on both models. Within/off ratios reveal speed/experience asymmetry. FINDINGS §16.2.
 - [x] **v11.5 §E: SAE features with token-frequency control**. Top z-features are pure-z (R²(z) ≈ 0.7–0.84, R²(x), R²(token) ≈ 0). 9B cross-pair Jaccard 0.22 vs 2B 0.11. FINDINGS §16.7.
 - [x] **v11.5 §F: bootstrap CIs throughout**. Every PC1.R²(z) gets a 95% block-bootstrap CI; every head-ablation Δr gets a Fisher-z CI. FINDINGS §16.8.
-- [x] **v11.5 §G: fold-aware P3c**. Bug fixed; orthogonalized R²(z) peaks at L1 (e.g. bmi_abs/2B = 0.256), then near-zero — z is encoded in one shot at L1 then carried forward. FINDINGS §16.5.
+- [x] **v11.5 §G: fold-aware P3c**. Bug fixed; orthogonalized R²(z) peaks at L1 (e.g. bmi_abs/2B = 0.256), then near-zero. Interpret as early z availability with most new linear information added at the start, not proof that the entire computation is complete at exactly L1. FINDINGS §16.5.
 - [x] **v11.5 §H: P3d widened ambiguous cells**. Recovers signal: cos(primal, leans-high−leans-low) ≈ 0.7–0.86 across most pairs/models. primal_z is W_U-orthogonal but decision-aligned. FINDINGS §16.6.
 - [x] **v11.5 §I: joint head-set ablation with held-out split**. Δcorr(z) is null on 2B and *helping* on 9B (ablating 32 heads raises corr by +0.016). v10 §14.6 causal taxonomy triple-refuted. FINDINGS §16.3.
+- [x] **v12 claim-hardening pass.** Completed 9B strategic-layer sweep,
+  direction red-team against raw-x and lexical/adjective prompts, pure-x /
+  fixed-mu transfer controls, SAE lexical audit, and PC extremeness/x audit.
+  Result is mixed: early decodability + later primal_z steering hold, but
+  lexical sentence steering is strong, pure-x controls are not decisive, SAE
+  features are mixed, and PC2 extremeness is pair-specific. See
+  `docs/V12_RESULTS_SUMMARY.md`.
 
 ## Retract / re-frame (concluded; bake into the paper draft)
 
@@ -45,21 +52,41 @@
 
 ## Queue — Paper (May 3-8)
 
-- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled cross-pair transfer) + §15.3 (dense geometry/behavior) + §16.5 (z encoded early, then carried forward) + §16.7 (top SAE z-features pass raw-x/token-magnitude controls). Treat §16.6 / W_U-orthogonal-but-decision-aligned primal_z as a supporting control, not a headline. v10 §14.6 causal framing in Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8; note that SAE lexical/domain-feature interpretations remain unresolved.
+- [ ] Complete paper draft. Headline §16.1 (shared z-direction) + §16.2
+  (FDR-controlled cross-pair transfer) + §15.3 (dense geometry/behavior) +
+  §16.5/V12 (z available early, used later) + V12.1/V12.2
+  lexical/residual decomposition. Treat §16.6 / W_U-orthogonal-but-decision-
+  aligned primal_z as a supporting control, not a headline. Add caveats
+  prominently: lexical sentence directions can steer as strongly as `primal_z`,
+  residual transfer still tracks target lexical overlap, pure-x controls preserve
+  only an average diagonal advantage, SAE features are mixed rather than purely
+  z, and extremeness geometry is pair-specific. v10 §14.6 causal framing in
+  Limitations (triple-refuted). Bootstrap CIs everywhere per §16.8.
 - [ ] Submit ICML 2026 MI Workshop (May 8) — primary target.
 - [ ] Submit NeurIPS 2026 (May 4 abstract, May 6 full) — secondary.
 - [ ] Update `docs/paper_outline.md` with v9–v11.5 findings.
 
 ## Queue — GPU figures for paper/README
 
-- [ ] **Regenerate the v9 2×3 layer-sweep figure on v11 Gemma 2 9B.** Target output: `figures/v11_5/layer_sweep_9b_combined.png`, matching the explanatory structure of `figures/v9/layer_sweep_combined.png` but using the dense v11/v11.5 9B substrate. Minimum panels: cumulative `R²(z)` by layer, fold-aware new `z` information by layer, causal steering strength by layer for `primal_z` vs Ridge probe, `||primal_z||` by layer, and layer-to-layer direction stability. CPU can plot from JSON, but the missing ingredient is per-layer steering; run GPU hook sweeps at strategic/all layers and write a JSON summary first.
+- [x] **Regenerate the v9 2×3 layer-sweep figure on v11 Gemma 2 9B.** Done in V12 as `figures/v12/layer_sweep_9b_combined.png` plus `results/v12/layer_sweep_9b*.json`. The result supports early decodability and later primal_z steering, with peak steering around L25 rather than L33.
 
 ## arXiv v2 follow-ups (post-May-7)
 
-- [ ] **Pure-x control on §16.2's transfer matrix.** Re-run cross-pair steering with μ held constant in target prompts to rule out the alternative critic's residual "shared numeral-magnitude direction" cheap explanation. The fact that the absolute-adjective bmi_abs aligns with the relative pairs at 0.65–0.77 ratio (§16.1) already partially refutes that hypothesis, but the explicit μ-fixed test is the gold standard.
-- [ ] **Dense v11 zero-shot / in-context x-vs-z red-team.** Re-run the v8 zero-shot direction comparison on the dense v11 substrate with a clearer plot and stronger controls: compare `primal_x`, `probe_x`, and zero-shot `w_x` against `primal_z` / `probe_z`; include chance/null bands, bootstrap CIs, and in-context `w_x_context` vs `w_z_context`. The current v8 plot uses supervised zero-shot `w_x` plus zero-shot PC1, and is useful but not visually/statistically strong enough as a headline figure.
-- [ ] **SAE feature interpretation audit beyond numeral controls.** For top z-SAE features, collect top-activating prompts/tokens and test lexical controls for adjective/domain words such as `tall`, `short`, `height`, `old`, `young`, etc. Current v11.5 controls rule out raw x and numeric-token magnitude, but do not yet distinguish pure relativity features from lexical/domain-semantic features.
-- [ ] **PC2 / z² extremeness interpretation audit.** Test whether PC1 is signed relativity while PC2 tracks extremeness (`|z|` or `z²`) for some pairs. Run across adjectives, models, and canonical layers before presenting the horseshoe/PC2 result as more than a geometry hint.
+- [x] **Pure-x control on §16.2's transfer matrix.** V12 result: diagonal transfer exceeds off-diagonal average under full/fixed-mu/fixed-x/matched-z controls, but off-diagonal transfer remains meaningful and matched-z does not weaken cross-transfer. Treat as mixed, not a decisive scalar-magnitude refutation.
+- [x] **Dense v11 in-context x-vs-z lexical red-team.** V12 result: raw x is usually weaker than `primal_z`, but lexical sentence directions are strong and often steer more than `primal_z`; zero-shot raw-x remains a future extension if needed.
+- [x] **SAE feature interpretation audit beyond numeral controls.** V12 result: 43/200 audited top features are pure-ish z, but lexical z-like, raw numeric, and mixed/polysemantic features are also common. Use "z-correlated sparse features" rather than "pure relative-standing features."
+- [x] **PC2 / z² extremeness interpretation audit.** V12 result: extremeness-like structure appears in several secondary/tertiary PCs, but not universally and not always PC2; raw x and signed z remain strong alternatives.
+- [x] **v12.1 lexical disentanglement follow-up.** Token-position lexical capture
+  shows weak adjective-token alignment with `primal_z` but stronger
+  sentence-final alignment. Lexical-subspace residualization shows a high-gain
+  lexical projection and a surviving residual direction. Use mixed-mechanism
+  framing; do not claim a clean non-lexical direction.
+- [x] **v12.2 residual-vs-lexical cross-pair transfer.** Single-seed L33 result:
+  lexical residual transfers more broadly off-diagonal than lexical projection
+  and recovers most of full `primal_z`, but full remains slightly stronger and
+  residual transfer still tracks target lexical-subspace overlap. Use
+  mixed-mechanism framing; do not call residual transfer cleanly non-lexical or
+  FDR/significant.
 - [ ] **Positive/negative sign control cleanup.** Keep v8 direct-sign as a measurement-warning follow-up only. If reused, rerun with top-K validation, forced-choice prompts, and clearer accuracy-vs-relativity framing before including it in paper claims.
 - [ ] **9B pure-z feature count asymmetry.** 9B has 1–16 pure-z features per pair while 2B has 11–50. Investigate: smaller k or larger superposition in 9B SAEs? Different SAE training regime? Compare with width_131k SAE if available.
 - [ ] **Speed and experience pair-specific direction analysis.** These two pairs are the exceptions to domain-generality (§16.1 ratios 0.27/0.44 and 0.50/0.42 across models). Vehicle vs person framing in speed; experience-domain shift. Worth a focused mini-study.

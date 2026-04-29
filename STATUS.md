@@ -1,6 +1,56 @@
-# STATUS.md — Project status as of Apr 26, 2026
+# STATUS.md — Project status as of Apr 29, 2026
 
 ## Current phase
+
+**v12.2 complete (RESIDUAL-TRANSFER / MIXED).** Ran the residual-vs-lexical
+cross-pair transfer follow-up from `docs/NEXT_GPU_SESSION_v12_2.md`. Outputs are
+under `results/v12_2/`, `figures/v12_2/`, and
+`docs/V12_2_RESULTS_SUMMARY.md`.
+
+- **Residual vs lexical transfer:** in this single-seed Gemma 2 9B L33 test,
+  residualized directions retain broad off-diagonal transfer (mean +0.024,
+  56/56 positive) and outperform lexical projection off-diagonal (mean +0.011).
+  Full `primal_z` remains slightly stronger off-diagonal (mean +0.026), while
+  lexical projection is strongest on-diagonal.
+- **Leakage caveat:** residual off-diagonal transfer is still strongly
+  correlated with target lexical-subspace overlap (r≈+0.79). This is evidence
+  for a residual shared component, not proof of a clean non-lexical or
+  target-lexical-independent shared code.
+
+**v12.1 complete (LEXICAL-DISENTANGLEMENT / MIXED).** Ran the narrow follow-up
+from `docs/NEXT_GPU_SESSION_v12_1.md`. Outputs are under `results/v12_1/`,
+`figures/v12_1/`, and `docs/V12_1_RESULTS_SUMMARY.md`.
+
+- **Token-position capture:** literal adjective-token directions align only
+  weakly with `primal_z` (mean cosine ≈ +0.10), while sentence-final states
+  after the adjective align more strongly (mean cosine ≈ +0.26). This separates
+  token position, not semantics: final punctuation can integrate adjective and
+  sentence state.
+- **Lexical subspace residualization:** the tested lexical subspace captures
+  modest `primal_z` vector energy (mean norm² ≈ 0.08), but its projection is
+  high-gain (mean projection/primal steering ≈ 1.25). The residualized direction
+  still steers all eight pairs (mean residual/primal ≈ 0.69). Treat this as
+  mixed-mechanism evidence, not proof of a clean non-lexical direction.
+
+**v12 complete (CLAIM-HARDENED / MIXED).** Ran the planned Gemma 2 9B
+claim-hardening pass from `docs/NEXT_GPU_SESSION_v12.md`. Outputs are under
+`results/v12/`, `figures/v12/`, and `docs/V12_RESULTS_SUMMARY.md`.
+Headline update: V12 supports early `z` decodability and later `primal_z`
+steering potency, but it softens several stronger paper claims:
+
+- **Layer sweep:** 9B `z` is linearly decodable very early, while `primal_z`
+  steering peaks later (mean slope ≈ +0.097 at L25, +0.067 at L33). Keep this
+  as a strategic-layer intervention result, not a fully identified circuit.
+- **Lexical red-team:** simple raw-x and unembedding directions do not explain
+  `primal_z`, but lexical sentence directions often steer as strongly as
+  `primal_z`. Do not claim "not lexical semantics" without caveat.
+- **Pure-x transfer control:** transfer persists on fixed-x/fixed-mu/matched-z
+  subsets, but matched-z does not weaken cross-transfer. Treat this control as
+  mixed, not as a clean scalar-magnitude refutation.
+- **SAE audit:** z-correlated sparse features exist, but top features are a mix
+  of pure-ish z, lexical z-like, raw numeric, and polysemantic features.
+- **PC audit:** extremeness/curvature appears for some pairs, often PC2 or PC3,
+  but there is no universal "PC2 = extremeness" result.
 
 **v11.5 complete (SHARED-AMBER).** Re-ran the v4–v9 foundational research
 questions on v11's enriched data. Headline results:
@@ -13,14 +63,17 @@ questions on v11's enriched data. Headline results:
 - **Cross-pair transfer is statistically real.** 56/56 off-diagonal
   cells significant under BH-FDR q=0.05 on both models (5-seed
   multi-seed). FINDINGS §16.2.
-- **z is encoded at L1 in one shot, then carried forward.** Fold-aware
+- **z is available early, with most new linear information at the start.** Fold-aware
   P3c orthogonalized R² peaks at L1 (e.g. bmi_abs/2B=0.256, height/2B=0.145)
-  and is near-zero at every later layer, sharper than v10 §14's "by L7
-  naive plateau." FINDINGS §16.5.
-- **Top SAE z-features are pure-z, not numeral-magnitude trackers.**
+  and is near-zero at every later layer, while naive decodability is already
+  high by the early layers. Read this as early availability plus carry-forward,
+  not as proof that the whole computation is completed exactly at L1. FINDINGS
+  §16.5.
+- **Top SAE z-features pass raw-x/token controls, but V12 softens purity.**
   R²(z) ≈ 0.7–0.84 with R²(x), R²(token) ≈ 0 across all pairs/models
   for the top feature. 9B cross-pair Jaccard 0.22 (2× 2B's 0.11).
-  FINDINGS §16.7.
+  FINDINGS §16.7. V12's lexical audit shows the top-feature population is
+  mixed, so use "z-correlated sparse features" rather than "pure z features."
 - **v10 §14.6 causal head taxonomy is TRIPLE-REFUTED.** Single-head
   ablations null (v11 §15.4); joint-tag-set ablations null on 2B and
   *helping* on 9B (v11.5 §16.3); permutation null on the taxonomy
@@ -49,6 +102,15 @@ the v11.5 follow-up. FINDINGS §15.
 - v10 reproducibility close (re-extracted NPZs, uploaded to HF) — RIPE-MANGO step 1
 - v11 cross-model dense + 5-critic post-hoc round (FINDINGS §15) — RIPE-MANGO step 2
 - **v11.5 v4–v9 question replication on enriched data** (FINDINGS §16): shared z-direction, multi-seed cross-pair transfer with FDR, joint head ablation, fold-aware P3c, widened P3d, SAE token-freq control, bootstrap CIs throughout — SHARED-AMBER
+- **v12 claim-hardening pass**: 9B strategic-layer sweep, direction red-team
+  against raw-x/lexical probes, pure-x/fixed-mu transfer controls, SAE lexical
+  audit, and PC extremeness/x audit. See `docs/V12_RESULTS_SUMMARY.md`.
+- **v12.1 lexical disentanglement follow-up**: token-position lexical capture
+  and lexical-subspace residualization of `primal_z`. See
+  `docs/V12_1_RESULTS_SUMMARY.md`.
+- **v12.2 residual-vs-lexical cross-pair transfer**: single-seed L33 transfer
+  matrices for full `primal_z`, lexical projection, lexical residual, and
+  target lexical-subspace leakage. See `docs/V12_2_RESULTS_SUMMARY.md`.
 
 ## Retracted (replace in any draft)
 
@@ -70,12 +132,16 @@ the v11.5 follow-up. FINDINGS §15.
 1. **Paper writing** (May 4 abstract → May 8 ICML MI Workshop).
    Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled
    transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned
-   primal_z). Three-way refutation of §14.6 in the Limitations section.
-   Bootstrap CIs everywhere per §16.8.
-2. **arXiv v2 follow-ups** (post-May-7): pure-x control on the 16.2
-   transfer matrix (rules out residual "make-numeral-bigger"); 9B
-   pure-z feature asymmetry (1–16 features vs 2B's 11–50);
-   speed/experience pair-specific direction analysis.
+   primal_z), with V12 caveats: lexical sentence directions remain a serious
+   competitor, V12.1/V12.2 show high-gain lexical projections and surviving
+   residual steering/transfer, but target lexical overlap remains a major
+   confound. Pure-x transfer controls are mixed, and SAE/PC interpretations
+   must be framed as z-correlated/mixed rather than pure mechanisms. Three-way
+   refutation of §14.6 in the Limitations section. Bootstrap CIs everywhere per
+   §16.8.
+2. **arXiv v2 follow-ups** (post-May-7): stronger zero-shot raw-x controls,
+   bootstrap/null bands for V12 steering controls, 9B pure-ish-z feature
+   asymmetry, and speed/experience pair-specific direction analysis.
 
 ## Archived session logs
 

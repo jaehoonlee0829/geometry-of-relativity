@@ -1,0 +1,86 @@
+{
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "by_pair": {
+    "height": {
+      "cos_primal_z_lex_high_low_word": 0.08032090704904772,
+      "cos_primal_x_lex_high_low_word": 0.039057514984805336,
+      "cos_primal_z_lex_sentence": 0.25588198593720946,
+      "cos_primal_x_lex_sentence": 0.1784740037464477,
+      "cos_primal_z_lex_synonym": 0.08820674755107447,
+      "cos_primal_x_lex_synonym": 0.056341127281877006,
+      "cos_primal_z_lex_domain": -0.005255587701549533,
+      "cos_primal_x_lex_domain": -0.016940056705989505
+    },
+    "age": {
+      "cos_primal_z_lex_high_low_word": 0.07593529563066218,
+      "cos_primal_x_lex_high_low_word": 0.06386391743355505,
+      "cos_primal_z_lex_sentence": 0.26916881003825144,
+      "cos_primal_x_lex_sentence": 0.07892814152780252,
+      "cos_primal_z_lex_synonym": 0.058105039208750243,
+      "cos_primal_x_lex_synonym": 0.08448821181807659,
+      "cos_primal_z_lex_domain": 0.016363029755179438,
+      "cos_primal_x_lex_domain": 0.014534813842050204
+    },
+    "weight": {
+      "cos_primal_z_lex_high_low_word": 0.08196200927950319,
+      "cos_primal_x_lex_high_low_word": 0.03030242575872563,
+      "cos_primal_z_lex_sentence": 0.22612850256376618,
+      "cos_primal_x_lex_sentence": 0.0795804357980588,
+      "cos_primal_z_lex_synonym": 0.0771070957450271,
+      "cos_primal_x_lex_synonym": 0.021482793575180657,
+      "cos_primal_z_lex_domain": 0.027386226917781496,
+      "cos_primal_x_lex_domain": -0.033569086823486576
+    },
+    "size": {
+      "cos_primal_z_lex_high_low_word": 0.13858194095024673,
+      "cos_primal_x_lex_high_low_word": 0.07761195332481441,
+      "cos_primal_z_lex_sentence": 0.40197216973860744,
+      "cos_primal_x_lex_sentence": 0.161083443358081,
+      "cos_primal_z_lex_synonym": 0.14101107618205766,
+      "cos_primal_x_lex_synonym": 0.09613664561108874,
+      "cos_primal_z_lex_domain": 0.039891420320342395,
+      "cos_primal_x_lex_domain": -0.0844658635708669
+    },
+    "speed": {
+      "cos_primal_z_lex_high_low_word": 0.08300770571623949,
+      "cos_primal_x_lex_high_low_word": 0.05106578557727436,
+      "cos_primal_z_lex_sentence": 0.2206785707995673,
+      "cos_primal_x_lex_sentence": 0.04877228138645431,
+      "cos_primal_z_lex_synonym": 0.07125043953373278,
+      "cos_primal_x_lex_synonym": 0.04143873484569326,
+      "cos_primal_z_lex_domain": 0.13363154597276125,
+      "cos_primal_x_lex_domain": -0.000756109422633381
+    },
+    "wealth": {
+      "cos_primal_z_lex_high_low_word": 0.09182149497324299,
+      "cos_primal_x_lex_high_low_word": 0.012978523049498588,
+      "cos_primal_z_lex_sentence": 0.22960787332901664,
+      "cos_primal_x_lex_sentence": 0.13702033763288385,
+      "cos_primal_z_lex_synonym": 0.12070213670185317,
+      "cos_primal_x_lex_synonym": 0.08502004973655006,
+      "cos_primal_z_lex_domain": 0.09210668636705285,
+      "cos_primal_x_lex_domain": 0.030940477069101753
+    },
+    "experience": {
+      "cos_primal_z_lex_high_low_word": 0.06289293125800606,
+      "cos_primal_x_lex_high_low_word": 0.05958733672021166,
+      "cos_primal_z_lex_sentence": 0.24600727976389325,
+      "cos_primal_x_lex_sentence": 0.15377306962932316,
+      "cos_primal_z_lex_synonym": 0.0568836829415311,
+      "cos_primal_x_lex_synonym": 0.08142952045448011,
+      "cos_primal_z_lex_domain": 0.0603690279182075,
+      "cos_primal_x_lex_domain": 0.00835213227066611
+    },
+    "bmi_abs": {
+      "cos_primal_z_lex_high_low_word": 0.1310262833612377,
+      "cos_primal_x_lex_high_low_word": 0.06859661375135807,
+      "cos_primal_z_lex_sentence": 0.19378243204031878,
+      "cos_primal_x_lex_sentence": 0.08276850123520431,
+      "cos_primal_z_lex_synonym": 0.09254425148454778,
+      "cos_primal_x_lex_synonym": 0.06573326800596146,
+      "cos_primal_z_lex_domain": 0.019950554317507037,
+      "cos_primal_x_lex_domain": 0.02242244444469257
+    }
+  }
+}

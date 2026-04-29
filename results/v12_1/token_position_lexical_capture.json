@@ -1,0 +1,8648 @@
+{
+  "model_id": "google/gemma-2-9b",
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "capture_rule": "adjective state is the mean over tokenizer offset tokens overlapping target_phrase; final state is the last non-padding token.",
+  "by_pair": {
+    "height": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "height",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is tall",
+          "target_phrase": "tall",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tall"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581tall",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is tall.",
+          "target_phrase": "tall",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tall"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is tall.",
+          "target_phrase": "tall",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tall"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is short",
+          "target_phrase": "short",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581short"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581short",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is short.",
+          "target_phrase": "short",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581short"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is short.",
+          "target_phrase": "short",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581short"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is tall",
+          "target_phrase": "tall",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tall"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581tall",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is tall.",
+          "target_phrase": "tall",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tall"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is high",
+          "target_phrase": "high",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581high"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581high",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is high.",
+          "target_phrase": "high",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581high"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is large",
+          "target_phrase": "large",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581large",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is large.",
+          "target_phrase": "large",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is short",
+          "target_phrase": "short",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581short"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581short",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is short.",
+          "target_phrase": "short",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581short"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is low",
+          "target_phrase": "low",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581low"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581low",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is low.",
+          "target_phrase": "low",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581low"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is small",
+          "target_phrase": "small",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581small",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is small.",
+          "target_phrase": "small",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is height",
+          "target_phrase": "height",
+          "char_start": 16,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581height"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581height",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is height",
+          "target_phrase": "height",
+          "char_start": 19,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581height"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581height",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is height",
+          "target_phrase": "height",
+          "char_start": 15,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581height"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581height",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "height",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.10325518002856188,
+        "cos_primal_z_d_sentence_token": 0.08620241215061342,
+        "cos_primal_z_d_sentence_final": 0.22952567792402848,
+        "cos_primal_z_d_synonym_token": 0.14155373607678393,
+        "cos_primal_z_d_synonym_sentence_token": 0.09163210347796151,
+        "cos_primal_z_d_domain_token": 0.03231178605374033,
+        "cos_primal_x_d_word_token": 0.042545200054647674,
+        "cos_primal_x_d_sentence_token": 0.046138005585863395,
+        "cos_primal_x_d_sentence_final": 0.14698061668439333,
+        "cos_primal_x_d_synonym_token": 0.06985082230537745,
+        "cos_primal_x_d_synonym_sentence_token": 0.06429878276940194,
+        "cos_primal_x_d_domain_token": -0.0007689750183196514
+      }
+    },
+    "age": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "age",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is old",
+          "target_phrase": "old",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581old"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581old",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is old.",
+          "target_phrase": "old",
+          "char_start": 15,
+          "char_end": 18,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581old"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              18
+            ],
+            [
+              18,
+              19
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is old.",
+          "target_phrase": "old",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581old"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is young",
+          "target_phrase": "young",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581young"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581young",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is young.",
+          "target_phrase": "young",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581young"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is young.",
+          "target_phrase": "young",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581young"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is old",
+          "target_phrase": "old",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581old"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581old",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is old.",
+          "target_phrase": "old",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581old"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is elderly",
+          "target_phrase": "elderly",
+          "char_start": 17,
+          "char_end": 24,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581elderly"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581elderly",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is elderly.",
+          "target_phrase": "elderly",
+          "char_start": 20,
+          "char_end": 27,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581elderly"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              27
+            ],
+            [
+              27,
+              28
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is aged",
+          "target_phrase": "aged",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581aged"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581aged",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is aged.",
+          "target_phrase": "aged",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581aged"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is young",
+          "target_phrase": "young",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581young"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581young",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is young.",
+          "target_phrase": "young",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581young"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is new",
+          "target_phrase": "new",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581new"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581new",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is new.",
+          "target_phrase": "new",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581new"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is youthful",
+          "target_phrase": "youthful",
+          "char_start": 17,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581youthful"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581youthful",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is youthful.",
+          "target_phrase": "youthful",
+          "char_start": 20,
+          "char_end": 28,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581youthful"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              28
+            ],
+            [
+              28,
+              29
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is age",
+          "target_phrase": "age",
+          "char_start": 16,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581age"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581age",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              19
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is age",
+          "target_phrase": "age",
+          "char_start": 19,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581age"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581age",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is age",
+          "target_phrase": "age",
+          "char_start": 15,
+          "char_end": 18,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581age"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581age",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              18
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "age",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.0753241617984493,
+        "cos_primal_z_d_sentence_token": 0.11200641028709772,
+        "cos_primal_z_d_sentence_final": 0.24632682289399827,
+        "cos_primal_z_d_synonym_token": 0.10700261116272226,
+        "cos_primal_z_d_synonym_sentence_token": 0.06903942594793738,
+        "cos_primal_z_d_domain_token": 0.012614726847951653,
+        "cos_primal_x_d_word_token": 0.05605799550879995,
+        "cos_primal_x_d_sentence_token": 0.05802124352705426,
+        "cos_primal_x_d_sentence_final": 0.08785287367183425,
+        "cos_primal_x_d_synonym_token": 0.09150675085464365,
+        "cos_primal_x_d_synonym_sentence_token": 0.13428749886611202,
+        "cos_primal_x_d_domain_token": 0.042708147259203154
+      }
+    },
+    "weight": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "weight",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is heavy",
+          "target_phrase": "heavy",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581heavy",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is heavy.",
+          "target_phrase": "heavy",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is heavy.",
+          "target_phrase": "heavy",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is light",
+          "target_phrase": "light",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581light",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is light.",
+          "target_phrase": "light",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is light.",
+          "target_phrase": "light",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is heavy",
+          "target_phrase": "heavy",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581heavy",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is heavy.",
+          "target_phrase": "heavy",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is weighty",
+          "target_phrase": "weighty",
+          "char_start": 17,
+          "char_end": 24,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581weighty"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581weighty",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is weighty.",
+          "target_phrase": "weighty",
+          "char_start": 20,
+          "char_end": 27,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581weighty"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              27
+            ],
+            [
+              27,
+              28
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is large",
+          "target_phrase": "large",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581large",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is large.",
+          "target_phrase": "large",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is light",
+          "target_phrase": "light",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581light",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is light.",
+          "target_phrase": "light",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is thin",
+          "target_phrase": "thin",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581thin",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is thin.",
+          "target_phrase": "thin",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is small",
+          "target_phrase": "small",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581small",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is small.",
+          "target_phrase": "small",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is weight",
+          "target_phrase": "weight",
+          "char_start": 16,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581weight"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581weight",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is weight",
+          "target_phrase": "weight",
+          "char_start": 19,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581weight"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581weight",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is weight",
+          "target_phrase": "weight",
+          "char_start": 15,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581weight"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581weight",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "weight",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.08288719620674981,
+        "cos_primal_z_d_sentence_token": 0.07646033967129176,
+        "cos_primal_z_d_sentence_final": 0.23567669709777736,
+        "cos_primal_z_d_synonym_token": 0.1323879870421144,
+        "cos_primal_z_d_synonym_sentence_token": 0.10587670397305433,
+        "cos_primal_z_d_domain_token": 0.002914392132843973,
+        "cos_primal_x_d_word_token": 0.031058628727127644,
+        "cos_primal_x_d_sentence_token": 0.03653614356355914,
+        "cos_primal_x_d_sentence_final": 0.09354638289950676,
+        "cos_primal_x_d_synonym_token": 0.028132840176110268,
+        "cos_primal_x_d_synonym_sentence_token": 0.06181680871194889,
+        "cos_primal_x_d_domain_token": 0.014340182089685408
+      }
+    },
+    "size": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "size",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is big",
+          "target_phrase": "big",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581big"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581big",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is big.",
+          "target_phrase": "big",
+          "char_start": 15,
+          "char_end": 18,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581big"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              18
+            ],
+            [
+              18,
+              19
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is big.",
+          "target_phrase": "big",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581big"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is small",
+          "target_phrase": "small",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581small",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is small.",
+          "target_phrase": "small",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is small.",
+          "target_phrase": "small",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is big",
+          "target_phrase": "big",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581big"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581big",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is big.",
+          "target_phrase": "big",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581big"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is large",
+          "target_phrase": "large",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581large",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is large.",
+          "target_phrase": "large",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is huge",
+          "target_phrase": "huge",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581huge"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581huge",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is huge.",
+          "target_phrase": "huge",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581huge"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is small",
+          "target_phrase": "small",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581small",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is small.",
+          "target_phrase": "small",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581small"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is little",
+          "target_phrase": "little",
+          "char_start": 17,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581little"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581little",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is little.",
+          "target_phrase": "little",
+          "char_start": 20,
+          "char_end": 26,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581little"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              26
+            ],
+            [
+              26,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is tiny",
+          "target_phrase": "tiny",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tiny"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581tiny",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is tiny.",
+          "target_phrase": "tiny",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581tiny"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is size",
+          "target_phrase": "size",
+          "char_start": 16,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581size"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581size",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is size",
+          "target_phrase": "size",
+          "char_start": 19,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581size"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581size",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is size",
+          "target_phrase": "size",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581size"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581size",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "size",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.13387581267670406,
+        "cos_primal_z_d_sentence_token": 0.11555015581773738,
+        "cos_primal_z_d_sentence_final": 0.3888609091792499,
+        "cos_primal_z_d_synonym_token": 0.19388614485411515,
+        "cos_primal_z_d_synonym_sentence_token": 0.1519410432829262,
+        "cos_primal_z_d_domain_token": 0.016326039333303996,
+        "cos_primal_x_d_word_token": 0.08182072765922221,
+        "cos_primal_x_d_sentence_token": 0.054096620542099925,
+        "cos_primal_x_d_sentence_final": 0.1613926866076339,
+        "cos_primal_x_d_synonym_token": 0.10231199693744236,
+        "cos_primal_x_d_synonym_sentence_token": 0.0773769015896768,
+        "cos_primal_x_d_domain_token": 0.003170864243701927
+      }
+    },
+    "speed": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "speed",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is fast",
+          "target_phrase": "fast",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581fast"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581fast",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is fast.",
+          "target_phrase": "fast",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581fast"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is fast.",
+          "target_phrase": "fast",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581fast"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is slow",
+          "target_phrase": "slow",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581slow"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581slow",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is slow.",
+          "target_phrase": "slow",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581slow"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is slow.",
+          "target_phrase": "slow",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581slow"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is fast",
+          "target_phrase": "fast",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581fast"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581fast",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is fast.",
+          "target_phrase": "fast",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581fast"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is quick",
+          "target_phrase": "quick",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581quick"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581quick",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is quick.",
+          "target_phrase": "quick",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581quick"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is rapid",
+          "target_phrase": "rapid",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rapid"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581rapid",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is rapid.",
+          "target_phrase": "rapid",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rapid"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is slow",
+          "target_phrase": "slow",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581slow"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581slow",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is slow.",
+          "target_phrase": "slow",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581slow"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is sluggish",
+          "target_phrase": "sluggish",
+          "char_start": 17,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581sluggish"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581sluggish",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is sluggish.",
+          "target_phrase": "sluggish",
+          "char_start": 20,
+          "char_end": 28,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581sluggish"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              28
+            ],
+            [
+              28,
+              29
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is unhurried",
+          "target_phrase": "unhurried",
+          "char_start": 17,
+          "char_end": 26,
+          "token_span_unpadded": [
+            4,
+            7
+          ],
+          "token_count": 3,
+          "target_token_texts": [
+            "\u2581un",
+            "hur",
+            "ried"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": "ried",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              22
+            ],
+            [
+              22,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is unhurried.",
+          "target_phrase": "unhurried",
+          "char_start": 20,
+          "char_end": 29,
+          "token_span_unpadded": [
+            5,
+            8
+          ],
+          "token_count": 3,
+          "target_token_texts": [
+            "\u2581un",
+            "hur",
+            "ried"
+          ],
+          "final_token_unpadded": 8,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              22
+            ],
+            [
+              22,
+              25
+            ],
+            [
+              25,
+              29
+            ],
+            [
+              29,
+              30
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is speed",
+          "target_phrase": "speed",
+          "char_start": 16,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581speed"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581speed",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is speed",
+          "target_phrase": "speed",
+          "char_start": 19,
+          "char_end": 24,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581speed"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581speed",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is speed",
+          "target_phrase": "speed",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581speed"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581speed",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "speed",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.09376420616344928,
+        "cos_primal_z_d_sentence_token": 0.1028759591742626,
+        "cos_primal_z_d_sentence_final": 0.24059348955863147,
+        "cos_primal_z_d_synonym_token": 0.09059330154422487,
+        "cos_primal_z_d_synonym_sentence_token": 0.04918624761801441,
+        "cos_primal_z_d_domain_token": 0.08047783832791458,
+        "cos_primal_x_d_word_token": 0.058846303869183825,
+        "cos_primal_x_d_sentence_token": 0.05078939630842907,
+        "cos_primal_x_d_sentence_final": 0.057443046868262224,
+        "cos_primal_x_d_synonym_token": 0.03143772903243411,
+        "cos_primal_x_d_synonym_sentence_token": 0.027668142874315942,
+        "cos_primal_x_d_domain_token": 0.03176695397713816
+      }
+    },
+    "wealth": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "wealth",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is rich",
+          "target_phrase": "rich",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rich"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581rich",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is rich.",
+          "target_phrase": "rich",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rich"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is rich.",
+          "target_phrase": "rich",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rich"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is poor",
+          "target_phrase": "poor",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581poor"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581poor",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is poor.",
+          "target_phrase": "poor",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581poor"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is poor.",
+          "target_phrase": "poor",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581poor"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is rich",
+          "target_phrase": "rich",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rich"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581rich",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is rich.",
+          "target_phrase": "rich",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581rich"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is wealthy",
+          "target_phrase": "wealthy",
+          "char_start": 17,
+          "char_end": 24,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581wealthy"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581wealthy",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is wealthy.",
+          "target_phrase": "wealthy",
+          "char_start": 20,
+          "char_end": 27,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581wealthy"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              27
+            ],
+            [
+              27,
+              28
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is affluent",
+          "target_phrase": "affluent",
+          "char_start": 17,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581affluent"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581affluent",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is affluent.",
+          "target_phrase": "affluent",
+          "char_start": 20,
+          "char_end": 28,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581affluent"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              28
+            ],
+            [
+              28,
+              29
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is poor",
+          "target_phrase": "poor",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581poor"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581poor",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is poor.",
+          "target_phrase": "poor",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581poor"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is low-income",
+          "target_phrase": "low-income",
+          "char_start": 17,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            7
+          ],
+          "token_count": 3,
+          "target_token_texts": [
+            "\u2581low",
+            "-",
+            "income"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": "income",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ],
+            [
+              20,
+              21
+            ],
+            [
+              21,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is low-income.",
+          "target_phrase": "low-income",
+          "char_start": 20,
+          "char_end": 30,
+          "token_span_unpadded": [
+            5,
+            8
+          ],
+          "token_count": 3,
+          "target_token_texts": [
+            "\u2581low",
+            "-",
+            "income"
+          ],
+          "final_token_unpadded": 8,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ],
+            [
+              24,
+              30
+            ],
+            [
+              30,
+              31
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is broke",
+          "target_phrase": "broke",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581broke"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581broke",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is broke.",
+          "target_phrase": "broke",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581broke"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is wealth",
+          "target_phrase": "wealth",
+          "char_start": 16,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581wealth"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581wealth",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is wealth",
+          "target_phrase": "wealth",
+          "char_start": 19,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581wealth"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581wealth",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is wealth",
+          "target_phrase": "wealth",
+          "char_start": 15,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581wealth"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581wealth",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "wealth",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.08338773852757646,
+        "cos_primal_z_d_sentence_token": 0.10690967744984121,
+        "cos_primal_z_d_sentence_final": 0.2917373824926717,
+        "cos_primal_z_d_synonym_token": 0.12576879706987923,
+        "cos_primal_z_d_synonym_sentence_token": 0.06487497117246502,
+        "cos_primal_z_d_domain_token": 0.06786056248948312,
+        "cos_primal_x_d_word_token": 0.023874881989236527,
+        "cos_primal_x_d_sentence_token": 0.06772962284105234,
+        "cos_primal_x_d_sentence_final": 0.13084153466850318,
+        "cos_primal_x_d_synonym_token": 0.043406289052432157,
+        "cos_primal_x_d_synonym_sentence_token": 0.05071459415067827,
+        "cos_primal_x_d_domain_token": -0.0038690242253560797
+      }
+    },
+    "experience": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "experience",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is expert",
+          "target_phrase": "expert",
+          "char_start": 17,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581expert"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581expert",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is expert.",
+          "target_phrase": "expert",
+          "char_start": 15,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581expert"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              21
+            ],
+            [
+              21,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is expert.",
+          "target_phrase": "expert",
+          "char_start": 20,
+          "char_end": 26,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581expert"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              26
+            ],
+            [
+              26,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is novice",
+          "target_phrase": "novice",
+          "char_start": 17,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581novice"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581novice",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is novice.",
+          "target_phrase": "novice",
+          "char_start": 15,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581novice"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              21
+            ],
+            [
+              21,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is novice.",
+          "target_phrase": "novice",
+          "char_start": 20,
+          "char_end": 26,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581novice"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              26
+            ],
+            [
+              26,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is expert",
+          "target_phrase": "expert",
+          "char_start": 17,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581expert"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581expert",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is expert.",
+          "target_phrase": "expert",
+          "char_start": 20,
+          "char_end": 26,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581expert"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              26
+            ],
+            [
+              26,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is experienced",
+          "target_phrase": "experienced",
+          "char_start": 17,
+          "char_end": 28,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581experienced"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581experienced",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              28
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is experienced.",
+          "target_phrase": "experienced",
+          "char_start": 20,
+          "char_end": 31,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581experienced"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              31
+            ],
+            [
+              31,
+              32
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is veteran",
+          "target_phrase": "veteran",
+          "char_start": 17,
+          "char_end": 24,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581veteran"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581veteran",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is veteran.",
+          "target_phrase": "veteran",
+          "char_start": 20,
+          "char_end": 27,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581veteran"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              27
+            ],
+            [
+              27,
+              28
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is novice",
+          "target_phrase": "novice",
+          "char_start": 17,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581novice"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581novice",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is novice.",
+          "target_phrase": "novice",
+          "char_start": 20,
+          "char_end": 26,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581novice"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              26
+            ],
+            [
+              26,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is new",
+          "target_phrase": "new",
+          "char_start": 17,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581new"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581new",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is new.",
+          "target_phrase": "new",
+          "char_start": 20,
+          "char_end": 23,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581new"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              23
+            ],
+            [
+              23,
+              24
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is inexperienced",
+          "target_phrase": "inexperienced",
+          "char_start": 17,
+          "char_end": 30,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581inexperienced"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581inexperienced",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              30
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is inexperienced.",
+          "target_phrase": "inexperienced",
+          "char_start": 20,
+          "char_end": 33,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581inexperienced"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              33
+            ],
+            [
+              33,
+              34
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is experience",
+          "target_phrase": "experience",
+          "char_start": 16,
+          "char_end": 26,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581experience"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581experience",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is experience",
+          "target_phrase": "experience",
+          "char_start": 19,
+          "char_end": 29,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581experience"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581experience",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              29
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is experience",
+          "target_phrase": "experience",
+          "char_start": 15,
+          "char_end": 25,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581experience"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581experience",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "experience",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.09583037168781479,
+        "cos_primal_z_d_sentence_token": 0.08487433049588552,
+        "cos_primal_z_d_sentence_final": 0.2356255878893387,
+        "cos_primal_z_d_synonym_token": 0.1042036055333445,
+        "cos_primal_z_d_synonym_sentence_token": 0.019077120053502955,
+        "cos_primal_z_d_domain_token": 0.028555557802262974,
+        "cos_primal_x_d_word_token": 0.077924063613326,
+        "cos_primal_x_d_sentence_token": 0.04760721920413649,
+        "cos_primal_x_d_sentence_final": 0.15605765917439082,
+        "cos_primal_x_d_synonym_token": 0.11825766803310225,
+        "cos_primal_x_d_synonym_sentence_token": 0.06233217669068228,
+        "cos_primal_x_d_domain_token": 0.007829633285635622
+      }
+    },
+    "bmi_abs": {
+      "n_prompts": 24,
+      "prompt_rows": [
+        {
+          "pair": "bmi_abs",
+          "kind": "word",
+          "polarity": "high",
+          "prompt": "The adjective is obese",
+          "target_phrase": "obese",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581obese"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581obese",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "This person is obese.",
+          "target_phrase": "obese",
+          "char_start": 15,
+          "char_end": 20,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581obese"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              20
+            ],
+            [
+              20,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "sentence",
+          "polarity": "high",
+          "prompt": "A described case is obese.",
+          "target_phrase": "obese",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581obese"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "word",
+          "polarity": "low",
+          "prompt": "The adjective is thin",
+          "target_phrase": "thin",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581thin",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "This person is thin.",
+          "target_phrase": "thin",
+          "char_start": 15,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 5,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              19
+            ],
+            [
+              19,
+              20
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "sentence",
+          "polarity": "low",
+          "prompt": "A described case is thin.",
+          "target_phrase": "thin",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is obese",
+          "target_phrase": "obese",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581obese"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581obese",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is obese.",
+          "target_phrase": "obese",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581obese"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is heavy",
+          "target_phrase": "heavy",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581heavy",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is heavy.",
+          "target_phrase": "heavy",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581heavy"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "high",
+          "prompt": "The adjective is large",
+          "target_phrase": "large",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581large",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "high",
+          "prompt": "A described case is large.",
+          "target_phrase": "large",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581large"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is thin",
+          "target_phrase": "thin",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581thin",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is thin.",
+          "target_phrase": "thin",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581thin"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is lean",
+          "target_phrase": "lean",
+          "char_start": 17,
+          "char_end": 21,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581lean"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581lean",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              21
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is lean.",
+          "target_phrase": "lean",
+          "char_start": 20,
+          "char_end": 24,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581lean"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              24
+            ],
+            [
+              24,
+              25
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym",
+          "polarity": "low",
+          "prompt": "The adjective is light",
+          "target_phrase": "light",
+          "char_start": 17,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581light",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              16,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "synonym_sentence",
+          "polarity": "low",
+          "prompt": "A described case is light.",
+          "target_phrase": "light",
+          "char_start": 20,
+          "char_end": 25,
+          "token_span_unpadded": [
+            5,
+            6
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581light"
+          ],
+          "final_token_unpadded": 6,
+          "final_token_text": ".",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              11
+            ],
+            [
+              11,
+              16
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              19,
+              25
+            ],
+            [
+              25,
+              26
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The property is BMI",
+          "target_phrase": "BMI",
+          "char_start": 16,
+          "char_end": 19,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581BMI"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581BMI",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              19
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The measurement is BMI",
+          "target_phrase": "BMI",
+          "char_start": 19,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581BMI"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581BMI",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              22
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "domain",
+          "prompt": "The concept is BMI",
+          "target_phrase": "BMI",
+          "char_start": 15,
+          "char_end": 18,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581BMI"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581BMI",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              18
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The property is neutral",
+          "target_phrase": "neutral",
+          "char_start": 16,
+          "char_end": 23,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581neutral"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581neutral",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              12
+            ],
+            [
+              12,
+              15
+            ],
+            [
+              15,
+              23
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The measurement is baseline",
+          "target_phrase": "baseline",
+          "char_start": 19,
+          "char_end": 27,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581baseline"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581baseline",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              15
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              18,
+              27
+            ]
+          ]
+        },
+        {
+          "pair": "bmi_abs",
+          "kind": "domain",
+          "polarity": "baseline",
+          "prompt": "The concept is generic",
+          "target_phrase": "generic",
+          "char_start": 15,
+          "char_end": 22,
+          "token_span_unpadded": [
+            4,
+            5
+          ],
+          "token_count": 1,
+          "target_token_texts": [
+            "\u2581generic"
+          ],
+          "final_token_unpadded": 4,
+          "final_token_text": "\u2581generic",
+          "offset_mapping": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              11
+            ],
+            [
+              11,
+              14
+            ],
+            [
+              14,
+              22
+            ]
+          ]
+        }
+      ],
+      "cosines": {
+        "cos_primal_z_d_word_token": 0.1601430233160445,
+        "cos_primal_z_d_sentence_token": 0.13183519266915675,
+        "cos_primal_z_d_sentence_final": 0.2083067675378117,
+        "cos_primal_z_d_synonym_token": 0.14697678861819374,
+        "cos_primal_z_d_synonym_sentence_token": 0.09070753214062481,
+        "cos_primal_z_d_domain_token": 0.021628901956241054,
+        "cos_primal_x_d_word_token": 0.08897355886324974,
+        "cos_primal_x_d_sentence_token": 0.11031325217267812,
+        "cos_primal_x_d_sentence_final": 0.10120365656866584,
+        "cos_primal_x_d_synonym_token": 0.10958525306957667,
+        "cos_primal_x_d_synonym_sentence_token": 0.07895536805973243,
+        "cos_primal_x_d_domain_token": -0.030749701552156106
+      }
+    }
+  }
+}

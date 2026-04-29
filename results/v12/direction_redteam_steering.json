@@ -1,0 +1,71 @@
+{
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "alpha": 4.0,
+  "by_pair": {
+    "height": {
+      "primal_z_context": 0.04599609225988388,
+      "primal_x_context": 0.01894531212747097,
+      "lex_high_low_word": 0.01113281212747097,
+      "lex_sentence_high_low": 0.02802734449505806,
+      "random_null": -9.765625145519152e-05,
+      "n_prompts": 160
+    },
+    "age": {
+      "primal_z_context": 0.05429687350988388,
+      "primal_x_context": -0.0017578124534338713,
+      "lex_high_low_word": 0.01972656324505806,
+      "lex_sentence_high_low": 0.04638671875,
+      "random_null": -0.004199218936264515,
+      "n_prompts": 160
+    },
+    "weight": {
+      "primal_z_context": 0.05615234375,
+      "primal_x_context": 0.0047851563431322575,
+      "lex_high_low_word": 0.05458984524011612,
+      "lex_sentence_high_low": 0.08701171725988388,
+      "random_null": -0.005175781436264515,
+      "n_prompts": 160
+    },
+    "size": {
+      "primal_z_context": 0.09492187201976776,
+      "primal_x_context": 0.015625,
+      "lex_high_low_word": 0.09970702975988388,
+      "lex_sentence_high_low": 0.12197265774011612,
+      "random_null": -0.0008789062267169356,
+      "n_prompts": 160
+    },
+    "speed": {
+      "primal_z_context": 0.07539062201976776,
+      "primal_x_context": 0.0244140625,
+      "lex_high_low_word": 0.04619140550494194,
+      "lex_sentence_high_low": 0.12744140625,
+      "random_null": 0.008593750186264515,
+      "n_prompts": 160
+    },
+    "wealth": {
+      "primal_z_context": 0.05859375,
+      "primal_x_context": 0.02607421949505806,
+      "lex_high_low_word": 0.02656250074505806,
+      "lex_sentence_high_low": 0.06025390699505806,
+      "random_null": 0.0025390624068677425,
+      "n_prompts": 160
+    },
+    "experience": {
+      "primal_z_context": 0.09067382663488388,
+      "primal_x_context": 0.06450195610523224,
+      "lex_high_low_word": 0.09892578423023224,
+      "lex_sentence_high_low": 0.15664061903953552,
+      "random_null": -0.005664062686264515,
+      "n_prompts": 160
+    },
+    "bmi_abs": {
+      "primal_z_context": 0.05698242038488388,
+      "primal_x_context": 0.03676757961511612,
+      "lex_high_low_word": 0.06059570237994194,
+      "lex_sentence_high_low": 0.05922851711511612,
+      "random_null": -0.0015136718284338713,
+      "n_prompts": 160
+    }
+  }
+}

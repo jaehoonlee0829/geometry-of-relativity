@@ -12,9 +12,15 @@ raw number alone.
 
 Main findings:
 - **Activation geometry is z-structured.** In dense cell-mean PCA, z is often the dominant principal direction; the v10 height grid also shows behavior varies mostly with z rather than raw x.
-- **z is available early and used later.** z-score encodings are available early across adjective domains (roughly L1-L7 depending on analysis/model), while causal steering works best later after the representation has been carried and rotated.
-- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. Speed and experience remain pair-specific.
-- **SAE features support the same story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude), with more cross-pair feature overlap in 9B than 2B; lexical/domain-feature interpretations remain a follow-up.
+- **z is available early and used later.** z-score encodings are available early across adjective domains, while V12's Gemma 2 9B strategic-layer sweep finds `primal_z` steering strongest later, around L25, and still positive at L33.
+- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. V12 pure-x controls preserve an average diagonal advantage but leave meaningful off-diagonal transfer among related variables.
+- **The causal z direction decomposes into lexical and residual parts.** V12.1/V12.2 show that literal adjective tokens align weakly with `primal_z`, sentence-final states align more, and the residualized direction transfers more broadly than the lexical projection. The residual is not cleanly non-lexical, because its transfer still tracks target lexical-subspace overlap.
+- **SAE features support a mixed z-like story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude) in v11.5. V12's lexical audit finds a substantial pure-ish-z minority, alongside lexical z-like, raw numeric, and polysemantic features.
+
+V12 red-team caveat: the right framing is mixed mechanism. Lexical sentence
+directions are high-gain, pure-x controls are not decisive, SAE features are not
+uniformly pure, and extremeness-like PC structure is pair-specific rather than a
+universal PC2 result.
 
 ## Core experimental design
 
@@ -58,7 +64,8 @@ against raw x and numeric-token magnitude. High z with near-zero controls means
 the feature is not just a numeral-size tracker.
 
 Technical definitions for LD, R², PCA scores, SAE feature scores, steering
-slopes, shared directions, and Jaccard overlap are collected in
+slopes, shared directions, lexical residualization, target lexical leakage, and
+Jaccard overlap are collected in
 [APPENDIX.md](APPENDIX.md).
 
 ## Models
@@ -153,12 +160,15 @@ layers 5-10, emerges at layer 13, peaks at **layer 14**, and the probe/primal
 gap widens to ~8x in late layers. **The dimensions that encode z early are not
 necessarily the dimensions downstream layers read from.**
 
-The full 26-layer sweep reveals a three-phase computation:
+The full 26-layer sweep reveals a three-phase picture. The important distinction
+is **availability** vs **increment**: z is linearly available early, roughly by
+L0-L7 depending on the analysis, while fold-aware increment R² says most *new*
+linear z information is added at the very start of the stack.
 
 | Phase | Layers | What happens |
 |---|---|---|
-| **Encode** | L0-L1 | z computed from tokens in one shot (orth increment R^2 peaks at L1). |
-| **Carry + Rotate** | L2-L14 | z is carried forward with minimal new info. Direction actively rotates (cos 0.3-0.5 between adjacent layers). Causal potency emerges at L13, peaks at L14. |
+| **Early availability** | L0-L7 | z becomes linearly decodable early; fold-aware increment R² peaks at L1/L1-L3, so most new linear z information appears near the start. |
+| **Carry + Rotate** | L7-L14 | z is carried forward with little additional linear information. Direction actively rotates (cos 0.3-0.5 between adjacent layers). Causal potency emerges around L13-L14. |
 | **Broadcast** | L15-L25 | Direction locks (cos > 0.9). Primal_z amplified 400x from L0. Probe/primal gap widens to ~8x. |
 
 ![layer sweep](figures/v10/steering_layer_sweep.png)
@@ -168,6 +178,12 @@ encode-vs-use separation: z becomes decodable early, but causal steering
 strength appears later.
 
 ![v9 layer sweep](figures/v9/layer_sweep_combined.png)
+
+V12 repeats the same idea on Gemma 2 9B with dense v11 activations. `z` is
+decodable early, fold-aware increments are concentrated at the start of the
+stack, and `primal_z` steering peaks later around L25.
+
+![v12 layer sweep](figures/v12/layer_sweep_9b_combined.png)
 
 ### 3. Domain-agnostic shared z-direction
 
@@ -186,17 +202,59 @@ A single direction `w_shared` (Procrustes-aligned mean of the 8 per-pair primal_
 
 Multi-seed cross-pair transfer with BH-FDR correction at q=0.05 shows **all 56/56 off-diagonal cells significant** on both models (FINDINGS section 16.2). This is not single-seed noise.
 
-*Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, ruling out the "shared numeral-magnitude direction" alternative.
+*Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, which weakens a simple "shared numeral-magnitude direction" alternative.
 
 Caveat: the multi-seed transfer result is statistically strong, but the
-gold-standard pure-x transfer control (holding μ fixed while varying x) is still
-queued. So the shared-numeral-magnitude alternative is weakened, not fully
-eliminated, for the cross-pair steering matrix.
+V12 pure-x / fixed-μ controls are mixed. They preserve an average diagonal
+advantage, but meaningful off-diagonal transfer remains among related variables,
+so the shared-numeral-magnitude alternative is weakened rather than eliminated.
 
 ![transfer heatmap 2B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-2b.png)
 ![transfer heatmap 9B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
 
-### 4. SAE features pass numeral controls and are more shared in 9B
+### 4. Lexical and residual components both matter
+
+V12 showed that lexical sentence directions can steer as strongly as
+context-derived `primal_z`, so V12.1 decomposed each pair's `primal_z` into a
+tested lexical subspace and an orthogonal residual:
+
+```math
+p_z = p_{z,\mathrm{lex}} + p_{z,\mathrm{resid}}
+```
+
+Literal adjective-token directions align only weakly with `primal_z`:
+
+```text
+mean cos(primal_z, word-token lexical direction)     = +0.104
+mean cos(primal_z, sentence-token lexical direction) = +0.102
+mean cos(primal_z, sentence-final direction)         = +0.260
+```
+
+Only about **8%** of `primal_z` norm² lies in the tested lexical subspace, but
+the lexical projection is high-gain when normalized. The residual still steers
+at about **69%** of the original `primal_z` effect.
+
+![v12.1 lexical residualization](figures/v12_1/lexical_subspace_residualization_steering.png)
+
+V12.2 then asked which component transfers across adjective domains. In a
+single-seed Gemma 2 9B L33 follow-up:
+
+| direction family | diagonal mean | off-diagonal mean | diagonal/off |
+|---|---:|---:|---:|
+| full `primal_z` | +0.067 | +0.026 | 2.53 |
+| lexical projection | +0.087 | +0.011 | 8.16 |
+| lexical residual | +0.044 | +0.024 | 1.83 |
+| random null | +0.000 | -0.001 | n/a |
+
+The residual transfers much better off-diagonal than the lexical projection and
+recovers most of full `primal_z` transfer. However, residual transfer remains
+strongly correlated with target lexical-subspace overlap (`r≈+0.79`), so this is
+evidence for a residual shared component, **not** proof of a clean non-lexical
+shared code.
+
+![v12.2 transfer matrices](figures/v12_2/residual_vs_lexical_transfer_matrices.png)
+
+### 5. SAE features pass numeral controls and are more shared in 9B
 
 The SAE analysis asks whether the z-looking features are actually just
 "large number" or token-frequency features. For each pair, v11.5 takes the top
@@ -219,15 +277,15 @@ context-normalized scalar judgments. Most z-features activate monotonically with
 z, with rare place-cell exceptions (e.g., v10 height feature 34700: bump
 R^2=0.98, linear R^2=0.00).
 
-Caveat: the current controls rule out raw x and numeric-token magnitude, but
-not lexical/domain-feature interpretations. We have not yet audited whether
-these SAE features also fire on words such as "tall", "short", "height", or
-other adjective/domain tokens.
+Caveat: V12's lexical audit finds a mixed feature population: some top features
+look pure-ish z under the probe set, while others are lexical z-like, raw
+numeric, or polysemantic. Treat this as evidence for z-correlated sparse
+features, not proof that SAE features implement a pure relative-standing code.
 
 ![SAE overlap 2B](figures/v11/sae/cross_pair_feature_overlap_gemma2-2b.png)
 ![SAE overlap 9B](figures/v11/sae/cross_pair_feature_overlap_gemma2-9b.png)
 
-### 5. The z-code replicates across model scales
+### 6. The z-code replicates across model scales
 
 The 2B/9B comparison is a robustness check, not the core claim. The point is
 that the same context-relative geometry appears in two different Gemma 2 scales,
@@ -314,11 +372,14 @@ geometry-of-relativity/
     run_v11_*.sh       # v11 orchestration scripts
     analyze_v11_5_*.py # v11.5 analysis: shared z, multi-seed transfer, joint ablation, bootstrap CIs
     run_v11_5_all.sh   # v11.5 orchestrator
+    run_v12_*.py       # v12 claim-hardening and lexical/residual transfer follow-ups
   results/             # JSON summaries (large activations on HF)
     v11/               # Per-model per-pair extraction outputs
     v11_5/             # Shared-z, transfer, ablation, bootstrap results
+    v12*/              # Claim-hardening, lexical decomposition, residual transfer
   figures/             # v7 (clean grid), v8 (replots), v9 (SAE + layer sweep), v10 (dense grid)
     v11/               # PCA, probing, SAE overlap, steering transfer matrices
+    v12*/              # V12-V12.2 result figures used in README/paper
   docs/                # Session plans, paper outline, archive
   src/                 # Core library
   tests/               # pytest suite
