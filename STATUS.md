@@ -63,10 +63,12 @@ questions on v11's enriched data. Headline results:
 - **Cross-pair transfer is statistically real.** 56/56 off-diagonal
   cells significant under BH-FDR q=0.05 on both models (5-seed
   multi-seed). FINDINGS §16.2.
-- **z is encoded at L1 in one shot, then carried forward.** Fold-aware
+- **z is available early, with most new linear information at the start.** Fold-aware
   P3c orthogonalized R² peaks at L1 (e.g. bmi_abs/2B=0.256, height/2B=0.145)
-  and is near-zero at every later layer, sharper than v10 §14's "by L7
-  naive plateau." FINDINGS §16.5.
+  and is near-zero at every later layer, while naive decodability is already
+  high by the early layers. Read this as early availability plus carry-forward,
+  not as proof that the whole computation is completed exactly at L1. FINDINGS
+  §16.5.
 - **Top SAE z-features pass raw-x/token controls, but V12 softens purity.**
   R²(z) ≈ 0.7–0.84 with R²(x), R²(token) ≈ 0 across all pairs/models
   for the top feature. 9B cross-pair Jaccard 0.22 (2× 2B's 0.11).

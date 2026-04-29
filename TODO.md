@@ -33,7 +33,7 @@
 - [x] **v11.5 §C+§D: multi-seed cross-pair steering with BH-FDR**. 56/56 off-diagonal cells significant on both models. Within/off ratios reveal speed/experience asymmetry. FINDINGS §16.2.
 - [x] **v11.5 §E: SAE features with token-frequency control**. Top z-features are pure-z (R²(z) ≈ 0.7–0.84, R²(x), R²(token) ≈ 0). 9B cross-pair Jaccard 0.22 vs 2B 0.11. FINDINGS §16.7.
 - [x] **v11.5 §F: bootstrap CIs throughout**. Every PC1.R²(z) gets a 95% block-bootstrap CI; every head-ablation Δr gets a Fisher-z CI. FINDINGS §16.8.
-- [x] **v11.5 §G: fold-aware P3c**. Bug fixed; orthogonalized R²(z) peaks at L1 (e.g. bmi_abs/2B = 0.256), then near-zero — z is encoded in one shot at L1 then carried forward. FINDINGS §16.5.
+- [x] **v11.5 §G: fold-aware P3c**. Bug fixed; orthogonalized R²(z) peaks at L1 (e.g. bmi_abs/2B = 0.256), then near-zero. Interpret as early z availability with most new linear information added at the start, not proof that the entire computation is complete at exactly L1. FINDINGS §16.5.
 - [x] **v11.5 §H: P3d widened ambiguous cells**. Recovers signal: cos(primal, leans-high−leans-low) ≈ 0.7–0.86 across most pairs/models. primal_z is W_U-orthogonal but decision-aligned. FINDINGS §16.6.
 - [x] **v11.5 §I: joint head-set ablation with held-out split**. Δcorr(z) is null on 2B and *helping* on 9B (ablating 32 heads raises corr by +0.016). v10 §14.6 causal taxonomy triple-refuted. FINDINGS §16.3.
 - [x] **v12 claim-hardening pass.** Completed 9B strategic-layer sweep,

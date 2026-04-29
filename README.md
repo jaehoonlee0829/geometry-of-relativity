@@ -160,12 +160,15 @@ layers 5-10, emerges at layer 13, peaks at **layer 14**, and the probe/primal
 gap widens to ~8x in late layers. **The dimensions that encode z early are not
 necessarily the dimensions downstream layers read from.**
 
-The full 26-layer sweep reveals a three-phase computation:
+The full 26-layer sweep reveals a three-phase picture. The important distinction
+is **availability** vs **increment**: z is linearly available early, roughly by
+L0-L7 depending on the analysis, while fold-aware increment R² says most *new*
+linear z information is added at the very start of the stack.
 
 | Phase | Layers | What happens |
 |---|---|---|
-| **Encode** | L0-L1 | z computed from tokens in one shot (orth increment R^2 peaks at L1). |
-| **Carry + Rotate** | L2-L14 | z is carried forward with minimal new info. Direction actively rotates (cos 0.3-0.5 between adjacent layers). Causal potency emerges at L13, peaks at L14. |
+| **Early availability** | L0-L7 | z becomes linearly decodable early; fold-aware increment R² peaks at L1/L1-L3, so most new linear z information appears near the start. |
+| **Carry + Rotate** | L7-L14 | z is carried forward with little additional linear information. Direction actively rotates (cos 0.3-0.5 between adjacent layers). Causal potency emerges around L13-L14. |
 | **Broadcast** | L15-L25 | Direction locks (cos > 0.9). Primal_z amplified 400x from L0. Probe/primal gap widens to ~8x. |
 
 ![layer sweep](figures/v10/steering_layer_sweep.png)
