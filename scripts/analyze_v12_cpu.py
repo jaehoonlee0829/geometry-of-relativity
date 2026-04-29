@@ -298,30 +298,18 @@ def direction_redteam() -> dict:
 
 
 def plot_direction_redteam(red: dict) -> None:
-    rows = []
-    labels = []
-    keys = [
+    cosine_keys = [
         "cos_primal_z_primal_x",
         "cos_probe_z_probe_x",
         "cos_primal_z_unembed_high_low",
-        "cos_primal_z_lex_high_low_word",
-        "cos_primal_z_lex_sentence",
-        "steer_primal_z_context",
-        "steer_lex_sentence_high_low",
     ]
+    rows = []
+    labels = []
     for model_short in MODELS:
         for pair in ALL_PAIRS:
             row = red.get("models", {}).get(model_short, {}).get(pair)
-            if row:
-                merged = dict(row)
-                if model_short == "gemma2-9b":
-                    lex = red.get("lexical_activation_directions", {}).get("by_pair", {}).get(pair, {})
-                    merged.update(lex)
-                    steer = red.get("steering", {}).get("by_pair", {}).get(pair, {})
-                    for k, v in steer.items():
-                        if isinstance(v, (int, float)):
-                            merged[f"steer_{k}"] = v
-                rows.append([merged.get(k, np.nan) for k in keys])
+            if row and all(k in row for k in cosine_keys):
+                rows.append([row[k] for k in cosine_keys])
                 labels.append(f"{model_short}/{pair}")
     if not rows:
         return
@@ -329,15 +317,50 @@ def plot_direction_redteam(red: dict) -> None:
     fig, ax = plt.subplots(figsize=(8, max(5, 0.28 * len(labels))))
     im = ax.imshow(M, cmap="RdBu_r", vmin=-1, vmax=1, aspect="auto")
     ax.set_yticks(range(len(labels)), labels=labels, fontsize=7)
-    ax.set_xticks(range(len(keys)), labels=[k.replace("cos_", "").replace("steer_", "steer:").replace("_", "\n") for k in keys], fontsize=8)
+    ax.set_xticks(range(len(cosine_keys)), labels=[k.replace("cos_", "").replace("_", "\n") for k in cosine_keys], fontsize=8)
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
             ax.text(j, i, f"{M[i, j]:+.2f}", ha="center", va="center", fontsize=7)
-    ax.set_title("v12 direction red-team: z vs raw x / lexical readout")
+    ax.set_title("v12 direction red-team: cosine similarities")
     fig.colorbar(im, ax=ax, label="cosine")
     fig.tight_layout()
     fig.savefig(FIGS / "direction_redteam_cosines.png", dpi=150)
     plt.close(fig)
+
+    lex_rows = []
+    lex_labels = []
+    lex_keys = [
+        "cos_primal_z_lex_high_low_word",
+        "cos_primal_z_lex_sentence",
+        "cos_primal_z_lex_synonym",
+        "cos_primal_z_lex_domain",
+        "cos_primal_x_lex_high_low_word",
+        "cos_primal_x_lex_sentence",
+    ]
+    lex_by_pair = red.get("lexical_activation_directions", {}).get("by_pair", {})
+    for pair in ALL_PAIRS:
+        row = lex_by_pair.get(pair, {})
+        if all(k in row for k in lex_keys):
+            lex_rows.append([row[k] for k in lex_keys])
+            lex_labels.append(pair)
+    if lex_rows:
+        M = np.array(lex_rows, dtype=float)
+        fig, ax = plt.subplots(figsize=(8.5, max(4, 0.35 * len(lex_labels))))
+        im = ax.imshow(M, cmap="RdBu_r", vmin=-1, vmax=1, aspect="auto")
+        ax.set_yticks(range(len(lex_labels)), labels=lex_labels, fontsize=8)
+        ax.set_xticks(
+            range(len(lex_keys)),
+            labels=[k.replace("cos_", "").replace("_", "\n") for k in lex_keys],
+            fontsize=8,
+        )
+        for i in range(M.shape[0]):
+            for j in range(M.shape[1]):
+                ax.text(j, i, f"{M[i, j]:+.2f}", ha="center", va="center", fontsize=7)
+        ax.set_title("v12 Gemma 2 9B lexical direction cosine similarities")
+        fig.colorbar(im, ax=ax, label="cosine")
+        fig.tight_layout()
+        fig.savefig(FIGS / "direction_redteam_lexical_cosines_9b.png", dpi=150)
+        plt.close(fig)
 
 
 def pc_extremeness() -> dict:
