@@ -72,6 +72,10 @@
   sentence-final alignment. Lexical-subspace residualization shows a high-gain
   lexical projection and a surviving residual direction. Use mixed-mechanism
   framing; do not claim a clean non-lexical direction.
+- [ ] **v12.2 residual-vs-lexical cross-pair transfer.** Run
+  `docs/NEXT_GPU_SESSION_v12_2.md`: compare cross-pair transfer of full
+  `primal_z`, lexical projection, and lexical residual. Include target lexical
+  subspace leakage checks before claiming the residual is domain-general.
 - [ ] **Positive/negative sign control cleanup.** Keep v8 direct-sign as a measurement-warning follow-up only. If reused, rerun with top-K validation, forced-choice prompts, and clearer accuracy-vs-relativity framing before including it in paper claims.
 - [ ] **9B pure-z feature count asymmetry.** 9B has 1–16 pure-z features per pair while 2B has 11–50. Investigate: smaller k or larger superposition in 9B SAEs? Different SAE training regime? Compare with width_131k SAE if available.
 - [ ] **Speed and experience pair-specific direction analysis.** These two pairs are the exceptions to domain-generality (§16.1 ratios 0.27/0.44 and 0.50/0.42 across models). Vehicle vs person framing in speed; experience-domain shift. Worth a focused mini-study.
