@@ -19,7 +19,11 @@ Main findings:
 V12 red-team caveat: stronger claims should be phrased carefully. Lexical
 sentence directions often steer as strongly as the context `primal_z` direction,
 pure-x transfer controls are not decisive, and extremeness-like PC structure is
-pair-specific rather than a universal PC2 result.
+pair-specific rather than a universal PC2 result. V12.1 refines the lexical
+story: literal adjective-token directions align weakly with `primal_z`, but
+sentence-final states align more strongly; subtracting the tested lexical
+subspace leaves residual steering, while the lexical projection is itself
+high-gain. The right framing is mixed mechanism, not clean non-lexical code.
 
 ## Core experimental design
 

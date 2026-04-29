@@ -67,8 +67,12 @@
 - [x] **Dense v11 in-context x-vs-z lexical red-team.** V12 result: raw x is usually weaker than `primal_z`, but lexical sentence directions are strong and often steer more than `primal_z`; zero-shot raw-x remains a future extension if needed.
 - [x] **SAE feature interpretation audit beyond numeral controls.** V12 result: 43/200 audited top features are pure-ish z, but lexical z-like, raw numeric, and mixed/polysemantic features are also common. Use "z-correlated sparse features" rather than "pure relative-standing features."
 - [x] **PC2 / z² extremeness interpretation audit.** V12 result: extremeness-like structure appears in several secondary/tertiary PCs, but not universally and not always PC2; raw x and signed z remain strong alternatives.
+- [x] **v12.1 lexical disentanglement follow-up.** Token-position lexical capture
+  shows weak adjective-token alignment with `primal_z` but stronger
+  sentence-final alignment. Lexical-subspace residualization shows a high-gain
+  lexical projection and a surviving residual direction. Use mixed-mechanism
+  framing; do not claim a clean non-lexical direction.
 - [ ] **Positive/negative sign control cleanup.** Keep v8 direct-sign as a measurement-warning follow-up only. If reused, rerun with top-K validation, forced-choice prompts, and clearer accuracy-vs-relativity framing before including it in paper claims.
-- [ ] **v12.1 lexical disentanglement follow-up.** Run `docs/NEXT_GPU_SESSION_v12_1.md`: token-position lexical capture plus lexical-subspace residualization of `primal_z`. This checks whether V12 lexical steering is adjective-token semantics, sentence-final/template state, or a non-lexical context-relative residual.
 - [ ] **9B pure-z feature count asymmetry.** 9B has 1–16 pure-z features per pair while 2B has 11–50. Investigate: smaller k or larger superposition in 9B SAEs? Different SAE training regime? Compare with width_131k SAE if available.
 - [ ] **Speed and experience pair-specific direction analysis.** These two pairs are the exceptions to domain-generality (§16.1 ratios 0.27/0.44 and 0.50/0.42 across models). Vehicle vs person framing in speed; experience-domain shift. Worth a focused mini-study.
 - [ ] **|LD|-quantile sensitivity for §16.6.** The widened P3d uses bottom-40% |LD| as the "ambiguous" threshold; report cos sensitivity across {20%, 40%, 60%}.

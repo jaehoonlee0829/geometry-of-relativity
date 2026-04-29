@@ -1,6 +1,21 @@
-# STATUS.md — Project status as of Apr 28, 2026
+# STATUS.md — Project status as of Apr 29, 2026
 
 ## Current phase
+
+**v12.1 complete (LEXICAL-DISENTANGLEMENT / MIXED).** Ran the narrow follow-up
+from `docs/NEXT_GPU_SESSION_v12_1.md`. Outputs are under `results/v12_1/`,
+`figures/v12_1/`, and `docs/V12_1_RESULTS_SUMMARY.md`.
+
+- **Token-position capture:** literal adjective-token directions align only
+  weakly with `primal_z` (mean cosine ≈ +0.10), while sentence-final states
+  after the adjective align more strongly (mean cosine ≈ +0.26). This separates
+  token position, not semantics: final punctuation can integrate adjective and
+  sentence state.
+- **Lexical subspace residualization:** the tested lexical subspace captures
+  modest `primal_z` vector energy (mean norm² ≈ 0.08), but its projection is
+  high-gain (mean projection/primal steering ≈ 1.25). The residualized direction
+  still steers all eight pairs (mean residual/primal ≈ 0.69). Treat this as
+  mixed-mechanism evidence, not proof of a clean non-lexical direction.
 
 **v12 complete (CLAIM-HARDENED / MIXED).** Ran the planned Gemma 2 9B
 claim-hardening pass from `docs/NEXT_GPU_SESSION_v12.md`. Outputs are under
@@ -72,6 +87,9 @@ the v11.5 follow-up. FINDINGS §15.
 - **v12 claim-hardening pass**: 9B strategic-layer sweep, direction red-team
   against raw-x/lexical probes, pure-x/fixed-mu transfer controls, SAE lexical
   audit, and PC extremeness/x audit. See `docs/V12_RESULTS_SUMMARY.md`.
+- **v12.1 lexical disentanglement follow-up**: token-position lexical capture
+  and lexical-subspace residualization of `primal_z`. See
+  `docs/V12_1_RESULTS_SUMMARY.md`.
 
 ## Retracted (replace in any draft)
 
@@ -94,10 +112,11 @@ the v11.5 follow-up. FINDINGS §15.
    Headline §16.1 (shared z-direction) + §16.2 (FDR-controlled
    transfer) + §15.3 + §16.6 (W_U-orthogonal but decision-aligned
    primal_z), with V12 caveats: lexical sentence directions remain a serious
-   competitor, pure-x transfer controls are mixed, and SAE/PC interpretations
-   must be framed as z-correlated/mixed rather than pure mechanisms. Three-way
-   refutation of §14.6 in the Limitations section. Bootstrap CIs everywhere per
-   §16.8.
+   competitor, V12.1 shows both high-gain lexical projection and surviving
+   residual steering, pure-x transfer controls are mixed, and SAE/PC
+   interpretations must be framed as z-correlated/mixed rather than pure
+   mechanisms. Three-way refutation of §14.6 in the Limitations section.
+   Bootstrap CIs everywhere per §16.8.
 2. **arXiv v2 follow-ups** (post-May-7): stronger zero-shot raw-x controls,
    bootstrap/null bands for V12 steering controls, 9B pure-ish-z feature
    asymmetry, and speed/experience pair-specific direction analysis.

@@ -1,0 +1,185 @@
+{
+  "model_id": "google/gemma-2-9b",
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "alpha": 4.0,
+  "prompts_per_pair": 160,
+  "lexical_basis_directions": [
+    "d_word_token",
+    "d_sentence_token",
+    "d_sentence_final",
+    "d_synonym_token",
+    "d_synonym_sentence_token",
+    "d_domain_token"
+  ],
+  "by_pair": {
+    "height": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.2595810699732183,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.06738233188844085,
+      "residual_norm_fraction": 0.9657213201082179,
+      "cos_primal_z_lexical_projection": 0.2595810699732182,
+      "cos_primal_z_lexical_residual": 0.965721320108218,
+      "steering_slopes": {
+        "primal_z_context": 0.04599609225988388,
+        "lexical_projection_primal_z": 0.02773437462747097,
+        "lexical_residual_primal_z": 0.03974609449505806,
+        "primal_x_context": 0.01894531212747097,
+        "d_word_token": 0.010449218563735485,
+        "d_sentence_token": 0.01162109337747097,
+        "d_sentence_final": 0.02841796912252903,
+        "random_null": 0.0027343749534338713
+      },
+      "residual_over_primal_steering_ratio": 0.8641189401588177,
+      "lexical_projection_over_primal_steering_ratio": 0.602972410585842
+    },
+    "age": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.2547118241930465,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.06487811338374942,
+      "residual_norm_fraction": 0.9670170043056382,
+      "cos_primal_z_lexical_projection": 0.25471182419304633,
+      "cos_primal_z_lexical_residual": 0.9670170043056382,
+      "steering_slopes": {
+        "primal_z_context": 0.05429687350988388,
+        "lexical_projection_primal_z": 0.04423828050494194,
+        "lexical_residual_primal_z": 0.04609375074505806,
+        "primal_x_context": -0.0017578124534338713,
+        "d_word_token": 0.02128906175494194,
+        "d_sentence_token": 0.02470703050494194,
+        "d_sentence_final": 0.04228515550494194,
+        "random_null": -0.00341796875
+      },
+      "residual_over_primal_steering_ratio": 0.848920900328956,
+      "lexical_projection_over_primal_steering_ratio": 0.8147482100767564
+    },
+    "weight": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.25425441762103623,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.0646453088798123,
+      "residual_norm_fraction": 0.9671373693122335,
+      "cos_primal_z_lexical_projection": 0.25425441762103623,
+      "cos_primal_z_lexical_residual": 0.9671373693122336,
+      "steering_slopes": {
+        "primal_z_context": 0.05615234375,
+        "lexical_projection_primal_z": 0.08505859225988388,
+        "lexical_residual_primal_z": 0.037109375,
+        "primal_x_context": 0.0047851563431322575,
+        "d_word_token": 0.05742187425494194,
+        "d_sentence_token": 0.05507812649011612,
+        "d_sentence_final": 0.09003905951976776,
+        "random_null": -0.0032226562034338713
+      },
+      "residual_over_primal_steering_ratio": 0.6608695652173913,
+      "lexical_projection_over_primal_steering_ratio": 1.5147825821586278
+    },
+    "size": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.400670219789327,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.16053662502602759,
+      "residual_norm_fraction": 0.9162223392681341,
+      "cos_primal_z_lexical_projection": 0.4006702197893276,
+      "cos_primal_z_lexical_residual": 0.9162223392681343,
+      "steering_slopes": {
+        "primal_z_context": 0.09492187201976776,
+        "lexical_projection_primal_z": 0.1064453125,
+        "lexical_residual_primal_z": 0.05732421949505806,
+        "primal_x_context": 0.015625,
+        "d_word_token": 0.09824218600988388,
+        "d_sentence_token": 0.08964844048023224,
+        "d_sentence_final": 0.11894531548023224,
+        "random_null": -0.00146484375
+      },
+      "residual_over_primal_steering_ratio": 0.6039094918305037,
+      "lexical_projection_over_primal_steering_ratio": 1.1213992121629506
+    },
+    "speed": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.2511411375297478,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.06307187095973571,
+      "residual_norm_fraction": 0.9679504786094505,
+      "cos_primal_z_lexical_projection": 0.25114113752974804,
+      "cos_primal_z_lexical_residual": 0.9679504786094507,
+      "steering_slopes": {
+        "primal_z_context": 0.07539062201976776,
+        "lexical_projection_primal_z": 0.12480469048023224,
+        "lexical_residual_primal_z": 0.04335937649011612,
+        "primal_x_context": 0.0244140625,
+        "d_word_token": 0.04306640475988388,
+        "d_sentence_token": 0.04765624925494194,
+        "d_sentence_final": 0.1318359375,
+        "random_null": 0.0015625000232830644
+      },
+      "residual_over_primal_steering_ratio": 0.5751295761792109,
+      "lexical_projection_over_primal_steering_ratio": 1.655440519478774
+    },
+    "wealth": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.3084618513204709,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.09514871372005228,
+      "residual_norm_fraction": 0.9512367141148134,
+      "cos_primal_z_lexical_projection": 0.30846185132047144,
+      "cos_primal_z_lexical_residual": 0.9512367141148137,
+      "steering_slopes": {
+        "primal_z_context": 0.05859375,
+        "lexical_projection_primal_z": 0.05937499925494194,
+        "lexical_residual_primal_z": 0.04287109524011612,
+        "primal_x_context": 0.02607421949505806,
+        "d_word_token": 0.02802734449505806,
+        "d_sentence_token": 0.02392578125,
+        "d_sentence_final": 0.06425781548023224,
+        "random_null": -0.0022460937034338713
+      },
+      "residual_over_primal_steering_ratio": 0.7316666920979817,
+      "lexical_projection_over_primal_steering_ratio": 1.0133333206176758
+    },
+    "experience": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.2564204159512597,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.06575142971661704,
+      "residual_norm_fraction": 0.9665653471356104,
+      "cos_primal_z_lexical_projection": 0.25642041595125975,
+      "cos_primal_z_lexical_residual": 0.9665653471356103,
+      "steering_slopes": {
+        "primal_z_context": 0.09067382663488388,
+        "lexical_projection_primal_z": 0.16640624403953552,
+        "lexical_residual_primal_z": 0.05131835862994194,
+        "primal_x_context": 0.06450195610523224,
+        "d_word_token": 0.10771484673023224,
+        "d_sentence_token": 0.08974609524011612,
+        "d_sentence_final": 0.16386719048023224,
+        "random_null": -0.005859375
+      },
+      "residual_over_primal_steering_ratio": 0.565966613900453,
+      "lexical_projection_over_primal_steering_ratio": 1.8352180581239084
+    },
+    "bmi_abs": {
+      "n_prompts": 160,
+      "lexical_subspace_rank": 6,
+      "fraction_of_primal_z_norm_in_lexical_subspace": 0.24494985314647488,
+      "fraction_of_primal_z_norm_squared_in_lexical_subspace": 0.06000043055647961,
+      "residual_norm_fraction": 0.96953574944069,
+      "cos_primal_z_lexical_projection": 0.2449498531464748,
+      "cos_primal_z_lexical_residual": 0.96953574944069,
+      "steering_slopes": {
+        "primal_z_context": 0.05698242038488388,
+        "lexical_projection_primal_z": 0.08046875149011612,
+        "lexical_residual_primal_z": 0.037353515625,
+        "primal_x_context": 0.03676757961511612,
+        "d_word_token": 0.07011719048023224,
+        "d_sentence_token": 0.055908203125,
+        "d_sentence_final": 0.06943359225988388,
+        "random_null": 0.007373047061264515
+      },
+      "residual_over_primal_steering_ratio": 0.6555270094302457,
+      "lexical_projection_over_primal_steering_ratio": 1.4121680150929956
+    }
+  }
+}
