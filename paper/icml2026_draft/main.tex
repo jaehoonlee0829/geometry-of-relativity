@@ -1,5 +1,6 @@
 \documentclass{article}
 
+% Recommended ICML packages.
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -14,7 +15,10 @@
 % \usepackage[accepted]{icml2026}
 \usepackage{icml2026}
 
-\newcommand{\zscore}{z = (x-\mu)/\sigma}
+% Local notation. Keep custom macros minimal and do not use them in the title.
+\newcommand{\zscore}{\ensuremath{z = (x-\mu)/\sigma}}
+\newcommand{\primalz}{\ensuremath{\mathrm{primal}_z}}
+\newcommand{\logitdiff}{\ensuremath{\Delta_{\mathrm{logit}}}}
 
 \icmltitlerunning{The Geometry of Relativity}
 
@@ -23,6 +27,7 @@
 \twocolumn[
   \icmltitle{The Geometry of Relativity: Context-Normalized Encoding of Gradable Adjectives in LLMs}
 
+  % The style file suppresses author information in the blind version.
   \begin{icmlauthorlist}
     \icmlauthor{Anonymous Authors}{anon}
   \end{icmlauthorlist}
@@ -34,81 +39,298 @@
   \vskip 0.3in
 ]
 
+% Required by the ICML style, even for anonymous submissions.
 \printAffiliationsAndNotice{}
 
+\noindent\textbf{Draft note.} This file is a structural scaffold, not submission prose.
+Every paragraph, claim, and citation must be rewritten and source-audited by a human before submission.
+Remove this note before uploading to OpenReview.
+
 \begin{abstract}
-Large language models make context-dependent scalar judgments: the same value can be ``tall'', ``short'', or ordinary depending on the comparison class in the prompt. We study whether Gemma 2 represents these judgments using raw magnitudes or context-normalized standing. Across gradable adjective pairs, dense behavioral grids and residual-stream probes show a strong signal aligned with \zscore. Causal steering and cross-pair transfer suggest a partly shared direction, but lexical and output-facing components explain a substantial fraction of the effect. We argue for a mixed mechanism: a transferable residual component carries context-normalized standing, while pair-specific lexical circuitry shapes the final judgment.
+Large language models make context-sensitive scalar judgments: the same value can be described differently depending on the comparison class in the prompt.
+This paper studies whether that behavior is reflected in internal representations for gradable adjectives such as \emph{tall}, \emph{rich}, and \emph{fast}.
+Our current working hypothesis is that Gemma 2 represents relative standing using a context-normalized variable related to \zscore, while also relying on lexical and output-facing components.
+The planned evidence combines behavioral grids, representation geometry, layerwise readouts, steering, lexical/residual decomposition, and sparse-feature analysis.
+The key claim is intentionally provisional until the remaining controls and literature review decide which result is most novel.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
 
-TODO: One paragraph on relative scalar meaning. Example: 180cm is tall in one context and ordinary in another.
+\paragraph{Phenomenon.}
+The paper should begin with the concrete phenomenon, not with the grand theory:
+models judge values like height, wealth, speed, and experience relative to an in-context comparison class.
+The opening example should be simple enough for a cold reader: a value that is ``tall'' in one group can be unremarkable or ``short'' in another.
+% TODO(human): Rewrite this opening with one real prompt example from the final experiment set.
 
-TODO: One paragraph on why this is a mechanistic interpretability question, not only a behavioral pragmatics question.
+\paragraph{Mechanistic question.}
+The behavioral fact alone does not identify the mechanism.
+The model might use raw magnitude, a context-normalized statistic, lexical priors, or a mixture of these.
+The paper's mechanistic question is therefore: what internal variables support context-relative adjective judgments, and how do those variables affect the final logit choice?
+% TODO(human): Make the contrast between behavioral pragmatics and representation-level evidence sharp.
 
-TODO: State the claim conservatively: Gemma 2 contains a partly shared context-normalized direction, but the mechanism is mixed.
+\paragraph{Provisional thesis.}
+The safe working thesis is that Gemma 2 contains a mixed mechanism:
+a partly shared residual-stream component related to \zscore, coupled to pair-specific lexical/output-facing components.
+This thesis should remain provisional until the remaining TODO experiments and literature review determine the cleanest novelty claim.
+% TODO(human): Replace this with the final one-sentence pitch after the claim ledger is complete.
 
 \paragraph{Contributions.}
-TODO: Convert the current seven evidence lines from \texttt{docs/paper\_outline.md} into 4--6 reviewer-readable bullets.
+This list is a placeholder claim map, not a final contribution list.
+Each item must eventually point to a figure, source artifact, and caveat.
+\begin{enumerate}
+  \item Behavioral grids test whether logit differences track context-normalized standing rather than raw magnitude alone.
+  \item Representation analyses ask whether residual-stream geometry contains directions or manifolds aligned with relative standing.
+  \item Layerwise analyses ask whether relative standing is encoded early, used late, or both.
+  \item Steering and cross-pair transfer test whether any direction is functionally relevant and partly shared across concepts.
+  \item Lexical/residual decomposition tests whether apparent shared relativity is separable from adjective-specific lexical circuitry.
+  \item SAE and attention analyses are active TODOs for interpreting sparse features and possible end-to-end computation.
+\end{enumerate}
 
-\section{Related Work}
+\section{Background and Problem Setup}
+\label{sec:setup}
 
-TODO: Cover gradable adjectives and pragmatic thresholding, numerical representations, linear representation/probing, activation steering, and SAE feature decomposition.
+\subsection{Gradable Adjectives as Context-Relative Judgments}
+\label{subsec:gradable-adjectives}
 
-TODO: Key distinction: prior work shows behavioral/contextual sensitivity or numeric representations; this paper tests where and how a context-normalized scalar variable is represented and used.
+Gradable adjectives depend on a comparison class.
+For this paper, the operational question is whether the model's judgment depends on raw target value $x$, context mean $\mu$, context spread $\sigma$, or a normalized quantity such as \zscore.
+% TODO(cite): Add gradable adjective / pragmatic thresholding literature after related-work review.
 
-\section{Experimental Setup}
+\subsection{Operational Variables}
+\label{subsec:variables}
 
-\paragraph{Models.}
-TODO: Gemma 2 2B and 9B, activation sites, layers, and tokenizer details.
+For each prompt, $x$ is the target value, $\mu$ is the context mean, $\sigma$ is the context spread, and $z$ is the experimenter's context-normalized standing:
+\[
+z = \frac{x-\mu}{\sigma}.
+\]
+The main behavioral output is the logit difference
+\[
+\logitdiff = \mathrm{logit}(\text{high adjective}) -
+\mathrm{logit}(\text{low adjective}).
+\]
+% TODO(human): Confirm whether final experiments use the experimenter's z, an inferred z, or both.
 
-\paragraph{Tasks.}
-TODO: Relative adjective pairs plus absolute control; prompt construction; dense x-by-z grid; seeds.
+\subsection{Evidence Standards}
+\label{subsec:evidence-standards}
 
-\paragraph{Measurements.}
-TODO: Logit-difference target, residual activations, probe construction, steering protocol, SAE audit.
+This skeleton separates four levels of evidence.
+Behavioral evidence shows that outputs track $z$.
+Readout evidence shows that $z$ is linearly available in activations.
+Geometric evidence characterizes how the variable is organized across concepts and layers.
+Causal evidence tests whether moving in candidate directions changes model behavior.
+% TODO(human): Add one sentence about what each evidence type cannot establish.
 
-\section{Behavioral Evidence for Context-Normalized Judgments}
+\section{Experimental Design}
+\label{sec:experimental-design}
 
-TODO: Main figure/table for dense-grid behavioral correlation with \zscore.
+\subsection{Models}
+\label{subsec:models}
 
-TODO: Make explicit which result rules out raw magnitude as the sole explanation.
+The current repo evidence focuses on Gemma 2 2B and Gemma 2 9B.
+The handcrafted research plan also lists cross-family and multimodal generalization as active TODOs.
+Those should be treated as future or stretch results unless new experiments are completed before submission.
+% TODO(source): docs/paper_outline.md lists model sizes/layers; verify exact layer counts and model IDs.
 
-\section{Representation Geometry}
+\subsection{Prompt Families and Shot Conditions}
+\label{subsec:prompts}
 
-TODO: PCA and probe results. Use the careful framing: PC1 is z-like for many pairs, with known exceptions.
+The baseline setting uses implicit in-context comparison lists, currently around 15 examples before the target.
+The updated research TODOs ask whether the model behaves like a ``data scientist'' over context by comparing zero-shot, two-shot, fifteen-shot, and possibly more granular shot conditions.
+% TODO(experiment): Decide whether zero-shot vs 2-shot vs 15-shot becomes a main result or appendix/future-work result.
 
-TODO: Include shared direction alignment and cross-pair transfer evidence.
+\subsection{Adjective Concepts}
+\label{subsec:concepts}
 
-\section{Causal Use and Lexical Decomposition}
+The current concept set includes multiple relative adjective pairs such as height, age, weight, size, speed, wealth, and experience, plus an absolute or more objective control such as BMI.
+The updated research TODOs ask for additional controls that are less lexically or semantically close to the current pairs.
+% TODO(experiment): Choose the final concept set and mark which concepts are main-body versus appendix-only.
 
-TODO: Encode-early/use-late result from V12.
+\subsection{Measurements}
+\label{subsec:measurements}
 
-TODO: Lexical projection versus residual direction from V12.1/V12.2.
+The core measurements are logit-difference behavior, residual-stream activations, PCA/probe readouts, steering effects, and SAE features.
+Attention-pattern analysis is an active TODO for end-to-end mechanism discovery rather than an established result.
+% TODO(source): APPENDIX.md defines logit differences, cell means, probe R^2, primal_z, and steering slopes.
 
-TODO: State the mixed-mechanism interpretation plainly.
+\section{Evidence for Context-Normalized Relativity}
+\label{sec:evidence}
 
-\section{Sparse Feature Evidence}
+\subsection{Behavioral Grids: Does Output Track $z$?}
+\label{subsec:behavioral-grids}
 
-TODO: SAE z-correlated features, raw-number/token controls, and lexical audit.
+This subsection should establish the basic phenomenon with the strongest behavioral figure:
+for fixed or controlled raw values, model judgments shift with the comparison class.
+The final text should compare $z$-based explanations against raw-$x$ explanations, not merely report a high correlation.
+% TODO(figure): Task schematic and behavioral heatmaps over x/mu/z.
+% TODO(control): Include OOD/extreme-value experiments here if completed.
 
-TODO: Avoid claiming pure relative-standing features.
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.92\linewidth}{\centering
+  Placeholder Figure 1: task schematic and behavioral grid.\\
+  Show $x$, $\mu$, $\sigma$, $z$, and the high/low adjective logit difference.}}
+  \caption{\textbf{Task schematic and behavioral grid.} Replace with the final figure showing how target values and comparison classes define context-normalized standing.}
+  \label{fig:behavioral-grid}
+\end{figure}
 
-\section{Limitations}
+\subsection{Representation Geometry: Is $z$ Organized in Activation Space?}
+\label{subsec:representation-geometry}
 
-TODO: Include lexical confounding, prompt-template sensitivity, single model family, limited causal localization, and correlation/steering not being a full circuit proof.
+This subsection should describe PCA, probe, and geometry results without letting visualization do more work than it can support.
+PCA plots can orient the reader, but the main claims should rely on quantified alignment, held-out readout, subspace angles, and controls.
+% TODO(figure): PCA/3D geometry figure. Include caveats where PC1 tracks x more than z for some pairs.
+% TODO(human): Decide whether ``manifold'' language is justified or whether ``geometry''/``direction'' is safer.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.92\linewidth}{\centering
+  Placeholder Figure 2: representation geometry.\\
+  Candidate panels: PCA, PC1--z alignment, and probe readout by layer.}}
+  \caption{\textbf{Representation geometry.} Replace with the final geometry figure after deciding whether the result is best framed as directions, manifolds, or local geometry.}
+  \label{fig:geometry}
+\end{figure}
+
+\subsection{Layer Evolution: Is $z$ Encoded Early and Used Later?}
+\label{subsec:layer-evolution}
+
+The current repo suggests an encode/use separation: $z$-related information is available early, while steering effects can become stronger later.
+This should be written carefully as a layerwise readout/intervention pattern, not as a localized circuit.
+% TODO(source): V12 layer sweep and APPENDIX.md definitions.
+% TODO(figure): layerwise probe/readout and steering effect curves.
+
+\subsection{Shared Direction: Does Relativity Transfer Across Concepts?}
+\label{subsec:shared-direction}
+
+The updated Notion plan asks whether a shared relativity direction exists across concepts.
+This subsection should compare within-pair directions, cross-pair transfer, and a domain-agnostic shared direction.
+It should also include controls using raw-$x$ directions and less semantically related concepts if those experiments are completed.
+% TODO(experiment): x-vector steering control.
+% TODO(experiment): more objective or semantically distant control concepts.
+% TODO(figure): cross-pair transfer matrix and shared-direction ratio plot.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.92\linewidth}{\centering
+  Placeholder Figure 3: shared direction and transfer.\\
+  Candidate panels: pairwise direction alignment, transfer matrix, x-vector control.}}
+  \caption{\textbf{Shared relativity direction.} Replace with the final cross-concept transfer evidence and controls.}
+  \label{fig:shared-direction}
+\end{figure}
+
+\subsection{Lexical Composition: What Remains After Removing Adjective-Specific Components?}
+\label{subsec:lexical-composition}
+
+The current safe interpretation is mixed:
+some effect appears transferable, while lexical/output-facing directions are high-gain and may explain substantial diagonal steering.
+This subsection should make the lexical-residual decomposition central to the honesty of the paper, not an afterthought.
+% TODO(source): V12.1/V12.2 lexical projection and residual transfer.
+% TODO(red-team): Test whether residual steering remains robust after stronger lexical controls.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.92\linewidth}{\centering
+  Placeholder Figure 4: lexical projection vs residual transfer.\\
+  Candidate panels: diagonal/off-diagonal steering for full, lexical, and residual directions.}}
+  \caption{\textbf{Lexical/residual decomposition.} Replace with the final decomposition figure showing what transfers beyond adjective-specific lexical circuitry.}
+  \label{fig:lexical-residual}
+\end{figure}
+
+\subsection{Sparse Features and Attention: What Mechanism Is Still Missing?}
+\label{subsec:sae-attention}
+
+SAE analysis and attention-pattern analysis should be framed as mechanism-seeking evidence.
+The current SAE story appears mixed rather than a proof of pure relative-standing features.
+Full attention-pattern analysis is an active TODO for how the model maps context examples to final judgments.
+% TODO(source): V12 SAE audit and APPENDIX.md SAE definitions.
+% TODO(experiment): full attention-pattern analysis.
+
+\section{Related Work and Positioning}
+\label{sec:related-work}
+
+\subsection{Gradable Adjectives and Pragmatic Thresholds}
+\label{subsec:related-gradability}
+
+This literature explains why relative adjective judgments are context-sensitive.
+The paper should make clear that prior work can explain the behavior; our target is the internal representation and use of the relevant variable.
+% TODO(cite): Add Kennedy-style degree semantics and LLM pragmatic-reasoning papers.
+
+\subsection{Numerical Representations and In-Context Statistics}
+\label{subsec:related-numbers}
+
+The paper should distinguish raw numerical magnitude, distributional inference from context, and normalized standing.
+This is where prior work on number representations and in-context statistical inference belongs.
+% TODO(cite): Add number-representation and in-context statistical-inference papers after lit review.
+
+\subsection{Linear Representations, Steering, and Manifold Geometry}
+\label{subsec:related-mi}
+
+The seven-paper primer provides the backbone:
+linear representation hypotheses, concept geometry, non-linear/manifold features, belief manifolds, manifold computation, and information geometry.
+This paper should position itself as a narrow empirical study of context-normalized scalar variables rather than as a new grand theory of representation.
+% TODO(cite): Add the seven-primer citations and decide which are main-body versus appendix.
+
+\section{Discussion and Limitations}
+\label{sec:discussion-limitations}
+
+\subsection{What This Paper Can Claim}
+\label{subsec:can-claim}
+
+The likely claim class is:
+models map relative concepts in in-context examples using a context-normalized variable related to $z$.
+Whether the most novel result is behavioral, geometric, cross-concept, or lexical-residual depends on the remaining experiments and literature review.
+% TODO(human): Replace this with the final 1--3 claims only after claim selection.
+
+\subsection{What This Paper Cannot Claim Yet}
+\label{subsec:cannot-claim}
+
+The paper should explicitly avoid claiming a pure universal non-lexical $z$-code, a fully localized causal circuit, or a complete account of gradable-adjective semantics.
+It should also avoid treating probes as mechanisms or treating PCA visualizations as proof.
+
+\subsection{Open TODOs Before Submission}
+\label{subsec:open-todos}
+
+Active TODOs from the handcrafted plan:
+more robust scoring than naive logit difference; OOD/extreme-value experiments; attention-pattern analysis; zero-shot vs few-shot vs many-shot comparisons; raw-$x$ steering controls; more objective or distant control concepts; cross-family or multimodal generalization if feasible.
+These may become main results, appendix results, or future work depending on what is completed.
 
 \section{Conclusion}
+\label{sec:conclusion}
 
-TODO: One paragraph. The core contribution is a mechanistic case study of context-normalized scalar meaning, not a complete reverse-engineering of gradable adjective semantics.
+The conclusion should return to the concrete phenomenon:
+context-relative adjective judgments provide a tractable setting for studying how models represent relational variables in context.
+The final paragraph should state the strongest validated claim and one honest next step.
+% TODO(human): Write after final claim selection.
+
+\section*{Impact Statement}
+
+This paper studies internal representations of language models on synthetic, non-deployed tasks.
+The main foreseeable impact is methodological: improving how mechanistic interpretability studies distinguish behavioral correlations, linear readouts, and causal evidence.
+% TODO(human): Rewrite to match final ICML/workshop requirements and any safety/fairness implications.
 
 \bibliography{references}
 \bibliographystyle{icml2026}
 
 \appendix
 
-\section{Appendix}
+\section{Reproducibility Details}
+\label{app:reproducibility}
 
-TODO: Full prompt templates, hyperparameters, all ablations, additional figures, and source paths for headline numbers.
+TODO: Move prompt templates, model identifiers, activation sites, steering scales, probe hyperparameters, random seeds, compute, and software versions here.
+
+\section{Definitions and Metrics}
+\label{app:definitions}
+
+TODO: Port the relevant definitions from \texttt{APPENDIX.md}: cell means, behavioral relativity ratio, probe $R^2$, PCA $R^2$, SAE feature $R^2$, \primalz, and steering slopes.
+
+\section{Additional Experiments}
+\label{app:additional-experiments}
+
+TODO: Full behavioral tables, all pair/model results, extra layers, OOD/extreme values, zero/few/many-shot comparisons, x-vector controls, and failed or mixed results.
+
+\section{Extended Related Work}
+\label{app:extended-related}
+
+TODO: Put longer summaries from the seven-paper primer and broader literature review here.
 
 \end{document}

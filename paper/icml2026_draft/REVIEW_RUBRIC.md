@@ -2,56 +2,75 @@
 
 Use this before asking a mentor, Claude, Codex, or yourself to review the paper.
 
-## Format Review
+## First Rule
 
-- [ ] ICML 2026 template is used without manual spacing hacks.
+This draft is scaffold prose. Do not judge it as final writing until a human has
+rewritten it. Reviewers should focus first on structure, claim discipline, and
+missing evidence.
+
+## ICML Format Review
+
+- [ ] Uses `\usepackage{icml2026}` for anonymous submission, not `[accepted]`.
+- [ ] Does not edit `icml2026.sty` or compress margins/spacing.
 - [ ] Main body is at most 8 pages for the workshop long-paper submission.
 - [ ] References and appendix are included in the same PDF.
-- [ ] The submission is blind: no author names, affiliations, acknowledgments, project usernames, or identifying repo paths.
-- [ ] Tables have captions above; figures have captions below.
-- [ ] All plots are readable when printed at paper size.
+- [ ] Includes an unnumbered `Impact Statement` before references.
+- [ ] No acknowledgments in anonymous submission.
+- [ ] Submission is blind: no author names, affiliations, grants, GitHub/HF usernames, public repo URLs, or identifying paths.
+- [ ] Abstract is one paragraph, roughly 4-6 sentences.
+- [ ] Figures have captions below; tables have captions above.
+- [ ] Figures are readable in two-column format.
+- [ ] Plot titles are not duplicated inside figures if captions already state the claim.
+- [ ] PDF size follows current ICML author instructions; prefer author instructions over example-paper discrepancy.
 
-## Semantic Review
+## Structure Review
 
-- [ ] The abstract says what was studied, what was found, and why it matters in 4-6 sentences.
-- [ ] The introduction gives a one-sentence pitch a reviewer could repeat.
-- [ ] Each section answers one clear reviewer question.
-- [ ] Every figure has exactly one job.
-- [ ] Every paragraph has a purpose; remove paragraphs whose job is not obvious.
-- [ ] The paper states positive claims directly but does not inflate them.
+- [ ] Paper starts with a concrete phenomenon, not abstract theory.
+- [ ] Problem setup defines `x`, `mu`, `sigma`, `z`, and logit difference before using them.
+- [ ] Evidence types are separated: behavior, readout, geometry, causality, decomposition.
+- [ ] Results are organized as subsections under a main evidence/results section.
+- [ ] Related work positions the paper against closest prior work, not as a literature dump.
+- [ ] Limitations are visible in the main text, not buried only in appendix.
+- [ ] Appendix has prompts, hyperparameters, full tables, extra controls, failed/mixed results, and APPENDIX.md definitions.
 
 ## Mechanistic Interpretability Review
 
 - [ ] The work is not only behavioral: it makes a representation-level claim.
-- [ ] Causal evidence is separated from correlational evidence.
-- [ ] Probe results are not overstated as mechanisms.
-- [ ] Steering results include controls or caveats.
-- [ ] SAE evidence is framed as support/texture, not as proof of a pure feature unless demonstrated.
-- [ ] The paper is clear about what is not reverse-engineered.
+- [ ] Geometry/PCA is treated as descriptive evidence, not proof.
+- [ ] Probe results are framed as availability, not mechanism.
+- [ ] Steering/interventions are separated from correlational evidence.
+- [ ] Lexical confounds are directly addressed.
+- [ ] SAE evidence is framed as support/texture unless pure features are actually shown.
+- [ ] Attention analysis is marked TODO/future unless a real mechanism is established.
+- [ ] The paper is explicit about what is not reverse-engineered.
 
 ## Novelty Review
 
 - [ ] Related work covers gradable adjectives and pragmatic thresholding.
-- [ ] Related work covers numerical representation in LLMs.
-- [ ] Related work covers linear representations, activation steering, and SAE decomposition.
-- [ ] The novelty claim is specific: mechanistic evidence for context-normalized scalar standing in residual streams.
-- [ ] Similar prior work is not caricatured; the distinction is fair and narrow.
+- [ ] Related work covers numerical representations and in-context statistical inference.
+- [ ] Related work covers LRH, steering, manifolds, and sparse features.
+- [ ] The novelty claim is specific and narrow.
+- [ ] Similar work is not caricatured.
+- [ ] The final claim is chosen only after literature review and active TODO experiments.
 
 ## Evidence Review
 
 - [ ] Each headline number has a source path.
-- [ ] Each headline claim has a failure mode or caveat.
-- [ ] Main-body evidence is enough to support the abstract.
-- [ ] Appendix evidence is discoverable but not required for the main narrative.
-- [ ] Negative or mixed results are used to improve the framing instead of being hidden.
+- [ ] Each headline claim has a caveat.
+- [ ] Each main figure has one clear job.
+- [ ] Controls include raw-x baselines or steering where relevant.
+- [ ] OOD/extreme values are either completed or clearly marked future work.
+- [ ] Zero/few/many-shot comparison is either completed or clearly marked future work.
+- [ ] Negative/mixed results improve the framing rather than being hidden.
 
-## Reviewer Questions To Answer In The Draft
+## Reviewer Questions
 
 1. Why is this not just behavioral pragmatics?
 2. Why is this not just a probe finding?
 3. How do we know the effect is context-normalized rather than raw magnitude or lexical bias?
-4. How much of the effect is lexical/output-facing?
-5. Does the shared direction transfer across adjective pairs?
-6. Where does the claim fail or weaken?
-7. Why should a mechanistic interpretability workshop care?
+4. What evidence is descriptive geometry, and what evidence is causal?
+5. Does any shared direction transfer across adjective concepts?
+6. How much of the effect is lexical/output-facing?
+7. What remains unknown about the end-to-end mechanism?
+8. Why is this a good fit for the ICML Mechanistic Interpretability Workshop?
 
