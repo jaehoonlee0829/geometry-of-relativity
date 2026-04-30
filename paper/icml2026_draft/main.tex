@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Blind workshop submission. If accepted, switch to:
+% \usepackage[accepted]{icml2026}
+\usepackage{icml2026}
+
+\newcommand{\zscore}{z = (x-\mu)/\sigma}
+
+\icmltitlerunning{The Geometry of Relativity}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{The Geometry of Relativity: Context-Normalized Encoding of Gradable Adjectives in LLMs}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Anonymous Authors}{anon}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{anon}{Anonymous Institution}
+  \icmlcorrespondingauthor{Anonymous Authors}{anonymous@example.com}
+  \icmlkeywords{mechanistic interpretability, representation geometry, language models, gradable adjectives}
+
+  \vskip 0.3in
+]
+
+\printAffiliationsAndNotice{}
+
+\begin{abstract}
+Large language models make context-dependent scalar judgments: the same value can be ``tall'', ``short'', or ordinary depending on the comparison class in the prompt. We study whether Gemma 2 represents these judgments using raw magnitudes or context-normalized standing. Across gradable adjective pairs, dense behavioral grids and residual-stream probes show a strong signal aligned with \zscore. Causal steering and cross-pair transfer suggest a partly shared direction, but lexical and output-facing components explain a substantial fraction of the effect. We argue for a mixed mechanism: a transferable residual component carries context-normalized standing, while pair-specific lexical circuitry shapes the final judgment.
+\end{abstract}
+
+\section{Introduction}
+
+TODO: One paragraph on relative scalar meaning. Example: 180cm is tall in one context and ordinary in another.
+
+TODO: One paragraph on why this is a mechanistic interpretability question, not only a behavioral pragmatics question.
+
+TODO: State the claim conservatively: Gemma 2 contains a partly shared context-normalized direction, but the mechanism is mixed.
+
+\paragraph{Contributions.}
+TODO: Convert the current seven evidence lines from \texttt{docs/paper\_outline.md} into 4--6 reviewer-readable bullets.
+
+\section{Related Work}
+
+TODO: Cover gradable adjectives and pragmatic thresholding, numerical representations, linear representation/probing, activation steering, and SAE feature decomposition.
+
+TODO: Key distinction: prior work shows behavioral/contextual sensitivity or numeric representations; this paper tests where and how a context-normalized scalar variable is represented and used.
+
+\section{Experimental Setup}
+
+\paragraph{Models.}
+TODO: Gemma 2 2B and 9B, activation sites, layers, and tokenizer details.
+
+\paragraph{Tasks.}
+TODO: Relative adjective pairs plus absolute control; prompt construction; dense x-by-z grid; seeds.
+
+\paragraph{Measurements.}
+TODO: Logit-difference target, residual activations, probe construction, steering protocol, SAE audit.
+
+\section{Behavioral Evidence for Context-Normalized Judgments}
+
+TODO: Main figure/table for dense-grid behavioral correlation with \zscore.
+
+TODO: Make explicit which result rules out raw magnitude as the sole explanation.
+
+\section{Representation Geometry}
+
+TODO: PCA and probe results. Use the careful framing: PC1 is z-like for many pairs, with known exceptions.
+
+TODO: Include shared direction alignment and cross-pair transfer evidence.
+
+\section{Causal Use and Lexical Decomposition}
+
+TODO: Encode-early/use-late result from V12.
+
+TODO: Lexical projection versus residual direction from V12.1/V12.2.
+
+TODO: State the mixed-mechanism interpretation plainly.
+
+\section{Sparse Feature Evidence}
+
+TODO: SAE z-correlated features, raw-number/token controls, and lexical audit.
+
+TODO: Avoid claiming pure relative-standing features.
+
+\section{Limitations}
+
+TODO: Include lexical confounding, prompt-template sensitivity, single model family, limited causal localization, and correlation/steering not being a full circuit proof.
+
+\section{Conclusion}
+
+TODO: One paragraph. The core contribution is a mechanistic case study of context-normalized scalar meaning, not a complete reverse-engineering of gradable adjective semantics.
+
+\bibliography{references}
+\bibliographystyle{icml2026}
+
+\appendix
+
+\section{Appendix}
+
+TODO: Full prompt templates, hyperparameters, all ablations, additional figures, and source paths for headline numbers.
+
+\end{document}
