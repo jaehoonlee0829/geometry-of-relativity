@@ -128,6 +128,19 @@ blindly using context-relative z for every numeric prompt, even/odd would show a
 large z effect. Instead, the objective label correlation is larger than the z
 correlation, though not perfect.
 
+The objective-control design is:
+
+| control | visible target values | context means | sigma | z definition | objective label | LD |
+| --- | --- | --- | ---: | --- | --- | --- |
+| positive/negative | signed numbers from -9 to +9 | -6, 0, +6 | 4.0 | `(x - mu) / 4` | sign(x) | `logit(positive) - logit(negative)` |
+| even/odd | integers 11 to 29 after a +20 offset | 14, 20, 26 | 4.0 | `(x - (mu + 20)) / 4` | parity(x) | `logit(even) - logit(odd)` |
+
+Use this plot for the intended reading:
+
+```text
+figures/v13/domain_extension/objective_control_interpretation.png
+```
+
 New-domain cross-pair steering is positive for brightness/temperature own
 directions and partially positive from existing primary domains. This is
 encouraging for extension, but the temperature readout is still strongly tied

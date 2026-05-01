@@ -727,6 +727,7 @@ def plot_all() -> None:
         fig.savefig(FIGS / "domain_extension" / "objective_vs_relative_summary.png", dpi=150)
         fig.savefig(FIGS / "domain_extension" / "domain_corr_summary.png", dpi=150)
         plt.close(fig)
+        plot_objective_control_interpretation(dom, obj)
         act_path = RESULTS / "domain_extension" / "domain_activations_L33.npz"
         if act_path.exists():
             d = np.load(act_path)
@@ -752,6 +753,56 @@ def plot_all() -> None:
             transfer = json.loads(transfer_path.read_text())
             M = np.array([[transfer["matrix"][t][s] for s in transfer["sources"]] for t in transfer["targets"]], dtype=np.float64)
             heatmap(M, transfer["targets"], transfer["sources"], "New-domain cross-pair steering @ L33", FIGS / "domain_extension" / "new_domain_cross_pair_transfer.png", diverge=True)
+
+
+def plot_objective_control_interpretation(dom: dict, obj: dict) -> None:
+    rel_labels = list(dom["by_domain"].keys())
+    obj_labels = list(obj["by_task"].keys())
+    fig, axes = plt.subplots(1, 2, figsize=(13, 4.8), gridspec_kw={"width_ratios": [1.25, 1.0]})
+
+    ax = axes[0]
+    labels = rel_labels + obj_labels
+    zvals = [dom["by_domain"][k]["corr_ld_z"] for k in rel_labels] + [obj["by_task"][k]["corr_ld_z"] for k in obj_labels]
+    x_or_obj = [dom["by_domain"][k]["corr_ld_x"] for k in rel_labels] + [obj["by_task"][k]["corr_ld_objective"] for k in obj_labels]
+    x = np.arange(len(labels))
+    width = 0.36
+    ax.bar(x - width / 2, zvals, width=width, label="corr with z")
+    ax.bar(x + width / 2, x_or_obj, width=width, label="corr with raw x / objective label")
+    ax.axvline(len(rel_labels) - 0.5, color="black", lw=1.0, alpha=0.45)
+    ax.text((len(rel_labels) - 1) / 2, 1.03, "relative adjective domains", ha="center", va="bottom", fontsize=9)
+    ax.text(len(rel_labels) + (len(obj_labels) - 1) / 2, 1.03, "objective controls", ha="center", va="bottom", fontsize=9)
+    ax.set_ylim(-1.0, 1.12)
+    ax.set_ylabel("Pearson correlation")
+    ax.set_xticks(x, labels, rotation=25, ha="right")
+    ax.set_title("Relative domains should track z; objective controls should track labels")
+    ax.legend(fontsize=8, loc="lower left")
+
+    ax = axes[1]
+    ax.axis("off")
+    text = [
+        "Objective-control design",
+        "",
+        "positive/negative:",
+        "  context: 5 signed numbers sampled from N(mu, 4)",
+        "  mu in {-6, 0, +6}; target x in [-9, +9]",
+        "  z = (x - mu) / 4",
+        "  objective label = sign(x)",
+        "  LD = logit(positive) - logit(negative)",
+        "",
+        "even/odd:",
+        "  visible integers are shifted by +20",
+        "  context center is mu + 20; sigma = 4",
+        "  z = (x - (mu + 20)) / 4",
+        "  objective label = parity(x)",
+        "  LD = logit(even) - logit(odd)",
+        "",
+        "Even/odd is categorical, not continuous.",
+        "It is a control for rule preservation, not an adjective domain.",
+    ]
+    ax.text(0.0, 1.0, "\n".join(text), va="top", ha="left", fontsize=9, family="monospace")
+    fig.tight_layout()
+    fig.savefig(FIGS / "domain_extension" / "objective_control_interpretation.png", dpi=150)
+    plt.close(fig)
 
 
 def plot_affine_human_summary(aff: dict) -> None:
