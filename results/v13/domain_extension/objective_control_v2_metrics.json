@@ -1,0 +1,57 @@
+{
+  "model_short": "gemma2-9b",
+  "analysis": "objective_rule_vs_z_leakage",
+  "by_task": {
+    "even_odd": {
+      "control_kind": "categorical_parity",
+      "n": 57,
+      "sigma": 4.0,
+      "rule_accuracy": 0.5789473684210527,
+      "corr_ld_objective": 0.8545936638720943,
+      "corr_ld_z_raw": 0.07984231865671275,
+      "corr_ld_x_raw": 0.10711971119856564,
+      "corr_ld_mu_raw": 0.0,
+      "corr_residual_ld_z_after_objective": 0.15375069549316173,
+      "standardized_beta_z_after_objective": 0.07984231865671276,
+      "r2_objective_only": 0.7303303303303303,
+      "r2_objective_plus_z": 0.7367051261788105,
+      "delta_r2_z_after_objective": 0.006374795848480108,
+      "r2_objective_plus_x": 0.7418049628575945,
+      "delta_r2_x_after_objective": 0.011474632527264106
+    },
+    "pass_fail": {
+      "control_kind": "threshold_continuous",
+      "n": 39,
+      "sigma": 10.0,
+      "rule_accuracy": 0.6923076923076923,
+      "corr_ld_objective": 0.7807767004498106,
+      "corr_ld_z_raw": 0.6994581745250495,
+      "corr_ld_x_raw": 0.769575671590483,
+      "corr_ld_mu_raw": 0.014673947717308683,
+      "corr_residual_ld_z_after_objective": 0.2966414482260904,
+      "standardized_beta_z_after_objective": 0.2732756929962569,
+      "r2_objective_only": 0.609612255965293,
+      "r2_objective_plus_z": 0.6439648739812817,
+      "delta_r2_z_after_objective": 0.034352618015988656,
+      "r2_objective_plus_x": 0.6673200842158991,
+      "delta_r2_x_after_objective": 0.05770782825060605
+    },
+    "positive_negative": {
+      "control_kind": "threshold_continuous",
+      "n": 54,
+      "sigma": 4.0,
+      "rule_accuracy": 1.0,
+      "corr_ld_objective": 0.9065583478943754,
+      "corr_ld_z_raw": 0.8516877744136839,
+      "corr_ld_x_raw": 0.8411716498419699,
+      "corr_ld_mu_raw": -0.33086758523182536,
+      "corr_residual_ld_z_after_objective": 0.7793607084593709,
+      "standardized_beta_z_after_objective": 0.44319834866264196,
+      "r2_objective_only": 0.8218480381369798,
+      "r2_objective_plus_z": 0.930058094518243,
+      "delta_r2_z_after_objective": 0.10821005638126313,
+      "r2_objective_plus_x": 0.8278928543331103,
+      "delta_r2_x_after_objective": 0.006044816196130509
+    }
+  }
+}
