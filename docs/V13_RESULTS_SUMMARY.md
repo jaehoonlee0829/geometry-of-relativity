@@ -133,7 +133,6 @@ The objective-control design is:
 | control | visible target values | context means | sigma | z definition | objective label | LD |
 | --- | --- | --- | ---: | --- | --- | --- |
 | positive/negative | signed numbers from -9 to +9 | -6, 0, +6 | 4.0 | `(x - mu) / 4` | sign(x) | `logit(positive) - logit(negative)` |
-| above/below zero | signed numbers from -9 to +9 | -6, 0, +6 | 4.0 | `(x - mu) / 4` | x above/below zero | `logit(above) - logit(below)` |
 | pass/fail | scores from 40 to 100 | 50, 60, 70 | 10.0 | `(x - mu) / 10` | x >= 60 | `logit(pass) - logit(fail)` |
 | even/odd | integers 11 to 29 after a +20 offset | 14, 20, 26 | 4.0 | `(x - (mu + 20)) / 4` | parity(x) | `logit(even) - logit(odd)` |
 
@@ -155,18 +154,17 @@ figures/v13/domain_extension/objective_control_v2_leakage.png
 
 | control | kind | rule accuracy | corr(LD, objective) | raw corr(LD, z) | residual z leakage after objective | delta R2 from z |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| positive/negative | threshold | 1.000 | +0.922 | +0.829 | +0.735 | +0.081 |
-| above/below zero | threshold | 0.944 | +0.901 | +0.785 | +0.562 | +0.060 |
-| pass/fail | threshold | 0.692 | +0.817 | +0.763 | +0.417 | +0.058 |
-| even/odd | categorical parity | 0.509 | +0.827 | +0.113 | +0.201 | +0.013 |
+| positive/negative | threshold | 1.000 | +0.907 | +0.852 | +0.779 | +0.108 |
+| pass/fail | threshold | 0.692 | +0.781 | +0.699 | +0.297 | +0.034 |
+| even/odd | categorical parity | 0.579 | +0.855 | +0.080 | +0.154 | +0.006 |
 
 This makes the control story more conservative. Positive/negative and
-above/below are solved well, but they are threshold tasks whose objective labels
-are naturally coupled to magnitude, so raw corr(LD,z) is expected to be large.
-The incremental z signal after objective label is smaller by delta-R2, but not
-zero. Even/odd has high objective correlation but poor zero-threshold accuracy,
-which means the open-ended LD is not calibrated for parity; treat parity as an
-evaluation-format warning rather than strong evidence.
+pass/fail are threshold tasks whose objective labels are naturally coupled to
+magnitude, so raw corr(LD,z) is expected to be large. The incremental z signal
+after objective label is smaller by delta-R2, but not zero. Even/odd has high
+objective correlation but poor zero-threshold accuracy, which means the
+open-ended LD is not calibrated for parity; treat parity as an evaluation-format
+warning rather than strong evidence.
 
 New-domain cross-pair steering is positive for brightness/temperature own
 directions and partially positive from existing primary domains. This is
