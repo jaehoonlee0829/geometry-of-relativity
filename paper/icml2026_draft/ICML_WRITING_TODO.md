@@ -12,6 +12,38 @@ This is a **skeleton**, not submission prose. Every visible paragraph in `main.t
 must be rewritten by a human before submission. The skeleton exists to preserve
 paper structure, claim hygiene, ICML syntax, and research TODOs.
 
+## Reader-facing Naming Rule
+
+Do not expose internal experiment labels such as `v10`, `v11`, `v12`, `v12.2`,
+or teammate names in visible paper prose, captions, section titles, or tables.
+External readers should see methodology names:
+
+- dense prompt grid, not `v11`;
+- shot-sweep experiments, not `Alex phase`;
+- lexical/residual decomposition, not `v12.1/v12.2`;
+- affine-shift/OOD control, not `v13`.
+
+Internal labels are allowed only in LaTeX comments, claim ledgers, source paths,
+appendix provenance notes, and PR descriptions.
+
+## Figure Rule
+
+Use existing repo artifacts for result plots whenever possible, then rename and
+restyle them for paper use. Generate new figures only for explanatory diagrams
+that do not exist as scientific result artifacts.
+
+- Result plot/table: find existing artifact first, then adapt.
+- Explanatory schematic: make a prompt/diagram placeholder and hand it to the
+  diagram-generation workflow.
+- Never use AI-generated text inside a final figure; add labels with
+  LaTeX/vector tooling or plotting code.
+- Every visible plot title must be reader-facing. Remove internal labels such
+  as `v10`, `v11`, `v12`, `Phase 2A`, PR numbers, branch names, and teammate
+  names from plot titles and legends before including the figure in LaTeX.
+- Prefer one-column figures in the main text. If a one-row multi-panel plot is
+  unreadable in one column, regenerate it as a compact multi-row layout rather
+  than using a two-column `figure*` by default.
+
 ## Today: Skeleton Paper
 
 - [ ] Keep the ICML template compiling.

@@ -21,11 +21,14 @@ missing evidence.
 - [ ] Figures have captions below; tables have captions above.
 - [ ] Figures are readable in two-column format.
 - [ ] Plot titles are not duplicated inside figures if captions already state the claim.
+- [ ] Plot titles and legends contain no internal labels such as `v10`, `v11`, `v12`, `Phase 2A`, PR numbers, branch names, or teammate names.
+- [ ] Main-text figures use one-column layout unless a specific two-column figure is justified.
 - [ ] PDF size follows current ICML author instructions; prefer author instructions over example-paper discrepancy.
 
 ## Structure Review
 
 - [ ] Paper starts with a concrete phenomenon, not abstract theory.
+- [ ] Visible prose uses reader-facing methodology names, not internal labels like `v11`, `v12`, or teammate names.
 - [ ] Problem setup defines `x`, `mu`, `sigma`, `z`, and logit difference before using them.
 - [ ] Evidence types are separated: behavior, readout, geometry, causality, decomposition.
 - [ ] Results are organized as subsections under a main evidence/results section.
@@ -73,4 +76,3 @@ missing evidence.
 6. How much of the effect is lexical/output-facing?
 7. What remains unknown about the end-to-end mechanism?
 8. Why is this a good fit for the ICML Mechanistic Interpretability Workshop?
-
