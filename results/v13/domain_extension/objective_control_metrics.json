@@ -1,0 +1,15 @@
+{
+  "model_short": "gemma2-9b",
+  "by_task": {
+    "positive_negative": {
+      "n": 57,
+      "corr_ld_z": 0.5364930395479758,
+      "corr_ld_objective": 0.8964959755034064
+    },
+    "even_odd": {
+      "n": 57,
+      "corr_ld_z": 0.2739719213004593,
+      "corr_ld_objective": 0.5384629165649901
+    }
+  }
+}
