@@ -32,6 +32,36 @@
         "base_probe_corr_with_z_eff": 0.9721764369286295
       }
     },
+    "age": {
+      "base": {
+        "cos_primal_z_base_condition": 0.9999999857149933,
+        "base_probe_corr_with_z_eff": 0.9999995068911777
+      },
+      "negative_shift": {
+        "cos_primal_z_base_condition": 0.5311848762570474,
+        "base_probe_corr_with_z_eff": 0.8898096060719874
+      },
+      "parallel_shift": {
+        "cos_primal_z_base_condition": 0.7143062168158831,
+        "base_probe_corr_with_z_eff": 0.9044439079834872
+      },
+      "scale_down": {
+        "cos_primal_z_base_condition": 0.8769658235487973,
+        "base_probe_corr_with_z_eff": 0.9456191621697689
+      },
+      "scale_up": {
+        "cos_primal_z_base_condition": 0.7229554413276406,
+        "base_probe_corr_with_z_eff": 0.8944716575653102
+      },
+      "target_ood": {
+        "cos_primal_z_base_condition": 0.9147542643276124,
+        "base_probe_corr_with_z_eff": 0.9895840998904196
+      },
+      "world_ood": {
+        "cos_primal_z_base_condition": 0.43204626164170823,
+        "base_probe_corr_with_z_eff": 0.8931266442168776
+      }
+    },
     "weight": {
       "base": {
         "cos_primal_z_base_condition": 1.0000000111880005,
@@ -60,6 +90,36 @@
       "world_ood": {
         "cos_primal_z_base_condition": 0.9062389031109197,
         "base_probe_corr_with_z_eff": 0.9490311739139375
+      }
+    },
+    "size": {
+      "base": {
+        "cos_primal_z_base_condition": 1.000000032988083,
+        "base_probe_corr_with_z_eff": 0.999999307609877
+      },
+      "negative_shift": {
+        "cos_primal_z_base_condition": 0.0,
+        "base_probe_corr_with_z_eff": 0.9182347487665007
+      },
+      "parallel_shift": {
+        "cos_primal_z_base_condition": 0.9199003287393219,
+        "base_probe_corr_with_z_eff": 0.9859738893354543
+      },
+      "scale_down": {
+        "cos_primal_z_base_condition": 0.9897796166215896,
+        "base_probe_corr_with_z_eff": 0.9833524856347893
+      },
+      "scale_up": {
+        "cos_primal_z_base_condition": 0.9561380875657945,
+        "base_probe_corr_with_z_eff": 0.9858743225862271
+      },
+      "target_ood": {
+        "cos_primal_z_base_condition": 0.8486641971260684,
+        "base_probe_corr_with_z_eff": 0.9937883119551971
+      },
+      "world_ood": {
+        "cos_primal_z_base_condition": 0.578434474093374,
+        "base_probe_corr_with_z_eff": 0.4789900997580941
       }
     },
     "speed": {
@@ -92,6 +152,28 @@
         "base_probe_corr_with_z_eff": 0.45598469244556117
       }
     },
+    "wealth": {
+      "base": {
+        "cos_primal_z_base_condition": 1.0000000664304873,
+        "base_probe_corr_with_z_eff": 0.999999640065838
+      },
+      "parallel_shift": {
+        "cos_primal_z_base_condition": 0.2587055418611239,
+        "base_probe_corr_with_z_eff": 0.45897418996961725
+      },
+      "scale_up": {
+        "cos_primal_z_base_condition": 0.8999777690890083,
+        "base_probe_corr_with_z_eff": 0.9520645337330034
+      },
+      "target_ood": {
+        "cos_primal_z_base_condition": -0.24989667193524367,
+        "base_probe_corr_with_z_eff": -0.21152113780325738
+      },
+      "world_ood": {
+        "cos_primal_z_base_condition": 0.08199485641468097,
+        "base_probe_corr_with_z_eff": 0.0605956557327163
+      }
+    },
     "experience": {
       "base": {
         "cos_primal_z_base_condition": 1.000000041468967,
@@ -120,6 +202,36 @@
       "world_ood": {
         "cos_primal_z_base_condition": 0.4916569282651625,
         "base_probe_corr_with_z_eff": 0.3375350696340142
+      }
+    },
+    "bmi_abs": {
+      "base": {
+        "cos_primal_z_base_condition": 0.9999999404213327,
+        "base_probe_corr_with_z_eff": 0.9999997366342384
+      },
+      "negative_shift": {
+        "cos_primal_z_base_condition": 0.5669695616561987,
+        "base_probe_corr_with_z_eff": 0.9300046230255491
+      },
+      "parallel_shift": {
+        "cos_primal_z_base_condition": 0.8408564087377947,
+        "base_probe_corr_with_z_eff": 0.9555507103832528
+      },
+      "scale_down": {
+        "cos_primal_z_base_condition": 0.6108872877061633,
+        "base_probe_corr_with_z_eff": 0.9616065498084424
+      },
+      "scale_up": {
+        "cos_primal_z_base_condition": 0.8640419745612016,
+        "base_probe_corr_with_z_eff": 0.9447179935740021
+      },
+      "target_ood": {
+        "cos_primal_z_base_condition": 0.9170750904801059,
+        "base_probe_corr_with_z_eff": 0.9769993877967506
+      },
+      "world_ood": {
+        "cos_primal_z_base_condition": 0.886725509230879,
+        "base_probe_corr_with_z_eff": 0.9711815234632613
       }
     }
   }

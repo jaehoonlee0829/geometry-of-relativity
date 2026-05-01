@@ -33,6 +33,36 @@
         "condition_primal_z_slope": 0.0447048619389534
       }
     },
+    "age": {
+      "base": {
+        "base_primal_z_slope": 0.0544704869389534,
+        "condition_primal_z_slope": 0.0544704869389534
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.0536024309694767,
+        "condition_primal_z_slope": 0.0197482630610466
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0674913227558136,
+        "condition_primal_z_slope": 0.0451388880610466
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.052734375,
+        "condition_primal_z_slope": 0.041015625
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0635850727558136,
+        "condition_primal_z_slope": 0.0542534738779068
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0596788190305233,
+        "condition_primal_z_slope": 0.0570746511220932
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.072265625,
+        "condition_primal_z_slope": 0.01996527798473835
+      }
+    },
     "weight": {
       "base": {
         "base_primal_z_slope": 0.0520833320915699,
@@ -61,6 +91,36 @@
       "world_ood": {
         "base_primal_z_slope": 0.0562065988779068,
         "condition_primal_z_slope": 0.0592447929084301
+      }
+    },
+    "size": {
+      "base": {
+        "base_primal_z_slope": 0.0922309011220932,
+        "condition_primal_z_slope": 0.0922309011220932
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.078125,
+        "condition_primal_z_slope": 0.0
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0972222238779068,
+        "condition_primal_z_slope": 0.0863715261220932
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0881076380610466,
+        "condition_primal_z_slope": 0.0852864608168602
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0959201380610466,
+        "condition_primal_z_slope": 0.0939670130610466
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0865885391831398,
+        "condition_primal_z_slope": 0.0802951380610466
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0713975727558136,
+        "condition_primal_z_slope": 0.046875
       }
     },
     "speed": {
@@ -93,6 +153,28 @@
         "condition_primal_z_slope": 0.0483940988779068
       }
     },
+    "wealth": {
+      "base": {
+        "base_primal_z_slope": 0.0590277761220932,
+        "condition_primal_z_slope": 0.0590277761220932
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0609809011220932,
+        "condition_primal_z_slope": 0.01171875
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0661892369389534,
+        "condition_primal_z_slope": 0.0479600690305233
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.064453125,
+        "condition_primal_z_slope": -0.0412326380610466
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0796440988779068,
+        "condition_primal_z_slope": 0.02690972201526165
+      }
+    },
     "experience": {
       "base": {
         "base_primal_z_slope": 0.0825737863779068,
@@ -121,6 +203,36 @@
       "world_ood": {
         "base_primal_z_slope": 0.0940755233168602,
         "condition_primal_z_slope": 0.0373263880610466
+      }
+    },
+    "bmi_abs": {
+      "base": {
+        "base_primal_z_slope": 0.056640625,
+        "condition_primal_z_slope": 0.056640625
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.0496961809694767,
+        "condition_primal_z_slope": 0.0310329869389534
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0626085102558136,
+        "condition_primal_z_slope": 0.0558810755610466
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0523003488779068,
+        "condition_primal_z_slope": 0.0390625
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0581597238779068,
+        "condition_primal_z_slope": 0.0499131940305233
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0583767369389534,
+        "condition_primal_z_slope": 0.0632595494389534
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0596788190305233,
+        "condition_primal_z_slope": 0.0562065988779068
       }
     }
   }

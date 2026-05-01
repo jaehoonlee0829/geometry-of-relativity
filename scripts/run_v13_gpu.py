@@ -758,9 +758,9 @@ def plot_affine_human_summary(aff: dict) -> None:
     pairs = list(aff["by_pair"].keys())
     buckets = [
         ("normal\nworld", ["base"], "Original value range."),
-        ("same z,\nshifted/scaled world", ["parallel_shift", "negative_shift", "scale_up", "scale_down"], "Everyone moves together; relative standing is unchanged."),
+        ("mild/moderate\naffine", ["parallel_shift", "negative_shift", "scale_up", "scale_down"], "Everyone moves together; relative standing is unchanged."),
         ("target-only\nOOD", ["target_ood"], "Context stays normal, target is extreme: e.g. a 300 cm person among normal-height people."),
-        ("whole-world\nOOD", ["world_ood"], "Target and comparison group are both implausible/extreme, but z is unchanged."),
+        ("extreme affine\nwhole-world OOD", ["world_ood"], "Everyone moves together, but the whole textual world is implausible/extreme."),
     ]
     fig, axes = plt.subplots(1, 2, figsize=(13, 5.2), gridspec_kw={"width_ratios": [1.6, 1.0]})
     ax = axes[0]
@@ -787,9 +787,10 @@ def plot_affine_human_summary(aff: dict) -> None:
     explanation = [
         "How to read the affine/OOD tests",
         "",
-        "Same-z affine shifts are not the same as target-only OOD.",
+        "The yellow and red bars are both affine shifts.",
+        "They differ in extremity / text plausibility, not in the math.",
         "",
-        "1. shifted/scaled world:",
+        "1. mild/moderate affine:",
         "   185 cm among 170 cm people -> 285 cm among 270 cm people.",
         "   The absolute numbers are odd, but everyone moved together.",
         "",
@@ -798,12 +799,13 @@ def plot_affine_human_summary(aff: dict) -> None:
         "   This is both high-z and textually implausible; a drop here can mean",
         "   the model is reacting to weird input, not merely failing z math.",
         "",
-        "3. whole-world OOD:",
-        "   300 cm among 285 cm people.",
-        "   z can be ordinary, but the whole textual world is off-distribution.",
+        "3. extreme affine / whole-world OOD:",
+        "   600 cm among 625 cm people.",
+        "   The model may still say short because z is negative, but this is",
+        "   now entangled with implausible training/text distribution.",
         "",
-        "Interpretation: height/weight mostly survive; speed and especially",
-        "experience degrade when the whole world becomes implausible.",
+        "Interpretation: this plot tests monotonic relative-adjective readout.",
+        "It does not prove the model has a clean human-plausible simulator.",
     ]
     ax.text(0.0, 1.0, "\n".join(explanation), va="top", ha="left", fontsize=9, family="monospace")
     fig.tight_layout()
