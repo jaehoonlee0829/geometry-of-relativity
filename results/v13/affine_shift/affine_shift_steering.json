@@ -1,0 +1,127 @@
+{
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "alpha": 4.0,
+  "by_pair": {
+    "height": {
+      "base": {
+        "base_primal_z_slope": 0.0405815988779068,
+        "condition_primal_z_slope": 0.0405815988779068
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.0390625,
+        "condition_primal_z_slope": 0.0373263880610466
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0462239570915699,
+        "condition_primal_z_slope": 0.0457899309694767
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0388454869389534,
+        "condition_primal_z_slope": 0.0375434011220932
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0427517369389534,
+        "condition_primal_z_slope": 0.0442708320915699
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0588107630610466,
+        "condition_primal_z_slope": 0.0533854179084301
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0405815988779068,
+        "condition_primal_z_slope": 0.0447048619389534
+      }
+    },
+    "weight": {
+      "base": {
+        "base_primal_z_slope": 0.0520833320915699,
+        "condition_primal_z_slope": 0.0520833320915699
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.0559895820915699,
+        "condition_primal_z_slope": 0.0338541679084301
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0503472238779068,
+        "condition_primal_z_slope": 0.0529513880610466
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0551215261220932,
+        "condition_primal_z_slope": 0.0494791679084301
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0520833320915699,
+        "condition_primal_z_slope": 0.0551215261220932
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0594618059694767,
+        "condition_primal_z_slope": 0.0475260429084301
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0562065988779068,
+        "condition_primal_z_slope": 0.0592447929084301
+      }
+    },
+    "speed": {
+      "base": {
+        "base_primal_z_slope": 0.0694444477558136,
+        "condition_primal_z_slope": 0.0694444477558136
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.049715910106897354,
+        "condition_primal_z_slope": 0.0
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0720486119389534,
+        "condition_primal_z_slope": 0.0627170130610466
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0631510391831398,
+        "condition_primal_z_slope": 0.0774739608168602
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0740017369389534,
+        "condition_primal_z_slope": 0.0718315988779068
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0773654505610466,
+        "condition_primal_z_slope": 0.0626085102558136
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0666232630610466,
+        "condition_primal_z_slope": 0.0483940988779068
+      }
+    },
+    "experience": {
+      "base": {
+        "base_primal_z_slope": 0.0825737863779068,
+        "condition_primal_z_slope": 0.0825737863779068
+      },
+      "negative_shift": {
+        "base_primal_z_slope": 0.07968749850988388,
+        "condition_primal_z_slope": 0.0
+      },
+      "parallel_shift": {
+        "base_primal_z_slope": 0.0970052108168602,
+        "condition_primal_z_slope": 0.0736762136220932
+      },
+      "scale_down": {
+        "base_primal_z_slope": 0.0776909738779068,
+        "condition_primal_z_slope": 0.0813802108168602
+      },
+      "scale_up": {
+        "base_primal_z_slope": 0.0870225727558136,
+        "condition_primal_z_slope": 0.0856119766831398
+      },
+      "target_ood": {
+        "base_primal_z_slope": 0.0830078125,
+        "condition_primal_z_slope": 0.0877821147441864
+      },
+      "world_ood": {
+        "base_primal_z_slope": 0.0940755233168602,
+        "condition_primal_z_slope": 0.0373263880610466
+      }
+    }
+  }
+}

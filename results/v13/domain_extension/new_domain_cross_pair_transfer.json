@@ -1,0 +1,35 @@
+{
+  "model_short": "gemma2-9b",
+  "layer": 33,
+  "alpha": 4.0,
+  "targets": [
+    "brightness",
+    "temperature"
+  ],
+  "sources": [
+    "height",
+    "weight",
+    "speed",
+    "experience",
+    "brightness",
+    "temperature"
+  ],
+  "matrix": {
+    "brightness": {
+      "height": 0.018269231542944908,
+      "weight": 0.01850961521267891,
+      "speed": 0.018269231542944908,
+      "experience": -0.001923076924867928,
+      "brightness": 0.038942307233810425,
+      "temperature": 0.018269231542944908
+    },
+    "temperature": {
+      "height": 0.016346154734492302,
+      "weight": 0.02235576882958412,
+      "speed": 0.02235576882958412,
+      "experience": 0.005769230891019106,
+      "brightness": 0.011298077180981636,
+      "temperature": 0.051923077553510666
+    }
+  }
+}

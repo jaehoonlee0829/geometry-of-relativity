@@ -2,6 +2,23 @@
 
 ## Current phase
 
+**v13 complete (OOD / X-TRANSFER / MIXED-POSITIVE).** Ran the minimum viable
+GPU session from `docs/NEXT_GPU_SESSION_v13.md` on Gemma 2 9B. Outputs are under
+`results/v13/`, `figures/v13/`, and `docs/V13_RESULTS_SUMMARY.md`.
+
+- **Affine/OOD:** ordinary shifts and scales mostly preserve high corr(LD,
+  z_eff), e.g. height stays +0.957 to +0.992 across all tested conditions.
+  World-OOD weakens speed (corr +0.604) and experience (corr +0.281), so do not
+  claim full affine invariance.
+- **X-transfer control:** shared steering is much more `z`-specific than raw-x:
+  off-diagonal transfer is +0.026 for `primal_z`, +0.006 for naive `primal_x`,
+  and +0.004 for z-residualized `primal_x`; z beats x in 54/56 off-diagonal
+  cells.
+- **Domain/objective controls:** brightness extends cleanly (corr(LD,z)=+0.911),
+  temperature is mixed (corr(LD,z)=+0.619, corr(LD,x)=+0.693), and objective
+  controls track objective labels more than z. Use "robust but not fully
+  affine-invariant" as the V13 headline.
+
 **v12.2 complete (RESIDUAL-TRANSFER / MIXED).** Ran the residual-vs-lexical
 cross-pair transfer follow-up from `docs/NEXT_GPU_SESSION_v12_2.md`. Outputs are
 under `results/v12_2/`, `figures/v12_2/`, and
