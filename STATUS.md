@@ -19,10 +19,10 @@ and `docs/V13_RESULTS_SUMMARY.md`.
 - **Independent domains/objective controls:** brightness extends cleanly
   (corr(LD,z)=+0.911), temperature is mixed (corr(LD,z)=+0.619,
   corr(LD,x)=+0.693), and objective controls track objective labels more than z.
-  A stronger objective-control rerun shows positive/negative is solved well
-  (accuracy 0.963) but still has residual z leakage; even/odd is not solved by
-  the open-ended next-token setup (accuracy 0.544), so parity should be treated
-  as an evaluation-format warning, not as evidence about relativity.
+  A cleaner objective-control rerun removes fever/adult labels: positive/negative
+  and above/below are solved well, but threshold labels naturally correlate with
+  magnitude; even/odd has poor zero-threshold accuracy in the open-ended LD
+  setup, so parity remains an evaluation-format warning.
 
 **v12.2 complete (RESIDUAL-TRANSFER / MIXED).** Ran the residual-vs-lexical
 cross-pair transfer follow-up from `docs/NEXT_GPU_SESSION_v12_2.md`. Outputs are

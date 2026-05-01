@@ -349,6 +349,21 @@ def objective_control_v2_trials() -> list[dict]:
             "format": lambda x: f"{x:+.1f}",
             "context_label": "Number",
             "target_label": "Number",
+            "prompt_tail": lambda spec, x: f"{spec['target_label']} 6: {spec['format'](x)}. The sign is",
+        },
+        {
+            "pair": "above_below_zero",
+            "kind": "threshold_continuous",
+            "x_values": [float(x) for x in range(-9, 10) if x != 0],
+            "mu_values": [-6.0, 0.0, 6.0],
+            "sigma": 4.0,
+            "low_word": "below",
+            "high_word": "above",
+            "high_if": lambda x: x > 0,
+            "format": lambda x: f"{x:+.1f}",
+            "context_label": "Number",
+            "target_label": "Number",
+            "prompt_tail": lambda spec, x: f"{spec['target_label']} 6: {spec['format'](x)}. Relative to zero, it is",
         },
         {
             "pair": "pass_fail",
@@ -362,32 +377,7 @@ def objective_control_v2_trials() -> list[dict]:
             "format": lambda x: f"{x:.0f}",
             "context_label": "Score",
             "target_label": "Score",
-        },
-        {
-            "pair": "fever_no_fever",
-            "kind": "threshold_continuous",
-            "x_values": [35.5, 36.0, 36.5, 37.0, 37.5, 38.0, 38.5, 39.0, 39.5, 40.0],
-            "mu_values": [36.5, 37.5, 38.5],
-            "sigma": 0.7,
-            "low_word": "normal",
-            "high_word": "fever",
-            "high_if": lambda x: x >= 38.0,
-            "format": lambda x: f"{x:.1f} C",
-            "context_label": "Temperature",
-            "target_label": "Temperature",
-        },
-        {
-            "pair": "adult_minor",
-            "kind": "threshold_continuous",
-            "x_values": [10.0, 12.0, 14.0, 16.0, 17.0, 18.0, 19.0, 20.0, 22.0, 24.0, 26.0],
-            "mu_values": [14.0, 18.0, 22.0],
-            "sigma": 4.0,
-            "low_word": "minor",
-            "high_word": "adult",
-            "high_if": lambda x: x >= 18.0,
-            "format": lambda x: f"{x:.0f} years old",
-            "context_label": "Person",
-            "target_label": "Person",
+            "prompt_tail": lambda spec, x: f"Passing threshold: 60. {spec['target_label']} 6: {spec['format'](x)}. The result is",
         },
         {
             "pair": "even_odd",
@@ -401,6 +391,7 @@ def objective_control_v2_trials() -> list[dict]:
             "format": lambda x: f"{int(x)}",
             "context_label": "Number",
             "target_label": "Number",
+            "prompt_tail": lambda spec, x: f"{spec['target_label']} 6: {spec['format'](x)}. The parity is",
         },
     ]
     rows = []
@@ -416,10 +407,7 @@ def objective_control_v2_trials() -> list[dict]:
                     items = "\n".join(
                         [f"{spec['context_label']} {i + 1}: {spec['format'](float(v))}." for i, v in enumerate(vals)]
                     )
-                prompt = (
-                    f"{items}\n"
-                    f"{spec['target_label']} 6: {spec['format'](x)}. Forced choice: this is"
-                )
+                prompt = f"{items}\n{spec['prompt_tail'](spec, x)}"
                 high = bool(spec["high_if"](x))
                 rows.append(
                     {
