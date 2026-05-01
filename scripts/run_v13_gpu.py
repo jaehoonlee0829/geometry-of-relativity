@@ -650,6 +650,7 @@ def plot_all() -> None:
         fig.tight_layout()
         fig.savefig(FIGS / "affine_shift" / "affine_shift_ld_vs_z.png", dpi=150)
         plt.close(fig)
+        plot_affine_human_summary(aff)
     probe_path = RESULTS / "affine_shift" / "affine_shift_probe_transfer.json"
     if probe_path.exists():
         probe = json.loads(probe_path.read_text())
@@ -671,6 +672,7 @@ def plot_all() -> None:
         for fam, fname in [("primal_x_naive", "cross_pair_transfer_x_8x8_gemma2-9b.png"), ("primal_z", "cross_pair_transfer_z_vs_x_8x8_gemma2-9b.png")]:
             M = np.array([[xres["matrices"][fam][t][s] for s in pairs] for t in pairs])
             heatmap(M, pairs, pairs, f"{fam} transfer @ L33", FIGS / "x_transfer" / fname, diverge=True)
+        plot_x_transfer_side_by_side(xres)
     analyze_top_logits()
     top_path = RESULTS / "top_logits" / "top_logit_group_scores.json"
     if top_path.exists():
@@ -750,6 +752,90 @@ def plot_all() -> None:
             transfer = json.loads(transfer_path.read_text())
             M = np.array([[transfer["matrix"][t][s] for s in transfer["sources"]] for t in transfer["targets"]], dtype=np.float64)
             heatmap(M, transfer["targets"], transfer["sources"], "New-domain cross-pair steering @ L33", FIGS / "domain_extension" / "new_domain_cross_pair_transfer.png", diverge=True)
+
+
+def plot_affine_human_summary(aff: dict) -> None:
+    pairs = list(aff["by_pair"].keys())
+    buckets = [
+        ("normal\nworld", ["base"], "Original value range."),
+        ("same z,\nshifted/scaled world", ["parallel_shift", "negative_shift", "scale_up", "scale_down"], "Everyone moves together; relative standing is unchanged."),
+        ("target-only\nOOD", ["target_ood"], "Context stays normal, target is extreme: e.g. a 300 cm person among normal-height people."),
+        ("whole-world\nOOD", ["world_ood"], "Target and comparison group are both implausible/extreme, but z is unchanged."),
+    ]
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5.2), gridspec_kw={"width_ratios": [1.6, 1.0]})
+    ax = axes[0]
+    x = np.arange(len(pairs))
+    width = 0.18
+    for j, (label, conds, _) in enumerate(buckets):
+        vals = []
+        for pair in pairs:
+            rows = [aff["by_pair"][pair][c]["corr_ld_z_eff"] for c in conds if c in aff["by_pair"][pair]]
+            vals.append(float(np.nanmean(rows)) if rows else np.nan)
+        ax.bar(x + (j - 1.5) * width, vals, width=width, label=label)
+        for i, v in enumerate(vals):
+            if np.isfinite(v):
+                ax.text(x[i] + (j - 1.5) * width, v + 0.025, f"{v:.2f}", ha="center", va="bottom", fontsize=7, rotation=90)
+    ax.axhline(0.8, color="black", lw=0.8, ls="--", alpha=0.5)
+    ax.set_ylim(0, 1.08)
+    ax.set_ylabel("corr(LD, z_eff)")
+    ax.set_xticks(x, pairs)
+    ax.set_title("Does adjective readout still follow relative standing?")
+    ax.legend(fontsize=8, loc="lower left")
+
+    ax = axes[1]
+    ax.axis("off")
+    explanation = [
+        "How to read the affine/OOD tests",
+        "",
+        "Same-z affine shifts are not the same as target-only OOD.",
+        "",
+        "1. shifted/scaled world:",
+        "   185 cm among 170 cm people -> 285 cm among 270 cm people.",
+        "   The absolute numbers are odd, but everyone moved together.",
+        "",
+        "2. target-only OOD:",
+        "   300 cm among 170 cm people.",
+        "   This is both high-z and textually implausible; a drop here can mean",
+        "   the model is reacting to weird input, not merely failing z math.",
+        "",
+        "3. whole-world OOD:",
+        "   300 cm among 285 cm people.",
+        "   z can be ordinary, but the whole textual world is off-distribution.",
+        "",
+        "Interpretation: height/weight mostly survive; speed and especially",
+        "experience degrade when the whole world becomes implausible.",
+    ]
+    ax.text(0.0, 1.0, "\n".join(explanation), va="top", ha="left", fontsize=9, family="monospace")
+    fig.tight_layout()
+    fig.savefig(FIGS / "affine_shift" / "affine_human_readable_summary.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_x_transfer_side_by_side(xres: dict) -> None:
+    pairs = xres["pairs"]
+    mats = {
+        "z direction": np.array([[xres["matrices"]["primal_z"][t][s] for s in pairs] for t in pairs], dtype=np.float64),
+        "raw x direction": np.array([[xres["matrices"]["primal_x_naive"][t][s] for s in pairs] for t in pairs], dtype=np.float64),
+        "z - raw x": None,
+    }
+    mats["z - raw x"] = mats["z direction"] - mats["raw x direction"]
+    lim = max(0.01, max(float(np.nanmax(np.abs(M))) for M in mats.values()))
+    fig, axes = plt.subplots(1, 3, figsize=(17, 5.4), sharey=True)
+    for ax, (title, M) in zip(axes, mats.items()):
+        im = ax.imshow(M, cmap="RdBu_r", vmin=-lim, vmax=lim)
+        ax.set_title(title)
+        ax.set_xticks(range(len(pairs)), pairs, rotation=45, ha="right", fontsize=8)
+        ax.set_yticks(range(len(pairs)), pairs, fontsize=8)
+        ax.set_xlabel("source direction")
+        if ax is axes[0]:
+            ax.set_ylabel("target adjective pair")
+        for i in range(M.shape[0]):
+            for j in range(M.shape[1]):
+                ax.text(j, i, f"{M[i, j]:+.2f}", ha="center", va="center", fontsize=6.5)
+    fig.colorbar(im, ax=axes.ravel().tolist(), label="steering slope")
+    fig.suptitle("V13 cross-pair steering: relative z transfers broadly; raw x is weak")
+    fig.savefig(FIGS / "x_transfer" / "cross_pair_transfer_z_x_side_by_side_gemma2-9b.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
 
 
 def heatmap(M, rows, cols, title, path, diverge=False):

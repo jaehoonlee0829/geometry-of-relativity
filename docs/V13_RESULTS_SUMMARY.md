@@ -14,6 +14,25 @@ Gemma 2 9B. Outputs are under `results/v13/` and `figures/v13/`.
 
 ## 1. Affine/OOD Relativity
 
+The affine-shift tests separate two different questions that are easy to
+conflate:
+
+- **Same-z shifted/scaled world:** the target and its comparison group move
+  together. Example: 185 cm among 170 cm people becomes 285 cm among 270 cm
+  people. This is numerically strange, but the relative standing is unchanged.
+- **Target-only OOD:** the comparison group stays normal, but the target goes to
+  an extreme value. Example: 300 cm among 170 cm people. This is not just an
+  affine-invariance test; it is also a text-distribution/OOD plausibility test.
+- **Whole-world OOD:** both target and context are implausible. Example: 300 cm
+  among 285 cm people. z can be ordinary, but the entire textual world is
+  off-distribution.
+
+The most human-readable plot for this is:
+
+```text
+figures/v13/affine_shift/affine_human_readable_summary.png
+```
+
 At the behavioral LD readout, most affine-shifted conditions continue to track
 `z_eff` strongly:
 
@@ -55,6 +74,12 @@ Paired off-diagonal differences:
 
 This strengthens the claim that shared cross-pair steering is specific to
 relative standing more than to raw magnitude.
+
+For direct visual comparison, use:
+
+```text
+figures/v13/x_transfer/cross_pair_transfer_z_x_side_by_side_gemma2-9b.png
+```
 
 ## 3. Top-logit Readout
 
