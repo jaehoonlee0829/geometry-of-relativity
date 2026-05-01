@@ -236,16 +236,16 @@ The same organization appears in activations.
 PCA on cell-mean residual-stream activations shows ordered arcs across adjective domains: nearby points have similar context-normalized standing even when their raw units and adjectives differ.
 This visualization is descriptive rather than causal, but it motivates the probe and steering tests below.
 
-\begin{figure}[t]
+\begin{figure*}[t]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig_results_pca_examples_clean.png}
+  \includegraphics[width=\textwidth]{figures/fig_results_pca_all_pairs_clean.png}
   \caption{\textbf{Cell-mean activation geometry.}
-  Late-layer PCA views of the dense prompt grid show ordered $z$ structure across adjective domains.
+  Late-layer PCA views of all eight dense prompt domains show ordered $z$ structure across adjective domains.
   The plot is geometry evidence, not by itself a mechanism claim.
   % Source artifacts: figures/v11/pca/*_gemma2-9b_2d_L33.png, cleaned and relabeled for paper display.
   }
   \label{fig:pca-montage}
-\end{figure}
+\end{figure*}
 
 Prompt regime matters.
 With no comparison examples, raw-value priors dominate; as context examples are added, the same judgment becomes organized by effective relative standing.
@@ -283,9 +283,22 @@ This should be phrased as a layerwise readout/intervention pattern, not as a ful
 
 The next mechanism question is how the context examples are turned into that variable.
 The working story is that the model behaves partly like a Bayesian data scientist: it reads the context values, forms a comparison statistic, and applies the resulting standing to the target.
-Attention, value-isolation, and ablation results should enter here only if they cleanly support that computation.
-% TODO(figure): Add a cleaned context-number attention or ablation figure if it survives review.
-% TODO(figure): Add a cleaned relativity/objectivity quadrant plot; current source plot is too crowded for main text.
+The shot-sweep and ablation experiments make this more concrete by plotting behavior in a two-axis phase plane:
+the vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while the horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$.
+As more context examples are supplied, baseline behavior moves toward the relativistic region.
+Full layer-0 attention ablation moves the model away from that region, but more local attention interventions were weaker, so the evidence supports a distributed context-use computation rather than a simple single-head circuit.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig_results_relative_objective_phase_clean.png}
+  \caption{\textbf{Relative/objective phase plane for shot-sweep and interventions.}
+  Each panel places model behavior on two axes: relative use, measured by partial correlation with $z$ after accounting for $x$, and objective use, measured by partial correlation with $x$ after accounting for $z$.
+  Baseline behavior becomes strongly relative once context examples are present.
+  Full layer-0 attention ablation is the clearest attention intervention in this plot; the current interpretation is distributed context use, not a clean localized attention-head circuit.
+  % Source artifact: internal/kshot/phase/figures/p2d_phase_grid_partial.png, cropped to remove the internal global title.
+  }
+  \label{fig:relative-objective-phase}
+\end{figure*}
 
 \subsection{The Relative-Standing Direction Partly Transfers Across Concepts}
 \label{subsec:shared-direction}
@@ -307,17 +320,19 @@ In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directi
 
 Second, steering with a source concept's \primalz{} direction often shifts the target concept in the expected high-minus-low direction.
 The diagonal entries are strongest, as expected, but off-diagonal transfer is consistently positive in the current dense-grid runs.
+The V13 raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ directions, transfer is much weaker.
 
-\begin{figure}[t]
+\begin{figure*}[t]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig_results_cross_pair_transfer_clean.png}
-  \caption{\textbf{Cross-concept steering transfer.}
+  \includegraphics[width=\textwidth]{figures/fig_results_z_vs_x_transfer_clean.png}
+  \caption{\textbf{Relative-standing directions transfer more broadly than raw-value directions.}
   Rows are target concepts and columns are source concepts.
-  Diagonal cells show within-concept steering; off-diagonal cells show how much a source concept's \primalz{} direction transfers to another concept.
-  % Source artifact: results/v11/gemma2-9b/cross_pair_transfer_dense.json, replotted for paper display.
+  The left heatmap steers with source-concept \primalz{} directions; the right heatmap uses source-concept raw-$x$ directions.
+  Mean off-diagonal transfer is $+0.026$ for relative-standing directions versus $+0.006$ for raw-value directions.
+  % Source artifact: results/v13/x_transfer/cross_pair_transfer_x_8x8.json, replotted for paper display.
   }
-  \label{fig:cross-pair-transfer}
-\end{figure}
+  \label{fig:z-vs-x-transfer}
+\end{figure*}
 
 The safe interpretation is partial transfer, not a pure universal code.
 For the 9B model, the mean diagonal steering slope is about $0.066$, while the mean off-diagonal slope is about $0.026$.
@@ -346,8 +361,6 @@ Only about $8\%$ of \primalz{} norm-squared lies in the tested lexical subspace,
 
 The residual transfers better off-diagonal than the lexical projection and recovers most of full \primalz{} transfer.
 However, residual transfer still correlates with target lexical-subspace overlap ($r\approx 0.79$), so this is evidence for a residual shared component, not proof of a clean non-lexical shared code.
-The next control is to compare against raw-$x$ directions using the same 8-by-8 transfer layout.
-% TODO(experiment): Add raw-x cross-transfer matrix once the explicit x-vector control is complete.
 % TODO(experiment): Add semantically distant or objective control concepts if they survive the design review.
 
 \subsection{Generalization Across Scale and Modalities}
@@ -463,6 +476,15 @@ Unless explicitly marked as a cross-validated probe score, reported $R^2$ values
 R^2(a,b)=\mathrm{corr}(a,b)^2.
 \]
 
+\paragraph{Partial-correlation phase axes.}
+The relative/objective phase plots use partial correlations:
+\[
+r_{\mathrm{rel}}=\mathrm{corr}(\mathrm{LD},z\mid x),\qquad
+r_{\mathrm{obj}}=\mathrm{corr}(\mathrm{LD},x\mid z).
+\]
+Operationally, $\mathrm{corr}(a,b\mid c)$ is computed by regressing $a$ and $b$ on $c$, then correlating the two residuals.
+This asks whether LD still tracks $z$ after accounting for raw value, or still tracks raw value after accounting for $z$.
+
 \paragraph{PCA $R^2$.}
 PCA is fit to activation vectors $h_i\in\mathbb{R}^d$.
 For a principal direction $v_{\mathrm{PC1}}$, each example receives a scalar score
@@ -493,6 +515,8 @@ For a pair and layer,
 \mathrm{primal}_z=\mathbb{E}[h_L\mid z>1]-\mathbb{E}[h_L\mid z<-1].
 \]
 Analogously, $\mathrm{primal}_x$ compares high-$x$ and low-$x$ prompts and is used as a raw-value control.
+This high-margin definition is the one used for the current dense-grid transfer and steering analyses.
+Some older exploratory manifold scripts used a lower-margin sign split, $z>0$ minus $z<0$; those results should not be mixed with the current \primalz{} definition without restating the threshold.
 
 \paragraph{Steering slopes.}
 For unit direction $\hat d$, layer $L$, and intervention scale $\alpha$, steering adds or subtracts the direction:
@@ -514,6 +538,7 @@ For source pair $s$ and target pair $t$, cross-pair transfer steers target promp
 \label{app:lexical-decomposition}
 
 For each pair, lexical directions are built from token-position captures such as adjective-token states, adjective-in-sentence states, sentence-final states, synonym-token contrasts, and domain-token contrasts.
+Token-position captures use tokenizer offsets to average hidden states over the tokens overlapping the relevant word or phrase.
 These directions form an orthonormal lexical basis:
 \[
 Q_L=\operatorname{orth}([d_1,\dots,d_k]).

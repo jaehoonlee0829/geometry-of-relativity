@@ -30,6 +30,8 @@ PAIR_LABELS = {
     "weight": "Weight",
 }
 
+PAIR_ORDER = ["height", "age", "weight", "size", "speed", "wealth", "experience", "bmi_abs"]
+
 
 def open_on_white(path: Path) -> Image.Image:
     """Open an image and composite transparency over white."""
@@ -48,24 +50,19 @@ def crop_dense_height_heatmap() -> None:
     cropped.save(out)
 
 
-def build_pca_examples() -> None:
-    pairs = [
-        ("height", "Height"),
-        ("weight", "Weight"),
-        ("speed", "Speed"),
-        ("bmi_abs", "BMI"),
-    ]
-    fig, axes = plt.subplots(2, 2, figsize=(6.6, 5.6), dpi=180)
+def build_pca_all_pairs() -> None:
+    pairs = [(pair, PAIR_LABELS[pair]) for pair in PAIR_ORDER]
+    fig, axes = plt.subplots(2, 4, figsize=(7.2, 3.8), dpi=180)
     for ax, (pair, title) in zip(axes.flat, pairs):
         src = ROOT / "figures" / "v11" / "pca" / f"{pair}_gemma2-9b_2d_L33.png"
         img = open_on_white(src)
         # Remove per-plot internal title. Keep axes, labels, points, and colorbar.
         img = img.crop((0, 38, img.width, img.height))
         ax.imshow(img)
-        ax.set_title(title, fontsize=10, pad=2)
+        ax.set_title(title, fontsize=8, pad=1)
         ax.axis("off")
     fig.tight_layout(pad=0.2)
-    fig.savefig(PAPER_FIG / "fig_results_pca_examples_clean.png", bbox_inches="tight", dpi=220)
+    fig.savefig(PAPER_FIG / "fig_results_pca_all_pairs_clean.png", bbox_inches="tight", dpi=220)
     plt.close(fig)
 
 
@@ -168,6 +165,14 @@ def build_layer_sweep_summary() -> None:
     plt.close(fig)
 
 
+def crop_relative_objective_phase() -> None:
+    src = ROOT / "internal" / "kshot" / "phase" / "figures" / "p2d_phase_grid_partial.png"
+    out = PAPER_FIG / "fig_results_relative_objective_phase_clean.png"
+    img = open_on_white(src)
+    # Drop the global internal title, preserving panel titles, axes, and annotations.
+    img.crop((0, 76, img.width, img.height)).save(out)
+
+
 def build_cross_pair_transfer() -> None:
     src = ROOT / "results" / "v11" / "gemma2-9b" / "cross_pair_transfer_dense.json"
     data = json.loads(src.read_text())
@@ -191,6 +196,46 @@ def build_cross_pair_transfer() -> None:
     cbar.ax.tick_params(labelsize=6)
     fig.tight_layout(pad=0.15)
     fig.savefig(PAPER_FIG / "fig_results_cross_pair_transfer_clean.png", bbox_inches="tight", dpi=220)
+    plt.close(fig)
+
+
+def build_z_vs_x_transfer() -> None:
+    src = ROOT / "results" / "v13" / "x_transfer" / "cross_pair_transfer_x_8x8.json"
+    summary_src = ROOT / "results" / "v13" / "x_transfer" / "cross_pair_transfer_x_vs_z_summary.json"
+    data = json.loads(src.read_text())
+    summary = json.loads(summary_src.read_text())["families"]
+    pairs = data["pairs"]
+    labels = [PAIR_LABELS[p] for p in pairs]
+    matrices = data["matrices"]
+
+    z_mat = np.array([[matrices["primal_z"][target][source] for source in pairs] for target in pairs], dtype=float)
+    x_mat = np.array(
+        [[matrices["primal_x_naive"][target][source] for source in pairs] for target in pairs],
+        dtype=float,
+    )
+
+    vmax = max(float(np.nanmax(np.abs(z_mat))), float(np.nanmax(np.abs(x_mat))), 0.09)
+    fig, axes = plt.subplots(1, 2, figsize=(7.15, 3.45), dpi=220, constrained_layout=True)
+    for ax, mat, title in [
+        (axes[0], z_mat, "Relative-standing direction"),
+        (axes[1], x_mat, "Raw-value direction"),
+    ]:
+        im = ax.imshow(mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
+        ax.set_title(title, fontsize=9)
+        ax.set_xticks(range(len(pairs)), labels=labels, rotation=45, ha="right", fontsize=6)
+        ax.set_yticks(range(len(pairs)), labels=labels if ax is axes[0] else [], fontsize=6)
+        ax.set_xlabel("Source concept", fontsize=7)
+        if ax is axes[0]:
+            ax.set_ylabel("Target concept", fontsize=7)
+        for i in range(len(pairs)):
+            for j in range(len(pairs)):
+                ax.text(j, i, f"{mat[i, j]:+.2f}", ha="center", va="center", fontsize=5)
+
+    cbar = fig.colorbar(im, ax=axes, fraction=0.030, pad=0.015)
+    cbar.set_label("Steering slope", fontsize=7)
+    cbar.ax.tick_params(labelsize=6)
+
+    fig.savefig(PAPER_FIG / "fig_results_z_vs_x_transfer_clean.png", bbox_inches="tight", dpi=220)
     plt.close(fig)
 
 
@@ -251,11 +296,13 @@ def build_lexical_transfer_summary() -> None:
 
 def main() -> None:
     crop_dense_height_heatmap()
-    build_pca_examples()
+    build_pca_all_pairs()
     build_kshot_evolution_2x3()
     build_layer_sweep_summary()
+    crop_relative_objective_phase()
     build_shared_direction_steering()
     build_cross_pair_transfer()
+    build_z_vs_x_transfer()
     build_lexical_transfer_summary()
     print(f"Wrote paper result figures to {PAPER_FIG}")
 
