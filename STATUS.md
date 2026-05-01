@@ -19,8 +19,10 @@ and `docs/V13_RESULTS_SUMMARY.md`.
 - **Independent domains/objective controls:** brightness extends cleanly
   (corr(LD,z)=+0.911), temperature is mixed (corr(LD,z)=+0.619,
   corr(LD,x)=+0.693), and objective controls track objective labels more than z.
-  Even/odd is categorical and should be read only as an objective control, not
-  as a continuous adjective-relativity task.
+  A stronger objective-control rerun shows positive/negative is solved well
+  (accuracy 0.963) but still has residual z leakage; even/odd is not solved by
+  the open-ended next-token setup (accuracy 0.544), so parity should be treated
+  as an evaluation-format warning, not as evidence about relativity.
 
 **v12.2 complete (RESIDUAL-TRANSFER / MIXED).** Ran the residual-vs-lexical
 cross-pair transfer follow-up from `docs/NEXT_GPU_SESSION_v12_2.md`. Outputs are

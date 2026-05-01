@@ -329,6 +329,117 @@ def objective_trials(per_task: int) -> list[dict]:
     return rows
 
 
+def objective_control_v2_trials() -> list[dict]:
+    """Objective-rule controls.
+
+    These are not relative adjective tasks. They deliberately attach z metadata
+    to rule-based labels so we can measure whether context-relative standing
+    leaks into an objective decision.
+    """
+    specs = [
+        {
+            "pair": "positive_negative",
+            "kind": "threshold_continuous",
+            "x_values": [float(x) for x in range(-9, 10) if x != 0],
+            "mu_values": [-6.0, 0.0, 6.0],
+            "sigma": 4.0,
+            "low_word": "negative",
+            "high_word": "positive",
+            "high_if": lambda x: x > 0,
+            "format": lambda x: f"{x:+.1f}",
+            "context_label": "Number",
+            "target_label": "Number",
+        },
+        {
+            "pair": "pass_fail",
+            "kind": "threshold_continuous",
+            "x_values": [float(x) for x in range(40, 101, 5)],
+            "mu_values": [50.0, 60.0, 70.0],
+            "sigma": 10.0,
+            "low_word": "fail",
+            "high_word": "pass",
+            "high_if": lambda x: x >= 60,
+            "format": lambda x: f"{x:.0f}",
+            "context_label": "Score",
+            "target_label": "Score",
+        },
+        {
+            "pair": "fever_no_fever",
+            "kind": "threshold_continuous",
+            "x_values": [35.5, 36.0, 36.5, 37.0, 37.5, 38.0, 38.5, 39.0, 39.5, 40.0],
+            "mu_values": [36.5, 37.5, 38.5],
+            "sigma": 0.7,
+            "low_word": "normal",
+            "high_word": "fever",
+            "high_if": lambda x: x >= 38.0,
+            "format": lambda x: f"{x:.1f} C",
+            "context_label": "Temperature",
+            "target_label": "Temperature",
+        },
+        {
+            "pair": "adult_minor",
+            "kind": "threshold_continuous",
+            "x_values": [10.0, 12.0, 14.0, 16.0, 17.0, 18.0, 19.0, 20.0, 22.0, 24.0, 26.0],
+            "mu_values": [14.0, 18.0, 22.0],
+            "sigma": 4.0,
+            "low_word": "minor",
+            "high_word": "adult",
+            "high_if": lambda x: x >= 18.0,
+            "format": lambda x: f"{x:.0f} years old",
+            "context_label": "Person",
+            "target_label": "Person",
+        },
+        {
+            "pair": "even_odd",
+            "kind": "categorical_parity",
+            "x_values": [float(x) for x in range(11, 30)],
+            "mu_values": [14.0, 20.0, 26.0],
+            "sigma": 4.0,
+            "low_word": "odd",
+            "high_word": "even",
+            "high_if": lambda x: int(x) % 2 == 0,
+            "format": lambda x: f"{int(x)}",
+            "context_label": "Number",
+            "target_label": "Number",
+        },
+    ]
+    rows = []
+    for spec in specs:
+        for mu in spec["mu_values"]:
+            for x in spec["x_values"]:
+                rng = np.random.default_rng(abs(hash((spec["pair"], float(x), float(mu)))) % (2**32))
+                if spec["kind"] == "categorical_parity":
+                    vals = np.rint(rng.normal(mu, spec["sigma"], 5)).astype(int)
+                    items = "\n".join([f"{spec['context_label']} {i + 1}: {int(v)}." for i, v in enumerate(vals)])
+                else:
+                    vals = rng.normal(mu, spec["sigma"], 5)
+                    items = "\n".join(
+                        [f"{spec['context_label']} {i + 1}: {spec['format'](float(v))}." for i, v in enumerate(vals)]
+                    )
+                prompt = (
+                    f"{items}\n"
+                    f"{spec['target_label']} 6: {spec['format'](x)}. Forced choice: this is"
+                )
+                high = bool(spec["high_if"](x))
+                rows.append(
+                    {
+                        "pair": spec["pair"],
+                        "control_kind": spec["kind"],
+                        "condition": "objective_control_v2",
+                        "x": float(x),
+                        "mu": float(mu),
+                        "sigma": float(spec["sigma"]),
+                        "z": float((x - mu) / spec["sigma"]),
+                        "z_eff": float((x - mu) / spec["sigma"]),
+                        "objective": 1.0 if high else -1.0,
+                        "low_word": spec["low_word"],
+                        "high_word": spec["high_word"],
+                        "prompt": prompt,
+                    }
+                )
+    return rows
+
+
 def run_prompts(model, tok, rows: list[dict], layers_to_capture: list[int], batch_size: int, max_seq: int, top_k: int = 0):
     layers = get_layers(model)
     captures = {layer: [] for layer in layers_to_capture}
@@ -617,6 +728,77 @@ def experiment_domain(model, tok, args) -> None:
     (RESULTS / "domain_extension" / "new_domain_cross_pair_transfer.json").write_text(json.dumps(transfer, indent=2))
 
 
+def r2_score_np(y: np.ndarray, X: np.ndarray) -> float:
+    y = np.asarray(y, dtype=np.float64)
+    X = np.asarray(X, dtype=np.float64)
+    X = np.column_stack([np.ones(len(y)), X])
+    coef = np.linalg.lstsq(X, y, rcond=None)[0]
+    pred = X @ coef
+    ss_res = float(((y - pred) ** 2).sum())
+    ss_tot = float(((y - y.mean()) ** 2).sum())
+    return 0.0 if ss_tot < 1e-12 else 1.0 - ss_res / ss_tot
+
+
+def residual_after(y: np.ndarray, X: np.ndarray) -> np.ndarray:
+    y = np.asarray(y, dtype=np.float64)
+    X = np.asarray(X, dtype=np.float64)
+    X = np.column_stack([np.ones(len(y)), X])
+    coef = np.linalg.lstsq(X, y, rcond=None)[0]
+    return y - X @ coef
+
+
+def standardized_beta_z_after_objective(ld: np.ndarray, objective: np.ndarray, z: np.ndarray) -> float:
+    y = (ld - ld.mean()) / max(float(ld.std()), 1e-12)
+    obj = (objective - objective.mean()) / max(float(objective.std()), 1e-12)
+    zz = (z - z.mean()) / max(float(z.std()), 1e-12)
+    X = np.column_stack([np.ones(len(y)), obj, zz])
+    return float(np.linalg.lstsq(X, y, rcond=None)[0][2])
+
+
+def experiment_objective_controls_v2(model, tok, args) -> None:
+    rows = objective_control_v2_trials()
+    ld, _, _ = run_prompts(model, tok, rows, [], args.batch_size, args.max_seq, top_k=0)
+    for i, row in enumerate(rows):
+        row["ld"] = float(ld[i])
+        row["predicted_objective"] = 1.0 if ld[i] >= 0 else -1.0
+    out = {"model_short": MODEL_SHORT, "analysis": "objective_rule_vs_z_leakage", "by_task": {}}
+    for task in sorted({r["pair"] for r in rows}):
+        tr = [r for r in rows if r["pair"] == task]
+        ldv = np.array([r["ld"] for r in tr], dtype=np.float64)
+        obj = np.array([r["objective"] for r in tr], dtype=np.float64)
+        z = np.array([r["z"] for r in tr], dtype=np.float64)
+        x = np.array([r["x"] for r in tr], dtype=np.float64)
+        mu = np.array([r["mu"] for r in tr], dtype=np.float64)
+        pred = np.array([r["predicted_objective"] for r in tr], dtype=np.float64)
+        r2_obj = r2_score_np(ldv, obj[:, None])
+        r2_obj_z = r2_score_np(ldv, np.column_stack([obj, z]))
+        r2_obj_x = r2_score_np(ldv, np.column_stack([obj, x]))
+        ld_resid = residual_after(ldv, obj[:, None])
+        z_resid = residual_after(z, obj[:, None])
+        out["by_task"][task] = {
+            "control_kind": tr[0]["control_kind"],
+            "n": len(tr),
+            "sigma": float(tr[0]["sigma"]),
+            "rule_accuracy": float((pred == obj).mean()),
+            "corr_ld_objective": corr(ldv, obj),
+            "corr_ld_z_raw": corr(ldv, z),
+            "corr_ld_x_raw": corr(ldv, x),
+            "corr_ld_mu_raw": corr(ldv, mu),
+            "corr_residual_ld_z_after_objective": corr(ld_resid, z_resid),
+            "standardized_beta_z_after_objective": standardized_beta_z_after_objective(ldv, obj, z),
+            "r2_objective_only": r2_obj,
+            "r2_objective_plus_z": r2_obj_z,
+            "delta_r2_z_after_objective": r2_obj_z - r2_obj,
+            "r2_objective_plus_x": r2_obj_x,
+            "delta_r2_x_after_objective": r2_obj_x - r2_obj,
+        }
+    (RESULTS / "domain_extension" / "objective_control_v2_metrics.json").write_text(json.dumps(out, indent=2))
+    with (RESULTS / "domain_extension" / "objective_control_v2_rows.jsonl").open("w") as f:
+        for row in rows:
+            f.write(json.dumps(row) + "\n")
+    print("[v13] objective-control v2 complete", flush=True)
+
+
 def plot_all() -> None:
     aff_path = RESULTS / "affine_shift" / "affine_shift_metrics.json"
     if aff_path.exists():
@@ -728,6 +910,7 @@ def plot_all() -> None:
         fig.savefig(FIGS / "domain_extension" / "domain_corr_summary.png", dpi=150)
         plt.close(fig)
         plot_objective_control_interpretation(dom, obj)
+        plot_objective_control_v2()
         act_path = RESULTS / "domain_extension" / "domain_activations_L33.npz"
         if act_path.exists():
             d = np.load(act_path)
@@ -805,6 +988,61 @@ def plot_objective_control_interpretation(dom: dict, obj: dict) -> None:
     plt.close(fig)
 
 
+def plot_objective_control_v2() -> None:
+    path = RESULTS / "domain_extension" / "objective_control_v2_metrics.json"
+    if not path.exists():
+        return
+    data = json.loads(path.read_text())["by_task"]
+    tasks = list(data.keys())
+    labels = [t.replace("_", "\n") for t in tasks]
+    accuracy = [data[t]["rule_accuracy"] for t in tasks]
+    obj_corr = [data[t]["corr_ld_objective"] for t in tasks]
+    z_leak = [data[t]["corr_residual_ld_z_after_objective"] for t in tasks]
+    delta_r2 = [data[t]["delta_r2_z_after_objective"] for t in tasks]
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 4.8), gridspec_kw={"width_ratios": [1.5, 1.0]})
+    ax = axes[0]
+    x = np.arange(len(tasks))
+    width = 0.24
+    ax.bar(x - width, accuracy, width=width, label="rule accuracy")
+    ax.bar(x, obj_corr, width=width, label="corr(LD, objective)")
+    ax.bar(x + width, z_leak, width=width, label="residual z leakage")
+    ax.axhline(0, color="black", lw=0.8)
+    ax.set_ylim(-1.0, 1.05)
+    ax.set_xticks(x, labels)
+    ax.set_ylabel("score")
+    ax.set_title("Objective controls: rule signal vs z leakage after controlling for rule")
+    ax.legend(fontsize=8, loc="lower left")
+    for i, v in enumerate(delta_r2):
+        ax.text(i + width, z_leak[i] + (0.05 if z_leak[i] >= 0 else -0.08), f"dR2z={v:.2f}", ha="center", fontsize=7)
+
+    ax = axes[1]
+    ax.axis("off")
+    notes = [
+        "Better objective-control readout",
+        "",
+        "Raw corr(LD,z) is only a leakage diagnostic.",
+        "The main questions are:",
+        "",
+        "1. rule accuracy:",
+        "   sign(LD) matches the objective label?",
+        "",
+        "2. objective correlation:",
+        "   does LD track the rule label?",
+        "",
+        "3. residual z leakage:",
+        "   after removing objective label effects,",
+        "   does z still explain LD?",
+        "",
+        "For even/odd, z is not semantically meaningful;",
+        "it is only a context/magnitude leakage probe.",
+    ]
+    ax.text(0.0, 1.0, "\n".join(notes), va="top", ha="left", fontsize=9, family="monospace")
+    fig.tight_layout()
+    fig.savefig(FIGS / "domain_extension" / "objective_control_v2_leakage.png", dpi=150)
+    plt.close(fig)
+
+
 def plot_affine_human_summary(aff: dict) -> None:
     pairs = list(aff["by_pair"].keys())
     buckets = [
@@ -869,11 +1107,9 @@ def plot_x_transfer_side_by_side(xres: dict) -> None:
     mats = {
         "z direction": np.array([[xres["matrices"]["primal_z"][t][s] for s in pairs] for t in pairs], dtype=np.float64),
         "raw x direction": np.array([[xres["matrices"]["primal_x_naive"][t][s] for s in pairs] for t in pairs], dtype=np.float64),
-        "z - raw x": None,
     }
-    mats["z - raw x"] = mats["z direction"] - mats["raw x direction"]
     lim = max(0.01, max(float(np.nanmax(np.abs(M))) for M in mats.values()))
-    fig, axes = plt.subplots(1, 3, figsize=(17, 5.4), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5.4), sharey=True)
     for ax, (title, M) in zip(axes, mats.items()):
         im = ax.imshow(M, cmap="RdBu_r", vmin=-lim, vmax=lim)
         ax.set_title(title)
@@ -922,7 +1158,7 @@ def placeholder_plot(path: Path, text: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sections", default="all", help="comma list: affine,x_transfer,domain,plot")
+    ap.add_argument("--sections", default="all", help="comma list: affine,x_transfer,domain,objective_controls,plot")
     ap.add_argument("--pairs", nargs="+", default=PRIMARY_PAIRS)
     ap.add_argument("--new-domains", nargs="+", default=["brightness", "temperature"])
     ap.add_argument("--batch-size", type=int, default=12)
@@ -933,7 +1169,7 @@ def main() -> None:
     ap.add_argument("--domain-prompts-per-task", type=int, default=80)
     ap.add_argument("--top-k", type=int, default=50)
     args = ap.parse_args()
-    sections = {"affine", "x_transfer", "domain", "plot"} if args.sections == "all" else set(args.sections.split(","))
+    sections = {"affine", "x_transfer", "domain", "objective_controls", "plot"} if args.sections == "all" else set(args.sections.split(","))
     if sections - {"plot"}:
         print(f"[v13] loading {MODEL_ID}", flush=True)
         tok = AutoTokenizer.from_pretrained(MODEL_ID, token=os.environ.get("HF_TOKEN"))
@@ -956,6 +1192,8 @@ def main() -> None:
         experiment_x_transfer(model, tok, args)
     if "domain" in sections:
         experiment_domain(model, tok, args)
+    if "objective_controls" in sections:
+        experiment_objective_controls_v2(model, tok, args)
     if "plot" in sections:
         plot_all()
     print("[v13] complete", flush=True)

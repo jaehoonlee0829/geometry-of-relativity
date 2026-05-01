@@ -141,6 +141,28 @@ Use this plot for the intended reading:
 figures/v13/domain_extension/objective_control_interpretation.png
 ```
 
+Because raw `corr(LD,z)` is a bad headline metric for categorical/rule tasks, a
+second objective-control pass adds rule accuracy and residual z-leakage after
+controlling for the objective label:
+
+```text
+results/v13/domain_extension/objective_control_v2_metrics.json
+figures/v13/domain_extension/objective_control_v2_leakage.png
+```
+
+| control | kind | rule accuracy | corr(LD, objective) | raw corr(LD, z) | residual z leakage after objective |
+| --- | --- | ---: | ---: | ---: | ---: |
+| positive/negative | threshold | 0.963 | +0.849 | +0.390 | -0.456 |
+| pass/fail | threshold | 0.692 | +0.285 | -0.007 | -0.333 |
+| fever/no-fever | threshold | 0.500 | +0.571 | +0.258 | -0.324 |
+| adult/minor | threshold | 0.545 | +0.058 | +0.315 | +0.373 |
+| even/odd | categorical parity | 0.544 | -0.002 | -0.096 | -0.096 |
+
+This makes the control story more conservative. Positive/negative is solved
+well but still has residual context leakage. Even/odd is not solved by this
+open-ended next-token setup, so it is mainly a warning that categorical controls
+need a better forced-choice/evaluation format before being used strongly.
+
 New-domain cross-pair steering is positive for brightness/temperature own
 directions and partially positive from existing primary domains. This is
 encouraging for extension, but the temperature readout is still strongly tied
