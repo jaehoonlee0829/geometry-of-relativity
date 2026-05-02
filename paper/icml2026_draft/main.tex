@@ -11,7 +11,21 @@
 \usepackage{mathtools}
 \usepackage{placeins}
 \usepackage{float}
+\usepackage{xcolor}
 \usepackage[capitalize,noabbrev]{cleveref}
+
+% Keep draft pages dense. The paper prioritizes avoiding large blank regions;
+% figures may float slightly past their source subsection when needed.
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{10}
+\setcounter{dbltopnumber}{4}
+\renewcommand{\topfraction}{0.98}
+\renewcommand{\bottomfraction}{0.90}
+\renewcommand{\textfraction}{0.02}
+\renewcommand{\floatpagefraction}{0.70}
+\renewcommand{\dbltopfraction}{0.98}
+\renewcommand{\dblfloatpagefraction}{0.70}
 
 % Blind workshop submission. If accepted, switch to:
 % \usepackage[accepted]{icml2026}
@@ -19,8 +33,10 @@
 
 % Local notation. Keep custom macros minimal and do not use them in the title.
 \newcommand{\zscore}{\ensuremath{z = (x-\mu)/\sigma}}
-\newcommand{\primalz}{\ensuremath{\mathrm{primal}_z}}
+\newcommand{\primalz}{\ensuremath{d^{\mathrm{primal}}_{z}}}
+\newcommand{\primalx}{\ensuremath{d^{\mathrm{primal}}_{x}}}
 \newcommand{\logitdiff}{\ensuremath{\Delta_{\mathrm{logit}}}}
+\newcommand{\redtodo}[1]{\textcolor{red}{\textbf{[TODO]} #1}}
 
 \icmltitlerunning{The Geometry of Relativity}
 
@@ -59,22 +75,26 @@ The key claim is intentionally provisional until the remaining controls and lite
 \section{Introduction}
 \label{sec:introduction}
 
-\paragraph{Problem.}
-Language models make scalar judgments relative to the comparison class in the prompt:
-the same height can be tall in one group and short in another.
-This gives a controlled setting for asking whether a model represents raw magnitude, relative standing, lexical priors, or some mixture of these variables.
+Gradable adjectives are context dependent.
+A person who is $170$ cm tall can be described as tall in one comparison class and short in another.
+This paper uses that everyday ambiguity as a controlled testbed for a mechanistic question: when a language model makes a scalar judgment from in-context examples, does it rely on the raw number, a learned world prior, or an internally constructed relative variable?
 
-\paragraph{Approach.}
-We build prompt grids that separate a target value $x$ from its context-normalized standing $z=(x-\mu)/\sigma$.
-We then compare behavioral logit differences, activation geometry, layerwise readouts, causal steering, cross-concept transfer, lexical decomposition, and sparse-feature audits.
+We formalize the target variable as a context-normalized standing,
+\[
+z=(x-\mu)/\sigma,
+\]
+where $x$ is the target value and $(\mu,\sigma)$ describe the comparison class that generated the prompt examples.
+The experimental design deliberately samples $x$ and $z$ independently, then derives $\mu$, so that raw value and relative standing are not accidentally confounded.
+This lets us ask whether the model's adjective logit difference follows ``$170$ cm'' or ``above the local norm.''
 
-\paragraph{Working claim.}
-The current evidence supports a mixed mechanism.
-Gemma 2 contains a residual-stream component aligned with relative standing, but that component is coupled to pair-specific lexical and output-facing structure.
-The paper therefore avoids claiming a pure universal $z$ direction or a complete localized circuit.
+The main empirical picture is that Gemma 2 behaves as though a $z$-like variable is available.
+Dense prompt grids show that adjective logits track $z$ much more strongly than raw $x$.
+Cell-mean activation geometry is organized by the same variable.
+Layerwise analyses suggest an encode/use separation: $z$ is linearly readable in early layers, while direct steering with \primalz{} has larger effects later.
+Cross-concept transfer is positive but incomplete, and lexical decomposition shows why: part of the direction is shared across concepts, but same-concept steering also benefits from lexical and output-facing components.
 
-\paragraph{Evidence map.}
-The results proceed in four steps: first, dense prompt grids test whether adjective behavior tracks $z$ rather than raw $x$; second, representation analyses test whether the same variable is visible in activation geometry; third, layerwise and steering experiments distinguish linear availability from causal use; fourth, transfer and lexical-decomposition experiments test how much of the direction is shared across concepts.
+The intended contribution is therefore not a claim of a pure universal relativity vector or a fully localized circuit.
+Instead, we provide a claim ledger for a concrete relational computation: context examples induce a normalized scalar variable; that variable is visible in residual-stream geometry; it can be causally steered; and its cross-domain transfer is partially, but not completely, separable from lexical adjective structure.
 
 \section{Setup and Experimental Design}
 \label{sec:setup}
@@ -110,7 +130,7 @@ Positive values mean the model leans toward the high adjective.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig_setup_prompt_pipeline.png}
+  \includegraphics[width=\linewidth]{figures/fig1_prompt_schematic.png}
   \caption{\textbf{Prompt and measurement schematic.}
   Context examples define a local comparison class.
   We compute the target's normalized standing $z=(x-\mu)/\sigma$ and measure whether the model assigns higher logit to the high adjective or the low adjective.
@@ -161,7 +181,13 @@ The dense grid samples $x$ and $z$ independently, then derives the context mean:
 \mu = x - z\sigma.
 \]
 This design prevents raw value and relative standing from being accidentally confounded.
-The current dense-grid setting uses 20 target values, 20 target $z$ values, and 10 context seeds per adjective pair.
+After choosing $(x,z)$ and deriving $\mu$, an $N$-shot prompt draws context examples from the population distribution
+\[
+c_1,\ldots,c_N \sim \mathcal{N}(\mu,\sigma^2),
+\]
+then renders those samples in the same unit as the target.
+Thus $z$ is the target's standing relative to the population parameters that generated the comparison class, while different context seeds instantiate different sampled groups.
+The current dense-grid setting uses 20 target values, 20 target $z$ values, and 10 context seeds per adjective pair, with the main dense prompts using 15 context examples.
 % TODO(source): Verify final sample counts after dropped implausible cells are accounted for.
 For income, the analogous definition is log-space:
 \[
@@ -175,7 +201,16 @@ The current evidence focuses on Gemma 2 2B and Gemma 2 9B.
 The main concept set contains eight adjective pairs: height, age, weight, size, speed, income/wealth, experience, and BMI/obesity.
 Measurements include logit differences, residual-stream activations, PCA and linear-probe readouts, steering interventions, lexical/residual decompositions, SAE feature audits, and attention/ablation analyses.
 % TODO(source): Move exact model IDs, layer counts, prompt templates, activation sites, steering scales, and seeds to the appendix.
-% TODO(human): Decide which V13 domains/objective controls enter the final main text.
+% TODO(human): Decide which additional domains/objective controls enter the final main text.
+
+For concept pair $p$ and layer $L$, we use \primalz{} for the high-margin mean-difference direction that contrasts above-norm and below-norm prompts:
+\[
+d^{\mathrm{primal}}_{z,p,L}
+= \mathbb{E}[h_L \mid p, z>1]
+- \mathbb{E}[h_L \mid p, z<-1].
+\]
+The raw-value control \primalx{} is defined analogously by contrasting high-$x$ and low-$x$ prompts.
+These are descriptive residual-stream directions used for steering and transfer; they are not supervised probe weights.
 
 \subsection{Evidence Types}
 \label{subsec:evidence-types}
@@ -187,14 +222,14 @@ Behavioral correlations show what the model outputs; probes show what is linearl
 \section{Results}
 \label{sec:evidence}
 
-\subsection{Context Examples Shift Judgments Toward Relative Standing}
+\subsection{Context Examples Shift Judgments Toward $z$}
 \label{subsec:behavioral-grids}
 
 We first ask whether the model's adjective preference follows raw value $x$ or context-normalized standing $z$.
 Across the dense prompt grid, cell-mean logit differences are strongly correlated with $z$ for every tested adjective pair.
 This is the behavioral anchor for the paper: once a comparison class is present, the target value alone is not sufficient to explain the adjective readout.
 
-\begin{table}[t]
+\begin{table}[!tbp]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
@@ -202,14 +237,14 @@ This is the behavioral anchor for the paper: once a comparison class is present,
     \toprule
     Concept & corr$(\logitdiff,z)$ & corr$(\logitdiff,x)$ \\
     \midrule
-    Height & 0.976 & 0.107 \\
-    Age & 0.940 & -0.002 \\
-    Weight & 0.967 & 0.114 \\
-    Size & 0.928 & 0.366 \\
-    Speed & 0.930 & 0.412 \\
-    Income & 0.964 & 0.260 \\
-    Experience & 0.951 & 0.356 \\
-    BMI & 0.954 & 0.216 \\
+    Height & \textbf{0.976} & 0.107 \\
+    Age & \textbf{0.940} & -0.002 \\
+    Weight & \textbf{0.967} & 0.114 \\
+    Size & \textbf{0.928} & 0.366 \\
+    Speed & \textbf{0.930} & 0.412 \\
+    Income & \textbf{0.964} & 0.260 \\
+    Experience & \textbf{0.951} & 0.356 \\
+    BMI & \textbf{0.954} & 0.216 \\
     \bottomrule
   \end{tabular}
   \caption{\textbf{Adjective behavior tracks relative standing.}
@@ -219,10 +254,10 @@ This is the behavioral anchor for the paper: once a comparison class is present,
   \label{tab:behavioral-z-corr}
 \end{table}
 
-The height grid gives the simplest visual readout of the same result.
-When raw height and relative standing are sampled independently, the tall-minus-short logit difference varies primarily along the relative-standing axis.
+The height grid in \cref{fig:dense-height-heatmap} gives the simplest visual readout of the same result.
+When raw height and $z$ are sampled independently, the tall-minus-short logit difference varies primarily along the context-normalized axis.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_dense_height_heatmap_clean.png}
   \caption{\textbf{Dense height grid.}
@@ -232,25 +267,25 @@ When raw height and relative standing are sampled independently, the tall-minus-
   \label{fig:dense-height-heatmap}
 \end{figure}
 
-The same organization appears in activations.
+\Cref{fig:pca-montage} shows the same organization in activations.
 PCA on cell-mean residual-stream activations shows ordered arcs across adjective domains: nearby points have similar context-normalized standing even when their raw units and adjectives differ.
 This visualization is descriptive rather than causal, but it motivates the probe and steering tests below.
 
-\begin{figure*}[t]
+\begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/fig_results_pca_all_pairs_clean.png}
+  \includegraphics[width=\linewidth]{figures/fig_results_pca_all_pairs_clean.png}
   \caption{\textbf{Cell-mean activation geometry.}
   Late-layer PCA views of all eight dense prompt domains show ordered $z$ structure across adjective domains.
   The plot is geometry evidence, not by itself a mechanism claim.
   % Source artifacts: figures/v11/pca/*_gemma2-9b_2d_L33.png, cleaned and relabeled for paper display.
   }
   \label{fig:pca-montage}
-\end{figure*}
+\end{figure}
 
-Prompt regime matters.
+\Cref{fig:kshot-ld-evolution} shows that prompt regime matters.
 With no comparison examples, raw-value priors dominate; as context examples are added, the same judgment becomes organized by effective relative standing.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_kshot_ld_evolution_2x3.png}
   \caption{\textbf{Logit-difference evolution with context length.}
@@ -263,17 +298,17 @@ With no comparison examples, raw-value priors dominate; as context examples are 
 
 % TODO(control): Add OOD/extreme-value results here if the affine-shift experiments survive review.
 
-\subsection{Internals: Relative Standing Is Computed Early and Used Later}
+\subsection{Internals: $z$ Is Encoded Early and Used Later}
 \label{subsec:layer-evolution}
 
-The current internal evidence suggests an encode/use separation.
+\Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.
 Linear readouts recover $z$ in early layers, while direct residual-stream steering with the \primalz{} direction is strongest in later layers.
 This should be phrased as a layerwise readout/intervention pattern, not as a fully localized circuit.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_layer_sweep_summary_clean.png}
-  \caption{\textbf{Relative standing is available early but most causally potent later.}
+  \caption{\textbf{The context-normalized variable is available early but most causally potent later.}
   Linear availability of $z$ rises quickly in early layers, while direct \primalz{} steering has its largest effect later.
   This separates decodability from use: a variable can be linearly readable before it is the most effective causal steering direction.
   % Source artifact: figures/v12/layer_sweep_9b_combined.png, cleaned for paper display.
@@ -283,31 +318,33 @@ This should be phrased as a layerwise readout/intervention pattern, not as a ful
 
 The next mechanism question is how the context examples are turned into that variable.
 The working story is that the model behaves partly like a Bayesian data scientist: it reads the context values, forms a comparison statistic, and applies the resulting standing to the target.
-The shot-sweep and ablation experiments make this more concrete by plotting behavior in a two-axis phase plane:
+\Cref{fig:relative-objective-phase} makes the shot-sweep and ablation experiments more concrete by plotting behavior in a two-axis phase plane:
 the vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while the horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$.
 As more context examples are supplied, baseline behavior moves toward the relativistic region.
 Full layer-0 attention ablation moves the model away from that region, but more local attention interventions were weaker, so the evidence supports a distributed context-use computation rather than a simple single-head circuit.
 
-\begin{figure*}[t]
+\begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/fig_results_relative_objective_phase_clean.png}
+  \includegraphics[width=\linewidth]{figures/fig_results_relative_objective_phase_9b_replot_clean.png}
   \caption{\textbf{Relative/objective phase plane for shot-sweep and interventions.}
-  Each panel places model behavior on two axes: relative use, measured by partial correlation with $z$ after accounting for $x$, and objective use, measured by partial correlation with $x$ after accounting for $z$.
+  Each panel places Gemma 2 9B behavior on two axes: relative use, measured by partial correlation with $z$ after accounting for $x$, and objective use, measured by partial correlation with $x$ after accounting for $z$.
   Baseline behavior becomes strongly relative once context examples are present.
   Full layer-0 attention ablation is the clearest attention intervention in this plot; the current interpretation is distributed context use, not a clean localized attention-head circuit.
-  % Source artifact: internal/kshot/phase/figures/p2d_phase_grid_partial.png, cropped to remove the internal global title.
+  % Source artifacts: internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json, p2d_partial_l0_gemma2-9b_height_k1.json, and p2e_residual_interventions_gemma2-9b_height_k15.json, replotted for paper display.
   }
   \label{fig:relative-objective-phase}
-\end{figure*}
+\end{figure}
 
-\subsection{The Relative-Standing Direction Partly Transfers Across Concepts}
+\redtodo{Add and paraphrase the results of model-internal ablations and SAE representations.}
+
+\subsection{A Shared $z$ Direction Partly Transfers Across Concepts}
 \label{subsec:shared-direction}
 
-We next ask whether each adjective pair has its own private direction, or whether a relative-standing component transfers across concepts.
-First, a Procrustes-aligned shared direction steers most concepts in the expected direction.
+We next ask whether each adjective pair has its own private direction, or whether a shared $z$-like relativity component transfers across concepts.
+\Cref{fig:shared-direction-steering} shows that a Procrustes-aligned shared direction steers most concepts in the expected direction.
 In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directions is $0.52$, the shared direction has cosine $0.64$--$0.90$ with individual pair directions, and shared-direction steering reaches at least half of within-pair steering for $7/8$ pairs.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_shared_direction_steering_clean.png}
   \caption{\textbf{A shared direction preserves much of within-concept steering.}
@@ -318,28 +355,28 @@ In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directi
   \label{fig:shared-direction-steering}
 \end{figure}
 
-Second, steering with a source concept's \primalz{} direction often shifts the target concept in the expected high-minus-low direction.
+Second, \cref{fig:z-vs-x-transfer} shows that steering with a source concept's \primalz{} direction often shifts the target concept in the expected high-minus-low direction.
 The diagonal entries are strongest, as expected, but off-diagonal transfer is consistently positive in the current dense-grid runs.
-The V13 raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ directions, transfer is much weaker.
+The raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ directions, transfer is much weaker.
 
-\begin{figure*}[t]
+\begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\textwidth]{figures/fig_results_z_vs_x_transfer_clean.png}
-  \caption{\textbf{Relative-standing directions transfer more broadly than raw-value directions.}
+  \includegraphics[width=\linewidth]{figures/fig_results_z_vs_x_transfer_clean.png}
+  \caption{\textbf{$z$ directions transfer more broadly than raw-value directions.}
   Rows are target concepts and columns are source concepts.
   The left heatmap steers with source-concept \primalz{} directions; the right heatmap uses source-concept raw-$x$ directions.
-  Mean off-diagonal transfer is $+0.026$ for relative-standing directions versus $+0.006$ for raw-value directions.
-  % Source artifact: results/v13/x_transfer/cross_pair_transfer_x_8x8.json, replotted for paper display.
+  Mean off-diagonal transfer is $+0.026$ for $z$ directions versus $+0.006$ for raw-value directions.
+  % Source artifact: raw-value transfer control JSON, replotted for paper display.
   }
   \label{fig:z-vs-x-transfer}
-\end{figure*}
+\end{figure}
 
 The safe interpretation is partial transfer, not a pure universal code.
 For the 9B model, the mean diagonal steering slope is about $0.066$, while the mean off-diagonal slope is about $0.026$.
 That means cross-concept steering recovers roughly $40\%$ of the same-concept effect on average.
 The remaining gap is important: concept-specific lexical and output-facing components still matter.
 
-To test this, we decompose each pair's context-derived direction into a tested lexical subspace and an orthogonal residual:
+To test this, \cref{fig:lexical-residual,fig:lexical-residual-matrices} decomposes each pair's context-derived direction into a tested lexical subspace and an orthogonal residual:
 \[
 p_z = p_{z,\mathrm{lex}} + p_{z,\mathrm{resid}}.
 \]
@@ -348,7 +385,7 @@ Literal adjective-token directions align only weakly with \primalz{}:
 mean cosine is $0.104$ for word-token directions, $0.102$ for sentence-token directions, and $0.260$ for sentence-final directions.
 Only about $8\%$ of \primalz{} norm-squared lies in the tested lexical subspace, but the normalized lexical projection is high-gain for same-concept steering.
 
-\begin{figure}[t]
+\begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_lexical_transfer_summary_clean.png}
   \caption{\textbf{Shared transfer is not purely lexical.}
@@ -357,6 +394,17 @@ Only about $8\%$ of \primalz{} norm-squared lies in the tested lexical subspace,
   % Source artifact: results/v12_2/residual_vs_lexical_transfer_summary.json, replotted for paper display.
   }
   \label{fig:lexical-residual}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_results_residual_vs_lexical_transfer_matrices_clean.png}
+  \caption{\textbf{Residual and lexical cross-pair transfer matrices.}
+  The full \primalz{} direction transfers broadly, the lexical projection is strongest on same-concept cells, and the lexical residual preserves more off-diagonal transfer.
+  The random null remains near zero.
+  % Source artifact: results/v12_2/residual_vs_lexical_transfer.json, replotted for paper display.
+  }
+  \label{fig:lexical-residual-matrices}
 \end{figure}
 
 The residual transfers better off-diagonal than the lexical projection and recovers most of full \primalz{} transfer.
@@ -370,8 +418,7 @@ The dense-grid and transfer results are replicated across Gemma 2 model sizes, w
 Scale should be framed conservatively: the larger model appears more uniform on some transfer and sparse-feature measures, but the paper should not over-claim a scaling law.
 
 The broader generalization question remains open.
-Cross-family, instruction-tuned, and multimodal variants should be treated as TODOs unless they are run with the same behavioral grid, steering controls, and figure hygiene rules used above.
-% TODO(experiment): Add cross-family or multimodal results only after the prompt domains and scoring are matched.
+\redtodo{Add bigger-model and multimodal-model generalization results if they pass the same dense-grid, steering, and scoring controls.}
 
 \section{Related Work and Positioning}
 \label{sec:related-work}
@@ -379,24 +426,34 @@ Cross-family, instruction-tuned, and multimodal variants should be treated as TO
 \subsection{Gradable Adjectives and Pragmatic Thresholds}
 \label{subsec:related-gradability}
 
-This literature explains why relative adjective judgments are context-sensitive.
-The paper should make clear that prior work can explain the behavior; our target is the internal representation and use of the relevant variable.
-% TODO(cite): Add Kennedy-style degree semantics and LLM pragmatic-reasoning papers.
+Work on gradable adjectives already explains why a word such as \emph{tall} requires a comparison standard.
+Formal semantics distinguishes relative adjectives from more absolute scale adjectives, while probabilistic pragmatic accounts model how speakers and listeners infer context-sensitive thresholds from comparison classes \citep{lassiter2017adjectival}.
+Recent LLM work asks whether statistical language models exhibit analogous pragmatic threshold behavior \citep{lipkin2023pragmatic}.
+Our paper builds on that behavioral question but moves the target inward: we ask what variable is represented in the residual stream when the comparison class is supplied as prompt examples.
 
 \subsection{Numerical Representations and In-Context Statistics}
 \label{subsec:related-numbers}
 
-The paper should distinguish raw numerical magnitude, distributional inference from context, and normalized standing.
-This is where prior work on number representations and in-context statistical inference belongs.
-% TODO(cite): Add number-representation and in-context statistical-inference papers after lit review.
+Numeracy work shows that hidden states can encode numerical magnitude, but it also warns that notation, tokenization, base-10 digit structure, and verbalization failures can strongly shape what is measured \citep{wallace2019numbers,zhu2024value,levy2025base10,yuchi2026numbers}.
+Measurement and numerical-attribute studies further show that language models mix numbers with world knowledge and contextual cues \citep{park2022measurements,takagi2025confounding}.
+Our dense-grid design separates these factors by holding the adjective-pair task fixed while independently varying raw value and normalized standing.
+The result is a direct test of whether the model uses the prompt numbers as isolated magnitudes or as samples from a local distribution.
+
+This also connects to work on in-context learning as implicit statistical inference.
+Prior theory and controlled mechanistic studies show that transformers can implement Bayesian-like, gradient-like, or estimator-like computations from examples \citep{xie2022implicitbayesian,muller2022bayesian,akyurek2023algorithm,vonoswald2023gradient,bai2023statisticians,he2025linearregression,chaudhry2026implicit}.
+Our setting is less synthetic but more semantically natural: the context examples are ordinary scalar quantities, and the inferred statistic is the target's relative standing inside that local population.
 
 \subsection{Linear Representations, Steering, and Manifold Geometry}
 \label{subsec:related-mi}
 
-The seven-paper primer provides the backbone:
-linear representation hypotheses, concept geometry, non-linear/manifold features, belief manifolds, manifold computation, and information geometry.
-This paper should position itself as a narrow empirical study of context-normalized scalar variables rather than as a new grand theory of representation.
-% TODO(cite): Add the seven-primer citations and decide which are main-body versus appendix.
+Mechanistic interpretability often operationalizes concepts as directions in activation space, using probes and steering to connect representation geometry to model behavior \citep{park2023lrh,park2025categorical}.
+At the same time, recent work shows that not every feature is well described by a single line: cyclic, hierarchical, and manifold-valued variables can require richer geometry \citep{engels2024notlinear,modell2025origins,sarfati2026beliefs,gurnee2026linebreaks}.
+Our use of \primalz{} sits between these views.
+It is a practical mean-difference direction for a scalar comparison variable, useful for steering and transfer tests, but we do not treat it as evidence that the whole computation is one-dimensional.
+
+This positioning matters for the negative results as well.
+PCA plots, linear probes, and \primalz{} steering are evidence types with different meanings.
+The paper therefore separates behavioral tracking of $z$, linear decodability of $z$, causal effect under steering, and cross-concept transfer, rather than collapsing them into a single ``the model has a vector'' claim.
 
 \section{Discussion and Limitations}
 \label{sec:discussion-limitations}
@@ -404,31 +461,37 @@ This paper should position itself as a narrow empirical study of context-normali
 \subsection{What This Paper Can Claim}
 \label{subsec:can-claim}
 
-The likely claim class is:
-models map relative concepts in in-context examples using a context-normalized variable related to $z$.
-Whether the most novel result is behavioral, geometric, cross-concept, or lexical-residual depends on the remaining experiments and literature review.
-% TODO(human): Replace this with the final 1--3 claims only after claim selection.
+The strongest current claim is that context-relative adjective behavior is organized by a normalized standing variable.
+In dense grids, logit differences track $z$ more strongly than raw $x$ across the tested adjective domains.
+The same organization appears in cell-mean activation geometry, and layerwise analyses suggest that the variable is linearly available earlier than it is maximally useful for steering.
+
+The second claim is more qualified: there is a partially shared relativity direction across concepts.
+Source-concept \primalz{} directions transfer off diagonal more than raw-$x$ directions, and a Procrustes-aligned shared direction preserves much of same-concept steering.
+However, lexical decomposition shows that the shared component is not cleanly isolated from adjective-specific structure.
+The right framing is a mixed residual-stream mechanism, not a pure universal $z$ vector.
 
 \subsection{What This Paper Cannot Claim Yet}
 \label{subsec:cannot-claim}
 
-The paper should explicitly avoid claiming a pure universal non-lexical $z$-code, a fully localized causal circuit, or a complete account of gradable-adjective semantics.
-It should also avoid treating probes as mechanisms or treating PCA visualizations as proof.
+The evidence does not identify a complete circuit.
+Attention and ablation results currently point toward distributed context use rather than a single decisive head or layer.
+Likewise, probes and PCA visualizations show availability and geometry, not mechanism by themselves.
+Steering gives stronger causal evidence, but it still intervenes on summary directions rather than on a full computation graph.
 
-\subsection{Open TODOs Before Submission}
-\label{subsec:open-todos}
-
-Active TODOs from the handcrafted plan:
-more robust scoring than naive logit difference; OOD/extreme-value experiments; attention-pattern analysis; zero-shot vs few-shot vs many-shot comparisons; raw-$x$ steering controls; more objective or distant control concepts; cross-family or multimodal generalization if feasible.
-These may become main results, appendix results, or future work depending on what is completed.
+The evidence also does not prove that the representation is non-lexical.
+The lexical projection is small in norm but high-gain for same-concept steering, while the residual transfers better across concepts but still correlates with target lexical-subspace overlap.
+Future controls need more semantically distant concepts, objective adjective controls, and more robust scoring than a single high-minus-low token pair.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-The conclusion should return to the concrete phenomenon:
-context-relative adjective judgments provide a tractable setting for studying how models represent relational variables in context.
-The final paragraph should state the strongest validated claim and one honest next step.
-% TODO(human): Write after final claim selection.
+Context-relative adjective judgments provide a compact setting for studying relational variables in language models.
+By independently controlling raw value and normalized standing, we find that Gemma 2's behavior and residual-stream geometry are organized around a $z$-like variable rather than raw magnitude alone.
+The variable is linearly readable, causally steerable, and partially transferable across adjective domains.
+
+The mechanism is not yet clean.
+The same experiments that reveal transfer also show lexical and output-facing structure, and the current ablation evidence does not reduce the computation to a simple attention circuit.
+That mixed picture is the main result: in-context examples appear to induce a real normalized scalar representation, but the model implements it through geometry that is partly shared, partly concept-specific, and still in need of sharper circuit-level explanation.
 
 \section*{Impact Statement}
 
@@ -440,18 +503,6 @@ The main foreseeable impact is methodological: improving how mechanistic interpr
 \bibliographystyle{icml2026}
 
 \appendix
-
-\section{Reproducibility Details}
-\label{app:reproducibility}
-
-The main dense-grid setting samples $20$ target values, $20$ target relative-standing values, and $10$ context seeds per adjective pair.
-The grid chooses $x$ and $z$ independently, then derives $\mu=x-z\sigma$.
-For income, the analogous calculation is performed in log space:
-\[
-z=\frac{\log x-\log\mu}{\log 2}.
-\]
-The current main evidence focuses on Gemma 2 2B and Gemma 2 9B.
-Prompt templates, exact model identifiers, activation sites, steering scales, seeds, and software versions should be audited against the final scripts before submission.
 
 \section{Definitions and Metrics}
 \label{app:definitions}
@@ -512,9 +563,10 @@ When marked as cross-validated $R^2$, the score is held-out prediction quality, 
 \paragraph{Mean-difference directions.}
 For a pair and layer,
 \[
-\mathrm{primal}_z=\mathbb{E}[h_L\mid z>1]-\mathbb{E}[h_L\mid z<-1].
+d^{\mathrm{primal}}_{z,p,L}
+= \mathbb{E}[h_L\mid p,z>1]-\mathbb{E}[h_L\mid p,z<-1].
 \]
-Analogously, $\mathrm{primal}_x$ compares high-$x$ and low-$x$ prompts and is used as a raw-value control.
+Analogously, \primalx{} compares high-$x$ and low-$x$ prompts and is used as a raw-value control.
 This high-margin definition is the one used for the current dense-grid transfer and steering analyses.
 Some older exploratory manifold scripts used a lower-margin sign split, $z>0$ minus $z<0$; those results should not be mixed with the current \primalz{} definition without restating the threshold.
 
@@ -545,7 +597,7 @@ Q_L=\operatorname{orth}([d_1,\dots,d_k]).
 \]
 Normalize the context direction:
 \[
-p_z=\operatorname{unit}(\mathrm{primal}_z).
+p_z=\operatorname{unit}(\primalz).
 \]
 Project into the lexical subspace and take the residual:
 \[
@@ -559,15 +611,5 @@ Steering uses normalized versions of the projection and residual.
 Therefore a small lexical projection can steer more strongly than full \primalz{} if it points in a high-gain output-facing direction.
 In the current 9B layer-33 follow-up, full \primalz{} has diagonal/off-diagonal means $+0.067/+0.026$, lexical projection has $+0.087/+0.011$, lexical residual has $+0.044/+0.024$, and a random null is approximately zero.
 This supports a mixed mechanism: the residual carries broad cross-domain transfer, but target lexical-subspace leakage prevents a clean non-lexical claim.
-
-\section{Additional Experiments}
-\label{app:additional-experiments}
-
-TODO: Full behavioral tables, all pair/model results, extra layers, OOD/extreme values, zero/few/many-shot comparisons, x-vector controls, and failed or mixed results.
-
-\section{Extended Related Work}
-\label{app:extended-related}
-
-TODO: Put longer summaries from the seven-paper primer and broader literature review here.
 
 \end{document}

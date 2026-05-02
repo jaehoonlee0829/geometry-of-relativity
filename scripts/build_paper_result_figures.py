@@ -8,6 +8,7 @@ titles. Source provenance stays in LaTeX comments/captions and git history.
 from __future__ import annotations
 
 import json
+import importlib.util
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -52,7 +53,7 @@ def crop_dense_height_heatmap() -> None:
 
 def build_pca_all_pairs() -> None:
     pairs = [(pair, PAIR_LABELS[pair]) for pair in PAIR_ORDER]
-    fig, axes = plt.subplots(2, 4, figsize=(7.2, 3.8), dpi=180)
+    fig, axes = plt.subplots(4, 2, figsize=(6.7, 8.2), dpi=180)
     for ax, (pair, title) in zip(axes.flat, pairs):
         src = ROOT / "figures" / "v11" / "pca" / f"{pair}_gemma2-9b_2d_L33.png"
         img = open_on_white(src)
@@ -168,9 +169,134 @@ def build_layer_sweep_summary() -> None:
 def crop_relative_objective_phase() -> None:
     src = ROOT / "internal" / "kshot" / "phase" / "figures" / "p2d_phase_grid_partial.png"
     out = PAPER_FIG / "fig_results_relative_objective_phase_clean.png"
+    out_9b = PAPER_FIG / "fig_results_relative_objective_phase_9b_clean.png"
     img = open_on_white(src)
     # Drop the global internal title, preserving panel titles, axes, and annotations.
-    img.crop((0, 76, img.width, img.height)).save(out)
+    cropped = img.crop((0, 76, img.width, img.height))
+    cropped.save(out)
+
+    # One-column paper version: keep the 9B row and wrap the five shot counts.
+    # Coordinates preserve each source panel's title, axes, and annotations.
+    boxes = [
+        (70, 430, 382, 842),
+        (434, 430, 746, 842),
+        (798, 430, 1110, 842),
+        (1162, 430, 1474, 842),
+        (1485, 430, 2018, 842),
+    ]
+    panels = [cropped.crop(box) for box in boxes]
+    target_w = 365
+    resized = []
+    for panel in panels:
+        scale = target_w / panel.width
+        resized.append(panel.resize((target_w, int(panel.height * scale)), Image.Resampling.LANCZOS))
+    pad_x, pad_y = 22, 18
+    panel_h = max(p.height for p in resized)
+    canvas_w = 3 * target_w + 4 * pad_x
+    canvas_h = 2 * panel_h + 3 * pad_y
+    canvas = Image.new("RGB", (canvas_w, canvas_h), "white")
+    for i, panel in enumerate(resized):
+        row, col = divmod(i, 3)
+        x = pad_x + col * (target_w + pad_x)
+        y = pad_y + row * (panel_h + pad_y)
+        canvas.paste(panel, (x, y))
+    canvas.save(out_9b)
+
+
+def build_relative_objective_phase_9b() -> None:
+    """Replot the phase-plane result in a one-column-friendly layout."""
+    module_path = ROOT / "internal" / "kshot" / "phase" / "scripts" / "plot_p2d_phase_grid_partial.py"
+    spec = importlib.util.spec_from_file_location("phase_partial", module_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Could not load {module_path}")
+    phase = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(phase)
+
+    model = "gemma2-9b"
+    pair = "height"
+    ks = [0, 1, 2, 5, 15]
+    r_zx_per_k = phase.get_r_zx_per_k(pair, ks=[1, 2, 5, 15])
+
+    fig, axes = plt.subplots(2, 3, figsize=(3.55, 4.65), dpi=220)
+    axes_flat = axes.ravel()
+
+    p2d = json.loads((ROOT / "internal" / "kshot" / "phase" / "results" / "p2d_l0all_per_k_gemma2-9b_height.json").read_text())["results"]
+    p2d_k1 = json.loads((ROOT / "internal" / "kshot" / "phase" / "results" / "p2d_partial_l0_gemma2-9b_height_k1.json").read_text())
+    p2e_k15 = json.loads((ROOT / "internal" / "kshot" / "phase" / "results" / "p2e_residual_interventions_gemma2-9b_height_k15.json").read_text())["results"]
+
+    def partial_point(row: dict, k: int) -> tuple[float, float]:
+        if k == 0:
+            return float(row["r_ld_x"]), 0.0
+        if "p_lx_z" in row and "p_lz_x" in row:
+            return float(row["p_lx_z"]), float(row["p_lz_x"])
+        p_z, p_x = phase.partial_corr(float(row["r_ld_zeff"]), float(row["r_ld_x"]), r_zx_per_k[k])
+        return p_x, p_z
+
+    def baseline_row(k: int) -> dict:
+        if k == 1:
+            return p2d_k1["baseline"]
+        if k == 15:
+            return p2e_k15["baseline"]
+        return p2d[f"k{k}"]["baseline"]
+
+    def l0_row(k: int) -> dict:
+        if k == 1:
+            return p2d_k1["l0_all"]
+        if k == 15:
+            return phase.l0_partials(model, pair, k, r_zx_per_k[k])
+        return p2d[f"k{k}"]["l0_all"]
+
+    for ax, k in zip(axes_flat, ks):
+        ax.add_patch(plt.Rectangle((0.0, 0.0), 0.5, 0.5, alpha=0.10, color="C3", zorder=0))
+        ax.add_patch(plt.Rectangle((0.5, 0.0), 0.5, 0.5, alpha=0.10, color="C2", zorder=0))
+        ax.add_patch(plt.Rectangle((0.0, 0.5), 0.5, 0.5, alpha=0.10, color="C0", zorder=0))
+        ax.add_patch(plt.Rectangle((0.5, 0.5), 0.5, 0.5, alpha=0.10, color="gold", zorder=0))
+        ax.set_xlim(-0.05, 1.05)
+        ax.set_ylim(-0.05, 1.05)
+        ax.axhline(0.5, color="black", linewidth=0.3, alpha=0.4)
+        ax.axvline(0.5, color="black", linewidth=0.3, alpha=0.4)
+        ax.set_xticks([0.0, 0.5, 1.0])
+        ax.set_yticks([0.0, 0.5, 1.0])
+        ax.grid(alpha=0.2)
+        ax.set_title(f"k={k}", fontsize=7)
+        base_xy = partial_point(baseline_row(k), k)
+        l0_xy = partial_point(l0_row(k), k)
+        ax.scatter(*base_xy, s=48, color="tab:green", edgecolor="black", linewidth=0.6, zorder=4)
+        ax.text(base_xy[0] + 0.02, base_xy[1] + 0.03, "base", color="tab:green", fontsize=5.5, weight="bold")
+        ax.scatter(*l0_xy, s=50, color="tab:red", marker="X", edgecolor="black", linewidth=0.5, zorder=5)
+        ax.text(l0_xy[0] + 0.02, l0_xy[1] - 0.07, "L0 all", color="tab:red", fontsize=5.5, weight="bold")
+        ax.annotate("", xy=l0_xy, xytext=base_xy, arrowprops=dict(arrowstyle="->", color="black", alpha=0.45, lw=0.6))
+
+        if k == 15:
+            interventions = phase.residual_intervention_partials(model, pair, k, r_zx_per_k[k])
+            for mode, label, color in [
+                ("mean_ablate", "mean", "tab:orange"),
+                ("proj_out", "proj", "tab:purple"),
+                ("manifold_a075", "manifold", "tab:cyan"),
+            ]:
+                row = interventions.get(mode)
+                if row is None:
+                    continue
+                point = (row["p_lx_z"], row["p_lz_x"])
+                ax.scatter(*point, s=34, color=color, marker="D", edgecolor="black", linewidth=0.4, zorder=4)
+                ax.text(point[0] + 0.02, point[1] + 0.02, label, color=color, fontsize=5.2, weight="bold")
+                if base_xy is not None:
+                    ax.annotate("", xy=point, xytext=base_xy, arrowprops=dict(arrowstyle="->", color=color, alpha=0.45, lw=0.5))
+
+        ax.tick_params(labelsize=5.5)
+        ax.set_xlabel("")
+        ax.set_ylabel("")
+
+    for ax in axes_flat[len(ks):]:
+        ax.axis("off")
+    axes[0, 0].set_ylabel("relative axis", fontsize=6)
+    axes[1, 0].set_ylabel("relative axis", fontsize=6)
+    axes[1, 0].set_xlabel("objective axis", fontsize=6)
+    axes[1, 1].set_xlabel("objective axis", fontsize=6)
+
+    fig.tight_layout(pad=0.25)
+    fig.savefig(PAPER_FIG / "fig_results_relative_objective_phase_9b_replot_clean.png", bbox_inches="tight", dpi=220)
+    plt.close(fig)
 
 
 def build_cross_pair_transfer() -> None:
@@ -215,27 +341,83 @@ def build_z_vs_x_transfer() -> None:
     )
 
     vmax = max(float(np.nanmax(np.abs(z_mat))), float(np.nanmax(np.abs(x_mat))), 0.09)
-    fig, axes = plt.subplots(1, 2, figsize=(7.15, 3.45), dpi=220, constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(3.55, 1.95), dpi=240, constrained_layout=True)
     for ax, mat, title in [
-        (axes[0], z_mat, "Relative-standing direction"),
-        (axes[1], x_mat, "Raw-value direction"),
+        (axes[0], z_mat, "$z$ direction"),
+        (axes[1], x_mat, "raw-$x$ direction"),
     ]:
         im = ax.imshow(mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
-        ax.set_title(title, fontsize=9)
-        ax.set_xticks(range(len(pairs)), labels=labels, rotation=45, ha="right", fontsize=6)
-        ax.set_yticks(range(len(pairs)), labels=labels if ax is axes[0] else [], fontsize=6)
-        ax.set_xlabel("Source concept", fontsize=7)
+        ax.set_title(title, fontsize=7)
+        ax.set_xticks(range(len(pairs)), labels=labels, rotation=45, ha="right", fontsize=4.6)
+        ax.set_yticks(range(len(pairs)), labels=labels if ax is axes[0] else [], fontsize=4.6)
+        ax.set_xlabel("Source", fontsize=5.5)
         if ax is axes[0]:
-            ax.set_ylabel("Target concept", fontsize=7)
-        for i in range(len(pairs)):
-            for j in range(len(pairs)):
-                ax.text(j, i, f"{mat[i, j]:+.2f}", ha="center", va="center", fontsize=5)
+            ax.set_ylabel("Target", fontsize=5.5)
 
-    cbar = fig.colorbar(im, ax=axes, fraction=0.030, pad=0.015)
-    cbar.set_label("Steering slope", fontsize=7)
-    cbar.ax.tick_params(labelsize=6)
+    cbar = fig.colorbar(im, ax=axes, fraction=0.045, pad=0.012)
+    cbar.set_label("Slope", fontsize=5.5)
+    cbar.ax.tick_params(labelsize=4.8)
 
     fig.savefig(PAPER_FIG / "fig_results_z_vs_x_transfer_clean.png", bbox_inches="tight", dpi=220)
+    plt.close(fig)
+
+    fig, axes = plt.subplots(2, 1, figsize=(3.45, 5.55), dpi=220, constrained_layout=True)
+    for ax, mat, title in [
+        (axes[0], z_mat, "$z$ direction"),
+        (axes[1], x_mat, "raw-$x$ direction"),
+    ]:
+        im = ax.imshow(mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
+        ax.set_title(title, fontsize=8)
+        ax.set_xticks(range(len(pairs)), labels=labels, rotation=45, ha="right", fontsize=5.5)
+        ax.set_yticks(range(len(pairs)), labels=labels, fontsize=5.5)
+        ax.set_xlabel("Source", fontsize=6)
+        ax.set_ylabel("Target", fontsize=6)
+    cbar = fig.colorbar(im, ax=axes, fraction=0.04, pad=0.02)
+    cbar.set_label("Steering slope", fontsize=6)
+    cbar.ax.tick_params(labelsize=5.5)
+    fig.savefig(PAPER_FIG / "fig_results_z_vs_x_transfer_stacked_clean.png", bbox_inches="tight", dpi=220)
+    plt.close(fig)
+
+
+def crop_residual_vs_lexical_transfer() -> None:
+    src = ROOT / "results" / "v12_2" / "residual_vs_lexical_transfer.json"
+    out = PAPER_FIG / "fig_results_residual_vs_lexical_transfer_matrices_clean.png"
+    data = json.loads(src.read_text())
+    pairs = data["pairs"]
+    labels = [PAIR_LABELS[pair] for pair in pairs]
+    matrices = data["matrices"]
+    panel_specs = [
+        ("full", "Full direction"),
+        ("lexical_projection", "Lexical projection"),
+        ("lexical_residual", "Lexical residual"),
+        ("random_null", "Random null"),
+    ]
+    mats = [
+        np.array([[matrices[key][target][source] for source in pairs] for target in pairs], dtype=float)
+        for key, _ in panel_specs
+    ]
+    vmax = max(float(np.nanmax(np.abs(mat))) for mat in mats)
+    vmax = max(vmax, 0.12)
+
+    fig = plt.figure(figsize=(3.55, 3.35), dpi=240)
+    gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 0.055], wspace=0.22, hspace=0.46)
+    axes = np.array([[fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1])],
+                     [fig.add_subplot(gs[1, 0]), fig.add_subplot(gs[1, 1])]])
+    for ax, mat, (_, title) in zip(axes.flat, mats, panel_specs):
+        im = ax.imshow(mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
+        ax.set_title(title, fontsize=6.8, pad=1)
+        ax.set_xticks(range(len(pairs)), labels=labels, rotation=45, ha="right", fontsize=4.5)
+        ax.set_yticks(range(len(pairs)), labels=labels if ax in axes[:, 0] else [], fontsize=4.5)
+        ax.tick_params(length=2, pad=1)
+    axes[0, 0].set_ylabel("Target", fontsize=5.5)
+    axes[1, 0].set_ylabel("Target", fontsize=5.5)
+    axes[1, 0].set_xlabel("Source", fontsize=5.5)
+    axes[1, 1].set_xlabel("Source", fontsize=5.5)
+    cax = fig.add_subplot(gs[:, 2])
+    cbar = fig.colorbar(im, cax=cax)
+    cbar.set_label("Steering slope", fontsize=5.5)
+    cbar.ax.tick_params(labelsize=4.8)
+    fig.savefig(out, bbox_inches="tight", dpi=220)
     plt.close(fig)
 
 
@@ -300,9 +482,11 @@ def main() -> None:
     build_kshot_evolution_2x3()
     build_layer_sweep_summary()
     crop_relative_objective_phase()
+    build_relative_objective_phase_9b()
     build_shared_direction_steering()
     build_cross_pair_transfer()
     build_z_vs_x_transfer()
+    crop_residual_vs_lexical_transfer()
     build_lexical_transfer_summary()
     print(f"Wrote paper result figures to {PAPER_FIG}")
 
