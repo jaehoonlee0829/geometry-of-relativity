@@ -83,7 +83,7 @@ except ModuleNotFoundError:
 
 RESULTS = REPO / "results" / "v14"
 FIGS = REPO / "figures" / "v14"
-for sub in ["distribution", "order", "affine_ood"]:
+for sub in ["distribution", "order", "affine_ood", "fig5"]:
     (RESULTS / sub).mkdir(parents=True, exist_ok=True)
     (FIGS / sub).mkdir(parents=True, exist_ok=True)
 
@@ -97,6 +97,8 @@ OOD_CONDITIONS = [
     "target_extreme_high",
     "target_extreme_low",
 ]
+
+DEFAULT_FIG5_LAYERS = [0, 1, 3, 5, 7, 9, 13, 17, 21, 25, 29, 33, 37, 41]
 
 PAIR_SHIFTS = {
     "height": 150.0,
@@ -424,6 +426,31 @@ def build_affine_rows(args) -> list[dict]:
     return rows
 
 
+def build_fig5_rows(args) -> list[dict]:
+    rows = []
+    for pair in args.pairs:
+        for cell in choose_cells(pair, args.fig5_cells_per_pair):
+            x, mu, sigma, z = float(cell["x"]), float(cell["mu"]), float(cell["sigma"]), float(cell["z"])
+            for seed_idx in range(args.fig5_seeds):
+                vals = context_values(pair, mu, sigma, "normal", args.context_n, stable_seed("fig5", pair, x, z, seed_idx))
+                if vals is None:
+                    continue
+                rows.append(
+                    row_from_context(
+                        pair,
+                        "fig5_layer_sweep",
+                        x,
+                        mu,
+                        sigma,
+                        z,
+                        vals,
+                        seed_index=seed_idx,
+                        cell_id=f"{pair}|{x:.6g}|{z:.3f}|{seed_idx}",
+                    )
+                )
+    return rows
+
+
 def add_outputs(rows: list[dict], ld: np.ndarray, H: dict[int, np.ndarray]) -> None:
     for i, row in enumerate(rows):
         row["ld"] = float(ld[i])
@@ -480,6 +507,35 @@ def matched_delta_metrics(rows: list[dict], condition_key: str, baseline: str, g
                 "se_delta_ld": float(np.std(arr, ddof=1) / math.sqrt(arr.size)) if arr.size > 1 else None,
             }
     return out
+
+
+def kfold_r2(X: np.ndarray, y: np.ndarray, n_folds: int = 5, alpha: float = 10.0) -> float:
+    X = np.asarray(X, dtype=np.float64)
+    y = np.asarray(y, dtype=np.float64)
+    ok = np.isfinite(y) & np.isfinite(X).all(axis=1)
+    X, y = X[ok], y[ok]
+    if len(y) < n_folds * 2 or np.std(y) < 1e-12:
+        return float("nan")
+    rng = np.random.default_rng(0)
+    idx = rng.permutation(len(y))
+    folds = np.array_split(idx, n_folds)
+    pred = np.full(len(y), np.nan, dtype=np.float64)
+    for test_idx in folds:
+        train_idx = np.setdiff1d(idx, test_idx, assume_unique=True)
+        model = Ridge(alpha=alpha)
+        model.fit(X[train_idx], y[train_idx])
+        pred[test_idx] = model.predict(X[test_idx])
+    ss_res = float(np.sum((y - pred) ** 2))
+    ss_tot = float(np.sum((y - np.mean(y)) ** 2))
+    return float(1.0 - ss_res / ss_tot) if ss_tot > 1e-12 else float("nan")
+
+
+def mean_difference_direction(H_layer: np.ndarray, values: np.ndarray, high_mask: np.ndarray, low_mask: np.ndarray) -> np.ndarray | None:
+    if high_mask.sum() < 3 or low_mask.sum() < 3:
+        return None
+    if np.std(values[high_mask | low_mask]) < 1e-12:
+        return None
+    return H_layer[high_mask].mean(0) - H_layer[low_mask].mean(0)
 
 
 def direction_diagnostics(rows: list[dict], H: dict[int, np.ndarray], base_condition: str, condition_key: str) -> dict:
@@ -614,6 +670,65 @@ def experiment_affine_ood(model, tok, args) -> None:
         for tr in top:
             row = rows[tr["row_index"]]
             f.write(json.dumps(clean_json({**{k: row[k] for k in ["pair", "condition", "ood_condition", "n_context", "x", "mu", "sigma", "z", "z_empirical"]}, **tr}), allow_nan=False) + "\n")
+
+
+def experiment_fig5_gpu(model, tok, args) -> None:
+    rows = build_fig5_rows(args)
+    layers_to_capture = sorted(set(args.fig5_layers))
+    available = len(get_layers(model))
+    layers_to_capture = [L for L in layers_to_capture if 0 <= L < available]
+    if not layers_to_capture:
+        raise ValueError(f"No valid fig5 layers for model with {available} layers.")
+    print(
+        f"[v14] fig5 layer sweep prompts={len(rows)} layers={layers_to_capture} context_n={args.context_n}",
+        flush=True,
+    )
+    ld, H, _ = run_prompts(model, tok, rows, layers_to_capture, args.batch_size, args.max_seq, top_k=0)
+    add_outputs(rows, ld, H)
+
+    by_pair_layer: dict[str, dict[str, dict]] = {}
+    for pair in args.pairs:
+        idx = np.array([i for i, r in enumerate(rows) if r["pair"] == pair], dtype=int)
+        if len(idx) < 20:
+            continue
+        z = np.array([rows[i]["z"] for i in idx], dtype=np.float64)
+        x = np.array([rows[i]["x"] for i in idx], dtype=np.float64)
+        qx_low, qx_high = np.quantile(x, [0.25, 0.75])
+        pair_rows = [rows[i] for i in idx]
+        by_pair_layer[pair] = {}
+        for layer in layers_to_capture:
+            Hp = H[layer][idx].astype(np.float64)
+            z_dir = mean_difference_direction(Hp, z, z > 1.0, z < -1.0)
+            x_dir = mean_difference_direction(Hp, x, x >= qx_high, x <= qx_low)
+            rec = {
+                "cv_r2_z": kfold_r2(Hp, z),
+                "cv_r2_x": kfold_r2(Hp, x),
+                "x_low_quantile": float(qx_low),
+                "x_high_quantile": float(qx_high),
+                "primal_z_steering_slope": None,
+                "primal_x_steering_slope": None,
+            }
+            if z_dir is not None:
+                rec["primal_z_steering_slope"] = steering_slope_local(model, tok, pair_rows, z_dir, layer, args)
+            if x_dir is not None:
+                rec["primal_x_steering_slope"] = steering_slope_local(model, tok, pair_rows, x_dir, layer, args)
+            by_pair_layer[pair][str(layer)] = rec
+
+    result = {
+        "model_id": MODEL_ID,
+        "model_short": MODEL_SHORT,
+        "pairs": args.pairs,
+        "context_n": args.context_n,
+        "layers": layers_to_capture,
+        "direction_definitions": {
+            "primal_z": "E[h_L | z > 1] - E[h_L | z < -1]",
+            "primal_x": "E[h_L | x >= pair 75th percentile] - E[h_L | x <= pair 25th percentile]",
+        },
+        "by_pair_layer": by_pair_layer,
+    }
+    write_json(RESULTS / "fig5" / "fig5_layer_x_z_metrics.json", result)
+    write_rows_jsonl(rows, RESULTS / "fig5" / "fig5_layer_rows.jsonl")
+    plot_fig5_gpu(result)
 
 
 def steer_ld_local(model, tok, rows: list[dict], direction: np.ndarray, layer: int, alpha: float, batch_size: int, max_seq: int) -> np.ndarray:
@@ -757,6 +872,52 @@ def plot_ood_top_tokens() -> None:
     heatmap(M, pairs, cols, "Top-1 OOD-semantic token fraction", FIGS / "affine_ood" / "affine_ood_top_tokens.png", vmin=0, vmax=1)
 
 
+def plot_fig5_gpu(result: dict | None = None) -> None:
+    if result is None:
+        path = RESULTS / "fig5" / "fig5_layer_x_z_metrics.json"
+        if not path.exists():
+            return
+        result = json.loads(path.read_text())
+    layers = [int(L) for L in result.get("layers", [])]
+    by_pair = result.get("by_pair_layer", {})
+    if not layers or not by_pair:
+        return
+
+    def mean_series(key: str) -> list[float]:
+        vals = []
+        for layer in layers:
+            layer_vals = []
+            for pdata in by_pair.values():
+                v = pdata.get(str(layer), {}).get(key)
+                if isinstance(v, (int, float)):
+                    layer_vals.append(float(v))
+            vals.append(float(np.mean(layer_vals)) if layer_vals else float("nan"))
+        return vals
+
+    r2_z = mean_series("cv_r2_z")
+    r2_x = mean_series("cv_r2_x")
+    steer_z = mean_series("primal_z_steering_slope")
+    steer_x = mean_series("primal_x_steering_slope")
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.2), constrained_layout=True)
+    axes[0].plot(layers, r2_z, marker="o", label="R^2(z)")
+    axes[0].plot(layers, r2_x, marker="o", label="R^2(x)")
+    axes[0].set_title("Layerwise decodability")
+    axes[0].set_xlabel("Layer")
+    axes[0].set_ylabel("Cross-validated R^2")
+    axes[0].legend(frameon=False)
+
+    axes[1].plot(layers, steer_z, marker="o", label="primal_z steering")
+    axes[1].plot(layers, steer_x, marker="o", label="primal_x steering")
+    axes[1].axhline(0, color="0.75", lw=0.8)
+    axes[1].set_title("Layerwise causal steering")
+    axes[1].set_xlabel("Layer")
+    axes[1].set_ylabel("LD slope")
+    axes[1].legend(frameon=False)
+    fig.savefig(FIGS / "fig5" / "paper_fig5_layer_x_z_gpu.png", dpi=180)
+    plt.close(fig)
+
+
 def heatmap(M: np.ndarray, rows: list[str], cols: list[str], title: str, path: Path, vmin=None, vmax=None) -> None:
     fig, ax = plt.subplots(figsize=(max(7, len(cols) * 1.1), max(4, len(rows) * 0.55)))
     im = ax.imshow(M, cmap="RdBu_r", vmin=vmin, vmax=vmax, aspect="auto")
@@ -821,6 +982,7 @@ def plot_all() -> None:
     plot_distribution()
     plot_order()
     plot_affine_ood()
+    plot_fig5_gpu()
     write_summary()
 
 
@@ -845,7 +1007,7 @@ def load_model():
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sections", default="all", help="comma list: distribution,order,affine_ood,plot")
+    ap.add_argument("--sections", default="all", help="comma list: distribution,order,affine_ood,fig5_gpu,plot")
     ap.add_argument("--pairs", nargs="+", default=ALL_PAIRS)
     ap.add_argument("--batch-size", type=int, default=12)
     ap.add_argument("--max-seq", type=int, default=640)
@@ -858,9 +1020,12 @@ def main() -> None:
     ap.add_argument("--ood-cells-per-pair", type=int, default=72)
     ap.add_argument("--ood-seeds", type=int, default=3)
     ap.add_argument("--ood-context-ns", nargs="+", type=int, default=[5, 15, 31])
+    ap.add_argument("--fig5-cells-per-pair", type=int, default=72)
+    ap.add_argument("--fig5-seeds", type=int, default=1)
+    ap.add_argument("--fig5-layers", nargs="+", type=int, default=DEFAULT_FIG5_LAYERS)
     ap.add_argument("--top-k", type=int, default=10)
     args = ap.parse_args()
-    sections = {"distribution", "order", "affine_ood", "plot"} if args.sections == "all" else set(args.sections.split(","))
+    sections = {"distribution", "order", "affine_ood", "fig5_gpu", "plot"} if args.sections == "all" else set(args.sections.split(","))
     model = tok = None
     if sections - {"plot"}:
         model, tok = load_model()
@@ -870,6 +1035,8 @@ def main() -> None:
         experiment_order(model, tok, args)
     if "affine_ood" in sections:
         experiment_affine_ood(model, tok, args)
+    if "fig5_gpu" in sections:
+        experiment_fig5_gpu(model, tok, args)
     if "plot" in sections:
         plot_all()
     print("[v14] complete", flush=True)

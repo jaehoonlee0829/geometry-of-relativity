@@ -13,8 +13,8 @@ methodological pressure:
 2. Does the result depend on the order of the reference values in the prompt?
 3. Do OOD/affine shifts fail because the whole comparison class is strange, or
    because the target alone is implausible?
-4. Can the paper's layer/steering figure be made clearer by comparing `z`
-   against raw `x` rather than using underdefined `probe_z` language?
+4. Can the paper's layer/steering figure be regenerated cleanly by comparing
+   `z` against raw `x`, both for decodability and causal steering?
 
 Primary model:
 
@@ -332,32 +332,70 @@ figures/v14/affine_ood/affine_ood_steering.png
 figures/v14/affine_ood/affine_ood_top_tokens.png
 ```
 
-## Paper Figure 5 Cleanup - CPU Side
+## Experiment D - Paper Figure 5 Layer Sweep
 
-This is not a GPU experiment. Rebuild the layer/steering figure from existing
-artifacts:
+### Question
 
-```text
-results/v12/layer_sweep_9b.json
-results/v12/layer_sweep_9b_steering.json
-```
-
-Replace the confusing `probe_z` language with:
+The current paper Figure 5 should not compare `primal_z` against underdefined
+`probe_z`. The clean comparison is `z` versus raw `x`:
 
 ```text
 Panel A: R^2(z) vs R^2(x) across layers
 Panel B: primal_z vs primal_x steering slopes across layers
 ```
 
+### Design
+
+Use the same normal-context dense prompts as the main layer-sweep analysis.
+For each pair and layer, capture final-target residual activations and compute:
+
+```text
+CV R^2(z): ridge probe from h_L to population z
+CV R^2(x): ridge probe from h_L to raw target x
+primal_z: E[h_L | z > 1] - E[h_L | z < -1]
+primal_x: E[h_L | x >= pair 75th percentile] - E[h_L | x <= pair 25th percentile]
+```
+
+Then steer with both mean-difference directions at the same layer and compare
+the high-minus-low logit-difference slope. This gives a direct control for the
+paper claim:
+
+```text
+z is encoded early, but primal_z becomes more causally useful at later layers;
+raw-x directions should be the control curve, not the main explanatory curve.
+```
+
 Output:
+
+```text
+results/v14/fig5/fig5_layer_x_z_metrics.json
+results/v14/fig5/fig5_layer_rows.jsonl
+figures/v14/fig5/paper_fig5_layer_x_z_gpu.png
+```
+
+Run:
+
+```bash
+python scripts/run_v14_gpu.py --sections fig5_gpu,plot \
+  --pairs height age weight size speed wealth experience bmi_abs \
+  --context-n 31 --fig5-cells-per-pair 72 --fig5-seeds 1 \
+  --fig5-layers 0 1 3 5 7 9 13 17 21 25 29 33 37 41
+```
+
+There is also a CPU-only fallback from existing artifacts:
+
+```bash
+python scripts/rebuild_paper_fig5_x_vs_z.py
+```
+
+Fallback output:
 
 ```text
 figures/v14/paper_fig5_layer_x_z_cleanup.png
 ```
 
-If existing artifacts do not include `primal_x` steering by layer, the script
-must say so explicitly and render the available `R^2(z)`/`R^2(x)` panel without
-pretending the missing steering data exists.
+The fallback is only a sanity-check plot. Use the GPU-generated figure for the
+paper if we want a true `primal_z` versus `primal_x` steering comparison.
 
 ## Recommended Run
 
@@ -372,7 +410,16 @@ python scripts/run_v14_gpu.py --sections distribution,order,affine_ood,plot \
   --top-k 10
 ```
 
-CPU-only Figure 5 cleanup:
+Figure 5 regeneration:
+
+```bash
+python scripts/run_v14_gpu.py --sections fig5_gpu,plot \
+  --pairs height age weight size speed wealth experience bmi_abs \
+  --context-n 31 --fig5-cells-per-pair 72 --fig5-seeds 1 \
+  --fig5-layers 0 1 3 5 7 9 13 17 21 25 29 33 37 41
+```
+
+CPU-only Figure 5 fallback:
 
 ```bash
 python scripts/rebuild_paper_fig5_x_vs_z.py
