@@ -40,7 +40,7 @@ for sub in ["affine_ood", "order", "distribution", "fig5"]:
     (FIGS / sub).mkdir(parents=True, exist_ok=True)
 
 PAIRS = v14.ALL_PAIRS
-OOD_CONDITIONS = v14.OOD_CONDITIONS
+OOD_CONDITIONS = ["base", "world_extreme_high", "world_extreme_low", "target_extreme_high", "target_extreme_low"]
 ORDER_KINDS = v14.ORDER_KINDS
 DIST_KINDS = v14.DIST_KINDS
 LOG_SPACE_PAIRS = v14.LOG_SPACE_PAIRS
@@ -50,9 +50,31 @@ LAYERS = v14.LAYERS
 LATE = v14.LATE
 DEFAULT_FIG5_LAYERS = [0, 1, 3, 5, 7, 10, 13, 14, 17, 21, 25, 29, 33, 37, 41]
 
+WORLD_EXTREME_HIGH = {
+    "height": 320.0,
+    "age": 150.0,
+    "weight": 250.0,
+    "size": 180.0,
+    "speed": 500.0,
+    "wealth": 10_000_000.0,
+    "experience": 80.0,
+    "bmi_abs": 55.0,
+}
+
+WORLD_EXTREME_LOW = {
+    "height": 50.0,
+    "age": 18.0,
+    "weight": 30.0,
+    "size": 25.0,
+    "speed": 50.0,
+    "wealth": 5_000.0,
+    "experience": 15.0,
+    "bmi_abs": 18.0,
+}
+
 
 def floor_for_pair(pair: str) -> float:
-    return 0.1 if pair == "bmi_abs" else 1.0
+    return 0.1 if pair in {"bmi_abs", "size"} else 1.0
 
 
 def local_z(pair: str, x: float, values: np.ndarray) -> float:
@@ -110,14 +132,10 @@ def positive_context_and_target(
 def affine_mu_sigma_z(pair: str, condition: str, x: float, mu: float, sigma: float, z: float) -> tuple[float, float, float]:
     if condition == "base":
         return mu, sigma, z
-    if condition == "parallel_shift_high":
-        if pair in LOG_SPACE_PAIRS:
-            return mu * v14.PAIR_SHIFTS[pair], sigma, z
-        return mu + v14.PAIR_SHIFTS[pair], sigma, z
     if condition == "world_extreme_high":
-        return v14.PAIR_WORLD_HIGH[pair], sigma, z
+        return WORLD_EXTREME_HIGH[pair], sigma, z
     if condition == "world_extreme_low":
-        return v14.PAIR_WORLD_LOW[pair], sigma, z
+        return WORLD_EXTREME_LOW[pair], sigma, z
     if condition == "target_extreme_high":
         return mu, sigma, 5.0
     if condition == "target_extreme_low":
@@ -132,6 +150,50 @@ def v14_1_row_from_context(pair: str, condition: str, x: float, mu: float, sigma
     row["z_empirical_from_rendered_context"] = row["z_full"]
     row["valid_row_fraction"] = 1.0
     return row
+
+
+def validate_affine_coverage(rows: list[dict], args, skipped: list[dict] | None = None, cleanup_skipped: bool = False) -> None:
+    skipped = skipped or []
+    skipped_path = RESULTS / "affine_ood" / "affine_ood_skipped_rows.json"
+    if skipped:
+        skipped_path.write_text(json.dumps(skipped, indent=2))
+        raise RuntimeError(f"affine/OOD generation skipped {len(skipped)} rows; see {skipped_path}")
+    if cleanup_skipped and skipped_path.exists():
+        skipped_path.unlink()
+
+    counts: dict[tuple[str, str, int], int] = {}
+    for row in rows:
+        key = (row["pair"], row["ood_condition"], int(row["n_context"]))
+        counts[key] = counts.get(key, 0) + 1
+
+    problems = []
+    for pair in args.pairs:
+        for n_context in args.ood_context_ns:
+            base_n = counts.get((pair, "base", int(n_context)), 0)
+            if base_n == 0:
+                problems.append(f"{pair}/base/N={n_context}: no rows")
+                continue
+            for condition in OOD_CONDITIONS:
+                got = counts.get((pair, condition, int(n_context)), 0)
+                if got != base_n:
+                    problems.append(f"{pair}/{condition}/N={n_context}: got {got}, expected {base_n}")
+    if problems:
+        detail = "\n".join(problems[:30])
+        if len(problems) > 30:
+            detail += f"\n... {len(problems) - 30} more"
+        raise RuntimeError("affine/OOD coverage is incomplete:\n" + detail)
+
+
+def validate_loaded_affine_rows(rows: list[dict]) -> None:
+    Args = type(
+        "Args",
+        (),
+        {
+            "pairs": PAIRS,
+            "ood_context_ns": sorted({int(r.get("n_context", 31)) for r in rows}),
+        },
+    )
+    validate_affine_coverage(rows, Args())
 
 
 def add_order_local_z(row: dict, values: np.ndarray) -> None:
@@ -198,8 +260,7 @@ def build_affine_rows(args) -> list[dict]:
                                 sampling_note=note,
                             )
                         )
-    if skipped:
-        (RESULTS / "affine_ood" / "affine_ood_skipped_rows.json").write_text(json.dumps(skipped, indent=2))
+    validate_affine_coverage(rows, args, skipped, cleanup_skipped=True)
     return rows
 
 
@@ -288,7 +349,10 @@ def experiment_affine_ood(model, tok, args) -> None:
         "metrics_by_pair_condition_n": group_metrics(rows, ["pair", "ood_condition", "n_context"]),
         "matched_delta_vs_base": v14.matched_delta_metrics(rows, "ood_condition", "base"),
         "direction_diagnostics": v14.direction_diagnostics(rows, H, "base", "ood_condition"),
-        "support_fix": "bounded-normal contexts with per-row sigma shrink when needed to keep targets/context positive",
+        "support_fix": (
+            "parallel_shift_high removed; pair-specific world_extreme_high/low means are "
+            "chosen so every adjective pair has complete valid support across all z cells"
+        ),
     }
     v14.write_json(RESULTS / "affine_ood" / "affine_ood_metrics.json", result)
     v14.write_rows_jsonl(rows, RESULTS / "affine_ood" / "affine_ood_rows.jsonl")
@@ -414,13 +478,14 @@ def plot_affine_ood() -> None:
     if not path.exists():
         return
     rows = load_jsonl(path)
+    validate_loaded_affine_rows(rows)
     out_dir = FIGS / "affine_ood"
-    conditions = ["base", "parallel_shift_high", "world_extreme_high", "world_extreme_low"]
+    conditions = ["base", "world_extreme_low", "world_extreme_high"]
     binned_line(rows, "ood_condition", conditions, "V14.1 affine/OOD: LD by relative standing", out_dir / "affine_ood_ld_by_z_lines.png")
 
     for suffix, pred, ylabel in [
-        ("high", lambda r: float(r["z"]) > 1.0, "mean LD(high-low), z > 1"),
-        ("low", lambda r: float(r["z"]) < -1.0, "mean LD(high-low), z < -1"),
+        ("high", lambda r: float(r["z"]) > 1.0, "mean LD(high-low), target z > 1"),
+        ("low", lambda r: float(r["z"]) < -1.0, "mean LD(high-low), target z < -1"),
     ]:
         fig, ax = plt.subplots(figsize=(10, 4.8))
         x = np.arange(len(PAIRS))
