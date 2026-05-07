@@ -1,4 +1,7 @@
-*.npz
 logs/
 __pycache__/
 *.pyc
+results/p2_attn/
+results/vextract_*_residuals.npz
+results/vphase_grid/*_residuals.npz
+results/vphase_grid/*_baseline_lds.npz
