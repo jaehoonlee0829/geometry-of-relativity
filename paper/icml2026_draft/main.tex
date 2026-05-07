@@ -14,6 +14,8 @@
 \usepackage{xcolor}
 \usepackage[capitalize,noabbrev]{cleveref}
 
+\input{commenting}
+
 % Keep draft pages dense. The paper prioritizes avoiding large blank regions;
 % figures may float slightly past their source subsection when needed.
 \setcounter{topnumber}{5}
@@ -76,75 +78,63 @@ Overall, our results show that language models construct a context-relative scal
 \section{Introduction}
 \label{sec:introduction}
 
-Gradable adjectives are context dependent.
-A person who is $170$ cm tall can be described as tall in one comparison class and short in another.
-This paper uses that everyday ambiguity as a controlled testbed for a mechanistic question: when a language model makes a scalar judgment from in-context examples, does it rely on the raw number, a learned world prior, or an internally constructed relative variable?
+Gradable adjectives such as \emph{tall} and \emph{short} are context-dependent.
+In everyday language, we often rely on broad world knowledge when applying it: a person who is 175 cm tall might be described as tall in general conversation.
+However, this judgment can shift dramatically when a comparison class is made explicit.
+Among professional basketball players, the same individual would likely be considered short.
 
-We formalize the target variable as a context-normalized standing,
-\[
-z=(x-\mu)/\sigma,
-\]
-where $x$ is the target value and $(\mu,\sigma)$ describe the comparison class that generated the prompt examples.
-The experimental design deliberately samples $x$ and $z$ independently, then derives $\mu$, so that raw value and relative standing are not accidentally confounded.
-This lets us ask whether the model's adjective logit difference follows ``$170$ cm'' or ``above the local norm.''
+This flexibility suggests that human judgments are not based solely on absolute values, but instead depend on a relative standing within a context.
+The main question of this paper is whether large language models (LLMs) exhibit a similar form of context-sensitive reasoning.
+When given in-context examples that implicitly define a comparison class, do LLMs base their predictions on raw numerical values (and learned world priors) or on an internally constructed representation of relative standing \citep{park2024incontext}?
+Moreover, what happens in the internal process of LLMs to choose a specific adjective?
 
-The main empirical picture is that Gemma 2 behaves as though a $z$-like variable is available.
-Dense prompt grids show that adjective logits track $z$ much more strongly than raw $x$.
-Cell-mean activation geometry is organized by the same variable.
-Layerwise analyses suggest an encode/use separation: $z$ is linearly readable in early layers, while direct steering with \primalz{} has larger effects later.
-Cross-concept transfer is positive but incomplete, and lexical decomposition shows why: part of the direction is shared across concepts, but same-concept steering also benefits from lexical and output-facing components.
-
-The intended contribution is therefore not a claim of a pure universal relativity vector or a fully localized circuit.
-Instead, we provide a claim ledger for a concrete relational computation: context examples induce a normalized scalar variable; that variable is visible in residual-stream geometry; it can be causally steered; and its cross-domain transfer is partially, but not completely, separable from lexical adjective structure.
-
-\section{Setup and Experimental Design}
-\label{sec:setup}
-
-\subsection{Task and Variables}
-\label{subsec:task-variables}
-
-We study prompts that ask a model to complete a gradable adjective judgment after seeing a local comparison class.
-For each prompt, we separate the raw value, the context, and the target's relative standing:
-\begin{itemize}
-  \setlength{\itemsep}{0pt}
-  \setlength{\parskip}{0pt}
-  \item \textbf{$x$:} raw target value, e.g. $170$ cm.
-  \item \textbf{$\mu$:} context mean, e.g. the group average height.
-  \item \textbf{$\sigma$:} context spread.
-  \item \textbf{$z$:} context-normalized standing.
-\end{itemize}
-\[
-z = \frac{x-\mu}{\sigma}.
-\]
-A model using only $x$ says ``170 cm is tall'' regardless of the group.
-A model using $z$ says ``170 cm is tall in a short group, average in an average group, and short in a very tall group.''
-The main behavioral measurement is the high-minus-low adjective logit difference:
-\[
-\logitdiff = \mathrm{logit}(\text{high adjective}) -
-\mathrm{logit}(\text{low adjective}).
-\]
-For height, for example:
-\[
-\logitdiff=\mathrm{logit}(\text{tall})-\mathrm{logit}(\text{short}).
-\]
-Positive values mean the model leans toward the high adjective.
-
-\begin{figure}[H]
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figures/fig1_prompt_schematic.png}
   \caption{\textbf{Prompt and measurement schematic.}
   Context examples define a local comparison class.
-  We compute the target's normalized standing $z=(x-\mu)/\sigma$ and measure whether the model assigns higher logit to the high adjective or the low adjective.
-  The same raw value can support opposite completions under different context means, motivating a dense grid that separates $x$ from $z$.
-  % Source asset: paper/icml2026_draft/figures/candidates_png/candidate_5_combined_pipeline_relcontrast.png.
+  We compute the target's normalized standing and measure whether the model assigns higher logit to the high adjective or the low adjective.
   }
   \label{fig:setup-pipeline}
 \end{figure}
 
-\begin{table}[H]
+To investigate this, we adopt a mechanistic interpretability perspective grounded in the linear representation hypothesis \citep{park2024linear}.
+Prior work has shown that the activations of LLMs linearly encode high-level concepts, such as refusal and truth \citep{marks2023geometry} \citep{arditi2024refusal}.
+Recent work expands on this by relaxing linearity assumptions and seeing features as higher dimensional abstractions \citep{gurnee2026manifold} \citep{modellerubin2025manifolds}, which can be intervened through dual steering \citep{park2026softmaxgeometry}.
+
+Using the Gemma 2 model family, we make the following contributions:
+\begin{itemize}
+    \item We show that gradable adjective judgments in LLMs are primarily governed by a context-normalized scalar representation, well approximated by a $z$-like transformation of in-context examples rather than raw magnitude.
+
+    \item We demonstrate that this $z$-variable is linearly decodable across layers and predicts high-minus-low adjective logit differences across diverse semantic domains and models.
+
+    \item We provide causal evidence via steering and attention-based interventions that this relativistic representation is functionally used by the model and is partially shared across adjective concepts, rather than being purely lexical or concept-specific.
+\end{itemize}
+
+\section{Experiment Design}
+\label{sec:experiment_design}
+We use Gemma-2-2B and Gemma-2-9B \citep{gemma2_2024} and focus on eight adjective pairs, as shown in \Cref{tab:domains}.
+Our goal is to understand how LLMs process a given raw value---e.g., 170 cm---when other values are previously given.
+We seek to understand whether LLMs would use the raw value directly, or a context-normalized standing:
+\begin{align*}
+    z = \frac{x-\mu}{\sigma},
+\end{align*}
+where $\mu$ is a context mean (the average of the reference values) and $\sigma$ is a context spread (the standard deviation of the reference values)
+
+A model using only $x$ says ``170 cm is tall'' regardless of the group. We call this `objective'.
+A model using $z$ says ``170 cm is tall in a short group, average in an average group, and short in a very tall group.'' We call this `relativistic'.
+The main behavioral measurement is the high-minus-low adjective logit difference (LD):
+\begin{align*}
+    \logitdiff = \mathrm{logit}(\text{high adjective}) -
+\mathrm{logit}(\text{low adjective}).
+\end{align*}
+For example, $\logitdiff=\mathrm{logit}(\text{`tall'})-\mathrm{logit}(\text{`short'})$ for height.
+Positive values indicate the model leans toward the high adjective.
+
+\begin{table}[t]
   \centering
   \scriptsize
-  \setlength{\tabcolsep}{3pt}
+  \setlength{\tabcolsep}{5pt}
   \begin{tabular}{lllll}
     \toprule
     Concept & Unit & Low/High & $\sigma$ & $x$ range \\
@@ -159,6 +149,7 @@ Positive values mean the model leans toward the high adjective.
     BMI & kg/m$^2$ & thin/obese & 3 & 14.9--40.1 \\
     \bottomrule
   \end{tabular}
+  \vspace{5pt}
   \caption{\textbf{Adjective-pair prompt domains.}
   The dense prompt grid samples target values $x$ over the listed ranges, in the listed units, and uses the shown context spread $\sigma$.
   Income is used as the measured proxy for wealth; its normalization is log-space, so $\sigma=\log 2$ means one unit of normalized spread corresponds to doubling or halving annual income.}
@@ -166,61 +157,106 @@ Positive values mean the model leans toward the high adjective.
 \end{table}
 \FloatBarrier
 
-\subsection{Prompt Regimes}
 
-% TODO(human): Decide final wording after the shot-sweep results are integrated.
-The paper compares prompt regimes that vary how much comparison-class evidence is available:
-zero-shot prompts with only the target value, few-shot prompts with a small number of context examples, and dense 15-shot prompts.
-The shot-sweep experiments make this distinction central: raw-value behavior is strongest with no context, while context-relative behavior strengthens once examples are supplied.
 
-\subsection{Dense Grid Construction}
-\label{subsec:dense-grid}
+\subsection{Prompts}
+To create prompts for a given concept pair $p$, we first sample $x$ and $z$ independently from uniform ranges, then back out the context mean given a constant and realistic $\sigma$ for simplicity (see Table 1). $z$ is sampled from [-3, 3]. We then generate $N$ in context examples of the form:
 
-The dense grid samples $x$ and $z$ independently, then derives the context mean:
-\[
-\mu = x - z\sigma.
+'Person $n$: $c_n$, ...' where \[
+c_1,\ldots,c_N \sim \mathcal{N}(\mu,\sigma^2)
 \]
-This design prevents raw value and relative standing from being accidentally confounded.
-After choosing $(x,z)$ and deriving $\mu$, an $N$-shot prompt draws context examples from the population distribution
+These examples act as context, concatenated to the start of a prompt which ends in '$x$ is: ' (units omitted). We experimentally vary $N$ in the range [0, 50], though typically use $N=15$ for most analysis.
+
+\subsection{Methods}
+\label{subsec:methods}
+
+
+We instantiate several complementary measurement and intervention methods to distinguish behavioral effects, linear availability, geometry, and causal use of variables in the residual stream.
+
+\paragraph{Logit-based behavioral readout.}
+For each prompt we compute the high-minus-low adjective logit difference $\logitdiff$ defined above.
+Unless otherwise noted, reported correlations are Pearson correlations over prompts or cell means.
+This serves as the primary behavioral signal.
+
+\paragraph{Linear probes.}
+To test linear availability of variables, we fit ridge regression probes from residual-stream activations $h_L$ to either $z$ or $x$:
 \[
-c_1,\ldots,c_N \sim \mathcal{N}(\mu,\sigma^2),
+\hat y = h_L w + b.
 \]
-then renders those samples in the same unit as the target.
-Thus $z$ is the target's standing relative to the population parameters that generated the comparison class, while different context seeds instantiate different sampled groups.
-The current dense-grid setting uses 20 target values, 20 target $z$ values, and 10 context seeds per adjective pair, with the main dense prompts using 15 context examples.
-% TODO(source): Verify final sample counts after dropped implausible cells are accounted for.
-For income, the analogous definition is log-space:
+We report cross-validated $R^2$ on held-out prompts.
+Probes are trained independently per layer and per concept pair unless otherwise stated.
+
+\paragraph{Mean-difference directions.}
+We construct descriptive directions in activation space by contrasting high and low subsets:
 \[
-z = \frac{\log x - \log \mu}{\log 2}.
+d^{\mathrm{primal}}_{z,L}
+= \mathbb{E}[h_L \mid z>1] - \mathbb{E}[h_L \mid z<-1],
 \]
+with an analogous definition for \primalx{}.
+These directions are computed on a training split and reused for steering and transfer experiments.
 
-\subsection{Models, Concepts, and Measurements}
-\label{subsec:models-concepts-measurements}
-
-The current evidence focuses on Gemma 2 2B and Gemma 2 9B.
-The main concept set contains eight adjective pairs: height, age, weight, size, speed, income/wealth, experience, and BMI/obesity.
-Measurements include logit differences, residual-stream activations, PCA and linear-probe readouts, steering interventions, lexical/residual decompositions, SAE feature audits, and attention/ablation analyses.
-% TODO(source): Move exact model IDs, layer counts, prompt templates, activation sites, steering scales, and seeds to the appendix.
-% TODO(human): Decide which additional domains/objective controls enter the final main text.
-
-For concept pair $p$ and layer $L$, we use \primalz{} for the high-margin mean-difference direction that contrasts above-norm and below-norm prompts:
+\paragraph{Primal steering.}
+To test causal relevance, we intervene on the residual stream at layer $L$ by adding or subtracting a direction:
 \[
-d^{\mathrm{primal}}_{z,p,L}
-= \mathbb{E}[h_L \mid p, z>1]
-- \mathbb{E}[h_L \mid p, z<-1].
+h_L \leftarrow h_L \pm \alpha \hat d,
 \]
-The raw-value control \primalx{} is defined analogously by contrasting high-$x$ and low-$x$ prompts.
-These are descriptive residual-stream directions used for steering and transfer; they are not supervised probe weights.
+where $\hat d$ is a unit-normalized direction and $\alpha$ is a scalar scale.
+We report the induced change in $\logitdiff$ and the corresponding steering slope (Appendix~\ref{app:definitions}).
 
-\subsection{Evidence Types}
-\label{subsec:evidence-types}
+\paragraph{Dual (manifold) steering.}
+To relax the assumption of a single linear direction, we also apply per-prompt displacements derived from the empirical activation manifold.
+Given a prompt at $(x_i, z_i)$, we compute a displacement toward a target $z$ value using cell-mean activations:
+\[
+\Delta_i = M_L(x_i, z^\star) - M_L(x_i, z_i),
+\]
+and intervene as $h_L \leftarrow h_L + \alpha \Delta_i$. Here $M_L(x,z)$ refers to the average activations at a layer $L$ of prompts with a given $x$ and $z$.
+This is an incremental method to steer our models activations on a prompt-to-prompt basis, as opposed to moving linearly across the entire z-space. Intuitively with respect to Figure 4, this corresponds to moving across the 'averaged' colour gradient.
 
-The results distinguish behavioral evidence, linear availability, geometry, causal intervention, and decomposition.
-Behavioral correlations show what the model outputs; probes show what is linearly available; PCA describes geometry; steering and ablations test causal relevance; lexical and SAE analyses test alternative explanations.
-% TODO(human): Keep this paragraph short; the main results should instantiate each evidence type rather than over-explaining it here.
+\paragraph{Attention-based ablations.}
+We experiment with choosing heads to ablate based on direct-logit-attribution (DLA) \citep{elhage2021transformer} scoring as well as cosine-similarity scoring to relativity as a direction expressed in SAE space.
+ 
+We rank heads by direct logit attribution (DLA): for each head we project its last-token output s its $W_O$ slice into the unembedding difference $W_U[\text{tall}]-W_U[\text{short}]$ to obtain a per-prompt scalar contribution to the high--low logit split, and score the head by $\sigma_{\mathrm{DLA}} \cdot |\rho(\mathrm{DLA}, z)|$ --- the per-prompt standard deviation of that contribution times its correlation with the relativistic variable $z$.
+
+As an independent ranking we decompose pre-$o_{\mathrm{proj}}$ head activations at all layers with the public Gemma Scope sparse autoencoders (SAEs), compute the cosine alignment between each candidate head's activation shift under zero-ablation and the dual-steered activation difference at the layer where the ablation is applied, and multiply by per-head std to obtain a comparable relativity alignment score.
+
+We furthermore experiment with ablating via zeroing heads, queries, or resampling heads across prompts. 
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_results_kshot_ld_evolution_2x3.png}
+  \caption{\textbf{Logit-difference evolution with context length.}
+  With no context examples, the height judgment is organized by raw height $x$.
+  After context examples are added, the same logit difference becomes organized by effective relative standing and changes from a sharp comparator-like pattern toward a smoother graded response.
+  % Source artifact: internal/kshot/phase/figures/p2a_ld_vs_z_height_gemma2-9b.png, reformatted as a one-column 2-by-3 plot.
+  }
+  \label{fig:kshot-ld-evolution}
+\end{figure}
+
 
 \section{Results}
-\label{sec:evidence}
+\label{sec:results}
+
+
+
+\subsection{The number of reference values gives different confidence}
+\Cref{fig:kshot-ld-evolution} displays the clear relationship between the number of context examples and how the model handles relativity. With 0 examples, the model has no relative context, and is forced into an objective valuation depended on just $x$. Adding just 1 example moves the model into a comparator-like state. More examples gradually smooths the integration of relativity.
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/p2d_phase_k_sweep_9b.png}
+  \caption{\textbf{Relative/objective phase plane for shot-sweep.}
+  We can see how Gemma2 9B model behavior changes as we introduce more relativistic context. It only takes one example for the model to become extremely relativistic, with more context generally leading to the model reintegrating its objective view as well.
+  % Source artifacts: internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json, p2d_partial_l0_gemma2-9b_height_k1.json, and p2e_residual_interventions_gemma2-9b_height_k15.json, replotted for paper display.
+  }
+  \label{fig:relative-objective-phase}
+\end{figure}
+
+
+
+We find it useful to understand how a model is operating to abstract two scales of "relativistic" and "objective" behavior, and visualize this as a 2d plane as per \Cref{fig:relative-objective-phase}.
+Quantitativiely, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$ (see Appendix \Cref{app:partial-corr} for definition).
+With no context, the model operates in a purely objective state, with heights above 160cm already preferring tall compared to short. 
+As more context examples are supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates it's objective capabilities with its relativistic context.
 
 \subsection{Context Examples Shift Judgments Toward $z$}
 \label{subsec:behavioral-grids}
@@ -229,7 +265,7 @@ We first ask whether the model's adjective preference follows raw value $x$ or c
 Across the dense prompt grid, cell-mean logit differences are strongly correlated with $z$ for every tested adjective pair.
 This is the behavioral anchor for the paper: once a comparison class is present, the target value alone is not sufficient to explain the adjective readout.
 
-\begin{table}[!tbp]
+\begin{table}[t]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
@@ -247,6 +283,7 @@ This is the behavioral anchor for the paper: once a comparison class is present,
     BMI & \textbf{0.954} & 0.216 \\
     \bottomrule
   \end{tabular}
+  \vspace{5pt}
   \caption{\textbf{Adjective behavior tracks relative standing.}
   After averaging over context seeds within each $(x,z)$ cell, high-minus-low adjective logit differences correlate more strongly with $z$ than with raw $x$.
   % Source: internal/kshot/phase/FINDINGS.md Phase 0 reproduction table.
@@ -282,61 +319,29 @@ This visualization is descriptive rather than causal, but it motivates the probe
   \label{fig:pca-montage}
 \end{figure}
 
-\Cref{fig:kshot-ld-evolution} shows that prompt regime matters.
-With no comparison examples, raw-value priors dominate; as context examples are added, the same judgment becomes organized by effective relative standing.
 
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=\linewidth]{figures/fig_results_kshot_ld_evolution_2x3.png}
-  \caption{\textbf{Logit-difference evolution with context length.}
-  With no context examples, the height judgment is organized by raw height $x$.
-  After context examples are added, the same logit difference becomes organized by effective relative standing and changes from a sharp comparator-like pattern toward a smoother graded response.
-  % Source artifact: internal/kshot/phase/figures/p2a_ld_vs_z_height_gemma2-9b.png, reformatted as a one-column 2-by-3 plot.
-  }
-  \label{fig:kshot-ld-evolution}
-\end{figure}
-
-% TODO(control): Add OOD/extreme-value results here if the affine-shift experiments survive review.
-
-\subsection{Internals: $z$ Is Encoded Early and Used Later}
+\subsection{Internals: $z$ is Encoded Early and Used Later}
 \label{subsec:layer-evolution}
 
 \Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.
-Linear readouts recover $z$ in early layers, while direct residual-stream steering with the \primalz{} direction is strongest in later layers.
-This should be phrased as a layerwise readout/intervention pattern, not as a fully localized circuit.
+Linear readouts recover $z$ in early layers, while direct residual-stream steering with the layerwise \primalz{} direction is strongest in later layers.
 
 \begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_layer_sweep_summary_clean.png}
   \caption{\textbf{The context-normalized variable is available early but most causally potent later.}
-  Linear availability of $z$ rises quickly in early layers, while direct \primalz{} steering has its largest effect later.
-  This separates decodability from use: a variable can be linearly readable before it is the most effective causal steering direction.
+  Linear availability of $z$ rises quickly in early layers (top), while direct \primalz{} steering has its largest effect later (bottom).
+  This separates decodability from use: a variable can be linearly readable before it is most available to being steered.
   % Source artifact: figures/v12/layer_sweep_9b_combined.png, cleaned for paper display.
   }
   \label{fig:layer-encode-use}
 \end{figure}
 
-The next mechanism question is how the context examples are turned into that variable.
-The working story is that the model behaves partly like a Bayesian data scientist: it reads the context values, forms a comparison statistic, and applies the resulting standing to the target.
-We find it useful to understand how a model is operating to abstract two scales of "relativistic" and "objective" behavior, and visualize this as a 2d plane as per \Cref{fig:relative-objective-phase}.
-Quantitativiely, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$.
-With no context, the model operates in a purely objective state, with heights above 160cm already preferring tall compared to short. 
-As more context examples are supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates it's objective capabilities with its relativistic context.
-
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=\linewidth]{figures/p2d_phase_k_sweep_9b.png}
-  \caption{\textbf{Relative/objective phase plane for shot-sweep.}
-  We can see how Gemma2 9B model behavior changes as we introduce more relativistic context. It only takes one example for the model to become extremely relativistic, with more context generally leading to the model reintegrating its objective view as well.
-  % Source artifacts: internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json, p2d_partial_l0_gemma2-9b_height_k1.json, and p2e_residual_interventions_gemma2-9b_height_k15.json, replotted for paper display.
-  }
-  \label{fig:relative-objective-phase}
-\end{figure}
 
 \subsection{A Shared $z$ Direction Partly Transfers Across Concepts}
 \label{subsec:shared-direction}
 
-We next ask whether each adjective pair has its own private direction, or whether a shared $z$-like relativity component transfers across concepts.
+We next ask whether each adjective pair has its own individual direction, or whether a shared $z$-like relativity component transfers across concepts.
 \Cref{fig:shared-direction-steering} shows that a Procrustes-aligned shared direction steers most concepts in the expected direction.
 In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directions is $0.52$, the shared direction has cosine $0.64$--$0.90$ with individual pair directions, and shared-direction steering reaches at least half of within-pair steering for $7/8$ pairs.
 
@@ -352,25 +357,25 @@ In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directi
 \end{figure}
 
 Second, \cref{fig:z-vs-x-transfer} shows that steering with a source concept's \primalz{} direction often shifts the target concept in the expected high-minus-low direction.
-The diagonal entries are strongest, as expected, but off-diagonal transfer is consistently positive in the current dense-grid runs.
-The raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ directions, transfer is much weaker.
+The diagonal entries are strongest, as expected, but off-diagonal transfer is consistently positive in the presented dense-grid runs.
+The raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ (objectivity) directions, transfer is much weaker.
 
 \begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_z_vs_x_transfer_clean.png}
   \caption{\textbf{$z$ directions transfer more broadly than raw-value directions.}
   Rows are target concepts and columns are source concepts.
-  The left heatmap steers with source-concept \primalz{} directions; the right heatmap uses source-concept raw-$x$ directions.
+  The left heatmap steers with source-concept \primalz{} (relativity) directions; the right heatmap uses source-concept raw-$x$ (objectivity) directions.
   Mean off-diagonal transfer is $+0.026$ for $z$ directions versus $+0.006$ for raw-value directions.
   % Source artifact: raw-value transfer control JSON, replotted for paper display.
   }
   \label{fig:z-vs-x-transfer}
 \end{figure}
 
-The safe interpretation is partial transfer, not a pure universal code.
+Thus we see evidence for a partial transfer of relativity across concepts.
 For the 9B model, the mean diagonal steering slope is about $0.066$, while the mean off-diagonal slope is about $0.026$.
-That means cross-concept steering recovers roughly $40\%$ of the same-concept effect on average.
-The remaining gap is important: concept-specific lexical and output-facing components still matter.
+That means cross-concept steering recovers roughly $40\%$ of the same-concept effect on average. We hypothesize that a large proportion of the remaining potential is subsumed in concept-specific lexical and output facing components. 
+
 
 To test this, \cref{fig:lexical-residual,fig:lexical-residual-matrices} decomposes each pair's context-derived direction into a tested lexical subspace and an orthogonal residual:
 \[
@@ -404,33 +409,32 @@ Only about $8\%$ of \primalz{} norm-squared lies in the tested lexical subspace,
 \end{figure}
 
 The residual transfers better off-diagonal than the lexical projection and recovers most of full \primalz{} transfer.
-However, residual transfer still correlates with target lexical-subspace overlap ($r\approx 0.79$), so this is evidence for a residual shared component, not proof of a clean non-lexical shared code.
+However, residual transfer still correlates with target lexical-subspace overlap ($r\approx 0.79$), so this is evidence for a residual shared component, not proof of clean non-lexical shared relativity.
 % TODO(experiment): Add semantically distant or objective control concepts if they survive the design review.
 
 \subsection{Attention Based Interventions}
 \label{subsec:attention}
 
-Alongside conventional intervention methods such as primal and dual vector steering, we also demonstrate causality in attention based interventions in Gemma 2 2B. We experiment with choosing heads based on direct-logit-attribution (DLA) (Elhage et al., 2021. A Mathematical Framework for Transformer Circuits) scoring as well as cosine-similarity scoring to relativity as a direction expressed in SAE space. We furthermore experiment with ablating via zeroing heads, queries, or resampling heads. In particular, we are able to show that we are able to resample a small number of heads (e.g. 5 out of a total 208) to effectively destroy the relativity signal readout to logits whilst achieving minimal KL divergence on normal natural language prompts and other features. The same heads are responsible across all relativity concepts. 
+Alongside conventional intervention methods such as primal and dual steering, we also demonstrate causality in attention based interventions in Gemma 2 2B. We experiment with choosing heads based on direct-logit-attribution (DLA) \citep{elhage2021transformer} scoring as well as cosine-similarity scoring to relativity as a direction expressed in SAE space. We furthermore experiment with ablating via zeroing heads, queries, or resampling heads. In particular, we are able to show that we are able to resample a small number of heads (e.g. 5 out of a total 208) to effectively destroy the relativity readout to logits whilst achieving minimal KL divergence on normal natural language prompts and other features. The same heads generalize across all gradable adjective concepts. 
 
-We rank heads by direct logit attribution (DLA): for each head we project its last-token output through its $W_O$ slice into the unembedding difference $W_U[\text{tall}]-W_U[\text{short}]$ to obtain a per-prompt scalar contribution to the high--low logit split, and score the head by $\sigma_{\mathrm{DLA}} \cdot |\rho(\mathrm{DLA}, z)|$ --- the per-prompt standard deviation of that contribution times its correlation with the relativistic variable $z$. We restrict to heads with positive $\rho$, so that the ranking surfaces heads that move the readout in the same direction as $z$ rather than against it. As an independent ranking we decompose pre-$o_{\mathrm{proj}}$ head activations at all layers with the public Gemma Scope sparse autoencoders (SAEs), compute the cosine alignment between each candidate head's activation shift under zero-ablation and the dual-steered activation difference at the layer where the ablation is applied, and multiply by per-head std to obtain a comparable alignment-times-swap-distance score. The two rankings recover the same primary heads --- L16H4 as hub, L17H7 and L14H2 as cooperating partners --- but DLA is logit-grounded, computationally simpler and generally more effective. We therefore use DLA as the main ablation criteria.
+In practice, both SAE based cosine similary and DLA recover the same primary heads but DLA is computationally simpler and generally more effective (see Figure 14 Appendix). We therefore use DLA as the main ablation criteria.
 
-The choice of ablation mechanism is load-bearing. Zero-ablation of any single L1 head --- including the head per-head correlation flags as the primary $z$-tracker --- produces $|\Delta r(\mathrm{LD}, z)| \le 0.001$ on Gemma 2 2B; whole-head zeroing, single SAE-feature subtraction, and Q-zeroing on isolated cells are all similarly null. We attribute this to redundancy: by mid-network the residual stream carries near-perfect linear information about $z$ at every head (cross-validated $R^2(z \mid \mathrm{head}) \ge 0.97$ for L8 and beyond), so zeroing any one contributor lets the others compensate. Resample (interchange) ablation --- replacing the head's last-token output with the same head's output drawn from a randomly chosen other prompt in the dataset --- instead preserves the head's contribution magnitude while corrupting the prompt-specific information it routes, and the corrupted output then propagates downstream to bias the readout toward the donor prompt. On the same cells, resample is consistently $15$--$25\times$ more damaging than zero. Throughout this section ``ablation'' therefore means interchange resample.
+To begin, we must decide how exactly to ablate the heads chosen by DLA. Results of different options are shown in Figure 11 with top 8 heads ablated. We see clearly that Zero-ablation of heads or just the queries associated with a head (q zero) have minimal impact on relativity computation, but are effective at taking away inherent bias away from the model towards the "tall" node (especially with heads chosen by the cosine similarity SAE method). We attribute this failure of relativity disruption to redundancy: by mid-network the residual stream carries near-perfect linear information about $z$ at every head (cross-validated $R^2(z \mid \mathrm{head}) \ge 0.97$ for L8 and beyond), so zeroing any one contributor lets the others compensate. 
+
+Resample ablation --- replacing the head's last-token output with the same head's output drawn from a randomly chosen other prompt in the dataset --- performs very strongly at removing relativity from the model, reducing the partial correlation by $0.86$ with 8 heads chosen by DLA. Throughout this section ``ablation'' therefore refers to resampling.
 
 \begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth]{figures/p2o_attention_modes_comparison_gemma2-2b.png}
   \caption{\textbf{Intervention mode comparison on Gemma 2 2B (height, joint $8$-cell intervention).}
-  Left: change in $r(\mathrm{LD},z)$ under three modes --- zero-ablation, interchange (resample), and query-zero --- for $8$-head selections by $|\mathrm{cos}|$ and $\sigma_{\mathrm{DLA}}\cdot|\rho|$ methods.
+  Left: change in $r(\mathrm{LD},z)$ under three modes --- zero-ablation, resample, and query-zero --- for $8$-head selections by $|\mathrm{cos}|$ and $\sigma_{\mathrm{DLA}}\cdot|\rho|$ methods.
   Right: mean readout shift $\Delta\langle\mathrm{LD}\rangle$ (positive $=$ more ``tall'').
   Zero-ablation barely moves $z$-correlation but pushes the mean readout strongly toward a neutral readout; resample drains $z$-correlation while leaving the mean readout essentially unchanged.
-  Resample is therefore the intervention used throughout this section: it isolates relativity.
+  Resample is therefore the intervention used throughout this section: it effectively targets relativity.
   % Source artifact: relativity_ablation/figures/p2o_attention_modes_comparison_gemma2-2b.png.
   }
   \label{fig:intervention-modes}
 \end{figure}
-
-Greedy top-$N$ interchange ablation under $\sigma_{\mathrm{DLA}} \cdot |\rho|$ ranking drives $r(\mathrm{LD}, z)$ from the baseline $+0.93$ through zero into a slightly inverted $-0.12$ by $N{=}10$ on Gemma 2 2B (height, $k{=}15$). The cells entering the ablation set in $\sigma_{\mathrm{DLA}}$-ranked order also have monotonically decreasing cosine alignment to the SAE-space relativity direction (\cref{fig:circuit-trio}, right axis), providing intuition as to its effectiveness. The first eight cells account for roughly 84\% of the eventual $\Delta r$, and $\Delta r$ saturates entirely by $N{\approx}10$; beyond $N{=}10$, additional ablations do not further damage the relativity readout. The relativity circuit has a finite extent rather than a long tail.
-
 
 \begin{figure}[!tbp]
   \centering
@@ -438,13 +442,18 @@ Greedy top-$N$ interchange ablation under $\sigma_{\mathrm{DLA}} \cdot |\rho|$ r
   \caption{\textbf{DLA-ranked greedy ablation drives the model's $d_z$ alignment to zero on Gemma 2 2B.}
   Top: $\Delta r(\mathrm{LD},z)$ (left axis) over top-$N$ greedy resampling under $\sigma_{\mathrm{DLA}}\cdot\rho$ ranking, with the cos$\cdot\sigma$ of each newly added cell on the right axis.
   $\Delta r$ falls monotonically from a strongly positive baseline through zero into a slightly inverted readout, and the incoming cells' cos$\cdot\sigma$ values fall in tandem --- a visual readout that cosine alignment to $d_z$ is being progressively removed.
-  Bottom: mean KL divergence between baseline and ablated next-token distributions, monotonically increasing.
+  Bottom: mean KL divergence between baseline and ablated next-token distributions.
   % Source artifact: relativity_ablation/figures/p2u_n_sweep_xfeat_gemma2-2b-it.png.
   }
   \label{fig:circuit-trio}
 \end{figure}
 
-The top 3 trio identified from the height grid transfers without re-derivation to the other relativity concepts: the joint resample of L16H4, L17H7 and L14H2 drops $r(\mathrm{LD}, z)$ by $0.57$ on height, $0.68$ on weight, and $0.47$ on speed --- $61$--$73\%$ of the baseline correlation in each case --- confirming that the circuit is relativity-general rather than tied to any one surface adjective. To test whether the trio simply damages the model's general competence, we ran the same intervention on three control tasks --- arithmetic comparison (``Is $X$ greater than $Y$?''), factual truth (Marks \& Tegmark cities, framed as ``is this statement true or false?''), and refusal (harmful and harmless instructions from (arditi2024), scored by the logit difference between ``I'' and ``Sure'') --- and on raw natural-language imperatives carrying no task structure or chat template. Specificity is sharp: trio $\Delta r$ is $-0.14$ on arithmetic, $-0.02$ on truth, and statistically null on refusal ($+0.001$, below the five-seed random-three-cell baseline of $\pm 0.003$); per-prompt KL divergence on the raw natural text is $0.009$ nats, statistically indistinguishable from random three-head ablation (random mean $0.008 \pm 0.004$ nats). Walking the cumulative $\sigma_{\mathrm{DLA}} \cdot |\rho|$ sweep, the per-prompt KL ratio between relativity prompts and neutral text is $17\times$ at $N{=}3$, narrowing monotonically to $2\times$ at $N{=}32$: the top of the ranking is most relativity-specific, and selectivity fades smoothly as the cumulative set absorbs progressively more general heads. The trio is not a generic late-token aggregator with bystander damage; it is a structure-dependent computation that only fires --- and only breaks under resample --- when relativistic structure is present in the input.
+
+Greedy top-$N$ interchange ablation under $\sigma_{\mathrm{DLA}} \cdot |\rho|$ ranking drives $r(\mathrm{LD}, z)$ from the baseline $+0.93$ through zero into a slightly inverted $-0.12$ by $N{=}10$ on Gemma 2 2B (height, $k{=}15$). The cells entering the ablation set in $\sigma_{\mathrm{DLA}}$-ranked order also have monotonically decreasing cosine alignment to the SAE-space relativity direction (\cref{fig:circuit-trio}, right axis), providing intuition as to its effectiveness. The first eight cells account for roughly 84\% of the eventual $\Delta r$.
+
+The top 3 trio identified from the height grid transfers without re-derivation to the other gradable adjective concepts: the joint resample of L16H4, L17H7 and L14H2 drops $r(\mathrm{LD}, z)$ by $0.57$ on height, $0.68$ on weight, and $0.47$ on speed --- $61$--$73\%$ of the baseline correlation in each case --- indicating that the circuit is relativity-general rather than tied to any one surface adjective. 
+
+To test whether the trio simply damages the model's general competence, we ran the same intervention on three control tasks --- arithmetic comparison (``Is $X$ greater than $Y$?''), factual truth \citep{marks2023geometry} and refusal \citep{arditi2024refusal}, --- and on raw natural-language imperatives carrying no task structure or chat template. Specificity is sharp: trio $\Delta r$ is $-0.14$ on arithmetic, $-0.02$ on truth, and statistically null on refusal; per-prompt KL divergence on the raw natural text is $0.009$ nats, statistically indistinguishable from random three-head ablation (random mean $0.008 \pm 0.004$ nats). Walking the cumulative $\sigma_{\mathrm{DLA}} \cdot |\rho|$ sweep, the per-prompt KL ratio between relativity prompts and neutral text is $17\times$ at $N{=}3$, providing strong evidence as to the selectivity of the intervention.
 
 
 
@@ -461,10 +470,10 @@ The top 3 trio identified from the height grid transfers without re-derivation t
 \subsection{Generalization Across Scale and Modalities}
 \label{subsec:generalization}
 
-All results, including the general decomposition into Z score relativity, the dense grid, as well as causal steering and attention based interventions, were replicated on a host of small models. These models included OLMO 7B, Pythia 2.8B, Llama 3.2 3B, Qwen 2.5 3B and Qwen 3 14B. Results were generally similar as reported in this paper on the Gemma 2 family models. 
+All results, including the general decomposition into Z score relativity, the dense grid, as well as causal steering and attention based interventions, were replicated on a host of small models. These models included OLMO 7B, Pythia 2.8B, Llama 3.2 3B, Qwen 2.5 3B and Qwen 3 14B. Results were generally similar as reported in this paper on the Gemma 2 family models (See Appendix Figures 17 \& 18). 
 
-The broader generalization question to larger models with more parameters remains largely open. Largest model we tested was 14B active parameters.
-
+The broader generalization question to larger models with more parameters remains largely open. The largest model we tested was 14B active parameters.
+Findings were also replicated across $N = 1$ and $N = 5$ prompts (See Appendix Figures 15 \& 16)
 
 \section{Related Work and Positioning}
 \label{sec:related-work}
@@ -472,27 +481,22 @@ The broader generalization question to larger models with more parameters remain
 \subsection{Gradable Adjectives and Pragmatic Thresholds}
 \label{subsec:related-gradability}
 
-Prior to the age of LLMs, a general pragmatic understanding of relativistic adjectives in natural language was studied. \citep{lassiter2017adjectival} provides a Bayesian framework for interpreting such types of adjectives. Recent LLM work and the discovery of in-context learning further test the inferential capabilities of Bayesian language models \citep{lipkin2023pragmatic}. Our work, built on these foundations, extensively focuses on interpreting how the comparisons and relativity are geometrically represented in the model's internals.
+Before modern LLMs, a general pragmatic understanding of relative gradable adjectives in natural language was studied. \citep{lassiter2017adjectival} provides a Bayesian framework for interpreting this class of adjectives. Recent LLM work and the discovery of in-context learning further test the inferential capabilities of Bayesian pragmatic models \citep{lipkin2023pragmatic}. Our work, built on these foundations, extensively focuses on interpreting how the comparisons and relativity are geometrically represented in the model's internals.
 
 \subsection{Numerical Representations and In-Context Statistics}
 \label{subsec:related-numbers}
 
-Numeracy work shows that hidden states can encode numerical magnitude, but it also warns that notation, tokenization, base-10 digit structure, and verbalization failures can strongly shape what is measured \citep{wallace2019numbers,zhu2024value,levy2025base10,yuchi2026numbers}.
-Measurement and numerical-attribute studies further show that language models mix numbers with world knowledge and contextual cues \citep{park2022measurements,takagi2025confounding}.
-Our dense-grid design separates these factors by holding the adjective-pair task fixed while independently varying raw value and normalized standing.
-The result is a direct test of whether the model uses the prompt numbers as isolated magnitudes or as samples from a local distribution.
+Prior work has shown that language models can encode numerical magnitude \citep{zhu2024value}. This literature mainly targets raw magnitude: whether the model can represent that one number is larger than the other. Our setting extends this concept but moves to a richer setting, whether a target value is high or low relative to the distribution implied by the prompt, and whether language models are able to encode this relativity internally.
 
-This also connects to work on in-context learning as implicit statistical inference.
-Prior theory and controlled mechanistic studies show that transformers can implement Bayesian-like, gradient-like, or estimator-like computations from examples \citep{xie2022implicitbayesian,muller2022bayesian,akyurek2023algorithm,vonoswald2023gradient,bai2023statisticians,he2025linearregression,chaudhry2026implicit}.
-Our setting is less synthetic but more semantically natural: the context examples are ordinary scalar quantities, and the inferred statistic is the target's relative standing inside that local population.
+This also connects to work explaining in-context learning phenomena as statistical inference, where language models are infer the task-relevant structure from examples in the prompt \citep{xie2022implicitbayesian,he2025linearregression}. Our setting differs in one important way, as the examples are sampled scalar values drawn from a parameterized population distribution, rather than explicitly instructing the model to compare examples.
 
 \subsection{Linear Representations, Steering, and Manifold Geometry}
 \label{subsec:related-mi}
 
-Linear representations of concepts of natural language were a common starting point for mechanistic interpretability for a long time \citep{park2023lrh,park2025categorical}, linear methods such as probing and steering were actively used to connect the geometry of the linear representation to the behavior of the model.
-However, more recent work shows that not all features are linearly defined; Certain features were discovered to require richer geometry such as cyclical, hierarchial, and low dimensional manifolds. \citep{engels2024notlinear,modell2025origins,sarfati2026beliefs,gurnee2026linebreaks}.
+Linear representations of natural-language concepts are a common starting point for mechanistic interpretability\citep{park2023lrh,park2025categorical}, linear methods such as probing and steering are often used to connect the geometry of the linear representation to the behavior of the model.
+However, more recent work shows that not all features are well described by a one-dimensional linear direction; Certain features appear to require richer geometry such as cyclical, hierarchial, and low dimensional manifold structure. \citep{engels2024notlinear,modell2025origins,sarfati2026beliefs,gurnee2026linebreaks}.
 
-Our use of \primalz{} sits between these views. Concepts such as \emph{tall} vs \emph{short} could be interpreted as counterfactual;binary which is best represented linearly, whereas other interpretations might suggest it is based on a probability distribution which is represented in nonlinear manifolds \citep{sarfati2026beliefs}. Therefore whilst testing linear decodability and steerability and the downstream causal effects of $z$, we also deploy methods such as dual steering to exploit the nonlinearities of the geometric structures, rather than collapsing them into a single ``the model has a vector'' claim.
+Our use of \primalz{} sits between these views. Concepts such as \emph{tall} vs \emph{short} could be interpreted as counterfactual or binary which is best represented linearly, whereas other interpretations might suggest it is based on a probability distribution which is represented in nonlinear manifolds \citep{sarfati2026beliefs}. Therefore while testing linear decodability and steerability and the downstream causal effects of $z$, we also deploy methods such as dual steering to test whether nonlinear geometry matters, without reducing the mechanism into a single ``the model has a vector'' claim.
 
 \section{Discussion and Limitations}
 \label{sec:discussion-limitations}
@@ -500,48 +504,26 @@ Our use of \primalz{} sits between these views. Concepts such as \emph{tall} vs 
 \subsection{What This Paper Can Claim}
 \label{subsec:can-claim}
 
-The core result is that in-context scalar judgments are better described by a context-normalized variable than by raw magnitude alone.
-The dense grid separates $x$ from $z$ by construction, and across eight adjective domains the model's high-minus-low logit differences track $z$ far more strongly than $x$.
-The same variable is visible in activation geometry: cell-mean residual-stream states form ordered $z$ structure, and linear readouts recover $z$ early in the network.
-These observations do not by themselves prove a mechanism, but they establish that the behavioral phenomenon and the internal geometry agree on the same normalized coordinate.
-The shot-sweep phase-plane result adds an important behavioral refinement: with no comparison examples, the model behaves more like an objective magnitude reader, but even a small amount of context moves it toward a relative judgment regime.
-This supports the interpretation that the model is not merely retrieving a fixed world prior, but dynamically changing the computation as the prompt supplies a comparison class.
+We show that in-context scalar judgments on relative gradable adjectives are better described by a context-normalized variable than by raw magnitude alone. The dense grid shows $z$-dominant behavior; PCA shows activation geometry; steering shows causal use, with the common theme that the model tracks $z$ far more strongly than $x$. 
 
-The intervention results strengthen this interpretation.
-Steering with \primalz{} changes adjective decisions in the predicted direction, and source-concept \primalz{} directions transfer more broadly than raw-$x$ directions.
-The transfer is partial rather than complete: diagonal effects remain larger than off-diagonal effects, and lexical decomposition shows that same-concept steering receives high-gain support from adjective-specific and output-facing components.
-We therefore interpret \primalz{} as an operational summary of a mixed representation: it contains a shared relative-standing component, but it is not a pure universal direction independent of lexical content.
+The shot-sweep phase result adds a behavioral refinement: with no comparison examples, the model behaves more like an objective magnitude reader, but even one context example moves it toward a relative judgment regime. This suggests that the model is not merely retrieving a fixed pretrained prior, but is dynamically changing the internal computations as the prompt supplies more examples.
 
-The attention-intervention results provide a complementary causal view.
-Direct zero-ablation of individual heads is mostly ineffective, consistent with redundancy once $z$ is widely linearly available.
-Interchange resampling of DLA-ranked heads, by contrast, strongly reduces the relativity readout while preserving much of the ordinary next-token distribution on unrelated text.
-The strongest heads transfer across several relativity concepts, suggesting a relativity-general computation rather than a height-specific trick.
-Together with the steering results, this gives two different intervention paths into the same phenomenon: residual-stream directions can move the judgment along the relative coordinate, while attention resampling can selectively corrupt the route that carries context-relative information.
+Intervention results strengthen this view. \primalz{} steering and dual steering shift adjective decisions along the relative axis. Cross-concept transfers are stronger for \primalz{} than raw-$x$ directions, and lexical decomposition shows that the lexical residuals preserve more off-diagonal transfers than pure adjective-specific lexical projections.
+
+Attention interventions provide a complementary view. Single head ablation is typically ineffective, consistent with the fact that $z$ is redundantly represented in multiple features. DLA-ranked greedy ablation, by contrast, strongly reduces the relativity readout while preserving unrelated next-token behavior. The strongest heads are shared across several relativity concepts, which suggests a shared relativity concept rather than an adjective-specific one.
 
 \subsection{What This Paper Cannot Claim Yet}
 \label{subsec:cannot-claim}
 
-The generalization evidence should also be read conservatively.
-The same qualitative decomposition into raw magnitude, relative standing, steering, and attention-based intervention appears across several small model families, including OLMo, Pythia, Llama, Qwen, and Gemma variants.
-This argues against the phenomenon being an idiosyncrasy of one Gemma checkpoint.
-However, the largest tested model has 14B active parameters, and the present experiments do not yet establish scaling behavior, instruction-tuned robustness, multimodal generalization, or behavior under substantially more diverse semantic domains.
+Several limitations remain. First, the main methodology in constructing the behavioral readout is a high-minus-low logit difference over hand-chosen adjective tokens. More robust settings would include a broader set of synonym/antonym families and a deeper analysis of top-logit behavioral changes. Secondly, the chosen domains are mostly drawn from human-interpretable quantities such as weight, height, and size. Stronger controls should include more semantically orthogonal domains of relative gradable adjective sets. This is why the evidence of generalization across multiple concepts should also be read conservatively.
 
-The attention intervention is not yet a complete circuit-level explanation.
-It identifies important routing sites and failure modes, but it does not decompose the full algorithm by which the model estimates the comparison statistic from context.
-In particular, we do not yet know whether the model explicitly represents $\mu$ and $\sigma$, computes a normalized statistic through a small set of reusable subroutines, or approximates the same behavior through a more distributed comparison process.
-
-Several limitations remain.
-First, the main behavioral readout is a high-minus-low logit difference over hand-chosen adjective tokens; future versions should test broader paraphrase sets and top-logit behavior.
-Second, the domains are mostly scalar human-interpretable quantities, so stronger controls should include more distant physical, economic, and objective classification tasks.
-Third, PCA, probes, steering, and ablations answer different questions; the paper deliberately separates them rather than treating any one method as definitive.
-The current evidence supports a context-relative scalar representation that is behaviorally dominant, internally accessible, causally relevant, and partly shared across concepts, but it does not yet prove a single clean mechanism or a fully non-lexical code.
+Also, the attention intervention experiment is not yet a complete breakdown of a circuit level explanation. While it does identify important heads with causal evidence through greedy ablation, it does not decompose the full algorithm in which the model estimates the comparison statistic from context. In particular, we do not yet know how or whether the model explicitly represents $\mu$ and $\sigma$, processes the normalized statistic to downstream layers, or approximates the same behavior through a more distributed comparison process.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-We use gradable adjectives as a controlled setting for studying how language models represent relational quantities in context.
-By independently varying raw target value and normalized standing, we show that context examples induce a $z$-like coordinate that appears in behavior, activation geometry, steering, and attention interventions.
-The central lesson is claim hygiene: relative standing is a real and causally relevant internal variable, but it is implemented through a mixed mechanism with lexical, residual, and attention-mediated components.
+In this paper we use gradable adjectives as a controlled setting to explore how language models represent relativity as a concept. By varying raw target value and normalized standing in an independently sampled grid, we effectively show that comparison examples induce a $z$-like representation that is visible in outputs, residual-stream geometry, steering effects, and attention interventions.
+Relativity is therefore internally represented and causally relevant, but it is not implemented by a single one-dimensional vector: lexical structure, shared residual directions, and attention-mediated routing all contribute to the mechanism.
 
 \section*{Impact Statement}
 
@@ -587,14 +569,26 @@ Unless explicitly marked as a cross-validated probe score, reported $R^2$ values
 R^2(a,b)=\mathrm{corr}(a,b)^2.
 \]
 
-\paragraph{Partial-correlation phase axes.}
-The relative/objective phase plots use partial correlations:
+\paragraph{Partial correlation.}\label{app:partial-corr}
+For scalar variables $a,b,c$, the (Pearson) partial correlation is defined as
 \[
-r_{\mathrm{rel}}=\mathrm{corr}(\mathrm{LD},z\mid x),\qquad
-r_{\mathrm{obj}}=\mathrm{corr}(\mathrm{LD},x\mid z).
+\mathrm{corr}(a,b \mid c)
+=
+\frac{
+\mathrm{corr}(a,b) - \mathrm{corr}(a,c)\,\mathrm{corr}(b,c)
+}{
+\sqrt{(1-\mathrm{corr}(a,c)^2)(1-\mathrm{corr}(b,c)^2)}
+}.
 \]
-Operationally, $\mathrm{corr}(a,b\mid c)$ is computed by regressing $a$ and $b$ on $c$, then correlating the two residuals.
-This asks whether LD still tracks $z$ after accounting for raw value, or still tracks raw value after accounting for $z$.
+Equivalently, it can be computed by removing the linear component of each variable along $c$, i.e.
+\[
+a^\perp = a - \hat a(c), \quad b^\perp = b - \hat b(c),
+\]
+where $\hat a(c)$ and $\hat b(c)$ are least-squares projections onto $c$, and then computing
+\[
+\mathrm{corr}(a,b \mid c) = \mathrm{corr}(a^\perp, b^\perp).
+\]
+Intuitively, this measures the correlation between $a$ and $b$ after projecting out their shared linear component along $c$.
 
 \paragraph{PCA $R^2$.}
 PCA is fit to activation vectors $h_i\in\mathbb{R}^d$.
@@ -728,6 +722,113 @@ The trajectory plots in the main text vary $\alpha\in\{0.0, 0.25, 0.5, 0.75, 1.0
 
 \paragraph{Naming.}
 Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called the same intervention \emph{manifold shift} or \emph{on-manifold tangent ablation}; we use \emph{dual steering} throughout the paper to emphasise its role as the dual of primal direction-based steering. ``Primal'' (single direction, scalar $\alpha$) and ``dual'' (per-prompt manifold displacement) are paired interventions on the same hooked layer with the same readouts; differences in efficacy are interpretable as evidence about whether the encoding is a single linear direction or a curved manifold.
+
+\section{Additional Figures}
+\label{app:additional-figures}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/p2s_dla_vs_cossigma_sweep_gemma2-2b.png}
+  \caption{\textbf{Head-ranking comparison on Gemma 2 2B (height, $k{=}15$).}
+  Top: $\Delta r(\mathrm{LD}, z)$ under cumulative top-$N$ interchange ablation for three rankings --- $|\mathrm{cos}|$, $\mathrm{cos}\cdot\sigma$, and $\sigma_{\mathrm{DLA}}\cdot\rho$ --- with purple bars on the right axis giving the $\sigma_{\mathrm{DLA}}\cdot\rho$ score of the cell entering at rank $N$.
+  Bottom: per-prompt mean KL between baseline and resampled next-token distributions for $|\mathrm{cos}|$ and $\sigma_{\mathrm{DLA}}\cdot\rho$.
+  $\sigma_{\mathrm{DLA}}\cdot\rho$ pulls ahead of $\mathrm{cos}\cdot\sigma$ by $N{=}4$ and at $N{=}8$ already exceeds the $\mathrm{cos}\cdot\sigma$ saturation ceiling that the latter only approaches at $N{=}32$, ultimately driving the readout to near-decorrelation ($\Delta r{\approx}{-}0.93$).
+  % Source artifact: relativity_ablation/figures/p2s_dla_vs_cossigma_sweep_gemma2-2b.png.
+  }
+  \label{fig:ranking-comparison}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/p2v_xk_phase_grid_gemma2-2b_height.png}
+  \caption{\textbf{The same heads, primal direction, and manifold lookup
+  collapse the relativity readout at every shot count.}
+  Each panel evaluates the $k{=}15$-derived intervention triplet
+  ($\sigma_{\mathrm{DLA}}\cdot|\rho|$+ head ranking, primal $\hat d$,
+  manifold lookup $M$) on a different stimulus distribution
+  ($k{\in}\{1,5,15\}$), in the same partial-correlation phase plane as
+  \cref{fig:circuit-phase-trajectory}.
+  Solid viridis: greedy top-$N$ resample ablation, $N{=}0\!\to\!32$;
+  dashed red: dual (manifold) steering at $\alpha{\in}\{0,0.25,0.5,0.75,1\}$;
+  dotted purple: primal (proj-out) steering at the same grid.
+  % Source artifact: relativity_ablation/figures/p2v_xk_phase_grid_gemma2-2b_height.png.
+  }
+  \label{fig:circuit-cross-k-phase}
+\end{figure}
+
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/p2v_xk_deltar_overlay_gemma2-2b_height.png}
+  \caption{\textbf{Greedy resample under a fixed head ranking is
+  $k$-invariant.}
+  $\Delta r(\mathrm{LD}, z)$ vs $N$ for the same
+  $\sigma_{\mathrm{DLA}}\cdot|\rho|$+ ranking
+  (derived once at $k{=}15$, then re-applied at $k{=}1, 5, 15$).
+  All three curves descend through zero into a slightly inverted readout by
+  $N{\approx}10$ and saturate at
+  $\Delta r{=}{-}0.95$ ($k{=}1$),
+  ${-}1.06$ ($k{=}5$),
+  ${-}1.02$ ($k{=}15$).
+  Per-head efficiency is mildly lower at $k{=}1$ --- \texttt{L16H4} alone
+  yields $\Delta r{=}{-}0.15$ vs ${-}0.18$ at $k{=}15$ --- but the asymptote
+  is reached for all $k$ and the same trio (\texttt{L16H4}, \texttt{L17H7},
+  \texttt{L22H1}, \dots) dominates the descent.
+  Random $N$-cell controls ($\times$) hover near zero.
+  % Source artifact: relativity_ablation/figures/p2v_xk_deltar_overlay_gemma2-2b_height.png.
+  }
+  \label{fig:circuit-cross-k-deltar}
+\end{figure}
+
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{figures/xmodel_geometry_grid.png}
+  \caption{\textbf{Z-score relativity geometry and dense-grid behavior
+  replicate across five small open-weights models.}
+  Rows: Qwen 2.5 3B, Llama 3.2 3B, OLMo 2 7B, Pythia 2.8B, Qwen 3 14B.
+  Left column: PCA decomposition of cell-mean activations at each model's
+  canonical late layer, one panel per concept (height, weight, size, bmi,
+  wealth, age, speed, experience). Each panel reports
+  $R^2(z\mid\mathrm{PC1})$; values $\geq 0.7$ on graded concepts indicate
+  that the leading principal component of the cell-mean activation tracks
+  the context-relative $z$-score rather than the raw value.
+  Right column: behavioral $\mathrm{LD}=\mathrm{logit}(\text{tall})-\mathrm{logit}(\text{short})$
+  on the dense $(x, z)$ grid for the height pair.
+  All five models show the same vertical-stripe pattern --- $\mathrm{LD}$
+  varies primarily with $z$ and only weakly with $x$ --- consistent with the
+  Gemma 2 result in the main text.
+  % Source: relativity_ablation/scripts/p2v_xmodel_appendix_composites.py;
+  %         per-model panels under geometry-of-relativity/figures/v13/.
+  }
+  \label{fig:xmodel-geometry}
+\end{figure}
+
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{figures/xmodel_interventions_grid.png}
+  \caption{\textbf{Causal interventions replicate across the same five
+  models.}
+  Rows: Qwen 2.5 3B, Llama 3.2 3B, OLMo 2 7B, Pythia 2.8B, Qwen 3 14B.
+  Left column: DLA-ranked top-3 trio interchange ablation
+  --- $\Delta r(\mathrm{LD}, z)$ per concept (red) vs same-$N$ random-cell
+  control (gray, mostly $\le 0.01$). Trio identification is per-model
+  (heads ranked by $\sigma_{\mathrm{DLA}}\cdot|\rho|$ at $k{=}15$ height).
+  Right column: cross-pair steering efficiency matrix --- entries are the
+  slope ratio when the residual-stream direction estimated on the source
+  pair is used to steer prompts from the target pair. Off-diagonal entries
+  are predominantly positive across all models, indicating that the
+  $z$-encoding subspace is shared across concepts (height $\to$ weight,
+  weight $\to$ height, etc., transfer with slope ratio $\geq 0.5$ for most
+  pairs in every model). Both intervention modes generalize the
+  Gemma 2 result.
+  % Source: relativity_ablation/scripts/p2v_xmodel_appendix_composites.py;
+  %         per-model panels under geometry-of-relativity/figures/v13/.
+  }
+  \label{fig:xmodel-interventions}
+\end{figure}
+
 
 
 \end{document}
