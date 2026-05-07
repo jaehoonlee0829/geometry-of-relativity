@@ -294,13 +294,6 @@ Activation geometry shows the same organization: PCA on cell-mean residual-strea
 We next test whether the behavioral $z$ readout depends on incidental details of the prompt generator: Gaussian-shaped contexts, random example order, or ordinary in-distribution value ranges.
 Across non-Gaussian context shapes (\cref{fig:distribution-shapes}) and ordering changes, the LD-by-$z$ relationship remains positive and mostly monotone; full curves are shown in \cref{fig:distribution-robustness-full,fig:order-robustness-full}.
 
-The sharpest stress test is the OOD-world setting, where raw magnitude and local standing can point in opposite semantic directions:
-\begin{itemize}
-  \item Height: $76.8$ cm in a $50$ cm world has \textbf{$z=+2.68$} and \textbf{$\logitdiff=+3.92$}, preferring \textbf{``tall''}; $290$ cm in a $320$ cm world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.44$}, preferring \textbf{``short''}.
-  \item Weight: $54.0$ kg in a $30$ kg world has \textbf{$z=+3.0$} and \textbf{$\logitdiff=+4.66$}, preferring \textbf{``heavy''}; $226$ kg in a $250$ kg world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.96$}, preferring \textbf{``light''}.
-\end{itemize}
-These are individual corrected-run cells averaged over repeated context seeds at $N=31$.
-
 \begin{figure}[!tbp]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_distribution_shapes_clean.png}
@@ -312,24 +305,18 @@ These are individual corrected-run cells averaged over repeated context seeds at
   \label{fig:distribution-shapes}
 \end{figure}
 
-\begin{figure}[!tbp]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_ood_ld_by_z_main.png}
   \caption{\textbf{OOD worlds preserve the relative-standing readout.}
-  Representative domains show high-minus-low adjective logit difference against relative standing $z$ for ordinary in-distribution contexts and for artificial low/high OOD worlds.
-  Full eight-domain curves are shown in \cref{fig:ood-robustness-full}.
+  High-minus-low adjective logit difference remains ordered by $z$ in ordinary in-distribution contexts and artificial low/high OOD worlds.
+  Full eight-domain curves: \cref{fig:ood-robustness-full}.
   % Source artifact: results/v14_1/affine_ood/affine_ood_rows.jsonl, corrected rerun with complete pair/condition coverage.
   }
   \label{fig:ood-robustness}
 \end{figure}
 
-\subsection{Internals: $z$ is Encoded Early and Used Later}
-\label{subsec:layer-evolution}
-
-\Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.
-Linear readouts recover both $z$ and raw magnitude $x$ from residual-stream activations, but direct residual-stream steering is stronger along the layerwise \primalz{} direction than along the corresponding raw-\(x\) direction in the later layers where steering is most effective.
-
-\begin{figure}[!tbp]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_layer_z_x_encode_use_clean.png}
   \caption{\textbf{Both $z$ and $x$ are encoded, but $z$ is more causally used.}
@@ -340,6 +327,19 @@ Linear readouts recover both $z$ and raw magnitude $x$ from residual-stream acti
   \label{fig:layer-encode-use}
 \end{figure}
 
+The sharpest stress test is the OOD-world setting, where raw magnitude and local standing can point in opposite semantic directions:
+\begin{itemize}
+  \item Height: $76.8$ cm in a $50$ cm world has \textbf{$z=+2.68$} and \textbf{$\logitdiff=+3.92$}, preferring \textbf{``tall''}; $290$ cm in a $320$ cm world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.44$}, preferring \textbf{``short''}.
+  \item Weight: $54.0$ kg in a $30$ kg world has \textbf{$z=+3.0$} and \textbf{$\logitdiff=+4.66$}, preferring \textbf{``heavy''}; $226$ kg in a $250$ kg world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.96$}, preferring \textbf{``light''}.
+\end{itemize}
+These are individual corrected-run cells averaged over repeated context seeds at $N=31$.
+
+\subsection{Internals: $z$ is Encoded Early and Used Later}
+\label{subsec:layer-evolution}
+
+\Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.
+Linear readouts recover both $z$ and raw magnitude $x$ from residual-stream activations, but direct residual-stream steering is stronger along the layerwise \primalz{} direction than along the corresponding raw-\(x\) direction in the later layers where steering is most effective.
+
 
 \subsection{A Shared $z$ Direction Partly Transfers Across Concepts}
 \label{subsec:shared-direction}
@@ -347,6 +347,10 @@ Linear readouts recover both $z$ and raw magnitude $x$ from residual-stream acti
 We next ask whether each adjective pair has its own individual direction, or whether a shared $z$-like relativity component transfers across concepts.
 \Cref{fig:shared-direction-steering} shows that a Procrustes-aligned shared direction steers most concepts in the expected direction.
 In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directions is $0.52$, the shared direction has cosine $0.64$--$0.90$ with individual pair directions, and shared-direction steering reaches at least half of within-pair steering for $7/8$ pairs.
+
+Second, cross-pair \primalz{} steering often shifts target concepts in the expected direction; the full $z$-versus-$x$ transfer control is shown in \Cref{fig:z-vs-x-transfer}.
+The diagonal entries are strongest, but off-diagonal transfer is consistently positive and much stronger than raw-$x$ steering.
+For the 9B model, mean diagonal steering slope is about $0.066$, while mean off-diagonal slope is about $0.026$, so cross-concept steering recovers roughly $40\%$ of the same-concept effect.
 
 \begin{figure}[!tbp]
   \centering
@@ -359,22 +363,13 @@ In the 9B model, the mean pairwise cosine among pair-specific \primalz{} directi
   \label{fig:shared-direction-steering}
 \end{figure}
 
-Second, cross-pair steering with a source concept's \primalz{} direction often shifts the target concept in the expected high-minus-low direction; the full $z$-versus-$x$ transfer control is shown in \Cref{fig:z-vs-x-transfer}.
-The diagonal entries are strongest, as expected, but off-diagonal transfer is consistently positive in the presented dense-grid runs.
-The raw-value control makes the comparison sharper: when we repeat the same 8-by-8 transfer experiment using raw-$x$ (objectivity) directions, transfer is much weaker.
-
-Thus we see evidence for a partial transfer of relativity across concepts.
-For the 9B model, the mean diagonal steering slope is about $0.066$, while the mean off-diagonal slope is about $0.026$.
-That means cross-concept steering recovers roughly $40\%$ of the same-concept effect on average. We hypothesize that a large proportion of the remaining potential is subsumed in concept-specific lexical and output facing components. 
-
 
 To test this, \cref{fig:lexical-residual,fig:lexical-residual-matrices} decomposes each pair's context-derived direction into a tested lexical subspace and an orthogonal residual:
 \[
 p_z = p_{z,\mathrm{lex}} + p_{z,\mathrm{resid}}.
 \]
 The lexical subspace is built from adjective-token, adjective-in-sentence, sentence-final, synonym, and domain-token directions.
-Literal adjective-token directions align only weakly with \primalz{}:
-mean cosine is $0.104$ for word-token directions, $0.102$ for sentence-token directions, and $0.260$ for sentence-final directions.
+Literal adjective-token directions align only weakly with \primalz{}: mean cosine is $0.104$ for word-token directions, $0.102$ for sentence-token directions, and $0.260$ for sentence-final directions.
 Only about $8\%$ of \primalz{} norm-squared lies in the tested lexical subspace, but the normalized lexical projection is high-gain for same-concept steering.
 
 \begin{figure}[!tbp]
@@ -413,24 +408,22 @@ Among zeroing, query-zeroing, and resampling, resampling most directly removes t
   \label{fig:intervention-modes}
 \end{figure}
 
+Greedy top-$N$ interchange ablation under $\sigma_{\mathrm{DLA}} \cdot |\rho|$ ranking drives $r(\mathrm{LD}, z)$ from $+0.93$ through zero to $-0.12$ by $N{=}10$ on Gemma 2 2B (height, $k{=}15$). Entering cells also show decreasing cosine alignment to the SAE-space relativity direction, and the first eight cells account for roughly 84\% of the eventual $\Delta r$.
+
 \begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/p2u_n_sweep_xfeat_gemma2-2b-it.png}
+  \includegraphics[width=\linewidth,trim=0 0 0 34,clip]{figures/p2u_n_sweep_xfeat_gemma2-2b-it.png}
   \caption{\textbf{DLA-ranked greedy ablation drives the model's $d_z$ alignment to zero on Gemma 2 2B.}
   Top: $\Delta r(\mathrm{LD},z)$ (left axis) over top-$N$ greedy resampling under $\sigma_{\mathrm{DLA}}\cdot\rho$ ranking, with the cos$\cdot\sigma$ of each newly added cell on the right axis.
-  $\Delta r$ falls monotonically from a strongly positive baseline through zero into a slightly inverted readout, and the incoming cells' cos$\cdot\sigma$ values fall in tandem --- a visual readout that cosine alignment to $d_z$ is being progressively removed.
-  Bottom: mean KL divergence between baseline and ablated next-token distributions.
+  $\Delta r$ falls through zero as incoming cells' cos$\cdot\sigma$ values fall, while mean KL divergence remains much lower on neutral text than relativity prompts.
   % Source artifact: relativity_ablation/figures/p2u_n_sweep_xfeat_gemma2-2b-it.png.
   }
   \label{fig:circuit-trio}
 \end{figure}
 
-
-Greedy top-$N$ interchange ablation under $\sigma_{\mathrm{DLA}} \cdot |\rho|$ ranking drives $r(\mathrm{LD}, z)$ from the baseline $+0.93$ through zero into a slightly inverted $-0.12$ by $N{=}10$ on Gemma 2 2B (height, $k{=}15$). The cells entering the ablation set in $\sigma_{\mathrm{DLA}}$-ranked order also have monotonically decreasing cosine alignment to the SAE-space relativity direction (\cref{fig:circuit-trio}, right axis), providing intuition as to its effectiveness. The first eight cells account for roughly 84\% of the eventual $\Delta r$.
-
 The top 3 trio identified from the height grid transfers without re-derivation to the other gradable adjective concepts: the joint resample of L16H4, L17H7 and L14H2 drops $r(\mathrm{LD}, z)$ by $0.57$ on height, $0.68$ on weight, and $0.47$ on speed --- $61$--$73\%$ of the baseline correlation in each case --- indicating that the circuit is relativity-general rather than tied to any one surface adjective. 
 
-To test whether the trio simply damages the model's general competence, we ran the same intervention on three control tasks --- arithmetic comparison (``Is $X$ greater than $Y$?''), factual truth \citep{marks2023geometry} and refusal \citep{arditi2024refusal}, --- and on raw natural-language imperatives carrying no task structure or chat template. Specificity is sharp: trio $\Delta r$ is $-0.14$ on arithmetic, $-0.02$ on truth, and statistically null on refusal; per-prompt KL divergence on the raw natural text is $0.009$ nats, statistically indistinguishable from random three-head ablation (random mean $0.008 \pm 0.004$ nats). Walking the cumulative $\sigma_{\mathrm{DLA}} \cdot |\rho|$ sweep, the per-prompt KL ratio between relativity prompts and neutral text is $17\times$ at $N{=}3$, providing strong evidence as to the selectivity of the intervention.
+To test whether the trio simply damages general competence, we ran the same intervention on arithmetic comparison, factual truth \citep{marks2023geometry}, refusal \citep{arditi2024refusal}, and raw natural-language imperatives. Specificity is sharp: trio $\Delta r$ is $-0.14$ on arithmetic, $-0.02$ on truth, statistically null on refusal, and raw-text KL is indistinguishable from random three-head ablation ($0.009$ vs.\ $0.008 \pm 0.004$ nats); the relativity/neutral KL ratio is $17\times$ at $N{=}3$.
 
 
 
@@ -438,7 +431,7 @@ To test whether the trio simply damages the model's general competence, we ran t
   \centering
   \includegraphics[width=\linewidth]{figures/p2v_phase_trajectory_partial_gemma2-2b.png}
   \caption{\textbf{Steering and ablation trace different routes out of the relativistic region on Gemma 2 2B.}
-  The relative/objective phase plane of \cref{fig:relative-objective-phase}: We see clearly the different trajectories our intervention methods have, all removing relativistic behavior with various levels of maintaining objectivity. Dual steering is the cleanest way to univariately remove relativistic behavior.
+  The relative/objective phase plane of \cref{fig:relative-objective-phase}: all interventions reduce relative behavior, but dual steering most cleanly removes it while preserving objectivity.
   % Source artifact: relativity_ablation/figures/p2v_phase_trajectory_partial_gemma2-2b.png.
   }
   \label{fig:circuit-phase-trajectory}
