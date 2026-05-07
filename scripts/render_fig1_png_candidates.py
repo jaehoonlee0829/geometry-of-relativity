@@ -217,12 +217,12 @@ def double_arrow(draw, p1, p2, fill=BLUE, width=5):
 def context_panel(draw, box, title, mu, target_x, z_text, target_color, target_side, inequality):
     x1, y1, x2, y2 = box
     rounded(draw, box, fill=(255, 255, 255), radius=26, width=4)
-    text(draw, (x1 + 38, y1 + 30), title, 34)
+    text(draw, (x1 + 38, y1 + 26), title, 40)
     band = (x1 + 72, y1 + 155, x2 - 72, y1 + 310)
     draw.rectangle(band, fill=PALE_GREEN, outline=(185, 222, 185), width=4)
     mean_x = x1 + (x2 - x1) // 2
     draw.line((mean_x, y1 + 95, mean_x, y1 + 410), fill=MID, width=5)
-    text(draw, (mean_x - 42, y1 + 62), f"μ = {mu}", 30)
+    text(draw, (mean_x - 48, y1 + 56), f"μ = {mu}", 36)
 
     people_base = y1 + 392
     target_scale = 1.02
@@ -247,71 +247,71 @@ def context_panel(draw, box, title, mu, target_x, z_text, target_color, target_s
     for gx, gs in zip(gray_xs, gray_scales):
         person(draw, gx, people_base, gs, GRAY, 8)
     person(draw, tx, people_base, target_scale, target_color, 10)
-    text(draw, (tx - 34, people_base + 22), "185", 25, target_color)
+    text(draw, (tx - 42, people_base + 22), "185", 36, target_color)
     double_arrow(draw, (offset_start, offset_y), (offset_end, offset_y), target_color, 4)
     text(
         draw,
-        ((offset_start + offset_end) // 2 - 45, offset_y - 42),
+        ((offset_start + offset_end) // 2 - 55, offset_y - 52),
         offset_label,
-        23,
+        40,
         target_color,
         "sans",
     )
 
     # Keep explanatory labels off the bodies.
-    label_y = y2 - 95
-    draw.rectangle((x1 + 65, label_y - 8, x2 - 65, y2 - 28), fill=(255, 255, 255))
-    text(draw, (x1 + 88, label_y), f"target x = 185, z = {z_text}", 27, DARK)
-    text(draw, (x1 + 88, label_y + 40), inequality, 27, target_color, "sans")
+    label_y = y2 - 104
+    draw.rectangle((x1 + 65, label_y - 10, x2 - 65, y2 - 22), fill=(255, 255, 255))
+    text(draw, (x1 + 88, label_y - 4), f"x = 185, z = {z_text}", 40, DARK)
+    text(draw, (x1 + 88, label_y + 48), inequality, 40, target_color, "sans")
 
 
 def candidate_5_combined():
     """Combined candidate: task pipeline plus relativity contrast."""
-    img = Image.new("RGB", (2200, 1500), "white")
+    img = Image.new("RGB", (2200, 1430), "white")
     d = ImageDraw.Draw(img)
 
     text(d, (115, 70), "Context-relative adjective judgments: from prompt to logits", 58)
 
     # Section A: task pipeline.
-    text(d, (115, 205), "A. Task pipeline", 34, DARK, "sans")
+    text(d, (115, 200), "A. Task pipeline", 42, DARK, "sans")
     rounded(d, (115, 255, 695, 690), fill=LIGHT, radius=26, width=4)
     rounded(d, (820, 255, 1380, 690), fill=(255, 255, 255), radius=26, width=4)
     rounded(d, (1505, 255, 2085, 690), fill=(255, 255, 255), radius=26, width=4)
     arrow(d, (720, 480), (790, 480), MID, 6)
     arrow(d, (1405, 480), (1475, 480), MID, 6)
 
-    text(d, (155, 292), "15-shot prompt", 42)
-    text(d, (155, 345), "Examples define the comparison class", 28, MID, "sans")
+    text(d, (155, 288), "15-shot prompt", 48)
+    text(d, (155, 348), "15 examples set context", 40, MID, "sans")
     heights = [153, 157, 160, 162, 165, 166, 168, 170, 172, 174, 176, 179, 181, 184, 187]
     for i, h in enumerate(heights):
         col, row = i % 5, i // 5
         person(d, 185 + col * 86, 482 + row * 52, 0.40 + (h - 153) / 175, GRAY, 7)
     d.rectangle((155, 595, 635, 655), fill=PALE_BLUE, outline=BLUE, width=5)
-    text(d, (178, 609), "P16: 185 cm. This person is ___", 26, BLUE_DARK, "sans")
+    text(d, (178, 602), "P16: 185 cm -> ___", 40, BLUE_DARK, "sans")
 
-    text(d, (860, 292), "Normalize by context", 40)
-    d.rectangle((900, 365, 1275, 550), fill=PALE_GREEN, outline=(185, 222, 185), width=4)
-    d.line((900, 458, 1275, 458), fill=MID, width=4)
-    text(d, (1288, 445), "mean = 170", 25, DARK)
+    text(d, (860, 292), "Normalize by context", 46)
+    d.rectangle((900, 380, 1275, 550), fill=PALE_GREEN, outline=(185, 222, 185), width=4)
+    d.line((900, 465, 1275, 465), fill=MID, width=4)
+    text(d, (1288, 472), "μ = 170", 36, DARK)
     # Use a marker rather than a human here: this panel is about the variable,
     # not a second target person.
-    d.ellipse((1056, 382, 1100, 426), fill=BLUE, outline=(255, 255, 255), width=3)
-    text(d, (1018, 336), "target x = 185", 26, BLUE_DARK, "sans")
-    double_arrow(d, (1208, 458), (1208, 392), BLUE, 5)
-    text(d, (1228, 412), "x - mean", 25, BLUE_DARK, "sans")
-    text(d, (900, 625), "z = (185 - 170) / 10 = +1.5", 30, DARK)
+    d.ellipse((1056, 398, 1100, 442), fill=BLUE, outline=(255, 255, 255), width=3)
+    text(d, (990, 354), "x = 185", 38, BLUE_DARK, "sans")
+    double_arrow(d, (1208, 465), (1208, 408), BLUE, 5)
+    text(d, (1148, 492), "x - μ", 38, BLUE_DARK, "sans")
+    text(d, (900, 620), "z = (185 - 170) / 10 = +1.5", 40, DARK)
 
-    text(d, (1545, 292), "Read out adjective logits", 40)
+    text(d, (1545, 288), "Read out adjective logits", 48)
     d.rectangle((1575, 382, 1745, 458), fill=(250, 235, 235), outline=RED, width=5)
-    text(d, (1620, 402), "short", 30, RED)
+    text(d, (1618, 394), "short", 42, RED)
     d.rectangle((1575, 508, 1900, 588), fill=PALE_BLUE, outline=BLUE, width=6)
-    text(d, (1620, 530), "tall", 34, BLUE_DARK)
-    text(d, (1925, 528), "higher logit", 25, MID, "sans")
-    text(d, (1575, 630), "Δlogit = logit(tall) - logit(short)", 28, DARK)
+    text(d, (1618, 523), "tall", 44, BLUE_DARK)
+    text(d, (1925, 520), "higher", 40, MID, "sans")
+    text(d, (1575, 620), "Δlogit = logit(tall) - logit(short)", 36, DARK)
 
     # Section B: relativity contrast.
-    text(d, (115, 780), "B. Relativity intuition", 34, DARK, "sans")
-    text(d, (115, 825), "The same raw value can support different completions under different comparison classes.", 32, MID, "sans")
+    text(d, (115, 775), "B. Relativity intuition", 42, DARK, "sans")
+    text(d, (115, 828), "Same raw height, opposite relative standing.", 44, MID, "sans")
     context_panel(
         d,
         (135, 895, 1035, 1390),
@@ -334,7 +334,6 @@ def candidate_5_combined():
         "left",
         "logit(short) > logit(tall)",
     )
-    text(d, (365, 1440), "Dense-grid design: choose x and z independently, then set μ = x - zσ.", 32, DARK)
     save(img, "candidate_5_combined_pipeline_relcontrast")
 
 

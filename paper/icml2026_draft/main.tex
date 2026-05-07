@@ -90,7 +90,7 @@ Moreover, what happens in the internal process of LLMs to choose a specific adje
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig1_prompt_schematic.png}
+  \includegraphics[width=\linewidth]{figures/candidates_png/candidate_5_combined_pipeline_relcontrast.png}
   \caption{\textbf{Prompt and measurement schematic.}
   Context examples define a local comparison class.
   We compute the target's normalized standing and measure whether the model assigns higher logit to the high adjective or the low adjective.
@@ -254,9 +254,9 @@ We furthermore experiment with ablating via zeroing heads, queries, or resamplin
 
 
 We find it useful to understand how a model is operating to abstract two scales of "relativistic" and "objective" behavior, and visualize this as a 2d plane as per \Cref{fig:relative-objective-phase}.
-Quantitativiely, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$ (see Appendix \Cref{app:partial-corr} for definition).
-With no context, the model operates in a purely objective state, with heights above 160cm already preferring tall compared to short. 
-As more context examples are supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates it's objective capabilities with its relativistic context.
+Quantitatively, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$ (see Appendix \Cref{app:partial-corr} for definition).
+With no comparison context, variation in the readout is driven primarily by raw height $x$, while the absolute logit level can still reflect lexical frequency, pretraining, or instruction-tuning priors.
+As more context examples are supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates its objective capabilities with its relativistic context.
 
 \subsection{Context Examples Shift Judgments Toward $z$}
 \label{subsec:behavioral-grids}
@@ -304,27 +304,13 @@ When raw height and $z$ are sampled independently, the tall-minus-short logit di
   \label{fig:dense-height-heatmap}
 \end{figure}
 
-\Cref{fig:pca-montage} shows the same organization in activations.
-PCA on cell-mean residual-stream activations shows ordered arcs across adjective domains: nearby points have similar context-normalized standing even when their raw units and adjectives differ.
-This visualization is descriptive rather than causal, but it motivates the probe and steering tests below.
-
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=\linewidth]{figures/fig_results_pca_all_pairs_clean.png}
-  \caption{\textbf{Cell-mean activation geometry.}
-  Late-layer PCA views of all eight dense prompt domains show ordered $z$ structure across adjective domains.
-  The plot is geometry evidence, not by itself a mechanism claim.
-  % Source artifacts: figures/v11/pca/*_gemma2-9b_2d_L33.png, cleaned and relabeled for paper display.
-  }
-  \label{fig:pca-montage}
-\end{figure}
-
+Activation geometry shows the same organization: PCA on cell-mean residual-stream activations produces ordered arcs across eight adjective domains, where nearby points have similar context-normalized standing even when their raw units and adjectives differ. The corresponding PCA montage is included in \Cref{fig:pca-montage}; in the Gemma 2 9B artifacts, PC1 has high $R^2$ with $z$ for most adjective domains (PC1 vs z is high for height 0.928, weight 0.944, wealth 0.871, experience 0.902, BMI 0.784; moderate for size 0.656 and age 0.606; weaker for speed 0.428)
 
 \subsection{Internals: $z$ is Encoded Early and Used Later}
 \label{subsec:layer-evolution}
 
 \Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.
-Linear readouts recover $z$ in early layers, while direct residual-stream steering with the layerwise \primalz{} direction is strongest in later layers.
+Linear readouts recover $z$ in early layers provably from cross-validated $R^2$, while direct residual-stream steering with the layerwise \primalz{} direction is strongest in mid-to-late layers.
 
 \begin{figure}[!tbp]
   \centering
@@ -421,7 +407,7 @@ In practice, both SAE based cosine similary and DLA recover the same primary hea
 
 To begin, we must decide how exactly to ablate the heads chosen by DLA. Results of different options are shown in Figure 11 with top 8 heads ablated. We see clearly that Zero-ablation of heads or just the queries associated with a head (q zero) have minimal impact on relativity computation, but are effective at taking away inherent bias away from the model towards the "tall" node (especially with heads chosen by the cosine similarity SAE method). We attribute this failure of relativity disruption to redundancy: by mid-network the residual stream carries near-perfect linear information about $z$ at every head (cross-validated $R^2(z \mid \mathrm{head}) \ge 0.97$ for L8 and beyond), so zeroing any one contributor lets the others compensate. 
 
-Resample ablation --- replacing the head's last-token output with the same head's output drawn from a randomly chosen other prompt in the dataset --- performs very strongly at removing relativity from the model, reducing the partial correlation by $0.86$ with 8 heads chosen by DLA. Throughout this section ``ablation'' therefore refers to resampling.
+Resample ablation, replacing the head's output with the same head's output drawn from a randomly chosen other prompt in the dataset, performs very strongly in removing relativity from the model, reducing the partial correlation by $0.86$ with 8 heads chosen by DLA. Throughout this section ``ablation'' therefore refers to resampling.
 
 \begin{figure}[!tbp]
   \centering
@@ -726,9 +712,20 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
 \section{Additional Figures}
 \label{app:additional-figures}
 
-\begin{figure}[!tbp]
+\begin{figure*}[!tbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/p2s_dla_vs_cossigma_sweep_gemma2-2b.png}
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{figures/fig_results_pca_all_pairs_clean.png}
+  \caption{\textbf{Cell-mean activation geometry.}
+  Late-layer PCA views of all eight dense prompt domains show ordered $z$ structure across adjective domains.
+  The plot is geometry evidence, not by itself a mechanism claim.
+  % Source artifacts: figures/v11/pca/*_gemma2-9b_2d_L33.png, cleaned and relabeled for paper display.
+  }
+  \label{fig:pca-montage}
+\end{figure*}
+
+\begin{figure*}[!tbp]
+  \centering
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{figures/p2s_dla_vs_cossigma_sweep_gemma2-2b.png}
   \caption{\textbf{Head-ranking comparison on Gemma 2 2B (height, $k{=}15$).}
   Top: $\Delta r(\mathrm{LD}, z)$ under cumulative top-$N$ interchange ablation for three rankings --- $|\mathrm{cos}|$, $\mathrm{cos}\cdot\sigma$, and $\sigma_{\mathrm{DLA}}\cdot\rho$ --- with purple bars on the right axis giving the $\sigma_{\mathrm{DLA}}\cdot\rho$ score of the cell entering at rank $N$.
   Bottom: per-prompt mean KL between baseline and resampled next-token distributions for $|\mathrm{cos}|$ and $\sigma_{\mathrm{DLA}}\cdot\rho$.
@@ -736,11 +733,11 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
   % Source artifact: relativity_ablation/figures/p2s_dla_vs_cossigma_sweep_gemma2-2b.png.
   }
   \label{fig:ranking-comparison}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[!tbp]
+\begin{figure*}[!tbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/p2v_xk_phase_grid_gemma2-2b_height.png}
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{figures/p2v_xk_phase_grid_gemma2-2b_height.png}
   \caption{\textbf{The same heads, primal direction, and manifold lookup
   collapse the relativity readout at every shot count.}
   Each panel evaluates the $k{=}15$-derived intervention triplet
@@ -754,12 +751,12 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
   % Source artifact: relativity_ablation/figures/p2v_xk_phase_grid_gemma2-2b_height.png.
   }
   \label{fig:circuit-cross-k-phase}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[!tbp]
+\begin{figure*}[!tbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/p2v_xk_deltar_overlay_gemma2-2b_height.png}
+  \includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{figures/p2v_xk_deltar_overlay_gemma2-2b_height.png}
   \caption{\textbf{Greedy resample under a fixed head ranking is
   $k$-invariant.}
   $\Delta r(\mathrm{LD}, z)$ vs $N$ for the same
@@ -778,12 +775,12 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
   % Source artifact: relativity_ablation/figures/p2v_xk_deltar_overlay_gemma2-2b_height.png.
   }
   \label{fig:circuit-cross-k-deltar}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[!tbp]
+\begin{figure*}[!tbp]
   \centering
-  \includegraphics[width=\linewidth,keepaspectratio]{figures/xmodel_geometry_grid.png}
+  \includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/xmodel_geometry_grid.png}
   \caption{\textbf{Z-score relativity geometry and dense-grid behavior
   replicate across five small open-weights models.}
   Rows: Qwen 2.5 3B, Llama 3.2 3B, OLMo 2 7B, Pythia 2.8B, Qwen 3 14B.
@@ -802,12 +799,12 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
   %         per-model panels under geometry-of-relativity/figures/v13/.
   }
   \label{fig:xmodel-geometry}
-\end{figure}
+\end{figure*}
 
 
-\begin{figure}[!tbp]
+\begin{figure*}[!tbp]
   \centering
-  \includegraphics[width=\linewidth,keepaspectratio]{figures/xmodel_interventions_grid.png}
+  \includegraphics[width=\textwidth,height=0.62\textheight,keepaspectratio]{figures/xmodel_interventions_grid.png}
   \caption{\textbf{Causal interventions replicate across the same five
   models.}
   Rows: Qwen 2.5 3B, Llama 3.2 3B, OLMo 2 7B, Pythia 2.8B, Qwen 3 14B.
@@ -827,7 +824,7 @@ Earlier internal versions of this analysis (Phase 1d/1e/2E in our logs) called t
   %         per-model panels under geometry-of-relativity/figures/v13/.
   }
   \label{fig:xmodel-interventions}
-\end{figure}
+\end{figure*}
 
 
 
