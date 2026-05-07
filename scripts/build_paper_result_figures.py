@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import importlib.util
+import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -32,6 +33,36 @@ PAIR_LABELS = {
 }
 
 PAIR_ORDER = ["height", "age", "weight", "size", "speed", "wealth", "experience", "bmi_abs"]
+
+DIST_LABELS = {
+    "normal": "Normal",
+    "uniform": "Uniform",
+    "beta_u": "U-shaped beta",
+    "beta_low": "Low-skew beta",
+    "beta_high": "High-skew beta",
+    "bimodal": "Bimodal",
+}
+
+ORDER_LABELS = {
+    "random": "Random",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "alternating_low_high": "Alternating",
+    "near_target_first": "Near target first",
+    "near_target_last": "Near target last",
+}
+
+OOD_LABELS = {
+    "base": "In-range worlds",
+    "world_extreme_low": "Low extreme worlds",
+    "world_extreme_high": "High extreme worlds",
+}
+
+OOD_MAIN_LABELS = {
+    "base": "In-range",
+    "world_extreme_low": "Low world",
+    "world_extreme_high": "High world",
+}
 
 
 def open_on_white(path: Path) -> Image.Image:
@@ -164,6 +195,236 @@ def build_layer_sweep_summary() -> None:
     fig.tight_layout(pad=0.25)
     fig.savefig(PAPER_FIG / "fig_results_layer_sweep_summary_clean.png", bbox_inches="tight", dpi=220)
     plt.close(fig)
+
+
+def build_layer_z_x_encode_use() -> None:
+    metrics = json.loads((ROOT / "results" / "v14_1" / "fig5" / "fig5_layer_x_z_metrics.json").read_text())
+    layers = np.array(metrics["layers"], dtype=int)
+    pairs = metrics["pairs"]
+
+    def matrix(key: str) -> np.ndarray:
+        return np.array(
+            [[metrics["by_pair_layer"][pair][str(layer)][key] for layer in layers] for pair in pairs],
+            dtype=float,
+        )
+
+    r2z = matrix("cv_r2_z")
+    r2x = matrix("cv_r2_x")
+    steer_z = matrix("primal_z_steering_slope")
+    steer_x = matrix("primal_x_steering_slope")
+
+    fig, axes = plt.subplots(2, 1, figsize=(3.35, 4.45), dpi=260)
+
+    ax = axes[0]
+    for vals, color, label in [
+        (r2z, "C0", r"$R^2(z)$"),
+        (r2x, "C1", r"$R^2(x)$"),
+    ]:
+        center = np.nanmean(vals, axis=0)
+        lo = np.nanpercentile(vals, 10, axis=0)
+        hi = np.nanpercentile(vals, 90, axis=0)
+        ax.plot(layers, center, "o-", color=color, label=label, markersize=2.6, linewidth=1.45)
+        ax.fill_between(layers, lo, hi, color=color, alpha=0.14, linewidth=0)
+    ax.set_title("Linear availability", fontsize=8.5)
+    ax.set_xlabel("Layer", fontsize=7.5)
+    ax.set_ylabel(r"CV $R^2$", fontsize=7.5)
+    ax.set_ylim(-0.02, 1.02)
+    ax.tick_params(labelsize=7)
+    ax.grid(alpha=0.25)
+    ax.legend(frameon=False, fontsize=7, loc="lower right")
+
+    ax = axes[1]
+    for vals, color, label in [
+        (steer_z, "C0", r"$d^{\mathrm{primal}}_{z}$"),
+        (steer_x, "C1", r"$d^{\mathrm{primal}}_{x}$"),
+    ]:
+        center = np.nanmean(vals, axis=0)
+        lo = np.nanpercentile(vals, 10, axis=0)
+        hi = np.nanpercentile(vals, 90, axis=0)
+        ax.plot(layers, center, "o-", color=color, label=label, markersize=2.6, linewidth=1.45)
+        ax.fill_between(layers, lo, hi, color=color, alpha=0.14, linewidth=0)
+    ax.axhline(0, color="black", linewidth=0.7, alpha=0.5)
+    ax.set_title("Causal use under steering", fontsize=8.5)
+    ax.set_xlabel("Layer", fontsize=7.5)
+    ax.set_ylabel("LD slope", fontsize=7.5)
+    ax.tick_params(labelsize=7)
+    ax.grid(alpha=0.25)
+    ax.legend(frameon=False, fontsize=7, loc="upper left")
+
+    fig.tight_layout(pad=0.35)
+    fig.savefig(PAPER_FIG / "fig_results_layer_z_x_encode_use_clean.png", bbox_inches="tight", dpi=260)
+    plt.close(fig)
+
+
+def build_distribution_shapes() -> None:
+    rng = np.random.default_rng(7)
+    n = 1200
+    samples = {
+        "normal": rng.normal(0.0, 1.0, n),
+        "uniform": rng.uniform(-math.sqrt(3), math.sqrt(3), n),
+        "beta_u": rng.beta(0.45, 0.45, n) * 2.0 - 1.0,
+        "beta_low": rng.beta(2.0, 5.0, n) * 2.0 - 1.0,
+        "beta_high": rng.beta(5.0, 2.0, n) * 2.0 - 1.0,
+        "bimodal": rng.choice([-1.0, 1.0], size=n) * 1.15 + rng.normal(0.0, 0.22, n),
+    }
+    for key, vals in list(samples.items()):
+        vals = np.asarray(vals, dtype=float)
+        vals = vals - vals.mean()
+        samples[key] = vals / vals.std(ddof=1)
+
+    fig, axes = plt.subplots(2, 3, figsize=(3.35, 2.25), dpi=280, sharex=True, sharey=True)
+    for ax, key in zip(axes.flat, ["normal", "uniform", "beta_u", "beta_low", "beta_high", "bimodal"]):
+        ax.hist(samples[key], bins=24, color="#4C78A8", alpha=0.78)
+        ax.set_title(DIST_LABELS[key], fontsize=5.8, pad=1.5)
+        ax.tick_params(labelsize=5.2, pad=1)
+        ax.grid(axis="y", alpha=0.18)
+    for ax in axes[-1, :]:
+        ax.set_xlabel("Standardized value", fontsize=5.4, labelpad=1)
+    for ax in axes[:, 0]:
+        ax.set_ylabel("Count", fontsize=5.4, labelpad=1)
+    fig.tight_layout(pad=0.18)
+    fig.savefig(PAPER_FIG / "fig_results_distribution_shapes_clean.png", bbox_inches="tight", dpi=280)
+    plt.close(fig)
+
+
+def load_jsonl(path: Path) -> list[dict]:
+    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+def binned_mean_rows(rows: list[dict], condition_key: str, conditions: list[str]) -> dict[tuple[str, str], tuple[np.ndarray, np.ndarray]]:
+    out: dict[tuple[str, str], tuple[np.ndarray, np.ndarray]] = {}
+    for pair in PAIR_ORDER:
+        for condition in conditions:
+            buckets: dict[float, list[float]] = {}
+            for row in rows:
+                if row["pair"] != pair or row.get(condition_key) != condition:
+                    continue
+                if int(row.get("n_context", 31)) != 31:
+                    continue
+                z = round(float(row["z"]), 2)
+                buckets.setdefault(z, []).append(float(row["ld"]))
+            xs = np.array(sorted(buckets), dtype=float)
+            ys = np.array([np.mean(buckets[float(x)]) for x in xs], dtype=float)
+            out[(pair, condition)] = (xs, ys)
+    return out
+
+
+def plot_ld_by_z_grid(
+    rows: list[dict],
+    condition_key: str,
+    conditions: list[str],
+    labels: dict[str, str],
+    out_name: str,
+    selected_pairs: list[str] | None = None,
+    ncols: int = 2,
+    figsize: tuple[float, float] = (7.05, 8.25),
+    legend_ncol: int | None = None,
+    top_rect: float = 0.965,
+    title_fs: float = 10,
+    label_fs: float = 9,
+    tick_fs: float = 8,
+    legend_fs: float = 9,
+    marker_size: float = 3.2,
+    line_width: float = 1.7,
+) -> None:
+    series = binned_mean_rows(rows, condition_key, conditions)
+    pairs = selected_pairs or PAIR_ORDER
+    nrows = math.ceil(len(pairs) / ncols)
+    fig, axes = plt.subplots(nrows, ncols, figsize=figsize, dpi=240, sharex=True)
+    axes_arr = np.atleast_1d(axes).reshape(nrows, ncols)
+    colors = plt.cm.tab10(np.linspace(0, 1, len(conditions)))
+    for ax, pair in zip(axes_arr.flat, pairs):
+        for color, condition in zip(colors, conditions):
+            xs, ys = series[(pair, condition)]
+            if len(xs) == 0:
+                continue
+            ax.plot(xs, ys, "o-", markersize=marker_size, linewidth=line_width, color=color, label=labels[condition])
+        ax.axhline(0, color="black", linewidth=0.6, alpha=0.45)
+        ax.set_title(PAIR_LABELS[pair], fontsize=title_fs)
+        ax.tick_params(labelsize=tick_fs)
+        ax.grid(alpha=0.22)
+    for ax in axes_arr.flat[len(pairs) :]:
+        ax.axis("off")
+    for ax in axes_arr[-1, :]:
+        ax.set_xlabel(r"Relative standing $z$", fontsize=label_fs)
+    for ax in axes_arr[:, 0]:
+        ax.set_ylabel(r"$\Delta_{\mathrm{logit}}$", fontsize=label_fs)
+    handles, legend_labels = axes_arr[0, 0].get_legend_handles_labels()
+    fig.legend(
+        handles,
+        legend_labels,
+        loc="upper center",
+        ncol=legend_ncol or min(len(conditions), 3),
+        frameon=False,
+        fontsize=legend_fs,
+    )
+    fig.tight_layout(rect=(0, 0, 1, top_rect), pad=0.35)
+    fig.savefig(PAPER_FIG / out_name, bbox_inches="tight", dpi=240)
+    plt.close(fig)
+
+
+def build_robustness_figures() -> None:
+    affine_rows = load_jsonl(ROOT / "results" / "v14_1" / "affine_ood" / "affine_ood_rows.jsonl")
+    distribution_rows = load_jsonl(ROOT / "results" / "v14" / "distribution" / "distribution_rows.jsonl")
+    order_rows = load_jsonl(ROOT / "results" / "v14_1" / "order" / "order_rows.jsonl")
+
+    plot_ld_by_z_grid(
+        affine_rows,
+        "ood_condition",
+        ["base", "world_extreme_low", "world_extreme_high"],
+        OOD_MAIN_LABELS,
+        "fig_results_ood_ld_by_z_main.png",
+        selected_pairs=["height", "weight", "age"],
+        ncols=1,
+        figsize=(3.35, 5.2),
+        legend_ncol=3,
+        top_rect=0.93,
+        title_fs=8.2,
+        label_fs=7.2,
+        tick_fs=6.8,
+        legend_fs=7.0,
+        marker_size=2.3,
+        line_width=1.25,
+    )
+    plot_ld_by_z_grid(
+        affine_rows,
+        "ood_condition",
+        ["base", "world_extreme_low", "world_extreme_high"],
+        OOD_LABELS,
+        "fig_results_ood_ld_by_z_full_clean.png",
+    )
+    plot_ld_by_z_grid(
+        distribution_rows,
+        "dist_kind",
+        ["normal", "uniform", "beta_u", "beta_low", "beta_high", "bimodal"],
+        DIST_LABELS,
+        "fig_results_distribution_ld_by_z_clean.png",
+        figsize=(7.05, 8.65),
+        legend_ncol=3,
+        top_rect=0.895,
+        title_fs=8.2,
+        label_fs=7.4,
+        tick_fs=6.6,
+        legend_fs=7.2,
+        marker_size=2.0,
+        line_width=1.1,
+    )
+    plot_ld_by_z_grid(
+        order_rows,
+        "order_kind",
+        ["random", "ascending", "descending", "alternating_low_high", "near_target_first", "near_target_last"],
+        ORDER_LABELS,
+        "fig_results_order_ld_by_z_clean.png",
+        figsize=(7.05, 8.65),
+        legend_ncol=3,
+        top_rect=0.895,
+        title_fs=8.2,
+        label_fs=7.4,
+        tick_fs=6.6,
+        legend_fs=7.2,
+        marker_size=2.0,
+        line_width=1.1,
+    )
 
 
 def crop_relative_objective_phase() -> None:
@@ -481,6 +742,9 @@ def main() -> None:
     build_pca_all_pairs()
     build_kshot_evolution_2x3()
     build_layer_sweep_summary()
+    build_layer_z_x_encode_use()
+    build_distribution_shapes()
+    build_robustness_figures()
     crop_relative_objective_phase()
     build_relative_objective_phase_9b()
     build_shared_direction_steering()
