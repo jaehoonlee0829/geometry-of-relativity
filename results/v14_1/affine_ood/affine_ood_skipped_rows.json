@@ -1,0 +1,5834 @@
+[
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 0.5,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 1.9,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 3.3,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 4.7,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 6.2,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": -0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 7.6,
+    "base_z": 1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 9.0,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 10.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 11.8,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 13.2,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": -0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 0.79,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.79"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 14.7,
+    "base_z": 2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -2.37,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.37"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 16.1,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 17.5,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 18.9,
+    "base_z": 2.05,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=2.05"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -2.68,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-2.68"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": -1.11,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.11"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 0.47,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.47"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 20.3,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 21.7,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 23.2,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": -1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 24.6,
+    "base_z": 1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 26.0,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -1.74,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-1.74"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": -0.16,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=-0.16"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 1.42,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=1.42"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 5,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 15,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 0,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 1,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  },
+  {
+    "pair": "experience",
+    "condition": "world_extreme_low",
+    "base_x": 27.4,
+    "base_z": 3.0,
+    "n_context": 31,
+    "seed_index": 2,
+    "reason": "invalid support after shrink: experience mu=1.0 sigma=1e-06 z=3.0"
+  }
+]
