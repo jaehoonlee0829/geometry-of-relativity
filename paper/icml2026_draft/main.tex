@@ -16,19 +16,6 @@
 
 \input{commenting}
 
-% Keep draft pages dense. The paper prioritizes avoiding large blank regions;
-% figures may float slightly past their source subsection when needed.
-\setcounter{topnumber}{5}
-\setcounter{bottomnumber}{4}
-\setcounter{totalnumber}{10}
-\setcounter{dbltopnumber}{4}
-\renewcommand{\topfraction}{0.98}
-\renewcommand{\bottomfraction}{0.90}
-\renewcommand{\textfraction}{0.02}
-\renewcommand{\floatpagefraction}{0.70}
-\renewcommand{\dbltopfraction}{0.98}
-\renewcommand{\dblfloatpagefraction}{0.70}
-
 % Blind workshop submission. If accepted, switch to:
 % \usepackage[accepted]{icml2026}
 \usepackage{icml2026}
@@ -71,7 +58,7 @@ Large language models make context-sensitive scalar judgments: the same value ca
 We study whether this behavior reflects an internal representation of relative standings rather than raw magnitudes across a host of gradable adjectives such as \emph{tall}, \emph{rich}, and \emph{fast}. 
 In this paper, we provide an overview of the subspaces that govern how Gemma 2 handles relativity in context, and show evidence through an intervention based approach that this relativity mechanism transcends any individual lexical adjective.
 We do this through examining the internal representations of the variable expressed as itself and transformed into a normalized Z-score, and show the latter is more linearly decodable and correlated to adjective logit differences.
-We then further provide evidence through showing that primal and dual based steering, as well as attention based ablations, generalize across Z-score transformations of concepts. We demonstrate this behavior in 5 model families and 8 separate feature categories. 
+We then provide evidence that primal and dual steering, as well as attention-based ablations, generalize across several Z-score transformations of concepts, with behavioral replications across additional model families and eight feature categories.
 Overall, our results show that language models construct a context-relative scalar representation that is behaviorally dominant, internally accessible, and causally relevant, but not fully captured by a single universal direction. 
 \end{abstract}
 
@@ -99,8 +86,8 @@ Moreover, what happens in the internal process of LLMs to choose a specific adje
 \end{figure}
 
 To investigate this, we adopt a mechanistic interpretability perspective grounded in the linear representation hypothesis \citep{park2024linear}.
-Prior work has shown that the activations of LLMs linearly encode high-level concepts, such as refusal and truth \citep{marks2023geometry} \citep{arditi2024refusal}.
-Recent work expands on this by relaxing linearity assumptions and seeing features as higher dimensional abstractions \citep{gurnee2026manifold} \citep{modellerubin2025manifolds}, which can be intervened through dual steering \citep{park2026softmaxgeometry}.
+Prior work has shown that the activations of LLMs linearly encode high-level concepts, such as refusal and truth \citep{marks2023geometry,arditi2024refusal}.
+Recent work expands on this by relaxing linearity assumptions and seeing features as higher dimensional abstractions \citep{gurnee2026manifold,modellerubin2025manifolds}, which can be intervened through dual steering \citep{park2026softmaxgeometry}.
 
 Using the Gemma 2 model family, we make the following contributions:
 \begin{itemize}
@@ -135,6 +122,10 @@ Positive values indicate the model leans toward the high adjective.
   \centering
   \scriptsize
   \setlength{\tabcolsep}{5pt}
+  \caption{\textbf{Adjective-pair prompt domains.}
+  The dense prompt grid samples target values $x$ over the listed ranges, in the listed units, and uses the shown context spread $\sigma$.
+  Income is used as the measured proxy for wealth; its normalization is log-space, so $\sigma=\log 2$ means one unit of normalized spread corresponds to doubling or halving annual income.}
+  \label{tab:domains}
   \begin{tabular}{lllll}
     \toprule
     Concept & Unit & Low/High & $\sigma$ & $x$ range \\
@@ -149,18 +140,13 @@ Positive values indicate the model leans toward the high adjective.
     BMI & kg/m$^2$ & thin/obese & 3 & 14.9--40.1 \\
     \bottomrule
   \end{tabular}
-  \vspace{5pt}
-  \caption{\textbf{Adjective-pair prompt domains.}
-  The dense prompt grid samples target values $x$ over the listed ranges, in the listed units, and uses the shown context spread $\sigma$.
-  Income is used as the measured proxy for wealth; its normalization is log-space, so $\sigma=\log 2$ means one unit of normalized spread corresponds to doubling or halving annual income.}
-  \label{tab:domains}
 \end{table}
 \FloatBarrier
 
 
 
 \subsection{Prompts}
-To create prompts for a given concept pair $p$, we first sample $x$ and $z$ independently from uniform ranges, then back out the context mean given a constant and realistic $\sigma$ for simplicity (see Table 1). $z$ is sampled from [-3, 3]. We then generate $N$ in-context examples of the form:
+To create prompts for a given concept pair $p$, we first sample $x$ and $z$ independently from uniform ranges, then back out the context mean given a constant and realistic $\sigma$ for simplicity (see \Cref{tab:domains}). $z$ is sampled from [-3, 3]. We then generate $N$ in-context examples of the form:
 
 'Person $n$: $c_n$, ...' where \[
 c_1,\ldots,c_N \sim \mathcal{N}(\mu,\sigma^2)
@@ -266,6 +252,11 @@ This is the behavioral anchor for the paper: once a comparison class is present,
   \centering
   \footnotesize
   \setlength{\tabcolsep}{4pt}
+  \caption{\textbf{Adjective behavior tracks relative standing.}
+  After averaging over context seeds within each $(x,z)$ cell, high-minus-low adjective logit differences correlate more strongly with $z$ than with raw $x$.
+  % Source: internal/kshot/phase/FINDINGS.md Phase 0 reproduction table.
+  }
+  \label{tab:behavioral-z-corr}
   \begin{tabular}{lrr}
     \toprule
     Concept & corr$(\logitdiff,z)$ & corr$(\logitdiff,x)$ \\
@@ -280,12 +271,6 @@ This is the behavioral anchor for the paper: once a comparison class is present,
     BMI & \textbf{0.954} & 0.216 \\
     \bottomrule
   \end{tabular}
-  \vspace{5pt}
-  \caption{\textbf{Adjective behavior tracks relative standing.}
-  After averaging over context seeds within each $(x,z)$ cell, high-minus-low adjective logit differences correlate more strongly with $z$ than with raw $x$.
-  % Source: internal/kshot/phase/FINDINGS.md Phase 0 reproduction table.
-  }
-  \label{tab:behavioral-z-corr}
 \end{table}
 
 The height grid in \cref{fig:dense-height-heatmap} gives the simplest visual readout of the same result.
@@ -410,7 +395,7 @@ However, residual transfer still correlates with target lexical-subspace overlap
 \subsection{Attention Based Interventions}
 \label{subsec:attention}
 
-Alongside conventional intervention methods such as primal and dual steering, we also demonstrate causality in attention based interventions in Gemma 2 2B. We experiment with choosing heads based on direct-logit-attribution (DLA) \citep{elhage2021transformer} scoring as well as cosine-similarity scoring to relativity as a direction expressed in SAE space. We furthermore experiment with ablating via zeroing heads, queries, or resampling heads. In particular, we are able to show that we are able to resample a small number of heads (e.g. 5 out of a total 208) to effectively destroy the relativity readout to logits whilst achieving minimal KL divergence on normal natural language prompts and other features. The same heads generalize across all gradable adjective concepts. 
+Alongside conventional intervention methods such as primal and dual steering, we also demonstrate causality in attention-based interventions in Gemma 2 2B. We experiment with choosing heads based on direct-logit-attribution (DLA) \citep{elhage2021transformer} scoring as well as cosine-similarity scoring to relativity as a direction expressed in SAE space. We furthermore experiment with ablating via zeroing heads, queries, or resampling heads. In particular, resampling a small number of heads (e.g. 5 out of a total 208) can strongly reduce the relativity readout to logits while achieving minimal KL divergence on normal natural language prompts and other features. The same heads transfer across multiple tested gradable adjective concepts.
 
 In practice, both SAE-based cosine similarity and DLA recover the same primary heads, but DLA is computationally simpler and generally more effective (see \Cref{fig:ranking-comparison}). We therefore use DLA as the main ablation criterion.
 Among zeroing, query-zeroing, and resampling, resampling most directly removes the relativity readout while preserving the mean logit level (Figure~\ref{fig:intervention-modes}); throughout this section ``ablation'' therefore refers to resampling.
@@ -459,13 +444,13 @@ To test whether the trio simply damages the model's general competence, we ran t
   \label{fig:circuit-phase-trajectory}
 \end{figure}
 
-\subsection{Generalization Across Scale and Modalities}
+\subsection{Generalization Across Model Scale}
 \label{subsec:generalization}
 
-All results, including the general decomposition into Z score relativity, the dense grid, as well as causal steering and attention based interventions, were replicated on a host of small models. These models included OLMO 7B, Pythia 2.8B, Llama 3.2 3B, Qwen 2.5 3B and Qwen 3 14B. Results were generally similar as reported in this paper on the Gemma 2 family models (See Appendix Figures 17 \& 18). 
+The main behavioral decomposition into $z$-score relativity and dense-grid behavior was replicated across several small model families, including OLMO 7B, Pythia 2.8B, Llama 3.2 3B, Qwen 2.5 3B, and Qwen 3 14B; appendix cross-model summaries are shown in \Cref{fig:xmodel-geometry,fig:xmodel-interventions}.
 
 The broader generalization question to larger models with more parameters remains largely open. The largest model we tested was 14B active parameters.
-Findings were also replicated across $N = 1$ and $N = 5$ prompts (See Appendix Figures 15 \& 16)
+Findings were also replicated across $N = 1$ and $N = 5$ prompts (\Cref{fig:circuit-cross-k-phase,fig:circuit-cross-k-deltar}).
 
 \section{Related Work and Positioning}
 \label{sec:related-work}
@@ -473,7 +458,7 @@ Findings were also replicated across $N = 1$ and $N = 5$ prompts (See Appendix F
 \subsection{Gradable Adjectives and Pragmatic Thresholds}
 \label{subsec:related-gradability}
 
-Before modern LLMs, a general pragmatic understanding of relative gradable adjectives in natural language was studied. \citep{lassiter2017adjectival} provides a Bayesian framework for interpreting this class of adjectives. Recent LLM work and the discovery of in-context learning further test the inferential capabilities of Bayesian pragmatic models \citep{lipkin2023pragmatic}. Our work, built on these foundations, extensively focuses on interpreting how the comparisons and relativity are geometrically represented in the model's internals.
+Before modern LLMs, a general pragmatic understanding of relative gradable adjectives in natural language was studied. \citet{lassiter2017adjectival} provides a Bayesian framework for interpreting this class of adjectives. Recent LLM work and the discovery of in-context learning further test the inferential capabilities of Bayesian pragmatic models \citep{lipkin2023pragmatic}. Our work, built on these foundations, extensively focuses on interpreting how the comparisons and relativity are geometrically represented in the model's internals.
 
 \subsection{Numerical Representations and In-Context Statistics}
 \label{subsec:related-numbers}
@@ -485,8 +470,8 @@ This also connects to work explaining in-context learning phenomena as statistic
 \subsection{Linear Representations, Steering, and Manifold Geometry}
 \label{subsec:related-mi}
 
-Linear representations of natural-language concepts are a common starting point for mechanistic interpretability\citep{park2023lrh,park2025categorical}, linear methods such as probing and steering are often used to connect the geometry of the linear representation to the behavior of the model.
-However, more recent work shows that not all features are well described by a one-dimensional linear direction; Certain features appear to require richer geometry such as cyclical, hierarchial, and low dimensional manifold structure. \citep{engels2024notlinear,modell2025origins,sarfati2026beliefs,gurnee2026linebreaks}.
+Linear representations of natural-language concepts are a common starting point for mechanistic interpretability \citep{park2024linear,park2025categorical}; linear methods such as probing and steering are often used to connect the geometry of the linear representation to the behavior of the model.
+However, more recent work shows that not all features are well described by a one-dimensional linear direction; certain features appear to require richer geometry such as cyclical, hierarchical, and low-dimensional manifold structure \citep{engels2024notlinear,modellerubin2025manifolds,sarfati2026beliefs,gurnee2026manifold}.
 
 Our use of \primalz{} sits between these views. Concepts such as \emph{tall} vs \emph{short} could be interpreted as counterfactual or binary which is best represented linearly, whereas other interpretations might suggest it is based on a probability distribution which is represented in nonlinear manifolds \citep{sarfati2026beliefs}. Therefore while testing linear decodability and steerability and the downstream causal effects of $z$, we also deploy methods such as dual steering to test whether nonlinear geometry matters, without reducing the mechanism into a single ``the model has a vector'' claim.
 
