@@ -75,11 +75,31 @@ def open_on_white(path: Path) -> Image.Image:
 
 def crop_dense_height_heatmap() -> None:
     src = ROOT / "figures" / "v10" / "behavioral_logit_diff_xz.png"
-    out = PAPER_FIG / "fig_results_dense_height_heatmap_clean.png"
     img = open_on_white(src)
-    # Remove the internal-title block while preserving axes and colorbar.
-    cropped = img.crop((0, 66, img.width, img.height))
-    cropped.save(out)
+    # Preserve the heatmap pixels from the audited source artifact, but rebuild
+    # paper-facing axes so labels remain legible at one-column width.
+    heatmap = img.crop((78, 69, 722, 649))
+
+    fig, ax = plt.subplots(figsize=(3.35, 2.48), dpi=300)
+    im = ax.imshow(
+        heatmap,
+        aspect="auto",
+        origin="upper",
+        extent=[145, 190, -3, 3],
+    )
+    ax.set_xticks(np.arange(145, 191, 5))
+    ax.set_yticks(np.arange(-3, 4, 1))
+    ax.set_xlabel(r"$x$ (height in cm)", fontsize=9.8, labelpad=2.5)
+    ax.set_ylabel(r"$z=(x-\mu)/\sigma$", fontsize=9.8, labelpad=2.5)
+    ax.tick_params(labelsize=8.8, pad=2)
+    sm = plt.cm.ScalarMappable(cmap="RdBu_r", norm=plt.Normalize(vmin=-2.8, vmax=2.8))
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, fraction=0.047, pad=0.045)
+    cbar.set_label(r"Mean $\Delta_{\mathrm{logit}}$", fontsize=9.4, labelpad=4)
+    cbar.ax.tick_params(labelsize=8.4, pad=1.5)
+    fig.tight_layout(pad=0.15)
+    fig.savefig(PAPER_FIG / "fig_results_dense_height_heatmap_clean.png", bbox_inches="tight", dpi=300)
+    plt.close(fig)
 
 
 def build_pca_all_pairs() -> None:
