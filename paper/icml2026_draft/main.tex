@@ -297,7 +297,8 @@ With context supplied, baseline behavior moves toward the relativistic region, b
 We next test whether the behavioral $z$ readout depends on incidental details of the prompt generator: example order, Gaussian-shaped contexts, or ordinary in-distribution value ranges.
 The first control changes only the order of the same context multiset.
 This probes whether the model is relying on recency, monotone pattern completion, or local clustering among the latest examples rather than computing a distribution-level comparison class.
-Ascending and descending contexts are especially adversarial to a simple recency heuristic, while alternating low/high contexts make the range visually salient.
+The ordering curves suggest a modest recency effect: at the same global $z$, descending contexts often produce a higher LD than ascending contexts, consistent with the latest examples defining a locally lower reference class and making the target look relatively higher.
+Alternating low/high contexts reduce this local-reference ambiguity by repeatedly exposing both ends of the range near the end of the prompt.
 
 \begin{figure}[!tbp]
   \centering
@@ -311,8 +312,8 @@ Ascending and descending contexts are especially adversarial to a simple recency
 \end{figure}
 
 The second control changes the shape of the context distribution while standardizing the requested mean and variance.
-Normal and bimodal contexts are the cleanest contrast: in the bimodal case, values between the two modes are relatively sparse and the middle of the standardized $z$ range is slightly less smooth, especially near the gap between modes.
-Even so, the LD-by-$z$ curves remain ordered by relative standing rather than collapsing to raw magnitude.
+Normal and bimodal contexts are the cleanest contrast: in the bimodal case, middle values lie between two clusters rather than inside a single dense central mass, so their local neighborhood is less representative of the global mean and variance.
+This appears as small mid-$z$ deviations, but the LD-by-$z$ curves remain ordered by relative standing rather than collapsing to raw magnitude.
 
 \begin{figure}[!tbp]
   \centering
@@ -337,7 +338,7 @@ Even so, the LD-by-$z$ curves remain ordered by relative standing rather than co
   \label{fig:layer-encode-use}
 \end{figure}
 
-The sharpest stress test is the extreme OOD-world setting, where raw magnitude and local standing can point in opposite semantic directions:
+Finally, we ask whether the relativity concept survives when the values are extreme OOD relative to real-world expectations, so that raw magnitude and local standing can point in opposite semantic directions:
 \begin{itemize}
   \item Height: $76.8$ cm in a $50$ cm world has \textbf{$z=+2.68$} and \textbf{$\logitdiff=+3.92$}, preferring \textbf{``tall''}; $290$ cm in a $320$ cm world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.44$}, preferring \textbf{``short''}.
   \item Weight: $54.0$ kg in a $30$ kg world has \textbf{$z=+3.0$} and \textbf{$\logitdiff=+4.66$}, preferring \textbf{``heavy''}; $226$ kg in a $250$ kg world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.96$}, preferring \textbf{``light''}.
