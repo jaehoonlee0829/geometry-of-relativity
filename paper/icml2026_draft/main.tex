@@ -295,7 +295,7 @@ With context supplied, baseline behavior moves toward the relativistic region, b
 \label{subsec:behavioral-robustness}
 
 We next test whether the behavioral $z$ readout depends on incidental details of the prompt generator: example order, Gaussian-shaped contexts, or ordinary in-distribution value ranges.
-The first control changes only the order of the same context multiset.
+The first control changes only the order of the same context multiset (\cref{fig:order-robustness-main}).
 This probes whether the model is relying on recency, monotone pattern completion, or local clustering among the latest examples rather than computing a distribution-level comparison class.
 The ordering curves suggest a modest recency effect: at the same global $z$, descending contexts often produce a higher LD than ascending contexts, consistent with the latest examples defining a locally lower reference class and making the target look relatively higher.
 Alternating low/high contexts reduce this local-reference ambiguity by repeatedly exposing both ends of the range near the end of the prompt.
@@ -311,9 +311,9 @@ Alternating low/high contexts reduce this local-reference ambiguity by repeatedl
   \label{fig:order-robustness-main}
 \end{figure}
 
-The second control changes the shape of the context distribution while standardizing the requested mean and variance.
-Normal and bimodal contexts are the cleanest contrast: in the bimodal case, middle values lie between two clusters rather than inside a single dense central mass, so their local neighborhood is less representative of the global mean and variance.
-This appears as small mid-$z$ deviations, but the LD-by-$z$ curves remain ordered by relative standing rather than collapsing to raw magnitude.
+The second control changes the shape of the context distribution while standardizing the requested mean and variance (\cref{fig:distribution-shapes}).
+Normal versus bimodal contexts are a useful stress test because the bimodal distribution has two dense modes and relatively sparse middle values, unlike the single central mass of a normal distribution.
+This flattens the LD-by-$z$ curve slightly around the middle standardized range, roughly between $z=-1$ and $z=1$, but the readout remains ordered by relative standing rather than collapsing to raw magnitude.
 
 \begin{figure}[!tbp]
   \centering
