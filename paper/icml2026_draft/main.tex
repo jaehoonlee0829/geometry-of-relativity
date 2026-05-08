@@ -203,43 +203,11 @@ Appendix~\ref{app:dual-steering} gives the fold construction, controls, and read
 For attention-based interventions, we rank candidate heads with direct-logit-attribution (DLA) \citep{elhage2021transformer} and an SAE-space cosine baseline, then compare zeroing, query-zeroing, and resampling ablations.
 Appendix~\ref{app:attention-details} gives the ranking definitions.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{figures/fig_results_kshot_ld_evolution_2x3.png}
-  \caption{\textbf{Logit-difference evolution with context length.}
-  With no context examples, the height judgment is organized by raw height $x$.
-  After context examples are added, the same logit difference becomes organized by effective relative standing and changes from a sharp comparator-like pattern toward a smoother graded response.
-  % Source artifact: internal/kshot/phase/figures/p2a_ld_vs_z_height_gemma2-9b.png, reformatted as a one-column 2-by-3 plot.
-  }
-  \label{fig:kshot-ld-evolution}
-\end{figure}
 
 
-\section{Results}
+
+\section{Results on Behaviors}
 \label{sec:results}
-
-
-
-\subsection{The number of reference values gives different confidence}
-\Cref{fig:kshot-ld-evolution} displays the clear relationship between the number of context examples and how the model handles relativity. With 0 examples, the model has no relative context, and is forced into an objective valuation depended on just $x$. Adding just 1 example moves the model into a comparator-like state. More examples gradually smooths the integration of relativity.
-
-\begin{figure}[!tbp]
-  \centering
-  \includegraphics[width=\linewidth]{figures/p2d_phase_k_sweep_9b.png}
-  \caption{\textbf{Relative/objective phase plane for shot-sweep.}
-  We can see how Gemma2 9B model behavior changes as we introduce more relativistic context. It only takes one example for the model to become extremely relativistic, with more context generally leading to the model reintegrating its objective view as well.
-  % Source artifacts: internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json, p2d_partial_l0_gemma2-9b_height_k1.json, and p2e_residual_interventions_gemma2-9b_height_k15.json, replotted for paper display.
-  }
-  \label{fig:relative-objective-phase}
-\end{figure}
-
-
-
-We find it useful to understand how a model is operating to abstract two scales of "relativistic" and "objective" behavior, and visualize this as a 2d plane as per \Cref{fig:relative-objective-phase}.
-
-Quantitatively, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$ (see Appendix \Cref{app:partial-corr} for definition).
-With no comparison context, variation in the readout is driven primarily by raw height $x$, while the absolute logit level can still reflect lexical frequency, pretraining, or instruction-tuning priors.
-As more context examples are supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates its objective capabilities with its relativistic context.
 
 \subsection{Context Examples Shift Judgments Toward $z$}
 \label{subsec:behavioral-grids}
@@ -288,32 +256,74 @@ When raw height and $z$ are sampled independently, the tall-minus-short logit di
 
 Activation geometry shows the same organization: PCA on cell-mean residual-stream activations produces ordered arcs across eight adjective domains, where nearby points have similar context-normalized standing even when their raw units and adjectives differ. The corresponding PCA montage is included in \Cref{fig:pca-montage}; in the Gemma 2 9B artifacts, PC1 has high $R^2$ with $z$ for most adjective domains (PC1 vs z is high for height 0.928, weight 0.944, wealth 0.871, experience 0.902, BMI 0.784; moderate for size 0.656 and age 0.606; weaker for speed 0.428).
 
-\subsection{Behavioral Robustness Across Context Perturbations}
-\label{subsec:behavioral-robustness}
 
-We next test whether the behavioral $z$ readout depends on incidental details of the prompt generator: Gaussian-shaped contexts, random example order, or ordinary in-distribution value ranges.
-Across non-Gaussian context shapes (\cref{fig:distribution-shapes}) and ordering changes, the LD-by-$z$ relationship remains positive and mostly monotone; full curves are shown in \cref{fig:distribution-robustness-full,fig:order-robustness-full}.
+\subsection{The number of reference values gives different confidence}
+\Cref{fig:kshot-ld-evolution} displays the clear relationship between the number of context examples and how the model handles relativity. With 0 examples, the model has no relative context, and is forced into an objective valuation depended on just $x$. Adding just 1 example moves the model into a comparator-like state. More examples gradually smooths the integration of relativity. 
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fig_results_kshot_ld_evolution_2x3.png}
+  \caption{\textbf{Logit-difference evolution with context length.}
+  With no context examples, the height judgment is organized by raw height $x$.
+  After context examples are added, the same logit difference becomes organized by effective relative standing and changes from a sharp comparator-like pattern toward a smoother graded response.
+  % Source artifact: internal/kshot/phase/figures/p2a_ld_vs_z_height_gemma2-9b.png, reformatted as a one-column 2-by-3 plot.
+  }
+  \label{fig:kshot-ld-evolution}
+\end{figure}
 
 \begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_distribution_shapes_clean.png}
-  \caption{\textbf{Distribution-shape controls.}
-  Context examples were sampled from normal, uniform, U-shaped, skewed, and bimodal distributions, then standardized to the same mean and variance.
-  This isolates whether the model requires the original Gaussian context shape; full LD-by-$z$ curves are shown in \cref{fig:distribution-robustness-full}.
-  % Source artifacts: figures/v14/distribution/distribution_shape_examples.png and results/v14/distribution/distribution_rows.jsonl, replotted for paper display.
+  \includegraphics[width=\linewidth]{figures/p2d_phase_k_sweep_9b.png}
+  \caption{\textbf{Relative/objective phase plane for shot-sweep.}
+  We can see how Gemma2 9B model behavior changes as we introduce more relativistic context. It only takes one example for the model to become extremely relativistic, with more context generally leading to the model reintegrating its objective view as well.
+  % Source artifacts: internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json, p2d_partial_l0_gemma2-9b_height_k1.json, and p2e_residual_interventions_gemma2-9b_height_k15.json, replotted for paper display.
   }
-  \label{fig:distribution-shapes}
+  \label{fig:relative-objective-phase}
 \end{figure}
 
-\begin{figure}[!t]
+
+
+We find it useful to understand how a model is operating to abstract two scales of "relativistic" and "objective" behavior, and visualize this as a 2d plane as per \Cref{fig:relative-objective-phase}.
+
+Quantitatively, we can measure both relativity and objectivity by looking at the partial correlations to z and x respectively. That is to say, a vertical axis measures relative use, $\mathrm{corr}(\mathrm{LD},z\mid x)$, while a horizontal axis measures objective/raw-value use, $\mathrm{corr}(\mathrm{LD},x\mid z)$ (see Appendix \Cref{app:partial-corr} for definition).
+With no comparison context, variation in the readout is driven primarily by raw height $x$, while the absolute logit level can still reflect lexical frequency, pretraining, or instruction-tuning priors.
+With context supplied, baseline behavior moves toward the relativistic region, becoming a direct comparison operation. As more context is saturated, the model reintegrates its objective capabilities with its relativistic context. Our hypothesis is that in pre-training data, low context numerical examples typically invoke a comparison in that data, whereas context rich data is more general.  
+
+
+\subsection{Behavioral Robustness Across Context Perturbations}
+\label{subsec:behavioral-robustness}
+
+We next test whether the behavioral $z$ readout depends on incidental details of the prompt generator: example order, Gaussian-shaped contexts, or ordinary in-distribution value ranges.
+The first control changes only the order of the same context multiset.
+This probes whether the model is relying on recency, monotone pattern completion, or local clustering among the latest examples rather than computing a distribution-level comparison class.
+Ascending and descending contexts are especially adversarial to a simple recency heuristic, while alternating low/high contexts make the range visually salient.
+
+\begin{figure}[!tbp]
   \centering
-  \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_ood_ld_by_z_main.png}
-  \caption{\textbf{OOD worlds preserve the relative-standing readout.}
-  High-minus-low adjective logit difference remains ordered by $z$ in ordinary in-distribution contexts and artificial low/high OOD worlds.
-  Full eight-domain curves: \cref{fig:ood-robustness-full}.
-  % Source artifact: results/v14_1/affine_ood/affine_ood_rows.jsonl, corrected rerun with complete pair/condition coverage.
+  \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_order_ld_by_z_main.png}
+  \caption{\textbf{Changing example order does not remove the relative-standing readout.}
+  Height and weight show high-minus-low adjective logit difference against $z$ under random, ascending, descending, and alternating context orders.
+  Full eight-domain, six-order curves are shown in \cref{fig:order-robustness-full}.
+  % Source artifact: results/v14_1/order/order_rows.jsonl, replotted for paper display.
   }
-  \label{fig:ood-robustness}
+  \label{fig:order-robustness-main}
+\end{figure}
+
+The second control changes the shape of the context distribution while standardizing the requested mean and variance.
+Normal and bimodal contexts are the cleanest contrast: in the bimodal case, values between the two modes are relatively sparse and the middle of the standardized $z$ range is slightly less smooth, especially near the gap between modes.
+Even so, the LD-by-$z$ curves remain ordered by relative standing rather than collapsing to raw magnitude.
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=\linewidth,keepaspectratio]{figures/fig_results_distribution_bimodal_main.png}
+  \caption{\textbf{Normal and bimodal contexts produce similar relative-standing curves.}
+  Left: standardized context-shape examples.
+  Right: height and weight LD-by-$z$ curves for normal and bimodal contexts.
+  Full distribution-shape controls are shown in \cref{fig:distribution-robustness-full}.
+  % Source artifacts: results/v14/distribution/distribution_rows.jsonl and synthetic standardized shape examples, replotted for paper display.
+  }
+  \label{fig:distribution-shapes}
 \end{figure}
 
 \begin{figure}[!t]
@@ -327,14 +337,16 @@ Across non-Gaussian context shapes (\cref{fig:distribution-shapes}) and ordering
   \label{fig:layer-encode-use}
 \end{figure}
 
-The sharpest stress test is the OOD-world setting, where raw magnitude and local standing can point in opposite semantic directions:
+The sharpest stress test is the extreme OOD-world setting, where raw magnitude and local standing can point in opposite semantic directions:
 \begin{itemize}
   \item Height: $76.8$ cm in a $50$ cm world has \textbf{$z=+2.68$} and \textbf{$\logitdiff=+3.92$}, preferring \textbf{``tall''}; $290$ cm in a $320$ cm world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.44$}, preferring \textbf{``short''}.
   \item Weight: $54.0$ kg in a $30$ kg world has \textbf{$z=+3.0$} and \textbf{$\logitdiff=+4.66$}, preferring \textbf{``heavy''}; $226$ kg in a $250$ kg world has \textbf{$z=-3.0$} and \textbf{$\logitdiff=-2.96$}, preferring \textbf{``light''}.
 \end{itemize}
-These are individual corrected-run cells averaged over repeated context seeds at $N=31$.
+These are individual corrected-run cells averaged over repeated context seeds at $N=31$; full eight-domain OOD-world curves are shown in \cref{fig:ood-robustness-full}.
 
-\subsection{Internals: $z$ is Encoded Early and Used Later}
+
+\section{Results on Internals}
+\subsection{$z$ is Encoded Early and Used Later}
 \label{subsec:layer-evolution}
 
 \Cref{fig:layer-encode-use} summarizes the current internal evidence for an encode/use separation.

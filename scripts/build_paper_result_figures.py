@@ -256,7 +256,7 @@ def build_layer_z_x_encode_use() -> None:
     plt.close(fig)
 
 
-def build_distribution_shapes() -> None:
+def standardized_distribution_samples() -> dict[str, np.ndarray]:
     rng = np.random.default_rng(7)
     n = 1200
     samples = {
@@ -271,7 +271,11 @@ def build_distribution_shapes() -> None:
         vals = np.asarray(vals, dtype=float)
         vals = vals - vals.mean()
         samples[key] = vals / vals.std(ddof=1)
+    return samples
 
+
+def build_distribution_shapes() -> None:
+    samples = standardized_distribution_samples()
     fig, axes = plt.subplots(2, 3, figsize=(3.35, 2.25), dpi=280, sharex=True, sharey=True)
     for ax, key in zip(axes.flat, ["normal", "uniform", "beta_u", "beta_low", "beta_high", "bimodal"]):
         ax.hist(samples[key], bins=24, color="#4C78A8", alpha=0.78)
@@ -363,10 +367,98 @@ def plot_ld_by_z_grid(
     plt.close(fig)
 
 
+def build_order_main_figure(order_rows: list[dict]) -> None:
+    conditions = ["random", "ascending", "descending", "alternating_low_high"]
+    series = binned_mean_rows(order_rows, "order_kind", conditions)
+    pairs = ["height", "weight"]
+    colors = {
+        "random": "#1f77b4",
+        "ascending": "#9467bd",
+        "descending": "#8c564b",
+        "alternating_low_high": "#17becf",
+    }
+
+    fig, axes = plt.subplots(2, 1, figsize=(3.35, 2.8), dpi=260, sharex=True)
+    for ax, pair in zip(axes, pairs):
+        for condition in conditions:
+            xs, ys = series[(pair, condition)]
+            ax.plot(
+                xs,
+                ys,
+                "o-",
+                markersize=2.2,
+                linewidth=1.15,
+                color=colors[condition],
+                label=ORDER_LABELS[condition],
+            )
+        ax.axhline(0, color="black", linewidth=0.6, alpha=0.45)
+        ax.set_title(PAIR_LABELS[pair], fontsize=8.0, pad=2)
+        ax.set_ylabel(r"$\Delta_{\mathrm{logit}}$", fontsize=7.0, labelpad=1.5)
+        ax.tick_params(labelsize=6.4, pad=1.5)
+        ax.grid(alpha=0.22)
+    axes[-1].set_xlabel(r"Relative standing $z$", fontsize=7.0, labelpad=1.5)
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False, fontsize=6.1, handlelength=1.2)
+    fig.tight_layout(rect=(0, 0, 1, 0.91), pad=0.3)
+    fig.savefig(PAPER_FIG / "fig_results_order_ld_by_z_main.png", bbox_inches="tight", dpi=260)
+    plt.close(fig)
+
+
+def build_distribution_bimodal_main_figure(distribution_rows: list[dict]) -> None:
+    samples = standardized_distribution_samples()
+    conditions = ["normal", "bimodal"]
+    series = binned_mean_rows(distribution_rows, "dist_kind", conditions)
+    pairs = ["height", "weight"]
+
+    fig, axes = plt.subplots(
+        2,
+        2,
+        figsize=(3.35, 2.75),
+        dpi=260,
+        gridspec_kw={"width_ratios": [0.82, 1.35]},
+    )
+
+    for ax, key in zip(axes[:, 0], conditions):
+        ax.hist(samples[key], bins=22, color="#4C78A8", alpha=0.78)
+        ax.set_title(DIST_LABELS[key], fontsize=7.2, pad=2)
+        ax.set_ylabel("Count", fontsize=6.2, labelpad=1)
+        ax.tick_params(labelsize=5.8, pad=1)
+        ax.grid(axis="y", alpha=0.18)
+    axes[1, 0].set_xlabel("Standardized value", fontsize=6.2, labelpad=1)
+
+    colors = {"normal": "#1f77b4", "bimodal": "#d62728"}
+    for ax, pair in zip(axes[:, 1], pairs):
+        for condition in conditions:
+            xs, ys = series[(pair, condition)]
+            ax.plot(
+                xs,
+                ys,
+                "o-",
+                markersize=2.0,
+                linewidth=1.05,
+                color=colors[condition],
+                label=DIST_LABELS[condition],
+            )
+        ax.axhline(0, color="black", linewidth=0.55, alpha=0.45)
+        ax.set_title(PAIR_LABELS[pair], fontsize=7.2, pad=2)
+        ax.set_ylabel(r"$\Delta_{\mathrm{logit}}$", fontsize=6.2, labelpad=1)
+        ax.tick_params(labelsize=5.8, pad=1)
+        ax.grid(alpha=0.22)
+    axes[1, 1].set_xlabel(r"Relative standing $z$", fontsize=6.2, labelpad=1)
+    handles, labels = axes[0, 1].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=2, frameon=False, fontsize=6.1, handlelength=1.2)
+    fig.tight_layout(rect=(0, 0, 1, 0.91), pad=0.25, w_pad=0.55, h_pad=0.55)
+    fig.savefig(PAPER_FIG / "fig_results_distribution_bimodal_main.png", bbox_inches="tight", dpi=260)
+    plt.close(fig)
+
+
 def build_robustness_figures() -> None:
     affine_rows = load_jsonl(ROOT / "results" / "v14_1" / "affine_ood" / "affine_ood_rows.jsonl")
     distribution_rows = load_jsonl(ROOT / "results" / "v14" / "distribution" / "distribution_rows.jsonl")
     order_rows = load_jsonl(ROOT / "results" / "v14_1" / "order" / "order_rows.jsonl")
+
+    build_order_main_figure(order_rows)
+    build_distribution_bimodal_main_figure(distribution_rows)
 
     plot_ld_by_z_grid(
         affine_rows,
