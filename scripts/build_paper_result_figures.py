@@ -245,7 +245,6 @@ def build_layer_z_x_encode_use() -> None:
         hi = np.nanpercentile(vals, 90, axis=0)
         ax.plot(layers, center, "o-", color=color, label=label, markersize=2.6, linewidth=1.45)
         ax.fill_between(layers, lo, hi, color=color, alpha=0.14, linewidth=0)
-    ax.set_title("Linear availability", fontsize=8.5)
     ax.set_xlabel("Layer", fontsize=7.5)
     ax.set_ylabel(r"CV $R^2$", fontsize=7.5)
     ax.set_ylim(-0.02, 1.02)
@@ -255,8 +254,8 @@ def build_layer_z_x_encode_use() -> None:
 
     ax = axes[1]
     for vals, color, label in [
-        (steer_z, "C0", r"$d^{\mathrm{primal}}_{z}$"),
-        (steer_x, "C1", r"$d^{\mathrm{primal}}_{x}$"),
+        (steer_z, "C0", r"$d_z$"),
+        (steer_x, "C1", r"$d_x$"),
     ]:
         center = np.nanmean(vals, axis=0)
         lo = np.nanpercentile(vals, 10, axis=0)
@@ -264,7 +263,6 @@ def build_layer_z_x_encode_use() -> None:
         ax.plot(layers, center, "o-", color=color, label=label, markersize=2.6, linewidth=1.45)
         ax.fill_between(layers, lo, hi, color=color, alpha=0.14, linewidth=0)
     ax.axhline(0, color="black", linewidth=0.7, alpha=0.5)
-    ax.set_title("Causal use under steering", fontsize=8.5)
     ax.set_xlabel("Layer", fontsize=7.5)
     ax.set_ylabel("LD slope", fontsize=7.5)
     ax.tick_params(labelsize=7)
@@ -418,8 +416,17 @@ def build_order_main_figure(order_rows: list[dict]) -> None:
         ax.grid(alpha=0.22)
     axes[-1].set_xlabel(r"Relative standing $z$", fontsize=7.0, labelpad=1.5)
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False, fontsize=6.1, handlelength=1.2)
-    fig.tight_layout(rect=(0, 0, 1, 0.91), pad=0.3)
+    fig.legend(
+        handles,
+        labels,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 0.01),
+        ncol=4,
+        frameon=False,
+        fontsize=6.1,
+        handlelength=1.2,
+    )
+    fig.tight_layout(rect=(0, 0.13, 1, 1), pad=0.3)
     fig.savefig(PAPER_FIG / "fig_results_order_ld_by_z_main.png", bbox_inches="tight", dpi=260)
     plt.close(fig)
 
@@ -466,8 +473,17 @@ def build_distribution_bimodal_main_figure(distribution_rows: list[dict]) -> Non
         ax.grid(alpha=0.22)
     axes[1, 1].set_xlabel(r"Relative standing $z$", fontsize=6.2, labelpad=1)
     handles, labels = axes[0, 1].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=2, frameon=False, fontsize=6.1, handlelength=1.2)
-    fig.tight_layout(rect=(0, 0, 1, 0.91), pad=0.25, w_pad=0.55, h_pad=0.55)
+    fig.legend(
+        handles,
+        labels,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 0.01),
+        ncol=2,
+        frameon=False,
+        fontsize=6.1,
+        handlelength=1.2,
+    )
+    fig.tight_layout(rect=(0, 0.13, 1, 1), pad=0.25, w_pad=0.55, h_pad=0.55)
     fig.savefig(PAPER_FIG / "fig_results_distribution_bimodal_main.png", bbox_inches="tight", dpi=260)
     plt.close(fig)
 

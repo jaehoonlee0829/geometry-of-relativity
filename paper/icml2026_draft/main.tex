@@ -347,14 +347,15 @@ We now investigate how the internal representations of LLMs encode the raw numer
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_layer_z_x_encode_use_clean.png}
   \caption{\textbf{Both $z$ and $x$ are linearly encoded, but direct steering on $z$ at middle layers is the most effective.}
-  Cross-validated linear probes decode both the relative standing $z$ and raw magnitude $x$ across layers (top).
-  Direct steering has a substantially larger late-layer effect along \primalz{} than along \primalx{} (bottom).
+  In Gemma 2 9B, cross-validated linear probes decode both the relative standing $z$ and raw magnitude $x$ across layers (top).
+  Direct steering has a substantially larger effect along \primalz{} than along \primalx{} when applied across the same layer sweep (bottom).
   % Source artifact: results/v14_1/fig5/fig5_layer_x_z_metrics.json, replotted for paper display.
   }
   \label{fig:layer-encode-use}
 \end{figure}
 
-For each layer $L$, we fit ridge regression to get a linear probe on the residual stream to decode the target values $x$ and $z$.
+For each adjective pair and layer $L$, we fit ridge linear probes from residual-stream activations to the target variables $x$ and $z$.
+The reported cross-validated $R^2$ uses five shuffled folds: each probe is trained on four folds, evaluated on the held-out prompts, and scored from the aggregate out-of-fold predictions.
 The top plot in \Cref{fig:layer-encode-use} illustrates that both the raw value $x$ and the relative standing $z$ are linearly decodable from the model's representations.
 Notably, $x$ is more strongly represented in the earlier layers, whereas $z$ becomes highly decodable in the later layers.
 This suggests a sequential processing dynamic: the model initially processes the raw value $x$, and subsequently computes the relative standing $z$ once contextual information has been integrated.
@@ -371,7 +372,7 @@ Although intervening on the raw value direction \primalx{} also influences the o
   \centering
   \includegraphics[width=\linewidth]{figures/fig_results_shared_direction_steering_clean.png}
   \caption{\textbf{A shared direction preserves much of within-concept steering.}
-  For each concept, the plot compares steering with the concept's own \primalz{} direction against steering with a single Procrustes-aligned shared direction.
+  For Gemma 2 9B at layer 33, the plot compares steering with each concept's own \primalz{} direction against steering with a single sign-aligned mean of the eight per-concept \primalz{} directions.
   Ratios above $0.5$ mean the shared direction recovers at least half of the same-concept effect.
   % Source artifact: results/v11_5/gemma2-9b/shared_z_analysis.json, replotted for paper display.
   }
@@ -382,10 +383,10 @@ Although intervening on the raw value direction \primalx{} also influences the o
 
 We next ask whether each adjective pair has its own individual direction, or whether a shared $z$-like relativity component transfers across concepts.
 
-First, we compute a mean of the concept directions $\primalz{}$ for each adjective pair, with high-low alignment, and we observe that this direction has high cosine similarity with the directions for each adjective pair. And we expect this to be a shared direction across the concepts.
-\Cref{fig:shared-direction-steering} shows that adding this direction steers most concepts as much as the original direction for each direction, which suggests that there is a shared direction for the relative standing $z$.
-
-raw x, leave-one-out
+For each adjective pair, we compute a \primalz{} direction as the difference between mean residual-stream activations for high-$z$ and low-$z$ prompts.
+We then form a shared direction by sign-aligning these eight concept directions to their initial mean and averaging them.
+\Cref{fig:shared-direction-steering} shows that this shared direction recovers at least half of the within-concept steering effect for most concepts, suggesting that relative standing is partly represented in a common residual-stream direction rather than only in concept-specific axes.
+\Cref{fig:z-vs-x-transfer} provides a complementary cross-pair control: transfer is substantially stronger for \primalz{} than for raw-$x$ directions.
 
 
 
@@ -754,6 +755,17 @@ The ordering control keeps the context multiset fixed and changes only presentat
   % Source artifact: results/v12_2/residual_vs_lexical_transfer_summary.json, replotted for paper display.
   }
   \label{fig:lexical-residual}
+\end{figure*}
+
+\begin{figure*}[!tbp]
+  \centering
+  \includegraphics[width=0.82\linewidth]{figures/fig_results_z_vs_x_transfer_clean.png}
+  \caption{\textbf{Cross-pair steering transfers more strongly for relative standing than for raw magnitude.}
+  In Gemma 2 9B at layer 33, rows are target concepts and columns are source directions.
+  Steering with \primalz{} directions produces broadly positive off-diagonal transfer, whereas raw-$x$ directions are much weaker and more diagonal.
+  % Source artifacts: results/v13/x_transfer/cross_pair_transfer_x_8x8.json and results/v13/x_transfer/cross_pair_transfer_x_vs_z_summary.json, replotted for paper display.
+  }
+  \label{fig:z-vs-x-transfer}
 \end{figure*}
 
 \begin{figure}[t]
