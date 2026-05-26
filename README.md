@@ -98,13 +98,13 @@ LD varies mainly with `z`, not raw `x`.
 
 ![Dense height grid](figures/v10/behavioral_logit_diff_xz.png)
 
+![Gemma 2 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
+
 The table above is the submitted paper's behavioral summary. Supporting paths:
 
 - `results/v10/behavioral_summary.json`
 - `FINDINGS.md`
 - `docs/paper_outline.md`
-- `figures/v10/behavioral_logit_diff_xz.png`
-- `figures/v11/pca/montage_gemma2-9b_2d_L33.png`
 
 ### 3.2 Sensitivity to the Number of Reference Values
 
@@ -121,10 +121,12 @@ stronger" in a simple monotone sense. Instead:
 This is one of the clearest human-like effects: a single comparison can define
 a local standard, while richer contexts support more graded calibration.
 
+![Reference-count shot sweep](internal/kshot/phase/figures/p2a_shot_sweep.png)
+
+![Relative/objective phase grid](internal/kshot/phase/figures/p2d_phase_grid_partial.png)
+
 Supporting paths:
 
-- `internal/kshot/phase/figures/p2a_shot_sweep.png`
-- `internal/kshot/phase/figures/p2d_phase_grid_partial.png`
 - `internal/kshot/phase/results/p2a_summary.json`
 - `internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json`
 
@@ -141,12 +143,12 @@ salient and can induce sharper comparator-like transitions.
 
 ![Order robustness](figures/v14/order/order_ld_by_z_lines.png)
 
+![Order robustness cleanup](figures/v14_1/order/order_ld_by_z_lines.png)
+
 Supporting paths:
 
 - `results/v14/order/`
 - `results/v14_1/order/`
-- `figures/v14/order/order_ld_by_z_lines.png`
-- `figures/v14_1/order/order_ld_by_z_lines.png`
 
 ### 3.4 Sensitivity to Distribution Shape
 
@@ -162,8 +164,6 @@ global mean, producing flatter or sharper regions in the LD-by-`z` curve.
 Supporting paths:
 
 - `results/v14/distribution/`
-- `figures/v14/distribution/distribution_shape_examples.png`
-- `figures/v14/distribution/distribution_ld_by_z_lines.png`
 - `results/v14/summary.md`
 
 ## Mechanistic Results
@@ -186,11 +186,11 @@ value direction `d_x`.
 
 ![Layer encoding and steering](figures/v14_1/fig5/paper_fig5_layer_x_z_gpu.png)
 
+![Layer sweep](figures/v12/layer_sweep_9b_combined.png)
+
 Supporting paths:
 
 - `scripts/run_v14_1_gpu.py --sections fig5_primal_x,plot`
-- `figures/v14_1/fig5/paper_fig5_layer_x_z_gpu.png`
-- `figures/v12/layer_sweep_9b_combined.png`
 - `results/v12/layer_sweep_9b.json`
 - `results/v12/layer_sweep_9b_steering.json`
 
@@ -216,8 +216,6 @@ Supporting paths:
 
 - `results/v11_5/gemma2-9b/shared_z_analysis.json`
 - `results/v11_5/gemma2-9b/multiseed_transfer.json`
-- `figures/v11_5/shared_z_steering_ratios.png`
-- `figures/v13/x_transfer/cross_pair_transfer_z_x_side_by_side_gemma2-9b.png`
 - `scripts/analyze_v11_5_shared_z.py`
 - `scripts/analyze_v11_5_multiseed_transfer.py`
 
@@ -233,10 +231,12 @@ The intended reading is conservative: manifold-informed interventions are a
 better fit for isolating relativity than a single straight-line `d_z` direction,
 but this is not a complete mechanistic decomposition.
 
+![Manifold steering slopes](figures/v9/steering_manifold_slopes.png)
+
+![Manifold steering entropy](figures/v9/steering_manifold_entropy.png)
+
 Supporting paths:
 
-- `figures/v9/steering_manifold_slopes.png`
-- `figures/v9/steering_manifold_entropy.png`
 - `results/v9_gemma2/steering_manifold_summary.json`
 - `internal/kshot/phase/results/p1d_manifold_ablation.json`
 
@@ -254,11 +254,14 @@ also recorded negative and caveated attention results: single-head effects are
 usually weak, broad random head corruption is not enough, and some older head
 taxonomy analyses were descriptive rather than causal.
 
+![Attention resampling sweep](internal/kshot/phase/figures/p2o_n_sweep_gemma2-2b.png)
+
+![Attention intervention modes](internal/kshot/phase/figures/p2o_attention_modes_gemma2-2b_bycos.png)
+
+![Attention random control](internal/kshot/phase/figures/p2o_random_control_gemma2-2b.png)
+
 Supporting paths:
 
-- `internal/kshot/phase/figures/p2o_n_sweep_gemma2-2b.png`
-- `internal/kshot/phase/figures/p2o_attention_modes_gemma2-2b_bycos.png`
-- `internal/kshot/phase/figures/p2o_random_control_gemma2-2b.png`
 - `internal/kshot/phase/results/p2o_n_sweep_gemma2-2b.json`
 - `scripts/analyze_v10_attention.py`
 - `scripts/analyze_v11_5_joint_ablation.py`
@@ -277,12 +280,14 @@ paper, but they remain useful audits for avoiding overclaims:
   the audited population is mixed: pure-ish `z`, lexical z-like, raw numeric,
   and polysemantic features all appear.
 
+![Lexical residualization steering](figures/v12_1/lexical_subspace_residualization_steering.png)
+
+![Residual vs lexical transfer matrices](figures/v12_2/residual_vs_lexical_transfer_matrices.png)
+
 Supporting paths:
 
 - `results/v12_1/`
 - `results/v12_2/`
-- `figures/v12_1/lexical_subspace_residualization_steering.png`
-- `figures/v12_2/residual_vs_lexical_transfer_matrices.png`
 - `scripts/run_v12_1_all.sh`
 - `scripts/run_v12_2_all.sh`
 
@@ -294,14 +299,16 @@ The defensible top-level conclusion is that the same qualitative `z`-relative
 behavior appears across multiple model settings, while broader generalization to
 larger and different model families remains open.
 
+![Gemma 2 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
+
+![Gemma 2 9B cross-pair transfer](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
+
 Supporting paths:
 
 - `results/v11/gemma2-2b/`
 - `results/v11/gemma2-9b/`
 - `results/v11_5/gemma2-2b/`
 - `results/v11_5/gemma2-9b/`
-- `figures/v11/pca/montage_gemma2-9b_2d_L33.png`
-- `figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png`
 
 ## Robustness and Extension Experiments
 
@@ -317,14 +324,18 @@ Later runs stress-tested the main story beyond the core paper figures:
 - **Top-logit diagnostics:** top-token and semantic-mass checks help detect OOD
   token drift but should not replace the main high-minus-low LD readout.
 
+![Affine/OOD robustness](figures/v14_1/affine_ood/affine_ood_ld_by_z_lines.png)
+
+![V13 affine summary](figures/v13/affine_shift/affine_human_readable_summary.png)
+
+![Objective-control interpretation](figures/v13/domain_extension/objective_control_interpretation.png)
+
 Supporting paths:
 
 - `docs/V13_RESULTS_SUMMARY.md`
 - `results/v13/`
-- `figures/v13/`
 - `results/v14/summary.md`
 - `results/v14_1/`
-- `figures/v14_1/`
 
 ## What This Does Not Show
 
