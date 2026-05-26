@@ -1,442 +1,455 @@
 # geometry-of-relativity
 
-Mechanistic interpretability study of **how LLMs represent contextual relativity** — whether "tall" means tall-for-this-group or tall-in-absolute-terms — via activation geometry, causal steering, and SAE decomposition in Gemma.
+Code, results, and figures for **The Geometry of Relativity: Context-Relative
+Scalar Representations in LLMs**.
 
-**Target venue:** ICML 2026 MI Workshop (May 8 AOE), co-submission to NeurIPS 2026 main track.
+The paper studies whether language models mirror a basic property of human
+scalar judgment: words such as *tall*, *short*, *rich*, or *fast* are not
+determined by a raw number alone, but by how that number stands relative to a
+comparison class. In the experiments, prompts provide reference values, and the
+model's high-minus-low adjective logit difference is measured against both raw
+magnitude and context-normalized standing.
+
+The README follows the submitted paper's core flow: experiment design,
+behavioral results, mechanistic results, discussion/limitations, and
+reproducibility. It also points to older and follow-up experiment artifacts where
+they help reproduce or stress-test the paper claims.
 
 ## TL;DR
 
-When Gemma sees "Person 16: 170 cm. This person is ___", its adjective choice is
-mostly organized by the target's standing within the local context, not by the
-raw number alone.
+- **LLMs show context-relative scalar judgment.** With a comparison class in
+  the prompt, Gemma 2 9B adjective logits are governed primarily by
+  context-normalized standing `z`, not by raw value `x`.
+- **One reference is already enough to change the regime.** With no reference
+  values, the model behaves more like a raw-magnitude reader. With one reference
+  value, it becomes comparator-like; with richer comparison classes, the
+  readout becomes smoother and more graded.
+- **The behavior is robust but not context-invariant.** Reference order and
+  distribution shape modulate confidence. The model shows recency effects under
+  sorted orders and local-cluster effects under bimodal contexts.
+- **The representation is visible inside the model.** Both `x` and `z` are
+  linearly decodable from residual-stream activations, but steering along a
+  `d_z` direction is more effective at changing adjective logits than steering
+  along `d_x`.
+- **The mechanism is partly shared across concepts.** Shared and leave-one-out
+  `d_z` directions transfer across adjective domains more consistently than
+  raw-`x` directions, but the result is not a single universal vector.
+- **Causal interventions support functional use.** Mean-difference steering,
+  manifold-informed steering, and attention-head resampling all provide
+  evidence that relative standing is causally relevant, with important
+  limitations described below.
 
-Main findings:
-- **Activation geometry is z-structured.** In dense cell-mean PCA, z is often the dominant principal direction; the v10 height grid also shows behavior varies mostly with z rather than raw x.
-- **z is available early and used later.** z-score encodings are available early across adjective domains, while V12's Gemma 2 9B strategic-layer sweep finds `primal_z` steering strongest later, around L25, and still positive at L33.
-- **The z direction partly generalizes across domains.** A shared direction steers most adjective pairs, and multi-seed cross-pair transfer is 56/56 off-diagonal cells significant under BH-FDR. V12 pure-x controls preserve an average diagonal advantage but leave meaningful off-diagonal transfer among related variables.
-- **The causal z direction decomposes into lexical and residual parts.** V12.1/V12.2 show that literal adjective tokens align weakly with `primal_z`, sentence-final states align more, and the residualized direction transfers more broadly than the lexical projection. The residual is not cleanly non-lexical, because its transfer still tracks target lexical-subspace overlap.
-- **SAE features support a mixed z-like story.** Top z-features have high R^2(z) but near-zero R^2(x) and R^2(token-magnitude) in v11.5. V12's lexical audit finds a substantial pure-ish-z minority, alongside lexical z-like, raw numeric, and polysemantic features.
+## Experiment Design
 
-V12 red-team caveat: the right framing is mixed mechanism. Lexical sentence
-directions are high-gain, pure-x controls are not decisive, SAE features are not
-uniformly pure, and extremeness-like PC structure is pair-specific rather than a
-universal PC2 result.
+For each prompt, the project separates the raw target value, the prompt context,
+and the target's relative standing:
 
-## Core experimental design
+- `x`: raw target value, such as `170 cm`.
+- `mu`: mean of the reference values in the prompt.
+- `sigma`: spread of the reference values.
+- `z = (x - mu) / sigma`: context-normalized standing.
+- `LD`: high-minus-low adjective logit difference, for example
+  `logit("tall") - logit("short")`.
 
-For each prompt, we separate the raw value, the context, and the target's
-relative standing:
+A model using only `x` says that `170 cm` is tall or short independent of the
+comparison class. A model using `z` says that `170 cm` can be tall in a short
+group, average in an average group, and short in a very tall group.
 
-- $x$: the raw target value, e.g. 170 cm.
-- $\mu$: the context mean, e.g. the group average height.
-- $\sigma$: the context spread.
-- $z$: the context-normalized value:
+The primary paper-facing figures and tables emphasize `google/gemma-2-9b`; the
+repository also contains Gemma 2 2B/9B cross-scale artifacts and broader
+follow-up runs. The main scalar adjective domains are:
 
-```math
-z = \frac{x - \mu}{\sigma}
-```
+| Concept | Unit | Low / High | Context spread | Target range |
+|---|---|---|---:|---|
+| Height | cm | short / tall | 10 | 147-183 |
+| Age | years | young / old | 5 | 16-64 |
+| Weight | kg | light / heavy | 8 | 45-105 |
+| Size | cm diameter | small / big | 6 | 0.5-65.5 |
+| Speed | km/h | slow / fast | 15 | 7-163 |
+| Income | log(USD/year) | poor / rich | log 2 | $14k-$900k |
+| Experience | years | novice / expert | 4 | 0.5-27.4 |
+| BMI | kg/m^2 | thin / obese | 3 | 14.9-40.1 |
 
-A model using only $x$ says "170 cm is tall" regardless of the group. A model
-using $z$ says "170 cm is tall in a short group, average in an average group,
-and short in a very tall group."
+Prompt construction samples `x` and `z` independently, then derives the context
+mean needed to make the target have that relative standing. This avoids the
+cheap confound where raw magnitude and relative standing accidentally move
+together.
 
-The dense v11 design samples a **20 x-values x 20 z-values x 10 context-seeds**
-grid. We choose $x$ and $z$ independently, then derive $\mu = x - z\sigma$.
-This is the main hygiene fix: it prevents "raw value" and "relative standing"
-from being accidentally confounded.
+## Behavioral Results
 
-![v11.5 9B story](figures/v11_5/readme_9b_story.png)
+### 3.1 Adjective Judgments Track `z` Over `x`
 
-Panel (c) uses Gemma 2 9B layer 33 with alpha=4 steering. For a direction d,
-the steering slope is:
+Across the eight domains, the cell-mean logit difference correlates strongly
+with `z` and much more weakly with `x`:
 
-```math
-\frac{\mathbb{E}[\mathrm{LD}(h+\alpha \hat d)-\mathrm{LD}(h-\alpha \hat d)]}{2\alpha}
-```
+| Concept | corr(LD, z) | corr(LD, x) |
+|---|---:|---:|
+| Height | **0.976** | 0.107 |
+| Age | **0.940** | -0.002 |
+| Weight | **0.967** | 0.114 |
+| Size | **0.928** | 0.366 |
+| Speed | **0.930** | 0.412 |
+| Income | **0.964** | 0.260 |
+| Experience | **0.951** | 0.356 |
+| BMI | **0.954** | 0.216 |
 
-where LD is the high-minus-low adjective logit difference. The plotted value is
-this slope divided by the target pair's own within-pair `primal_z` slope, so it
-is a **relative efficiency** rather than a raw logit unit. Green bars use the
-single shared z direction; red bars average the seven off-diagonal source-pair
-directions transferred into that target pair. Panel (d) is a representational
-control: the top SAE feature for each pair is selected by R²(z), then tested
-against raw x and numeric-token magnitude. High z with near-zero controls means
-the feature is not just a numeral-size tracker.
+The dense height grid is the simplest visual anchor: once context is present,
+LD varies mainly with `z`, not raw `x`.
 
-Technical definitions for LD, R², PCA scores, SAE feature scores, steering
-slopes, shared directions, lexical residualization, target lexical leakage, and
-Jaccard overlap are collected in
-[APPENDIX.md](APPENDIX.md).
+![Dense height grid](figures/v10/behavioral_logit_diff_xz.png)
 
-## Models
+![Gemma 2 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
 
-| Model | HuggingFace ID | Role |
-|---|---|---|
-| Gemma 2 2B | `google/gemma-2-2b` | Primary + SAE analysis via Gemma Scope |
-| Gemma 2 9B | `google/gemma-2-9b` | Scaling comparison (42 layers, d=3584) |
-| Gemma 4 E4B | `google/gemma-4-E4B` | Original extraction (42 layers, d=2560) |
-| Gemma 4 31B | `google/gemma-4-31B` | Scaling comparison (60 layers, d=5376) |
+The table above is the submitted paper's behavioral summary. Supporting paths:
 
-## Setup
+- `results/v10/behavioral_summary.json`
+- `FINDINGS.md`
+- `docs/paper_outline.md`
 
-8 adjective pairs, each tested on a balanced (x, z) grid where x (raw value) and z (context-relative z-score) are independent by construction. v11 uses a dense 20x20 grid (4,000 prompts per pair per model) on all 8 pairs x 2 models (Gemma 2 2B + 9B), totalling ~64k prompts.
+### 3.2 Sensitivity to the Number of Reference Values
 
-| Pair | Adjectives | v11 cell-mean corr(LD, z) |
-|---|---|---:|
-| height | short / tall | ~0.97 |
-| age | young / old | 0.93-0.97 |
-| weight | light / heavy | 0.94-0.97 |
-| size | small / big | 0.92-0.97 |
-| speed | slow / fast | 0.93-0.94 |
-| wealth | poor / rich | 0.95-0.97 |
-| experience | novice / expert | 0.95-0.97 |
-| bmi_abs | thin / obese | ~0.95 |
+The paper's reference-count result is not that "more examples make relativity
+stronger" in a simple monotone sense. Instead:
 
-Here `LD = logit(high adjective) - logit(low adjective)`. The dense v11 result
-is the clean behavioral anchor: after averaging over context seeds inside each
-(x, z) cell, LD is strongly correlated with z for every pair on both Gemma 2 2B
-and 9B. Earlier v9 regressions gave the same qualitative result with a
-relativity ratio near 1, but v11 is the cleaner dense-grid confirmation.
+- With `k = 0`, the model has no explicit comparison class and falls back toward
+  raw-value behavior.
+- With `k = 1`, behavior immediately shifts into a comparator-like relative
+  regime.
+- With larger `k`, the LD-by-`z` curve becomes smoother and more graded, and the
+  model partially reintegrates objective anchoring.
 
-The v10 dense-height heatmap is the simplest behavioral picture: once x and z
-are independently sampled, the model's high-minus-low adjective logit is mostly
-a function of z, not raw x.
+This is one of the clearest human-like effects: a single comparison can define
+a local standard, while richer contexts support more graded calibration.
 
-![behavioral heatmap](figures/v10/behavioral_logit_diff_xz.png)
+![Reference-count shot sweep](internal/kshot/phase/figures/p2a_shot_sweep.png)
 
-## Controls
+![Relative/objective phase grid](internal/kshot/phase/figures/p2d_phase_grid_partial.png)
 
-The project includes several controls against the cheap interpretation "the
-model is just reading the number."
+Supporting paths:
 
-- **Zero-shot raw-x control.** With no context list, zero-shot probes decode raw
-  x very well (`cv_R² >= 0.96`), but the zero-shot raw-x probe direction is nearly
-  orthogonal to the implicit-context z-direction on the clean grid (`|cos| <=
-  0.05`). This supports the claim that the model constructs a new
-  context-dependent direction when context is present. Caveat: this is a
-  supervised probe result; zero-shot PC1 itself does not reliably track x, and a
-  dense v11 follow-up should compare zero-shot x, in-context x, and in-context z
-  directions with bootstrap/null bands before treating this as a headline plot.
-- **Zero-shot bias check.** Base Gemma has strong token/logit priors even with
-  no context; for example some pairs prefer the high adjective at the lowest raw
-  value. This is why the dense context grid and cell-mean analyses are needed.
-- **Explicit-context prompt control.** Earlier v4 data replaced sampled context
-  lists with explicit statements of group mean/spread. This still produced
-  z-sensitive behavior: explicit-context R²(logit_diff ~ z) has median about
-  0.75 across 8 pairs. Caveat: this condition was smaller than the dense v11
-  grid, so it is a sanity check rather than a headline.
+- `internal/kshot/phase/results/p2a_summary.json`
+- `internal/kshot/phase/results/p2d_l0all_per_k_gemma2-9b_height.json`
 
-![zero-shot bias](figures/v5_gpu_session/zero_shot_bias_per_pair.png)
-![zero-shot vs implicit directions](figures/v8/zeroshot_vs_implicit_gridB.png)
+### 3.3 Sensitivity to Reference Order
 
-## Key findings
+The model does not process the reference multiset as a perfectly symmetric
+statistic. Holding values fixed and changing their order changes the level and
+smoothness of the LD-by-`z` curve.
 
-### 1. Activation geometry is organized by z
+The main interpretation is recency bias. For example, ascending contexts place
+large values near the end, locally inflating the comparison class and lowering
+the high-adjective logit. Alternating low/high contexts make the range more
+salient and can induce sharper comparator-like transitions.
 
-The first-order result is geometric: once the prompt grid disentangles raw x
-from relative standing z, the dominant behavioral and activation axes mostly
-track z. On the v10 dense height grid, the model's high-minus-low adjective
-logit follows z much more than raw x. On the v11 dense grid, the late-layer
-cell-mean PCA for Gemma 2 9B shows ordered z arcs or horseshoes across the 8
-adjective pairs.
+![Order robustness](figures/v14/order/order_ld_by_z_lines.png)
 
-![v11 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
+![Order robustness cleanup](figures/v14_1/order/order_ld_by_z_lines.png)
 
-This does not mean every pair is a perfectly linear PC1 story. Some pairs use
-curved manifolds, and speed/size/age are weaker in 2B. The central claim is that
-the model builds a context-relative scalar geometry; PCA is the most readable
-view of it, not the full mechanism.
+Supporting paths:
 
-### 2. z is available early, then carried forward and used later
+- `results/v14/order/`
+- `results/v14_1/order/`
 
-Layer-wise probes show that z-score encodings are available early across
-adjective domains and remain available through the stack. The exact layer
-depends on the analysis and model: v11.5 fold-aware increments concentrate most
-new linear z information around **L1** (2B) / **L1-L3** (9B), while the older v9
-2B sweep showed usable decodability by roughly **L7**.
+### 3.4 Sensitivity to Distribution Shape
 
-The causal story is later. On the v10 dense grid, primal_z steering is zero at
-layers 5-10, emerges at layer 13, peaks at **layer 14**, and the probe/primal
-gap widens to ~8x in late layers. **The dimensions that encode z early are not
-necessarily the dimensions downstream layers read from.**
+Normal and bimodal contexts both preserve the broad `z` relationship, but they
+do not induce identical confidence dynamics. In bimodal contexts, values between
+or near modes can be judged relative to a local cluster rather than only the
+global mean, producing flatter or sharper regions in the LD-by-`z` curve.
 
-The full 26-layer sweep reveals a three-phase picture. The important distinction
-is **availability** vs **increment**: z is linearly available early, roughly by
-L0-L7 depending on the analysis, while fold-aware increment R² says most *new*
-linear z information is added at the very start of the stack.
+![Distribution shapes](figures/v14/distribution/distribution_shape_examples.png)
 
-| Phase | Layers | What happens |
-|---|---|---|
-| **Early availability** | L0-L7 | z becomes linearly decodable early; fold-aware increment R² peaks at L1/L1-L3, so most new linear z information appears near the start. |
-| **Carry + Rotate** | L7-L14 | z is carried forward with little additional linear information. Direction actively rotates (cos 0.3-0.5 between adjacent layers). Causal potency emerges around L13-L14. |
-| **Broadcast** | L15-L25 | Direction locks (cos > 0.9). Primal_z amplified 400x from L0. Probe/primal gap widens to ~8x. |
+![Distribution LD by z](figures/v14/distribution/distribution_ld_by_z_lines.png)
 
-![layer sweep](figures/v10/steering_layer_sweep.png)
+Supporting paths:
 
-The older v9 2x3 layer sweep remains a useful compact visual for the
-encode-vs-use separation: z becomes decodable early, but causal steering
-strength appears later.
+- `results/v14/distribution/`
+- `results/v14/summary.md`
 
-![v9 layer sweep](figures/v9/layer_sweep_combined.png)
+## Mechanistic Results
 
-V12 repeats the same idea on Gemma 2 9B with dense v11 activations. `z` is
-decodable early, fold-aware increments are concentrated at the start of the
-stack, and `primal_z` steering peaks later around L25.
+### 4.1 Relative Standing Is Linearly Encoded
 
-![v12 layer sweep](figures/v12/layer_sweep_9b_combined.png)
+For each adjective pair and layer, ridge probes decode `x` and `z` from
+residual-stream activations. The paper reports cross-validated `R^2` using
+shuffled folds. Both variables are decodable, but they play different roles:
+raw `x` is often available earlier, while `z` becomes highly decodable later.
 
-### 3. Domain-agnostic shared z-direction
-
-A single direction `w_shared` (Procrustes-aligned mean of the 8 per-pair primal_z directions) steers **6/8** pairs at >=50% within-pair efficiency on 2B and **7/8** on 9B (FINDINGS section 16.1). Pairwise mean cosine of per-pair primal_z directions is +0.56 (2B) and +0.52 (9B).
-
-| pair       | 2B shared/within | 9B shared/within |
-|---         |---:              |---:              |
-| height     | **0.93**         | **0.75**         |
-| weight     | **0.89**         | **0.80**         |
-| size       | **0.87**         | **0.66**         |
-| bmi_abs    | **0.77**         | **0.65**         |
-| wealth     | **0.73**         | **0.70**         |
-| age        | **0.60**         | **0.56**         |
-| speed      | 0.44             | 0.42             |
-| experience | 0.27             | 0.50             |
-
-Multi-seed cross-pair transfer with BH-FDR correction at q=0.05 shows **all 56/56 off-diagonal cells significant** on both models (FINDINGS section 16.2). This is not single-seed noise.
-
-*Speed* and *experience* are the two genuinely pair-specific exceptions. Notably, bmi_abs (the absolute-adjective control) aligns with the relative pairs at 0.65-0.77 ratio, which weakens a simple "shared numeral-magnitude direction" alternative.
-
-Caveat: the multi-seed transfer result is statistically strong, but the
-V12 pure-x / fixed-μ controls are mixed. They preserve an average diagonal
-advantage, but meaningful off-diagonal transfer remains among related variables,
-so the shared-numeral-magnitude alternative is weakened rather than eliminated.
-
-![transfer heatmap 2B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-2b.png)
-![transfer heatmap 9B](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
-
-### 4. Lexical and residual components both matter
-
-V12 showed that lexical sentence directions can steer as strongly as
-context-derived `primal_z`, so V12.1 decomposed each pair's `primal_z` into a
-tested lexical subspace and an orthogonal residual:
-
-```math
-p_z = p_{z,\mathrm{lex}} + p_{z,\mathrm{resid}}
-```
-
-Literal adjective-token directions align only weakly with `primal_z`:
+Causally, steering along the mean-difference direction
 
 ```text
-mean cos(primal_z, word-token lexical direction)     = +0.104
-mean cos(primal_z, sentence-token lexical direction) = +0.102
-mean cos(primal_z, sentence-final direction)         = +0.260
+d_z = E[h | z > 1] - E[h | z < -1]
 ```
 
-Only about **8%** of `primal_z` norm² lies in the tested lexical subspace, but
-the lexical projection is high-gain when normalized. The residual still steers
-at about **69%** of the original `primal_z` effect.
+changes adjective logits more reliably than steering along the analogous raw
+value direction `d_x`.
 
-![v12.1 lexical residualization](figures/v12_1/lexical_subspace_residualization_steering.png)
+![Layer encoding and steering](figures/v14_1/fig5/paper_fig5_layer_x_z_gpu.png)
 
-V12.2 then asked which component transfers across adjective domains. In a
-single-seed Gemma 2 9B L33 follow-up:
+![Layer sweep](figures/v12/layer_sweep_9b_combined.png)
 
-| direction family | diagonal mean | off-diagonal mean | diagonal/off |
-|---|---:|---:|---:|
-| full `primal_z` | +0.067 | +0.026 | 2.53 |
-| lexical projection | +0.087 | +0.011 | 8.16 |
-| lexical residual | +0.044 | +0.024 | 1.83 |
-| random null | +0.000 | -0.001 | n/a |
+Supporting paths:
 
-The residual transfers much better off-diagonal than the lexical projection and
-recovers most of full `primal_z` transfer. However, residual transfer remains
-strongly correlated with target lexical-subspace overlap (`r≈+0.79`), so this is
-evidence for a residual shared component, **not** proof of a clean non-lexical
-shared code.
+- `scripts/run_v14_1_gpu.py --sections fig5_primal_x,plot`
+- `results/v12/layer_sweep_9b.json`
+- `results/v12/layer_sweep_9b_steering.json`
 
-![v12.2 transfer matrices](figures/v12_2/residual_vs_lexical_transfer_matrices.png)
+### 4.2 A Shared `z` Direction Across Concepts
 
-### 5. SAE features pass numeral controls and are more shared in 9B
+The paper asks whether each adjective pair has its own direction or whether a
+shared relativity component transfers across concepts. For each pair, a `d_z`
+direction is computed from high-`z` and low-`z` prompts. Shared-direction
+experiments then sign-align and average directions across concepts, including
+leave-one-out variants where the target concept is excluded from the shared
+direction.
 
-The SAE analysis asks whether the z-looking features are actually just
-"large number" or token-frequency features. For each pair, v11.5 takes the top
-SAE features by R²(z) and then measures two controls:
+The main conclusion is asymmetric: `d_z` transfers substantially better than
+raw-`x` directions, but transfer is only partial. Some domains have meaningful
+raw-magnitude directions, and the shared relativity code is not a single clean
+universal vector.
 
-- R²(x): does the feature track raw target value?
-- R²(token): does the feature track numeric token / magnitude proxies?
+![Shared z steering ratios](figures/v11_5/shared_z_steering_ratios.png)
 
-The answer is mostly no. The top features have high R²(z) while R²(x) and
-R²(token) are near zero. In Gemma 2 9B, the top feature averages about 0.68
-R²(z) across pairs while both controls are near zero. This supports the
-interpretation that these features respond to "above vs below the local norm",
-not merely "large-looking number".
+![z vs x transfer](figures/v13/x_transfer/cross_pair_transfer_z_x_side_by_side_gemma2-9b.png)
 
-The same section also tracks feature sharing across adjective domains.
-Cross-pair top-50 Jaccard: 2B = 0.11, 9B = **0.22** -- 9B has twice the
-cross-pair SAE feature overlap. This is one of the more interesting scaling
-results: the larger model appears to use a more shared SAE feature basis for
-context-normalized scalar judgments. Most z-features activate monotonically with
-z, with rare place-cell exceptions (e.g., v10 height feature 34700: bump
-R^2=0.98, linear R^2=0.00).
+Supporting paths:
 
-Caveat: V12's lexical audit finds a mixed feature population: some top features
-look pure-ish z under the probe set, while others are lexical z-like, raw
-numeric, or polysemantic. Treat this as evidence for z-correlated sparse
-features, not proof that SAE features implement a pure relative-standing code.
+- `results/v11_5/gemma2-9b/shared_z_analysis.json`
+- `results/v11_5/gemma2-9b/multiseed_transfer.json`
+- `scripts/analyze_v11_5_shared_z.py`
+- `scripts/analyze_v11_5_multiseed_transfer.py`
 
-![SAE overlap 2B](figures/v11/sae/cross_pair_feature_overlap_gemma2-2b.png)
-![SAE overlap 9B](figures/v11/sae/cross_pair_feature_overlap_gemma2-9b.png)
+### 4.3 Manifold-Informed Steering Partly Separates Relative and Objective Effects
 
-### 6. The z-code replicates across model scales
+Mean-difference steering is causal but blunt: moving along a single linear
+direction can change both relative and objective behavior. The manifold
+steering experiments estimate a discrete activation manifold over `(x, z)` and
+transport each prompt toward neutral relativity, roughly `(x, 0)`, while keeping
+the raw-value coordinate fixed.
 
-The 2B/9B comparison is a robustness check, not the core claim. The point is
-that the same context-relative geometry appears in two different Gemma 2 scales,
-with 9B making the harder pairs more uniform. PC1.R^2(z) on cell-means at the
-canonical late layer (2B L20, 9B L33):
+The intended reading is conservative: manifold-informed interventions are a
+better fit for isolating relativity than a single straight-line `d_z` direction,
+but this is not a complete mechanistic decomposition.
 
-| pair       | 2B PC1.R^2(z) [95% CI]    | 9B PC1.R^2(z) [95% CI]    |
-|---         |---                        |---                        |
-| height     | **0.969** [0.961, 0.975]  | **0.928** [0.907, 0.941]  |
-| weight     | **0.949** [0.933, 0.960]  | **0.944** [0.930, 0.954]  |
-| bmi_abs    | **0.923** [0.876, 0.956]  | **0.784** [0.750, 0.813]  |
-| experience | **0.901** [0.865, 0.928]  | **0.902** [0.846, 0.930]  |
-| wealth     | **0.855** [0.768, 0.908]  | **0.871** [0.838, 0.897]  |
-| speed      | 0.360 [0.015, 0.627]      | **0.428** [0.271, 0.582]  |
-| age        | 0.209 [0.091, 0.341]      | **0.606** [0.003, 0.843]  |
-| size       | 0.075 [0.000, 0.254]      | **0.656** [0.012, 0.853]  |
+![Manifold steering slopes](figures/v9/steering_manifold_slopes.png)
 
-2B has median 0.90 but three pairs (age, size, speed) fail (R^2 < 0.4). 9B rescues all three (R^2 0.43-0.66). Bootstrap CIs confirm: 2B size [0.000, 0.254] is not statistically distinguishable from zero; 9B size [0.012, 0.853] is wide but nonzero. This is best read as cross-scale replication plus stronger uniformity in the larger model.
+![Manifold steering entropy](figures/v9/steering_manifold_entropy.png)
 
-![PCA 2B height](figures/v11/pca/height_gemma2-2b_2d_L20.png)
-![PCA 9B height](figures/v11/pca/height_gemma2-9b_2d_L33.png)
+Supporting paths:
 
-## Secondary Geometry Notes
+- `results/v9_gemma2/steering_manifold_summary.json`
+- `internal/kshot/phase/results/p1d_manifold_ablation.json`
 
-v10's 400-cell dense grid resolves the manifold geometry more cleanly than the
-earlier sparse grids: TWO-NN intrinsic dimensionality drops from 7.7 (L0) to 3.2
-(L20), while PCA-95% variance peaks at L7 (16 components) then compresses to 7.
-This is useful secondary evidence, but not a headline claim because intrinsic
-dimension estimates are estimator- and sampling-sensitive. The point is that the
-manifold becomes more compact with depth, not that we have identified a causal
-mechanism from dimensionality alone.
+### 4.4 Attention-Based Interventions Provide Localized Causal Evidence
 
-Curvature evidence (v9 data, not re-tested in v10): for speed, isomap captures z
-with R^2=0.97 while PCA gets R^2=0.01 -- z is on a curve that linear methods
-miss.
+Attention interventions provide a complementary but more localized causal view.
+Heads are ranked using direct logit attribution (DLA) and alignment with the
+relativity signal. In the strongest internal follow-ups, resampling selected
+head outputs reduces `corr(LD, z)` while leaving unrelated behavior much less
+affected.
 
-![intrinsic dimensionality](figures/v10/id_per_layer_3methods.png)
+This evidence should be read as "some heads are causally important for the
+relative-standing readout," not as a full circuit explanation. The project has
+also recorded negative and caveated attention results: single-head effects are
+usually weak, broad random head corruption is not enough, and some older head
+taxonomy analyses were descriptive rather than causal.
 
-## Follow-ups and negatives
+![Attention resampling sweep](internal/kshot/phase/figures/p2o_n_sweep_gemma2-2b.png)
 
-- **On-manifold tangent steering was not a clean win.** Tangent(z) steers at
-  0.63-0.73x of primal_z; high-alpha entropy is sometimes lower, but the effect
-  is modest. See `APPENDIX.md` for the exact local-tangent construction.
-- **Park-style causal metric transforms did not rescue probes here.** The tested
-  `Cov(W_U)^-1/2` and `(W_U^T W_U + lambda I)^-1 * probe_z` variants did not
-  rotate `probe_z` into `primal_z` or close the steering gap. This is scoped to
-  our directions/models/layers; it is not a refutation of the broader linear
-  representation hypothesis.
-- **The causal head taxonomy was triple-refuted.** Single-head ablations are
-  null, joint tagged-head ablations are null/helping, and permutation tests put
-  most tag intersections at chance. Treat the taxonomy as correlational DLA, not
-  a causal mechanism.
-- **W_U orthogonality is a supporting control only.** `primal_z` is nearly
-  orthogonal to `W_U[high] - W_U[low]`, so it is not trivially the final
-  unembedding direction; this does not prove a mechanism.
-- **Measurement warnings remain.** Fisher pullback was near-isotropic; the
-  relative/absolute split was not significant; PC1~z is weak for size/speed at
-  2B; speed and experience are pair-specific exceptions to shared steering.
-- **Direct-sign positive/negative results are follow-up only.** The
-  prompt-sensitive open-ended estimate dropped on the valid forced-QA prompt, so
-  this should not be used as a main relativity claim without top-K validation and
-  cleaner forced-choice prompts.
+![Attention intervention modes](internal/kshot/phase/figures/p2o_attention_modes_gemma2-2b_bycos.png)
 
-## Repository layout
+![Attention random control](internal/kshot/phase/figures/p2o_random_control_gemma2-2b.png)
 
-```
+Supporting paths:
+
+- `internal/kshot/phase/results/p2o_n_sweep_gemma2-2b.json`
+- `scripts/analyze_v10_attention.py`
+- `scripts/analyze_v11_5_joint_ablation.py`
+- `scripts/analyze_v11_5_perm_null_taxonomy.py`
+
+### Additional Mechanistic Audits
+
+Earlier versions of the project also studied lexical/residual decompositions
+and SAE features. These are not the main organizing structure of the submitted
+paper, but they remain useful audits for avoiding overclaims:
+
+- Lexical projections can be high-gain, while residualized `d_z` directions
+  transfer more broadly off-diagonal. The residual is not a cleanly non-lexical
+  code, because residual transfer still tracks target lexical-subspace overlap.
+- SAE features include z-correlated features that pass raw-number controls, but
+  the audited population is mixed: pure-ish `z`, lexical z-like, raw numeric,
+  and polysemantic features all appear.
+
+![Lexical residualization steering](figures/v12_1/lexical_subspace_residualization_steering.png)
+
+![Residual vs lexical transfer matrices](figures/v12_2/residual_vs_lexical_transfer_matrices.png)
+
+Supporting paths:
+
+- `results/v12_1/`
+- `results/v12_2/`
+- `scripts/run_v12_1_all.sh`
+- `scripts/run_v12_2_all.sh`
+
+### 4.5 Generalization Across Model Scale
+
+The main committed cross-scale artifacts compare Gemma 2 2B and 9B. The
+submitted paper also discusses broader model-scale follow-ups in the appendix.
+The defensible top-level conclusion is that the same qualitative `z`-relative
+behavior appears across multiple model settings, while broader generalization to
+larger and different model families remains open.
+
+![Gemma 2 9B PCA montage](figures/v11/pca/montage_gemma2-9b_2d_L33.png)
+
+![Gemma 2 9B cross-pair transfer](figures/v11/steering/cross_pair_transfer_8x8_gemma2-9b.png)
+
+Supporting paths:
+
+- `results/v11/gemma2-2b/`
+- `results/v11/gemma2-9b/`
+- `results/v11_5/gemma2-2b/`
+- `results/v11_5/gemma2-9b/`
+
+## Robustness and Extension Experiments
+
+Later runs stress-tested the main story beyond the core paper figures:
+
+- **Affine and OOD worlds:** relative behavior persists in several extreme
+  settings, but robustness is domain-dependent. Height and weight are strong;
+  wealth, size, speed, and experience show degradation in some severe regimes.
+- **New domains:** brightness is a cleaner relative-domain extension than
+  temperature, which remains partly raw-magnitude-driven.
+- **Objective controls:** rule-like labels such as even/odd and positive/negative
+  should not be expected to behave like continuous gradable adjectives.
+- **Top-logit diagnostics:** top-token and semantic-mass checks help detect OOD
+  token drift but should not replace the main high-minus-low LD readout.
+
+![Affine/OOD robustness](figures/v14_1/affine_ood/affine_ood_ld_by_z_lines.png)
+
+![V13 affine summary](figures/v13/affine_shift/affine_human_readable_summary.png)
+
+![Objective-control interpretation](figures/v13/domain_extension/objective_control_interpretation.png)
+
+Supporting paths:
+
+- `docs/V13_RESULTS_SUMMARY.md`
+- `results/v13/`
+- `results/v14/summary.md`
+- `results/v14_1/`
+
+## What This Does Not Show
+
+- It does **not** prove that LLM scalar judgment is fair or reliable in
+  deployment. The prompts are synthetic and controlled.
+- It does **not** show a single universal relativity vector. Shared directions
+  transfer partially, not perfectly.
+- It does **not** show that PCA is the mechanism. PCA is a readable view of the
+  geometry; steering and ablation provide the causal tests.
+- It does **not** fully identify the circuit computing `mu`, `sigma`, or `z`.
+  Attention ablations identify causally important heads, but not the full
+  algorithm.
+- It does **not** eliminate raw magnitude. Richer contexts can reintegrate
+  objective anchoring, and some domains retain meaningful raw-`x` structure.
+- It does **not** treat categorical or rule-like labels as equivalent to
+  gradable adjectives.
+
+## Discussion, Related Work, and Impact
+
+The project sits between work on gradable adjectives and pragmatic thresholds,
+in-context statistical inference, and mechanistic interpretability of linear and
+manifold-like representations. It treats `z` as a controlled experimental
+variable for studying how comparison classes affect scalar judgments, not as a
+claim that deployed LLM judgments are reliable.
+
+The impact framing is methodological. These experiments can help distinguish
+raw magnitude, context-normalized standing, linear decodability, causal
+steering effects, and attention-intervention effects. They should not be read
+as evidence that current models make fair or calibrated context-sensitive
+decisions in deployment; real use would require domain-specific validation,
+careful comparison-class design, and safeguards against harmful comparisons.
+
+## Repository Layout
+
+```text
 geometry-of-relativity/
-  PLANNING.md          # Frozen project spec
-  BUILDING.md          # Current active task
-  APPENDIX.md          # Technical definitions and calculation details
-  FINDINGS.md          # Full experimental log (v4-v9 ss1-ss13, v10 ss14, v11 ss15, v11.5 ss16)
-  STATUS.md            # Project status summary and retraction list
-  TODO.md              # Rolling task checklist
-  scripts/
-    vast_remote/       # GPU scripts (Vast.ai)
-    analyze_v9_*.py    # v9 analysis scripts (CPU)
-    plot_v9_*.py       # v9 plot scripts (CPU)
-    plot_v11_*.py      # README/paper montage plots from existing JSON/PNG artifacts
-    analyze_v10_*.py   # v10 analysis: dimensionality, SAE, attention, increment R^2
-    plot_v10_*.py      # v10 behavioral plots
-    gen_v10_*.py       # v10 prompt generation (dense height grid)
-    gen_v11_dense.py   # v11 prompt generation (8 pairs x 2 models)
-    analyze_v11_*.py   # v11 analysis: PCA, probing, SAE, head taxonomy, cross-pair transfer
-    run_v11_*.sh       # v11 orchestration scripts
-    analyze_v11_5_*.py # v11.5 analysis: shared z, multi-seed transfer, joint ablation, bootstrap CIs
-    run_v11_5_all.sh   # v11.5 orchestrator
-    run_v12_*.py       # v12 claim-hardening and lexical/residual transfer follow-ups
-  results/             # JSON summaries (large activations on HF)
-    v11/               # Per-model per-pair extraction outputs
-    v11_5/             # Shared-z, transfer, ablation, bootstrap results
-    v12*/              # Claim-hardening, lexical decomposition, residual transfer
-  figures/             # v7 (clean grid), v8 (replots), v9 (SAE + layer sweep), v10 (dense grid)
-    v11/               # PCA, probing, SAE overlap, steering transfer matrices
-    v12*/              # V12-V12.2 result figures used in README/paper
-  docs/                # Session plans, paper outline, archive
-  src/                 # Core library
-  tests/               # pytest suite
+  README.md                 # Project overview aligned to the submitted paper
+  APPENDIX.md               # Technical definitions and older calculation notes
+  FINDINGS.md               # Detailed experiment log
+  STATUS.md                 # Project status and caveats
+  docs/                     # GPU session plans and result summaries
+  paper/                    # ICML workshop draft materials and upload bundle
+  scripts/                  # Analysis, plotting, and GPU orchestration scripts
+    vast_remote/            # Historical GPU extraction/intervention scripts
+    run_v12_gpu.py          # Layer and steering follow-up
+    run_v13_gpu.py          # OOD, x-transfer, and domain-extension follow-up
+    run_v14_gpu.py          # Order/distribution/OOD robustness runner
+    run_v14_1_gpu.py        # Cleanup runner for paper-facing robustness plots
+  src/                      # Core prompt/data/probe/plot utilities
+  tests/                    # Pytest suite
+  results/                  # Committed JSON summaries and metrics
+  figures/                  # Committed plots by experiment version
+  internal/kshot/phase/     # Reference-count, manifold, and attention follow-ups
 ```
 
-## Quick start
+## Quick Start
 
 ```bash
-cp .env.example .env       # then edit .env to add HF_TOKEN at minimum
+cp .env.example .env
+# Edit .env and add HF_TOKEN if you need private HuggingFace artifacts.
+
 pip install -e ".[dev]"
+pip install huggingface_hub
 pytest tests/ -v -m "not gpu"
+```
 
-# Fetch activation data from HF (private dataset; HF_TOKEN must have read access):
+Fetch large activation/logit artifacts when you have access:
+
+```bash
 python scripts/fetch_from_hf.py
-python scripts/fetch_from_hf.py --only v11   # v11 dense extraction (FINDINGS ss15)
+python scripts/fetch_from_hf.py --only v10
+python scripts/fetch_from_hf.py --only prompts
+python scripts/fetch_from_hf.py --data-kind npz
+python scripts/fetch_from_hf.py --data-kind jsonl
+```
 
-# Regenerate plots (CPU only):
-python scripts/plots_v7_behavioral.py
-python scripts/replot_v7_from_json.py
+Regenerate core committed analyses and plots:
 
-# Re-run all v10 CPU analyses from the fetched NPZs:
-python scripts/analyze_v10_dimensionality.py
-python scripts/analyze_v10_increment_r2.py
-python scripts/analyze_v10_sae.py
-python scripts/analyze_v10_attention.py
-python scripts/analyze_v10_attention_taxonomy.py
+```bash
+# Behavioral and dense-grid plots
 python scripts/plot_v10_behavioral.py
-
-# Re-run all v11 CPU analyses:
 python scripts/analyze_v11_pca.py
-python scripts/analyze_v11_z_vs_lexical.py
-python scripts/analyze_v11_cross_pair_transfer.py
-python scripts/analyze_v11_sae.py
-python scripts/analyze_v11_head_taxonomy_and_ablate.py
 
-# Re-run all v11.5 analyses (shared z, transfer, ablation, bootstrap):
+# Shared direction and transfer analyses
 bash scripts/run_v11_5_all.sh
-# Or individually:
-python scripts/analyze_v11_5_shared_z.py
-python scripts/analyze_v11_5_multiseed_transfer.py
-python scripts/analyze_v11_5_joint_ablation.py
-python scripts/analyze_v11_5_perm_null_taxonomy.py
-python scripts/analyze_v11_5_p3c_fold_aware.py
-python scripts/analyze_v11_5_p3d_widened.py
-python scripts/analyze_v11_5_sae_token_freq.py
-python scripts/analyze_v11_5_bootstrap_cis.py
-
-# Regenerate README figures from committed artifacts:
 python scripts/plot_v11_5_readme_story.py
 python scripts/plot_v11_pca_montage_9b.py
 
-# Re-run v10 from scratch on a GPU box (Gemma 2 2B; H100 ~2 min cached):
-python scripts/gen_v10_dense_height.py
-python scripts/vast_remote/extract_v10_dense_height.py
-python scripts/vast_remote/exp_v10_layer_sweep_steering.py
+# Layer/encoding/steering follow-ups
+python scripts/run_v12_gpu.py
+python scripts/analyze_v12_cpu.py
+
+# OOD, x-transfer, robustness, and paper-facing plots
+python scripts/run_v13_gpu.py
+python scripts/run_v14_gpu.py --sections distribution,order,affine_ood,fig5_gpu,plot
+python scripts/run_v14_1_gpu.py --sections affine_ood,plot --pairs height age weight size speed wealth experience bmi_abs
+python scripts/run_v14_1_gpu.py --sections order,plot --pairs height age weight size speed wealth experience bmi_abs
+python scripts/run_v14_1_gpu.py --sections fig5_primal_x,plot
+```
+
+Some commands require GPU memory and uncommitted/private activation artifacts.
+CPU-only checks should use the pytest command above and plotting scripts that
+consume already committed JSON/PNG artifacts.
+
+## Citation
+
+This repository currently supports a workshop submission. Until a public
+citation is available, cite the repository title and commit hash, and cite the
+paper as:
+
+```text
+The Geometry of Relativity: Context-Relative Scalar Representations in LLMs.
 ```
 
 ## License
 
-CC-BY-4.0 for the paper, MIT for the code.
+CC-BY-4.0 for paper materials; MIT for code.
