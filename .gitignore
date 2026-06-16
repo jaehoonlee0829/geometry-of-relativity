@@ -54,3 +54,12 @@ data_gen/
 .idea/
 .vscode/
 *.swp
+
+# Local LaTeX build artifacts; paper figure PDFs remain tracked.
+paper/icml2026_draft/main.pdf
+paper/icml2026_draft/*.aux
+paper/icml2026_draft/*.bbl
+paper/icml2026_draft/*.blg
+paper/icml2026_draft/*.log
+paper/icml2026_draft/*.out
+paper/icml2026_draft/*.synctex.gz

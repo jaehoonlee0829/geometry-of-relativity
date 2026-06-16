@@ -31,6 +31,7 @@ FOLDERS = {
     "v4_abs_controls":      "results/v4_abs_controls",
     "v7_xz_grid":           "results/v7_xz_grid",
     "v10":                  "results/v10",      # dense-height (FINDINGS §14)
+    "v11":                  "results/v11",      # dense multi-pair extraction (FINDINGS §15)
     "prompts":              "data_gen",  # prompts_v*.jsonl live here in repo
 }
 
@@ -55,7 +56,7 @@ def main() -> None:
     for hf_name in selected:
         local = Path(FOLDERS[hf_name])
         local.mkdir(parents=True, exist_ok=True)
-        allow = [f"{hf_name}/{p}" for p in patterns]
+        allow = [f"{hf_name}/{p}" for p in patterns] + [f"{hf_name}/**/{p}" for p in patterns]
         print(f"fetching {hf_name}/ → {local}/  patterns={allow}")
         # snapshot_download fetches to a cache; we move the files we care about
         cache_root = snapshot_download(
@@ -67,10 +68,11 @@ def main() -> None:
             print(f"  (nothing matched in {hf_name}/)")
             continue
         n = 0
-        for f in src.iterdir():
+        for f in src.rglob("*"):
             if f.is_file():
-                dest = local / f.name
+                dest = local / f.relative_to(src)
                 if not dest.exists():
+                    dest.parent.mkdir(parents=True, exist_ok=True)
                     os.symlink(f.resolve(), dest)
                     n += 1
         print(f"  linked {n} files")
